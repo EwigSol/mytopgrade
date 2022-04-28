@@ -1,13 +1,276 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:sizer/sizer.dart';
+import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/utils/values_manager.dart';
+
+import '../../../utils/assets_manager.dart';
+import '../../../utils/strings_manager.dart';
+import '../../widgets/text_field.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSpaceVertical(7.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      textStyle4(text: "Hi, Zain"),
+                      textStyle0_5(text: "Find a source you want to learn!", color: ColorManager.grayColor),
+                    ],
+                  ),
+                  Container(
+                    height: 5.h,
+                    width: 10.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s10),
+                      color: ColorManager.whiteColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 3,
+                          blurRadius: 4,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(Icons.add_alert_outlined),
+                  ),
+                ],
+              ),
+              buildSpaceVertical(5.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 7.h,
+                    width: 70.w,
+                    child: CustomTextField(
+                      controller: emailController,
+                      hintName: StringsManager.search,
+                    ),
+                  ),
+                  Container(
+                    height: 7.h,
+                    width: 14.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s10),
+                      color: ColorManager.redColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 3,
+                          blurRadius: 4,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(Icons.apps, color: ColorManager.whiteColor, size: 40),
+                  ),
+                ],
+              ),
+              buildSpaceVertical(3.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textStyle0_5(text: StringsManager.categories),
+                  textStyle0_5(text: StringsManager.seeAll),
+                ],
+              ),
+              buildSpaceVertical(2.h),
+              SizedBox(
+                height: 10.h,
+                width: double.infinity,
+                child: ListView.builder(
+                    itemCount: 6,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 10.h,
+                          width: 48.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s30),
+                            color: ColorManager.pinkColor,
+                          ),
+                          child: Row(
+                            children: [
+                              buildSpaceHorizontal(3.w),
+                              Container(
+                                height: 5.h,
+                                width: 10.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(AppSize.s30),
+                                  color: ColorManager.whiteColor,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: const Icon(Icons.lightbulb_outline),
+                              ),
+                              buildSpaceHorizontal(3.w),
+                              textStyle2(text: "Business"),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                ),
+              ),
+              buildSpaceVertical(3.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textStyle0_5(text: StringsManager.popular),
+                  textStyle0_5(text: StringsManager.seeAll),
+                ],
+              ),
+              buildSpaceVertical(2.h),
+              SizedBox(
+                height: 30.h,
+                width: double.infinity,
+                child: ListView.builder(
+                    itemCount: 6,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 48.w,
+                          decoration: const BoxDecoration(
+                            color: ColorManager.whiteColor,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(AppSize.s10),
+                                topRight: Radius.circular(AppSize.s10)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 14.h,
+                                width: 100.w,
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: SizedBox(
+                                        height: 14.h,
+                                        width: 100.w,
+                                        child: ClipRRect(
+                                            borderRadius: const BorderRadius.only(
+                                                topLeft: Radius.circular(AppSize.s10),
+                                                topRight: Radius.circular(AppSize.s10)),
+                                            child: Image.asset(AssetsManager.card, fit: BoxFit.fill)
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 4,
+                                        right: 0,
+                                        child: Container(
+                                          height: 4.h,
+                                          width: 12.w,
+                                          decoration: const BoxDecoration(
+                                            color: ColorManager.redColor,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(AppSize.s16),
+                                                bottomLeft: Radius.circular(AppSize.s16),
+                                            )
+                                          ),
+                                          child: Center(child: textStyle0_5(text: "\$50", color: ColorManager.whiteColor)),
+                                        ),
+                                    ),
+                                  ],
+                                )
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: AppPadding.p4),
+                                child: textStyle0_5(text: "User Interface Design"),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: AppPadding.p4),
+                                child: textStyle0(text: "By Talent Tamer", color: ColorManager.grayColor),
+                              ),
+                              buildSpaceVertical(2.h),
+                              Padding(
+                                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 3.h,
+                                          width: 6.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(AppSize.s20),
+                                            color: ColorManager.redColor
+                                          ),
+                                          child: const Center(
+                                            child: Icon(Icons.play_circle_fill, color: ColorManager.whiteColor),
+                                          ),
+                                        ),
+                                        buildSpaceHorizontal(2.w),
+                                        textStyle0(text: "27 Videos")
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        textStyle0(text: "⭐"),
+                                        buildSpaceHorizontal(2.w),
+                                        textStyle0(text: "3.5")
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                ),
+              ),
+              buildSpaceVertical(3.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textStyle0_5(text: StringsManager.categories),
+                  textStyle0_5(text: StringsManager.seeAll),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

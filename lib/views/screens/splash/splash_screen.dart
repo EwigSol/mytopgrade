@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-   Timer(const Duration(seconds: 3), () => Get.toNamed(Paths.login));
+   Timer(const Duration(seconds: 3), () => Get.toNamed(Paths.homeBar));
     super.initState();
   }
 

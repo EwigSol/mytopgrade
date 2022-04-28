@@ -17,6 +17,9 @@ dependencies:
   get_storage:
   sizer: ^2.0.15
   flutter_native_splash:
+  intl_phone_field:
+  otp_pin_field:
+  salomon_bottom_bar: ^3.3.0
 
 dev_dependencies:
   flutter_test:

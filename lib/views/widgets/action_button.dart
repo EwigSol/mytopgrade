@@ -6,12 +6,12 @@ import '../../utils/color_manager.dart';
 
 Widget actionButton(String text){
   return Container(
-    height: 5.h,
-    width: 25.w,
+    height: 6.h,
+    width: 43.w,
     decoration: BoxDecoration(
       color: ColorManager.primaryColor,
       borderRadius: const BorderRadius.all(
-        Radius.circular(25),
+        Radius.circular(10),
       ),
       boxShadow: [
         BoxShadow(

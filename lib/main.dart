@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/routes/app_routes.dart';
-import 'package:topgrade/views/screens/auth/login_screen.dart';
+import 'package:topgrade/views/screens/onboarding/onboarding_screen.dart';
 import 'package:topgrade/views/screens/splash/init_screen.dart';
 import 'package:topgrade/views/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
@@ -42,7 +41,7 @@ class App extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const SplashScreen();
         } else {
-          return const LoginScreen();
+          return const OnboardingScreen();
         }
       },
     );

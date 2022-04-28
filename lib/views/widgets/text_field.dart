@@ -12,12 +12,11 @@ class CustomTextField extends StatefulWidget {
   final int inputLines;
   final Color color;
   final bool isPass;
-  final bool isLarge;
   late bool passwordVisibility;
 
   CustomTextField({
     Key? key, this.controller, this.hintName, this.isPass = false,
-    this.passwordVisibility = false, required this.isLarge,
+    this.passwordVisibility = false,
     this.inputType = TextInputType.text, this.isEnable = true,
     this.inputLines = 1, this.color = ColorManager.whiteColor,})
     : super(key: key);
@@ -30,7 +29,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: widget.isLarge ? AppPadding.p20 : AppPadding.p6),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.isPass ?  !widget.passwordVisibility : false,
@@ -76,7 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             },
           ) :const SizedBox.shrink(),
           hintText: widget.hintName,
-          hintStyle: TextStyle(fontSize: widget.isLarge ?  AppSize.s12 : AppSize.s10),
+          hintStyle: const TextStyle(fontSize: AppSize.s12),
           fillColor: widget.color,
           filled: true,
         ),
