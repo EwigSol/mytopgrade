@@ -13,4 +13,5 @@ class AssetsManager {
   static const String googleLogo = "$imagePath/google.png";
   static const String twitterLogo = "$imagePath/twitter.png";
   static const String card = "$imagePath/card.jpg";
+  static const String girl = "$imagePath/girl.png";
 }

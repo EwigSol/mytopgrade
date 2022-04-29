@@ -8,4 +8,5 @@ class ColorManager {
   static const whiteColor = Color(0xffFFFFFF);
   static const grayColor = Color(0xFF8793B2);
   static const pinkColor = Color(0xFFEACAE5);
+  static const greenColor = Color(0xFFBEEEA9);
 }

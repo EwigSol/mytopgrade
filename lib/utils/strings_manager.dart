@@ -42,6 +42,13 @@ class StringsManager{
   // home screen
   static const String search = "Search";
   static const String categories = "Categories";
+  static const String instructor = "Best Instructors";
   static const String popular = "Popular Courses";
   static const String seeAll = "See All";
+
+
+  static const String allCat = "All Categories";
+  static const String mostP = "Most Popular";
+  static const String trending = "Trending";
+  static const String notify = "Notifications";
 }

@@ -9,7 +9,10 @@ abstract class Routes {
   static const forgotPass = Paths.forgotPass;
   static const otpVerify = Paths.otpVerify;
   static const homeBar = Paths.homeBar;
-  static const home = Paths.home;
+  static const allCat = Paths.allCat;
+  static const allPopular = Paths.allPopular;
+  static const alInstructor = Paths.alInstructor;
+  static const notify = Paths.notify;
 }
 
 abstract class Paths {
@@ -21,5 +24,8 @@ abstract class Paths {
   static const forgotPass = '/forgotPass';
   static const otpVerify = '/otpVerify';
   static const homeBar = '/homeBar';
-  static const home = '/home';
+  static const allCat = '/allCat';
+  static const allPopular = '/allPopular';
+  static const alInstructor = '/alInstructor';
+  static const notify = '/notify';
 }

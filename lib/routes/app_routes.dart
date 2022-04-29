@@ -3,6 +3,10 @@
 
 import 'package:get/get.dart';
 import 'package:topgrade/routes/appPages.dart';
+import 'package:topgrade/views/screens/category/categories_screen.dart';
+import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
+import 'package:topgrade/views/screens/notification/notifications_screen.dart';
+import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import '../main.dart';
 import '../views/bottombar/home_bottombar.dart';
 import '../views/screens/auth/forgot_password_screen.dart';
@@ -26,6 +30,10 @@ class AppRoutes {
     GetPage(name: Paths.forgotPass, page: () => ForgotPasswordScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.otpVerify, page: () => const OtpVerificationScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.homeBar, page: () => const HomeBottomBar(), transition: Transition.fadeIn),
+    GetPage(name: Paths.allCat, page: () => const CategoriesScreen(), transition: Transition.fadeIn),
+    GetPage(name: Paths.allPopular, page: () => const PopularCoursesScreen(), transition: Transition.fadeIn),
+    GetPage(name: Paths.alInstructor, page: () => const BestInstructorScreen(), transition: Transition.fadeIn),
+    GetPage(name: Paths.notify, page: () => const NotificationsScreen(), transition: Transition.fadeIn),
   ];
 }
 
