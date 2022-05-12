@@ -76,7 +76,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       title: textStyle2(text: StringsManager.allCat),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
@@ -85,7 +85,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: Container(
-        height: 7.h,
+        height: 6.h,
         width: 42.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s30),
@@ -95,21 +95,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           children: [
             buildSpaceHorizontal(3.w),
             Container(
-              height: 5.h,
-              width: 10.w,
+              height: 4.h,
+              width: 8.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.s30),
                 color: ColorManager.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey.withOpacity(0.5),
+                //     spreadRadius: 1,
+                //     blurRadius: 1,
+                //     offset: const Offset(0, 3),
+                //   ),
+                // ],
               ),
-              child: categoryModel.icon,
+              child: Center(child: categoryModel.icon),
             ),
             buildSpaceHorizontal(1.w),
             Expanded(child: textStyle0_5(text: categoryModel.title!)),

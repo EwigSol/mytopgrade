@@ -112,7 +112,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
       title: textStyle2(text: StringsManager.chat),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
     );
   }
 }

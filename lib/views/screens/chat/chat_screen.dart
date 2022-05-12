@@ -128,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }

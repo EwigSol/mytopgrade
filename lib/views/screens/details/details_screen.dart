@@ -216,7 +216,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
       title: textStyle2(text: StringsManager.details),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
       actions: [
         Container(

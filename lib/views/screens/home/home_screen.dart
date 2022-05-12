@@ -83,11 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       return buildCategoryCard(catModel);
                     }),
               ),
-              buildSpaceVertical(3.h),
-              buildTitle(StringsManager.popular),
               buildSpaceVertical(2.h),
+              buildTitle(StringsManager.popular),
+              buildSpaceVertical(1.h),
               SizedBox(
-                height: 27.h,
+                height: 20.h,
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: 6,
@@ -96,11 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       return buildPopularCard();
                     }),
               ),
-              buildSpaceVertical(3.h),
-              buildTitle(StringsManager.instructor),
               buildSpaceVertical(2.h),
+              buildTitle(StringsManager.instructor),
+              buildSpaceVertical(1.h),
               SizedBox(
-                height: 20.h,
+                height: 17.h,
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: categoryModel.length,
@@ -120,9 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildInstructorCard(CategoryModel catModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: Container(
-        width: 48.w,
+        width: 43.w,
         decoration: BoxDecoration(
           color: catModel.color,
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -153,14 +153,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildPopularCard() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: (){
           // Get.toNamed(Paths.details);
           Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
-          width: 48.w,
+          width: 43.w,
           decoration: const BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.only(
@@ -171,14 +171,14 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: 14.h,
+                  height: 10.h,
                   width: 100.w,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: 14.h,
+                          height: 10.h,
                           width: 100.w,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 4,
                         right: 0,
                         child: Container(
-                          height: 4.h,
+                          height: 3.h,
                           width: 12.w,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
@@ -216,10 +216,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: textStyle0(
                     text: "By Talent Tamer", color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(1.h),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -227,14 +226,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: 3.h,
-                          width: 6.w,
+                          height: 2.h,
+                          width: 4.w,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.play_circle_fill,
-                                color: ColorManager.whiteColor),
+                            child: Icon(Icons.play_circle_fill, size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
                         buildSpaceHorizontal(2.w),

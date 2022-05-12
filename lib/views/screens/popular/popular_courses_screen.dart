@@ -38,12 +38,12 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> {
       backgroundColor: ColorManager.whiteColor,
       title: textStyle2(text: StringsManager.popular),
       centerTitle: true,
-      elevation: 0,
+      elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
       bottom: PreferredSize(
-        preferredSize: Size(85.w, 10.h),
+        preferredSize: Size(85.w, 8.h),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22, vertical: AppPadding.p6),
           child: TabBar(
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s22),

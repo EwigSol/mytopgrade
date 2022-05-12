@@ -113,7 +113,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
       title: textStyle2(text: StringsManager.myCourse),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
     );
   }
 }

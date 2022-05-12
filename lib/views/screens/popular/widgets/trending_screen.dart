@@ -9,6 +9,7 @@ import '../../../../routes/appPages.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
+import '../../details/details_screen.dart';
 
 class TrendingScreen extends StatefulWidget {
   const TrendingScreen({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
         padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
         child: Column(
           children: [
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(1.h),
             Center(
               child: Wrap(
                   direction: Axis.horizontal,
@@ -66,6 +67,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
                   }).toList()
               ),
             ),
+            buildSpaceVertical(4.h),
           ],
         ),
       ),
@@ -74,13 +76,14 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
   Padding buildPopularCard() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p20),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
         onTap: (){
-          Get.toNamed(Paths.details);
+          // Get.toNamed(Paths.details);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
-          width: 40.w,
+          width: 43.w,
           decoration: const BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.only(

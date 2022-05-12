@@ -86,7 +86,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       title: textStyle2(text: StringsManager.wish),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
     );
   }
 

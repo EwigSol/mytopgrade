@@ -85,11 +85,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 decoration: const InputDecoration(
                   enabledBorder:  OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.primaryColor),
+                    borderSide: BorderSide(color: ColorManager.grayColor),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.primaryColor),
+                    borderSide: BorderSide(color: ColorManager.grayColor),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
@@ -101,7 +101,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.primaryColor),
+                    borderSide: BorderSide(color: ColorManager.grayColor),
                   ),
                   hintText: StringsManager.phoneNo,
                   hintStyle: TextStyle(fontSize: AppSize.s12),
@@ -132,7 +132,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       title: textStyle2(text: StringsManager.eProfile),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
-      elevation: 0,
+      elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
