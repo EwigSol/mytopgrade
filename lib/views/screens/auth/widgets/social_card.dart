@@ -16,8 +16,8 @@ class SocialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 7.h,
-      width: 20.w,
+      height: 8.h,
+      width: 16.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.s10),
         color: ColorManager.whiteColor,
@@ -31,11 +31,7 @@ class SocialCard extends StatelessWidget {
         ],
       ),
       child: Center(
-        child: SizedBox(
-          height: 4.h,
-          width: 10.w,
-          child: Image.asset(img, fit: BoxFit.fill),
-        ),
+        child: Image.asset(img, fit: BoxFit.fill),
       ),
     );
   }

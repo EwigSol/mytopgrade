@@ -6,6 +6,9 @@ import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:topgrade/views/screens/notification/notifications_screen.dart';
+import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
@@ -25,26 +28,41 @@ class ProfileScreen extends StatelessWidget {
           buildSpaceVertical(2.h),
           const Center(
             child: CircleAvatar(
-              radius: 50,
+              radius: 60,
               backgroundColor: ColorManager.halfWhiteColor,
               backgroundImage: AssetImage(AssetsManager.person),
             ),
           ),
           buildSpaceVertical(5.h),
           InkWell(
-              onTap: () => Get.toNamed(Paths.updateProfile),
+              onTap: () {
+                // Get.toNamed(Paths.updateProfile)
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen()));
+              },
               child: buildProfileCard("Edit Profile", Icons.edit)
           ),
           buildSpaceVertical(2.h),
           buildProfileCard("Payment Details", Icons.account_balance_wallet_outlined),
           buildSpaceVertical(2.h),
-          buildProfileCard("Notification", Icons.notifications),
+          InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+              },
+              child: buildProfileCard("Notification", Icons.notifications)),
           buildSpaceVertical(2.h),
-          buildProfileCard("Wishlist", Icons.favorite),
+          InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen()));
+              },
+              child: buildProfileCard("Wishlist", Icons.favorite)),
           buildSpaceVertical(2.h),
           buildProfileCard("Language", Icons.language),
           buildSpaceVertical(2.h),
-          buildProfileCard("Logout", Icons.logout),
+          InkWell(
+              onTap: () {
+                Get.offAllNamed(Paths.authView);
+              },
+              child: buildProfileCard("Logout", Icons.logout)),
         ],
       ),
     );
@@ -84,10 +102,10 @@ class ProfileScreen extends StatelessWidget {
                     child: Icon(icon),
                   ),
                   buildSpaceHorizontal(3.w),
-                  textStyle1(text: title),
+                  textStyle2(text: title, color: ColorManager.whiteColor),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios),
+              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor),
             ],
           ),
         ),

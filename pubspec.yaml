@@ -21,6 +21,7 @@ dependencies:
   otp_pin_field:
   salomon_bottom_bar: ^3.3.0
   another_xlider: ^1.0.1+2
+  persistent_bottom_nav_bar: ^4.0.2
 
 dev_dependencies:
   flutter_test:

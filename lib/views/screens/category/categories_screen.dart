@@ -27,21 +27,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   getData() {
     setState(() {
       categoryModel.add(CategoryModel(
-          id: "1", icon: "icon", title: "Business", color: "color"));
+          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
       categoryModel.add(CategoryModel(
-          id: "2", icon: "icon", title: "Business", color: "color"));
+          id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
       categoryModel.add(CategoryModel(
-          id: "3", icon: "icon", title: "Business", color: "color"));
+          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
       categoryModel.add(CategoryModel(
-          id: "4", icon: "icon", title: "Business", color: "color"));
+          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
       categoryModel.add(CategoryModel(
-          id: "5", icon: "icon", title: "Business", color: "color"));
+          id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
       categoryModel.add(CategoryModel(
-          id: "6", icon: "icon", title: "Business", color: "color"));
+          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
       categoryModel.add(CategoryModel(
-          id: "7", icon: "icon", title: "Business", color: "color"));
+          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
       categoryModel.add(CategoryModel(
-          id: "8", icon: "icon", title: "Business", color: "color"));
+          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
     });
   }
 
@@ -58,10 +58,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: Wrap(
                   direction: Axis.horizontal,
                   spacing: 10,
-                  runSpacing: 10,
+                  runSpacing: 20,
                   alignment: WrapAlignment.spaceEvenly,
                   children: categoryModel.map((item) {
-                    return buildCategoryCard();
+                    return buildCategoryCard(item);
                   }).toList()
               ),
             ),
@@ -81,15 +81,15 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  Padding buildCategoryCard() {
+  Padding buildCategoryCard(CategoryModel categoryModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: Container(
-        height: 8.h,
+        height: 7.h,
         width: 42.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s30),
-          color: ColorManager.pinkColor,
+          color: categoryModel.color,
         ),
         child: Row(
           children: [
@@ -109,10 +109,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   ),
                 ],
               ),
-              child: const Icon(Icons.lightbulb_outline),
+              child: categoryModel.icon,
             ),
-            buildSpaceHorizontal(3.w),
-            textStyle1(text: "Business"),
+            buildSpaceHorizontal(1.w),
+            Expanded(child: textStyle0_5(text: categoryModel.title!)),
           ],
         ),
       ),

@@ -10,6 +10,7 @@ import '../../../../routes/appPages.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
+import '../../details/details_screen.dart';
 
 class AllCoursesScreen extends StatefulWidget {
   const AllCoursesScreen({Key? key}) : super(key: key);
@@ -31,21 +32,21 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
   getData() {
     setState(() {
       categoryModel.add(CategoryModel(
-          id: "1", icon: "icon", title: "Business", color: "color"));
+          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
       categoryModel.add(CategoryModel(
-          id: "2", icon: "icon", title: "Business", color: "color"));
+          id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
       categoryModel.add(CategoryModel(
-          id: "3", icon: "icon", title: "Business", color: "color"));
+          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
       categoryModel.add(CategoryModel(
-          id: "4", icon: "icon", title: "Business", color: "color"));
+          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
       categoryModel.add(CategoryModel(
-          id: "5", icon: "icon", title: "Business", color: "color"));
+          id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
       categoryModel.add(CategoryModel(
-          id: "6", icon: "icon", title: "Business", color: "color"));
+          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
       categoryModel.add(CategoryModel(
-          id: "7", icon: "icon", title: "Business", color: "color"));
+          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
       categoryModel.add(CategoryModel(
-          id: "8", icon: "icon", title: "Business", color: "color"));
+          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
     });
   }
 
@@ -76,13 +77,14 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
 
   Padding buildCoursesCard() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p10),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Paths.details);
+          // Get.toNamed(Paths.details);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
-          width: 40.w,
+          width: 44.w,
           decoration: const BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.only(

@@ -38,7 +38,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 37.h,
+        height: 39.h,
         width: 90.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -58,11 +58,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildSpaceVertical(2.h),
-              SizedBox(
-                height: 13.h,
-                width: 30.w,
-                child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
-              ),
+              Image.asset(AssetsManager.logo, height: 15.h, width: 30.w),
               buildSpaceVertical(2.h),
               CustomTextField(
                 controller: emailController,

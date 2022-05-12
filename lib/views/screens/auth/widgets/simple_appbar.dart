@@ -16,10 +16,11 @@ class SimpleAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       centerTitle: true,
       title: textStyle3(text: title),
-      elevation: 0,
+      elevation: 6,
+      automaticallyImplyLeading: false,
     );
   }
 }

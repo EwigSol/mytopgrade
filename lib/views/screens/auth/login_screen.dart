@@ -43,14 +43,15 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             buildSpaceVertical(6.h),
             buildFormCard(),
-            buildSpaceVertical(3.h),
-            const LineWidget(),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(4.h),
+            // const LineWidget(),
+            // buildSpaceVertical(2.h),
             buildSocialRow(),
+            buildSpaceVertical(3.h),
+            SignupText(toggleView: widget.toggleView)
           ],
         ),
       ),
-      bottomSheet: SignupText(toggleView: widget.toggleView),
     );
   }
 
@@ -71,16 +72,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 57.h,
+        height: 56.h,
         width: 90.w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSize.s10),
+          borderRadius: BorderRadius.circular(AppSize.s22),
           color: ColorManager.whiteColor,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
+              spreadRadius: 1,
+              blurRadius: 4,
               offset: const Offset(0, 3),
             ),
           ],
@@ -88,27 +89,30 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSpaceVertical(2.h),
-              SizedBox(
-                height: 13.h,
-                width: 30.w,
-                child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
+              Center(child: Image.asset(AssetsManager.logo, height: 15.h, width: 30.w)),
+              buildSpaceVertical(1.h),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "Email"),
               ),
-              buildSpaceVertical(2.h),
               CustomTextField(
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(1.h),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "Password"),
+              ),
               CustomTextField(
                 controller: passwordController,
                 hintName: StringsManager.passHint,
                 isPass: true,
                 passwordVisibility: _passwordVisibleOne,
               ),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(2.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -139,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     Get.toNamed(Paths.homeBar);
                   },
-                  child: actionButton(StringsManager.login)),
+                  child: Center(child: actionButton(StringsManager.login))),
             ],
           ),
         ),

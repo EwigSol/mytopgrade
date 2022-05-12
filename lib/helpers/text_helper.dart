@@ -56,6 +56,18 @@ Text textStyle1({required String text, Color? color, TextAlign? textAlign}) {
   );
 }
 
+Text textStyle11({required String text, Color? color, TextAlign? textAlign}) {
+  return Text(
+    text,
+    textAlign: textAlign ?? TextAlign.start,
+    style: GoogleFonts.poppins(
+      fontSize: 12.sp,
+      color:  color ?? ColorManager.blackColor,
+      fontWeight: FontWeight.w600,
+    ),
+  );
+}
+
 Text textStyle1_5({required String text, Color? color, TextAlign? textAlign}) {
   return Text(
     text,

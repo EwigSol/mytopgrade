@@ -40,14 +40,14 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
         children: [
           buildSpaceVertical(1.h),
           SizedBox(
-              height: 28.h,
+              height: 25.h,
               width: 100.w,
               child: Stack(
                 children: [
                   Align(
                     alignment: Alignment.center,
                     child: SizedBox(
-                      height: 25.h,
+                      height: 22.h,
                       width: 80.w,
                       child: ClipRRect(
                           borderRadius: const BorderRadius.only(
@@ -111,7 +111,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
           buildSpaceVertical(1.h),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppPadding.p10, horizontal: AppPadding.p12),
+            padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p12),
             child: TabBar(
               isScrollable: true,
               indicator: BoxDecoration(color: ColorManager.redColor, borderRadius: BorderRadius.circular(AppSize.s22)),
@@ -135,7 +135,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
           ),
 
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.35,
             width: MediaQuery.of(context).size.width,
             child: TabBarView(
               controller: _controller,
@@ -154,56 +154,59 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
   Container buildBottomCard() {
     return Container(
-      height: 7.h,
+      height: 11.h,
       width: 100.w,
       color: ColorManager.whiteColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: (){
-              Get.toNamed(Paths.cart);
-            },
-            child: Container(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: AppPadding.p26),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: (){
+                Get.toNamed(Paths.cart);
+              },
+              child: Container(
+                height: 6.h,
+                width: 18.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppSize.s12),
+                  color: ColorManager.halfWhiteColor
+                ),
+                child: const Center(child: Icon(Icons.shopping_cart, color: ColorManager.redColor, size: 35)),
+              ),
+            ),
+            buildSpaceHorizontal(10.w),
+            Container(
               height: 6.h,
-              width: 18.w,
+              width: 53.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s12),
-                color: ColorManager.halfWhiteColor
-              ),
-              child: const Center(child: Icon(Icons.shopping_cart, color: ColorManager.redColor, size: 35)),
-            ),
-          ),
-          buildSpaceHorizontal(10.w),
-          Container(
-            height: 6.h,
-            width: 53.w,
-            decoration: BoxDecoration(
-              color: ColorManager.redColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorManager.primaryColor.withOpacity(0.2),
-                  spreadRadius: 4,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
+                color: ColorManager.redColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
                 ),
-              ],
-            ),
-            child: const Center(
-              child: Text(
-                "Buy Now",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorManager.primaryColor.withOpacity(0.2),
+                    spreadRadius: 4,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: Text(
+                  "Buy Now",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

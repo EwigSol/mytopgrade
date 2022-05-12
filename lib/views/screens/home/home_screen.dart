@@ -6,16 +6,55 @@ import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/category/categories_screen.dart';
+import 'package:topgrade/views/screens/details/details_screen.dart';
+import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
+import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
+import '../../../models/category_model.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../widgets/text_field.dart';
 import 'package:get/get.dart';
+import '../notification/notifications_screen.dart';
 import 'widgets/filter_sheet.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
+  List<CategoryModel> categoryModel = [];
+
+  @override
+  initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() {
+    setState(() {
+      categoryModel.add(CategoryModel(
+          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
+      categoryModel.add(CategoryModel(
+          id: "2", icon: const Icon(Icons.favorite, color: ColorManager.redColor), title: "Healthy", color: ColorManager.greenColor));
+      categoryModel.add(CategoryModel(
+          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
+      categoryModel.add(CategoryModel(
+          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
+      categoryModel.add(CategoryModel(
+          id: "5", icon: const Icon(Icons.developer_mode_outlined ,color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.lightBlueColor));
+      categoryModel.add(CategoryModel(
+          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
+      categoryModel.add(CategoryModel(
+          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
+      categoryModel.add(CategoryModel(
+          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +73,21 @@ class HomeScreen extends StatelessWidget {
               buildTitle(StringsManager.categories),
               buildSpaceVertical(2.h),
               SizedBox(
-                height: 10.h,
+                height: 7.h,
                 width: double.infinity,
                 child: ListView.builder(
-                    itemCount: 6,
+                    itemCount: categoryModel.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return buildCategoryCard();
+                      final catModel = categoryModel[index];
+                      return buildCategoryCard(catModel);
                     }),
               ),
               buildSpaceVertical(3.h),
               buildTitle(StringsManager.popular),
               buildSpaceVertical(2.h),
               SizedBox(
-                height: 30.h,
+                height: 27.h,
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: 6,
@@ -60,13 +100,14 @@ class HomeScreen extends StatelessWidget {
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(2.h),
               SizedBox(
-                height: 25.h,
+                height: 20.h,
                 width: double.infinity,
                 child: ListView.builder(
-                    itemCount: 6,
+                    itemCount: categoryModel.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return buildInstructorCard();
+                      final catM = categoryModel[index];
+                      return buildInstructorCard(catM);
                     }),
               ),
               buildSpaceVertical(3.h),
@@ -77,19 +118,19 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding buildInstructorCard() {
+  Padding buildInstructorCard(CategoryModel catModel) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         width: 48.w,
         decoration: BoxDecoration(
-          color: ColorManager.greenColor,
+          color: catModel.color,
           borderRadius: BorderRadius.circular(AppSize.s10),
         ),
         child: Row(
           children: [
             SizedBox(
-              height: 25.h,
+              height: 27.h,
               width: 20.w,
               child: Image.asset(AssetsManager.girl, fit: BoxFit.fill),
             ),
@@ -99,9 +140,9 @@ class HomeScreen extends StatelessWidget {
                 buildSpaceVertical(3.h),
                 textStyle0_5(text: "Albert Flores"),
                 textStyle0(text: "LifeStyle", color: ColorManager.grayColor),
-                textStyle0_5(text: "20k Students"),
-                textStyle0_5(text: "17 Courses"),
-                textStyle0_5(text: "(4.5)⭐"),
+                textStyle0(text: "20k Students"),
+                textStyle0(text: "17 Courses"),
+                textStyle0(text: "(4.5)⭐"),
               ],
             ),
           ],
@@ -115,7 +156,8 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: (){
-          Get.toNamed(Paths.details);
+          // Get.toNamed(Paths.details);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
           width: 48.w,
@@ -217,15 +259,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding buildCategoryCard() {
+  Padding buildCategoryCard(CategoryModel categoryModel) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: Container(
-        height: 10.h,
-        width: 48.w,
+        width: 42.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s30),
-          color: ColorManager.pinkColor,
+          color: categoryModel.color,
         ),
         child: Row(
           children: [
@@ -245,10 +286,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Icon(Icons.lightbulb_outline),
+              child: categoryModel.icon,
             ),
-            buildSpaceHorizontal(3.w),
-            textStyle2(text: "Business"),
+            buildSpaceHorizontal(1.w),
+            Expanded(child: textStyle0_5(text: categoryModel.title!)),
           ],
         ),
       ),
@@ -263,13 +304,16 @@ class HomeScreen extends StatelessWidget {
         InkWell(
             onTap: () {
               if(title == "Categories"){
-                Get.toNamed(Paths.allCat);
+                // Get.toNamed(Paths.allCat);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoriesScreen()));
               }
               else if(title == "Popular Courses"){
-                Get.toNamed(Paths.allPopular);
+                // Get.toNamed(Paths.allPopular);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const PopularCoursesScreen()));
               }
               else if(title == "Best Instructors"){
-                Get.toNamed(Paths.alInstructor);
+                // Get.toNamed(Paths.alInstructor);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BestInstructorScreen()));
               }
             },
             child: textStyle0_5(text: StringsManager.seeAll)),
@@ -334,19 +378,19 @@ class HomeScreen extends StatelessWidget {
             height: 5.h,
             width: 10.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s10),
+              borderRadius: BorderRadius.circular(AppSize.s8),
               color: ColorManager.redColor,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.2),
                   spreadRadius: 3,
-                  blurRadius: 4,
+                  blurRadius: 2,
                   offset: const Offset(0, 3),
                 ),
               ],
             ),
             child:
-                const Icon(Icons.apps, color: ColorManager.whiteColor, size: 25),
+                const Icon(Icons.apps, color: ColorManager.whiteColor, size: 28),
           ),
         ),
       ],
@@ -368,7 +412,8 @@ class HomeScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed(Paths.notify);
+            // Get.toNamed(Paths.notify);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
           },
           child: Container(
             height: 4.h,
