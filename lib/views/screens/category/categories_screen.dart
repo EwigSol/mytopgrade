@@ -86,7 +86,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 8.h,
-        width: 45.w,
+        width: 42.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s30),
           color: ColorManager.pinkColor,
@@ -112,7 +112,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: const Icon(Icons.lightbulb_outline),
             ),
             buildSpaceHorizontal(3.w),
-            textStyle2(text: "Business"),
+            textStyle1(text: "Business"),
           ],
         ),
       ),

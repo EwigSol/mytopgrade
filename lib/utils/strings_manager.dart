@@ -51,4 +51,22 @@ class StringsManager{
   static const String mostP = "Most Popular";
   static const String trending = "Trending";
   static const String notify = "Notifications";
+  static const String myCourse = "My Courses";
+  static const String all = "All";
+  static const String upComing = "UpComing";
+  static const String completed = "Completed";
+  static const String wish = "Wishlist";
+  static const String profile = "Profile";
+  static const String chat = "Chat";
+  static const String details = "Detail";
+  static const String cart = "Cart";
+  static const String checkout = "Checkout";
+  static const String addNew = "Add New Card";
+  static const String eProfile = "Edit Profile";
+  static const String uProfile = "Update Profile";
+
+  static const String cardNo = "Enter Card Number";
+  static const String cardNa = "Enter CardHolder Name";
+  static const String expire = "Enter Expiry Date";
+  static const String cvv = "Enter CVV Number";
 }

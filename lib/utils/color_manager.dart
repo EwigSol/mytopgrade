@@ -6,6 +6,7 @@ class ColorManager {
   static const redColor = Color(0xFFFF0000);
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffFFFFFF);
+  static const halfWhiteColor = Color(0xffe9e7e7);
   static const grayColor = Color(0xFF8793B2);
   static const pinkColor = Color(0xFFEACAE5);
   static const greenColor = Color(0xFFBEEEA9);

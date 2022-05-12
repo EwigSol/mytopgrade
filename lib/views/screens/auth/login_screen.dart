@@ -41,9 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildSpaceVertical(10.h),
-            buildFormCard(),
             buildSpaceVertical(6.h),
+            buildFormCard(),
+            buildSpaceVertical(3.h),
             const LineWidget(),
             buildSpaceVertical(2.h),
             buildSocialRow(),
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 53.h,
+        height: 57.h,
         width: 90.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),

@@ -20,6 +20,7 @@ dependencies:
   intl_phone_field:
   otp_pin_field:
   salomon_bottom_bar: ^3.3.0
+  another_xlider: ^1.0.1+2
 
 dev_dependencies:
   flutter_test:
@@ -50,8 +51,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_native_splash:
-  color: "#ffffff"
-  image: "assets/images/splash.png"
+  color: "#ffa110"
   android: true
   ios: true
   android_gravity: fill

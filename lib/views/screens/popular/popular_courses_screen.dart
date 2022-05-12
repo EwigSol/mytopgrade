@@ -41,9 +41,9 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> {
       elevation: 0,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
       bottom: PreferredSize(
-        preferredSize: Size(80.w, 10.h),
+        preferredSize: Size(85.w, 10.h),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p28),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: TabBar(
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s22),

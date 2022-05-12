@@ -38,7 +38,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 35.h,
+        height: 37.h,
         width: 90.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),

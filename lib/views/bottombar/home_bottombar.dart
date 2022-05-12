@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:topgrade/utils/color_manager.dart';
 
-import '../screens/chat/chat_screen.dart';
+import '../screens/chat/chat_list_screen.dart';
 import '../screens/courses/my_courses_screen.dart';
 import '../screens/favourites/favourites_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -24,7 +24,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
     HomeScreen(),
     const MyCoursesScreen(),
     const FavouritesScreen(),
-    const ChatScreen(),
+    const ChatListScreen(),
     const ProfileScreen()
   ];
 
@@ -46,7 +46,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
           /// My Courses
           SalomonBottomBarItem(
             icon: const Icon(Icons.description),
-            title: const Text("My Courses"),
+            title: const Text("Courses"),
             selectedColor: ColorManager.primaryColor,
           ),
 

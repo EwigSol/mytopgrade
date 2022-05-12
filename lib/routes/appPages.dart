@@ -13,6 +13,12 @@ abstract class Routes {
   static const allPopular = Paths.allPopular;
   static const alInstructor = Paths.alInstructor;
   static const notify = Paths.notify;
+  static const updateProfile = Paths.updateProfile;
+  static const chat = Paths.chat;
+  static const details = Paths.details;
+  static const cart = Paths.cart;
+  static const checkout = Paths.checkout;
+  static const addNC = Paths.addNC;
 }
 
 abstract class Paths {
@@ -28,4 +34,10 @@ abstract class Paths {
   static const allPopular = '/allPopular';
   static const alInstructor = '/alInstructor';
   static const notify = '/notify';
+  static const updateProfile = '/updateProfile';
+  static const chat = '/chat';
+  static const details = '/details';
+  static const cart = '/cart';
+  static const checkout = '/checkout';
+  static const addNC = '/addNC';
 }

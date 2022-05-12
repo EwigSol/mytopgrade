@@ -28,7 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final bool _passwordVisibleOne = false;
-  bool rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             buildSpaceVertical(3.h),
             buildFormCard(),
-            buildSpaceVertical(6.h),
+            buildSpaceVertical(3.h),
             const LineWidget(),
             buildSpaceVertical(2.h),
             buildSocialRow(),
@@ -95,12 +94,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: 25.w,
                 child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(1.h),
               CustomTextField(
                 controller: usernameController,
                 hintName: StringsManager.userName,
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(1.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                 child: IntlPhoneField(
@@ -130,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: ColorManager.whiteColor,
                     filled: true,
                   ),
-                  initialCountryCode: 'PK',
+                  initialCountryCode: 'ZA',
                   onChanged: (phone) {
                     print(phone.completeNumber);
                   },
@@ -140,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(1.h),
               CustomTextField(
                 controller: passwordController,
                 hintName: StringsManager.passHint,

@@ -10,11 +10,12 @@ import '../../../utils/assets_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../widgets/text_field.dart';
 import 'package:get/get.dart';
+import 'widgets/filter_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  final emailController = TextEditingController();
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               buildSpaceVertical(7.h),
               buildAppBar(),
               buildSpaceVertical(5.h),
-              buildSearchAndFilterRow(),
+              buildSearchAndFilterRow(context),
               buildSpaceVertical(3.h),
               buildTitle(StringsManager.categories),
               buildSpaceVertical(2.h),
@@ -112,100 +113,105 @@ class HomeScreen extends StatelessWidget {
   Padding buildPopularCard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 48.w,
-        decoration: const BoxDecoration(
-          color: ColorManager.whiteColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(AppSize.s10),
-              topRight: Radius.circular(AppSize.s10)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                height: 14.h,
-                width: 100.w,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        height: 14.h,
-                        width: 100.w,
-                        child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(AppSize.s10),
-                                topRight: Radius.circular(AppSize.s10)),
-                            child: Image.asset(AssetsManager.card,
-                                fit: BoxFit.fill)),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 4,
-                      right: 0,
-                      child: Container(
-                        height: 4.h,
-                        width: 12.w,
-                        decoration: const BoxDecoration(
-                            color: ColorManager.redColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(AppSize.s16),
-                              bottomLeft: Radius.circular(AppSize.s16),
-                            )),
-                        child: Center(
-                            child: textStyle0_5(
-                                text: "\$50", color: ColorManager.whiteColor)),
-                      ),
-                    ),
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p4),
-              child: textStyle0_5(text: "User Interface Design"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: AppPadding.p4),
-              child: textStyle0(
-                  text: "By Talent Tamer", color: ColorManager.grayColor),
-            ),
-            buildSpaceVertical(2.h),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p4, right: AppPadding.p4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
+      child: InkWell(
+        onTap: (){
+          Get.toNamed(Paths.details);
+        },
+        child: Container(
+          width: 48.w,
+          decoration: const BoxDecoration(
+            color: ColorManager.whiteColor,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(AppSize.s10),
+                topRight: Radius.circular(AppSize.s10)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                  height: 14.h,
+                  width: 100.w,
+                  child: Stack(
                     children: [
-                      Container(
-                        height: 3.h,
-                        width: 6.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s20),
-                            color: ColorManager.redColor),
-                        child: const Center(
-                          child: Icon(Icons.play_circle_fill,
-                              color: ColorManager.whiteColor),
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          height: 14.h,
+                          width: 100.w,
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(AppSize.s10),
+                                  topRight: Radius.circular(AppSize.s10)),
+                              child: Image.asset(AssetsManager.card,
+                                  fit: BoxFit.fill)),
                         ),
                       ),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0(text: "27 Videos")
+                      Positioned(
+                        bottom: 4,
+                        right: 0,
+                        child: Container(
+                          height: 4.h,
+                          width: 12.w,
+                          decoration: const BoxDecoration(
+                              color: ColorManager.redColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(AppSize.s16),
+                                bottomLeft: Radius.circular(AppSize.s16),
+                              )),
+                          child: Center(
+                              child: textStyle0_5(
+                                  text: "\$50", color: ColorManager.whiteColor)),
+                        ),
+                      ),
                     ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      textStyle0(text: "⭐"),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0(text: "3.5")
-                    ],
-                  ),
-                ],
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p4),
+                child: textStyle0_5(text: "User Interface Design"),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p4),
+                child: textStyle0(
+                    text: "By Talent Tamer", color: ColorManager.grayColor),
+              ),
+              buildSpaceVertical(2.h),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p4, right: AppPadding.p4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 3.h,
+                          width: 6.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s20),
+                              color: ColorManager.redColor),
+                          child: const Center(
+                            child: Icon(Icons.play_circle_fill,
+                                color: ColorManager.whiteColor),
+                          ),
+                        ),
+                        buildSpaceHorizontal(2.w),
+                        textStyle0(text: "27 Videos")
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        textStyle0(text: "⭐"),
+                        buildSpaceHorizontal(2.w),
+                        textStyle0(text: "3.5")
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -271,35 +277,77 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Row buildSearchAndFilterRow() {
+  Row buildSearchAndFilterRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 7.h,
+          height: 6.h,
           width: 70.w,
-          child: CustomTextField(
-            controller: emailController,
-            hintName: StringsManager.search,
+          child: TextFormField(
+            controller: searchController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please Enter Search Value}';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+              enabledBorder:  const OutlineInputBorder(
+                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              errorBorder : const OutlineInputBorder(
+                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderSide: BorderSide(color: ColorManager.redColor),
+              ),
+              focusedErrorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderSide: BorderSide(color: ColorManager.redColor),
+              ),
+              hintText: StringsManager.search,
+              fillColor: Colors.grey[200],
+              hintStyle: const TextStyle(fontSize: AppSize.s16),
+              filled: true,
+              suffixIcon: const Icon(Icons.search),
+            ),
           ),
         ),
-        Container(
-          height: 7.h,
-          width: 14.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.s10),
-            color: ColorManager.redColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: const Offset(0, 3),
-              ),
-            ],
+        buildSpaceHorizontal(4.w),
+        InkWell(
+          onTap: () {
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                builder: (context) {
+                  return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                    return const FilterSheet();
+                  });
+                });
+          },
+          child: Container(
+            height: 5.h,
+            width: 10.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppSize.s10),
+              color: ColorManager.redColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child:
+                const Icon(Icons.apps, color: ColorManager.whiteColor, size: 25),
           ),
-          child:
-              const Icon(Icons.apps, color: ColorManager.whiteColor, size: 40),
         ),
       ],
     );
@@ -323,8 +371,8 @@ class HomeScreen extends StatelessWidget {
             Get.toNamed(Paths.notify);
           },
           child: Container(
-            height: 5.h,
-            width: 10.w,
+            height: 4.h,
+            width: 8.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s10),
               color: ColorManager.whiteColor,
@@ -337,7 +385,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Icon(Icons.add_alert_outlined),
+            child: const Icon(Icons.notifications),
           ),
         ),
       ],

@@ -7,6 +7,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/utils/color_manager.dart';
 
+Text textStyle00({required String text, Color? color, TextAlign? textAlign}) {
+  return Text(
+    text,
+    textAlign: textAlign ?? TextAlign.start,
+    style: GoogleFonts.poppins(
+      fontSize: 8.sp,
+      color:  color ?? ColorManager.blackColor,
+      fontWeight: FontWeight.w200,
+    ),
+  );
+}
 
 Text textStyle0({required String text, Color? color, TextAlign? textAlign}) {
   return Text(
