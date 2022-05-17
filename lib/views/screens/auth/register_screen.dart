@@ -42,11 +42,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             buildSpaceVertical(3.h),
             buildFormCard(),
-            buildSpaceVertical(4.h),
+            buildSpaceVertical(3.h),
             // const LineWidget(),
-            buildSpaceVertical(2.h),
+            // buildSpaceVertical(1.h),
             buildSocialRow(),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(1.h),
             LoginText(toggleView: widget.toggleView)
           ],
         ),
@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 64.h,
+        height: 66.h,
         width: 90.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),

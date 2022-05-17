@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
+import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../../helpers/text_helper.dart';
@@ -20,6 +21,9 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+
+  List<Color> colorList = [ColorManager.lightBlueColor, ColorManager.redColor, ColorManager.lightPurpleColor];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,47 +46,67 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               alignment: WrapAlignment.center,
               children: [
                 Container(
-                  height: 5.h,
+                  height: 6.h,
                   width: 40.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.s16),
                     color: ColorManager.halfWhiteColor
                   ),
-                  child: Center(
-                    child: textStyle0_5(text: "Debit Card"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AssetsManager.debit, height: 8.h, width: 8.w),
+                      buildSpaceHorizontal(2.w),
+                      textStyle0_5(text: "Debit Card"),
+                    ],
                   ),
                 ),
                 Container(
-                  height: 5.h,
+                  height: 6.h,
                   width: 40.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s16),
                       color: ColorManager.halfWhiteColor
                   ),
-                  child: Center(
-                    child: textStyle0_5(text: "Stripe"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AssetsManager.stripe, height: 8.h, width: 8.w),
+                      buildSpaceHorizontal(2.w),
+                      textStyle0_5(text: "Stripe"),
+                    ],
                   ),
                 ),
                 Container(
-                  height: 5.h,
+                  height: 6.h,
                   width: 40.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s16),
                       color: ColorManager.halfWhiteColor
                   ),
-                  child: Center(
-                    child: textStyle0_5(text: "Paypal"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AssetsManager.paypal, height: 8.h, width: 8.w),
+                      buildSpaceHorizontal(2.w),
+                      textStyle0_5(text: "Paypal"),
+                    ],
                   ),
                 ),
                 Container(
-                  height: 5.h,
+                  height: 6.h,
                   width: 40.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s16),
                       color: ColorManager.halfWhiteColor
                   ),
-                  child: Center(
-                    child: textStyle0_5(text: "COD"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(AssetsManager.cod, height: 8.h, width: 8.w),
+                      buildSpaceHorizontal(2.w),
+                      textStyle0_5(text: "COD"),
+                    ],
                   ),
                 ),
               ],
@@ -98,17 +122,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             height: 20.h,
             width: 100.w,
             child: ListView.builder(
-                itemCount: 3,
+                itemCount: colorList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index){
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                     child: Container(
                       height: 20.h,
                       width: 60.w,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: ColorManager.redColor
+                          color: colorList[index]
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

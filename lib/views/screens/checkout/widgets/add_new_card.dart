@@ -48,7 +48,7 @@ class _AddNewCardState extends State<AddNewCard> {
                     child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
                   ),
                   buildSpaceVertical(3.h),
-                  Center(child: textStyle1(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
+                  Center(child: textStyle11(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
                   buildSpaceVertical(2.h),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
@@ -90,78 +90,81 @@ class _AddNewCardState extends State<AddNewCard> {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
+                    spreadRadius: 1,
+                    blurRadius: 3,
                     offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  buildSpaceVertical(3.h),
-                  CustomTextField(
-                    controller: cardNoController,
-                    hintName: StringsManager.cardNo,
-                  ),
-                  buildSpaceVertical(3.h),
-                  CustomTextField(
-                    controller: cardNameController,
-                    hintName: StringsManager.cardNa,
-                  ),
-                  buildSpaceVertical(3.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 7.h,
-                        width: 45.w,
-                        child: CustomTextField(
-                          controller: expireController,
-                          hintName: StringsManager.expire,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7.h,
-                        width: 45.w,
-                        child: CustomTextField(
-                          controller: cvvController,
-                          hintName: StringsManager.cvv,
-                        ),
-                      ),
-                    ],
-                  ),
-                  buildSpaceVertical(3.h),
-                  Center(
-                    child: Container(
-                      height: 6.h,
-                      width: 53.w,
-                      decoration: BoxDecoration(
-                        color: ColorManager.redColor,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.primaryColor.withOpacity(0.2),
-                            spreadRadius: 4,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
+                child: Column(
+                  children: [
+                    buildSpaceVertical(3.h),
+                    CustomTextField(
+                      controller: cardNoController,
+                      hintName: StringsManager.cardNo,
+                    ),
+                    buildSpaceVertical(3.h),
+                    CustomTextField(
+                      controller: cardNameController,
+                      hintName: StringsManager.cardNa,
+                    ),
+                    buildSpaceVertical(3.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 7.h,
+                          width: 40.w,
+                          child: CustomTextField(
+                            controller: expireController,
+                            hintName: StringsManager.expire,
                           ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        ),
+                        SizedBox(
+                          height: 7.h,
+                          width: 40.w,
+                          child: CustomTextField(
+                            controller: cvvController,
+                            hintName: StringsManager.cvv,
+                          ),
+                        ),
+                      ],
+                    ),
+                    buildSpaceVertical(3.h),
+                    Center(
+                      child: Container(
+                        height: 6.h,
+                        width: 53.w,
+                        decoration: BoxDecoration(
+                          color: ColorManager.redColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.primaryColor.withOpacity(0.2),
+                              spreadRadius: 4,
+                              blurRadius: 7,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )

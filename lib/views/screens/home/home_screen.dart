@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/category/categories_screen.dart';
@@ -13,8 +12,6 @@ import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import '../../../models/category_model.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/strings_manager.dart';
-import '../../widgets/text_field.dart';
-import 'package:get/get.dart';
 import '../notification/notifications_screen.dart';
 import 'widgets/filter_sheet.dart';
 
@@ -61,15 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildSpaceVertical(7.h),
               buildAppBar(),
-              buildSpaceVertical(5.h),
-              buildSearchAndFilterRow(context),
               buildSpaceVertical(3.h),
+              buildSearchAndFilterRow(context),
+              buildSpaceVertical(2.h),
               buildTitle(StringsManager.categories),
               buildSpaceVertical(2.h),
               SizedBox(
@@ -87,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               buildTitle(StringsManager.popular),
               buildSpaceVertical(1.h),
               SizedBox(
-                height: 20.h,
+                height: 22.h,
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: 6,
@@ -120,9 +117,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildInstructorCard(CategoryModel catModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
       child: Container(
-        width: 43.w,
+        width: 44.w,
         decoration: BoxDecoration(
           color: catModel.color,
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -131,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               height: 27.h,
-              width: 20.w,
+              width: 18.w,
               child: Image.asset(AssetsManager.girl, fit: BoxFit.fill),
             ),
             Column(

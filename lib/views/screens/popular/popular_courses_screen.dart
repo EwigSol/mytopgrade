@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/strings_manager.dart';
@@ -16,19 +17,51 @@ class PopularCoursesScreen extends StatefulWidget {
   State<PopularCoursesScreen> createState() => _PopularCoursesScreenState();
 }
 
-class _PopularCoursesScreenState extends State<PopularCoursesScreen> {
+class _PopularCoursesScreenState extends State<PopularCoursesScreen> with SingleTickerProviderStateMixin {
+
+  late TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 2, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: buildAppBar(),
-        body: const TabBarView(
-          children: [
-            MostPopularScreen(),
-            TrendingScreen()
-          ],
-        ),
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: Column(
+        children: [
+          buildSpaceVertical(2.h),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p12),
+            child: TabBar(
+              isScrollable: true,
+              indicator: BoxDecoration(color: ColorManager.redColor, borderRadius: BorderRadius.circular(AppSize.s22)),
+              controller: _controller,
+              unselectedLabelColor: ColorManager.blackColor,
+              unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
+              tabs: [
+                buildPopularTab(),
+                buildTrendingTab()
+
+              ],
+            ),
+          ),
+
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.75,
+            width: MediaQuery.of(context).size.width,
+            child: TabBarView(
+              controller: _controller,
+              children: const [
+                MostPopularScreen(),
+                TrendingScreen()
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -40,40 +73,24 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> {
       centerTitle: true,
       elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
-      bottom: PreferredSize(
-        preferredSize: Size(85.w, 8.h),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22, vertical: AppPadding.p6),
-          child: TabBar(
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s22),
-              color: ColorManager.redColor,
-            ),
-            tabs: [
-              buildPopularTab(),
-              buildTrendingTab(),
-            ],
-            unselectedLabelColor: ColorManager.blackColor,
-            labelStyle: GoogleFonts.poppins(
-              fontSize: 16.sp,
-              color: ColorManager.whiteColor,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-      ),
     );
   }
 
   Tab buildTrendingTab() {
     return Tab(
-      child: textStyle2(text: StringsManager.trending),
+      child: Text(StringsManager.trending, style: GoogleFonts.poppins(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),),
     );
   }
 
   Tab buildPopularTab() {
     return Tab(
-      child: textStyle2(text: StringsManager.mostP),
+      child: Text(StringsManager.mostP, style: GoogleFonts.poppins(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),),
     );
   }
 }

@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -8,7 +7,8 @@ import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/courses/widgets/all_courses_screen.dart';
 import 'package:topgrade/views/screens/courses/widgets/completed_courses_screen.dart';
 import 'package:topgrade/views/screens/courses/widgets/upcoming_courses_screen.dart';
-
+import 'package:get/get.dart';
+import '../../../controllers/my_courses_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
@@ -25,13 +25,18 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
   String? title;
   int? selectedIndex;
 
+  final MyCoursesController myCoursesController = Get.put(MyCoursesController());
+
   @override
   void initState() {
     super.initState();
     setState(() {
       selectedIndex = 0;
     });
+    print("my courses list");
+    print(myCoursesController.myCoursesList.length);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +107,8 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
           ),
           Expanded(
               child: selectedIndex == 0 ? const AllCoursesScreen() : selectedIndex == 1 ? const UpComingCoursesScreen() : const CompletedCoursesScreen()
-          )
+          ),
+          buildSpaceVertical(5.h),
         ],
       ),
     );

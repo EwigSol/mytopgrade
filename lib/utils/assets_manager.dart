@@ -18,4 +18,8 @@ class AssetsManager {
   static const String bookIcon = "$imagePath/book.png";
   static const String boxIcon = "$imagePath/box.png";
   static const String arrowIcon = "$imagePath/arrow.png";
+  static const String cod = "$imagePath/cod.png";
+  static const String debit = "$imagePath/debitCard.png";
+  static const String paypal = "$imagePath/paypal.png";
+  static const String stripe = "$imagePath/stripe.png";
 }

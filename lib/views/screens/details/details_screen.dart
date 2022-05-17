@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
@@ -116,18 +117,26 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
               isScrollable: true,
               indicator: BoxDecoration(color: ColorManager.redColor, borderRadius: BorderRadius.circular(AppSize.s22)),
               controller: _controller,
+              unselectedLabelColor: ColorManager.blackColor,
+              unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
               tabs: [
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.35, 
                     child: Tab(
-                        child: textStyle0_5(text: "Playlist")
+                        child: Text("Playlist", style: GoogleFonts.poppins(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),),
                     )
                 ),
 
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.35,
                     child: Tab(
-                        child: textStyle0_5(text: "Description")
+                        child: Text("Description", style: GoogleFonts.poppins(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),),
                     )
                 ),
               ],

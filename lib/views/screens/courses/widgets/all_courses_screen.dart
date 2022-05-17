@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
+import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/category_model.dart';
+import '../../../../models/courses_model.dart';
 import '../../../../routes/appPages.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
@@ -22,6 +24,8 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
 
   List<CategoryModel> categoryModel = [];
   double _value = 67;
+
+  final CoursesController coursesController = Get.put(CoursesController());
 
   @override
   initState() {
@@ -58,29 +62,34 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
         child: Column(
           children: [
             buildSpaceVertical(5.h),
-            Center(
-              child: Wrap(
-                  direction: Axis.horizontal,
-                  spacing: 5,
-                  runSpacing: 10,
-                  alignment: WrapAlignment.spaceEvenly,
-                  children: categoryModel.map((item) {
-                    return buildCoursesCard();
-                  }).toList()
-              ),
-            ),
+            Obx(() {
+              if(coursesController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return Center(
+                  child: Wrap(
+                      direction: Axis.horizontal,
+                      spacing: 5,
+                      runSpacing: 10,
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: coursesController.coursesList.map((item) {
+                        return buildCoursesCard(item);
+                      }).toList()
+                  ),
+                );
+              }
+            }),
           ],
         ),
       ),
     );
   }
 
-  Padding buildCoursesCard() {
+  Padding buildCoursesCard(CoursesModel coursesModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          // Get.toNamed(Paths.details);
           Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
@@ -108,8 +117,7 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.asset(AssetsManager.card,
-                                  fit: BoxFit.fill)),
+                              child: Image.network(coursesModel.image!, fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -125,19 +133,18 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0_5(
-                                  text: "\$50", color: ColorManager.whiteColor)),
+                              child: textStyle0(text: "\$${coursesModel.price.toString()}", color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
                   )),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0_5(text: "User Interface Design"),
+                child: textStyle0_5(text: coursesModel.name!),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: "By Talent Tamer", color: ColorManager.grayColor),
+                child: textStyle0(text: coursesModel.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
               buildSpaceVertical(2.h),
               Padding(
@@ -145,13 +152,13 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    textStyle00(text: "Completed $_value%"),
+                    textStyle00(text: "Sections: ${coursesModel.sections!.length}"),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
                         buildSpaceHorizontal(2.w),
-                        textStyle0(text: "3.5")
+                        textStyle0(text: coursesModel.rating.toString())
                       ],
                     ),
                   ],
