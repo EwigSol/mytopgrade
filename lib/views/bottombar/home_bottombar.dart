@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/views/screens/quiz/quiz_assignment_screen.dart';
+import 'package:topgrade/views/screens/quiz/quiz_screen.dart';
 import '../screens/chat/chat_list_screen.dart';
 import '../screens/courses/my_courses_screen.dart';
 import '../screens/favourites/favourites_screen.dart';
@@ -30,6 +32,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
     return [
       const HomeScreen(),
       const MyCoursesScreen(),
+      const QuizAssignmentScreen(),
       const FavouritesScreen(),
       const ChatListScreen(),
       const ProfileScreen(),
@@ -48,6 +51,13 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.description),
         title: ("Courses"),
+          activeColorPrimary: ColorManager.primaryColor,
+          activeColorSecondary: ColorManager.blackColor,
+          inactiveColorSecondary: ColorManager.primaryColor
+      ),
+      PersistentBottomNavBarItem(
+          icon: const Icon(Icons.chrome_reader_mode),
+          title: ("Quiz"),
           activeColorPrimary: ColorManager.primaryColor,
           activeColorSecondary: ColorManager.blackColor,
           inactiveColorSecondary: ColorManager.primaryColor

@@ -9,7 +9,7 @@ class CoursesModel {
     this.dateModified, this.dateModifiedGmt, this.onSale, this.status, this.content, this.excerpt,
     this.duration, this.countStudents, this.canFinish, this.canRetake, this.ratakeCount,
     this.rataken, this.rating, this.price, this.originPrice, this.salePrice, this.categories,
-    this.tags, this.instructor, this.sections, this.courseData, this.metaData,
+    this.tags, this.instructor, this.sections, this.courseData,
   });
 
   int? id;
@@ -35,12 +35,12 @@ class CoursesModel {
   int? price;
   int? originPrice;
   int? salePrice;
-  List<dynamic>? categories;
+  List<Category>? categories;
   List<dynamic>? tags;
   Instructor? instructor;
   List<Section>? sections;
   CourseData? courseData;
-  MetaData? metaData;
+  // MetaData? metaData;
 
   factory CoursesModel.fromJson(Map<String, dynamic> json) => CoursesModel(
     id: json["id"],
@@ -66,13 +66,28 @@ class CoursesModel {
     price: json["price"],
     originPrice: json["origin_price"],
     salePrice: json["sale_price"],
-    categories: List<dynamic>.from(json["categories"].map((x) => x)),
+    categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
     tags: List<dynamic>.from(json["tags"].map((x) => x)),
     instructor: Instructor.fromJson(json["instructor"]),
     sections: List<Section>.from(json["sections"].map((x) => Section.fromJson(x))),
     courseData: CourseData.fromJson(json["course_data"]),
-    metaData: MetaData.fromJson(json["meta_data"]),
+    // metaData: MetaData.fromJson(json["meta_data"]),
   );
+}
+
+class Category {
+  Category({this.id, this.name, this.slug});
+
+  int? id;
+  String? name;
+  String? slug;
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    id: json["id"],
+    name: json["name"],
+    slug: json["slug"],
+  );
+
 }
 
 class CourseData {
@@ -304,7 +319,7 @@ class Section {
   int? courseId;
   String? description;
   String? order;
-  int? percent;
+  var percent;
   List<Item>? items;
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(

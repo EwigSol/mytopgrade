@@ -23,6 +23,9 @@ dependencies:
   another_xlider: ^1.0.1+2
   persistent_bottom_nav_bar: ^4.0.2
   http: ^0.13.4
+  expandable: ^5.0.1
+  html: ^0.15.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

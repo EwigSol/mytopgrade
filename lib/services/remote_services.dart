@@ -2,6 +2,7 @@
 
 import 'package:http/http.dart' as http;
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/category_model.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/course_review_model.dart';
 import 'package:topgrade/models/courses_model.dart';
@@ -168,6 +169,40 @@ class RemoteServices {
     } else {
       //show error message
       errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
+      return null;
+    }
+  }
+
+  static Future<List<CategoriesModel>?> fetchCategories() async {
+    var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/wp/v2/course_category"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${StringsManager.token}',
+        });
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return categoriesModelFromJson(jsonString);
+    } else {
+      //show error message
+      errorToast(StringsManager.error, "Unable to Fetch Courses");
+      return null;
+    }
+  }
+
+  static Future<List<CoursesModel>?> fetchCoursesByCategory(String id) async {
+    var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses/?category=$id"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${StringsManager.token}',
+        });
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return coursesModelFromJson(jsonString);
+    } else {
+      //show error message
+      errorToast(StringsManager.error, "Unable to Fetch Courses By Category");
       return null;
     }
   }

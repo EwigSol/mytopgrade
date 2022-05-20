@@ -1,23 +1,24 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/strings_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'widgets/most_popular_screen.dart';
-import 'widgets/trending_screen.dart';
+import 'package:topgrade/views/screens/quiz/quiz_screen.dart';
 
-class PopularCoursesScreen extends StatefulWidget {
-  const PopularCoursesScreen({Key? key}) : super(key: key);
+import '../../../helpers/helper.dart';
+import '../../../helpers/text_helper.dart';
+import '../../../utils/color_manager.dart';
+import '../../../utils/strings_manager.dart';
+import '../../../utils/values_manager.dart';
+
+class QuizAssignmentScreen extends StatefulWidget {
+  const QuizAssignmentScreen({Key? key}) : super(key: key);
 
   @override
-  State<PopularCoursesScreen> createState() => _PopularCoursesScreenState();
+  State<QuizAssignmentScreen> createState() => _QuizAssignmentScreenState();
 }
 
-class _PopularCoursesScreenState extends State<PopularCoursesScreen> with SingleTickerProviderStateMixin {
+class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with SingleTickerProviderStateMixin{
 
   late TabController _controller;
 
@@ -30,6 +31,7 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: Column(
         children: [
@@ -43,8 +45,8 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
               unselectedLabelColor: ColorManager.blackColor,
               unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
               tabs: [
-                buildPopularTab(),
-                buildTrendingTab()
+                buildQuizTab(),
+                buildAssignmentTab()
 
               ],
             ),
@@ -56,31 +58,31 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
             child: TabBarView(
               controller: _controller,
               children: [
-                MostPopularScreen(),
-                TrendingScreen()
+                QuizScreen(),
+                QuizScreen()
               ],
             ),
           )
+
         ],
       ),
     );
   }
-
   AppBar buildAppBar() {
     return AppBar(
-      backgroundColor: ColorManager.whiteColor,
-      title: textStyle2(text: StringsManager.popular),
+      title: textStyle2(text: StringsManager.allQuiz),
       centerTitle: true,
+      backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
 
-  Tab buildTrendingTab() {
+  Tab buildAssignmentTab() {
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.trending, style: GoogleFonts.poppins(
+        child: Text(StringsManager.assignments, style: GoogleFonts.poppins(
           fontSize: 12.sp,
           fontWeight: FontWeight.w400,
         ),),
@@ -88,15 +90,16 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
     );
   }
 
-  Tab buildPopularTab() {
+  Tab buildQuizTab() {
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.mostP, style: GoogleFonts.poppins(
+        child: Text(StringsManager.quizzes, style: GoogleFonts.poppins(
           fontSize: 12.sp,
           fontWeight: FontWeight.w400,
         ),),
       ),
     );
   }
+
 }

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import '../../../helpers/text_helper.dart';
-import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import 'widgets/description_screen.dart';
@@ -15,7 +15,8 @@ import 'package:get/get.dart';
 import 'widgets/playlist_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  final CoursesModel? coursesDetail;
+  const DetailsScreen({Key? key, this.coursesDetail}) : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -54,8 +55,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(AppSize.s10),
                               topRight: Radius.circular(AppSize.s10)),
-                          child: Image.asset(AssetsManager.card,
-                              fit: BoxFit.fill)),
+                          child: Image.network(widget.coursesDetail!.image!, fit: BoxFit.fill)),
                     ),
                   ),
                   Positioned(
@@ -73,8 +73,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                             bottomRight: Radius.circular(AppSize.s16),
                           )),
                       child: Center(
-                          child: textStyle0_5(
-                              text: "\$50", color: ColorManager.whiteColor)),
+                          child: textStyle0_5(text: "\$${widget.coursesDetail!.price.toString()}", color: ColorManager.whiteColor)),
                     ),
                   ),
                 ],
@@ -85,13 +84,13 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle2(text: "User Interface Design"),
+                textStyle2(text: widget.coursesDetail!.name!),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     textStyle0(text: "⭐"),
                     buildSpaceHorizontal(2.w),
-                    textStyle0(text: "3.5")
+                    textStyle0(text: widget.coursesDetail!.rating!.toString())
                   ],
                 ),
               ],
@@ -103,8 +102,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                textStyle0_5(text: "By Talent Tamer", color: ColorManager.grayColor),
-                textStyle0(text: "8h 30Min - 27 Tutorials"),
+                textStyle0_5(text: widget.coursesDetail!.instructor!.name!.toString(), color: ColorManager.grayColor),
+                textStyle0(text: "Sections: ${widget.coursesDetail!.sections!.length}"),
 
               ],
             ),
@@ -121,7 +120,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
               unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
               tabs: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.35, 
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: 5.h,
                     child: Tab(
                         child: Text("Playlist", style: GoogleFonts.poppins(
                           fontSize: 12.sp,
@@ -132,6 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.35,
+                    height: 5.h,
                     child: Tab(
                         child: Text("Description", style: GoogleFonts.poppins(
                           fontSize: 12.sp,
@@ -142,15 +143,14 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
               ],
             ),
           ),
-
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.35,
             width: MediaQuery.of(context).size.width,
             child: TabBarView(
               controller: _controller,
-              children: const [
-                Playlist(),
-                DescriptionScreen()
+              children: [
+                Playlist(coursesDetail: widget.coursesDetail),
+                DescriptionScreen(coursesDetail: widget.coursesDetail)
               ],
             ),
           )

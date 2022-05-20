@@ -6,53 +6,15 @@ import 'package:get/get.dart';
 import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
-import '../../../../models/category_model.dart';
 import '../../../../models/courses_model.dart';
-import '../../../../routes/appPages.dart';
-import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
 import '../../details/details_screen.dart';
 
-class AllCoursesScreen extends StatefulWidget {
-  const AllCoursesScreen({Key? key}) : super(key: key);
-  @override
-  State<AllCoursesScreen> createState() => _AllCoursesScreenState();
-}
-
-class _AllCoursesScreenState extends State<AllCoursesScreen> {
-
-  List<CategoryModel> categoryModel = [];
-  double _value = 67;
+class AllCoursesScreen extends StatelessWidget {
+  AllCoursesScreen({Key? key}) : super(key: key);
 
   final CoursesController coursesController = Get.put(CoursesController());
-
-  @override
-  initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() {
-    setState(() {
-      categoryModel.add(CategoryModel(
-          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
-      categoryModel.add(CategoryModel(
-          id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
-          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
-          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
-      categoryModel.add(CategoryModel(
-          id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
-      categoryModel.add(CategoryModel(
-          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
-          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
-          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +28,19 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
               if(coursesController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return Center(
+                return coursesController.coursesList.isNotEmpty ?
+                Center(
                   child: Wrap(
                       direction: Axis.horizontal,
                       spacing: 5,
                       runSpacing: 10,
                       alignment: WrapAlignment.spaceEvenly,
                       children: coursesController.coursesList.map((item) {
-                        return buildCoursesCard(item);
+                        return buildCoursesCard(item, context);
                       }).toList()
                   ),
-                );
+                )
+                : Center(child: textStyle0_5(text: "No Courses Available"));
               }
             }),
           ],
@@ -85,12 +49,13 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
     );
   }
 
-  Padding buildCoursesCard(CoursesModel coursesModel) {
+
+  Padding buildCoursesCard(CoursesModel coursesModel, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: coursesModel)));
         },
         child: Container(
           width: 44.w,
@@ -171,3 +136,4 @@ class _AllCoursesScreenState extends State<AllCoursesScreen> {
     );
   }
 }
+

@@ -33,8 +33,6 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
     setState(() {
       selectedIndex = 0;
     });
-    print("my courses list");
-    print(myCoursesController.myCoursesList.length);
   }
 
 
@@ -106,7 +104,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
             ),
           ),
           Expanded(
-              child: selectedIndex == 0 ? const AllCoursesScreen() : selectedIndex == 1 ? const UpComingCoursesScreen() : const CompletedCoursesScreen()
+              child: selectedIndex == 0 ? AllCoursesScreen() : selectedIndex == 1 ? const UpComingCoursesScreen() : const CompletedCoursesScreen()
           ),
           buildSpaceVertical(5.h),
         ],

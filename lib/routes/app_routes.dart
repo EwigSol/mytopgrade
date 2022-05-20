@@ -36,7 +36,7 @@ class AppRoutes {
     GetPage(name: Paths.forgotPass, page: () => ForgotPasswordScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.otpVerify, page: () => const OtpVerificationScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.homeBar, page: () => const HomeBottomBar(), transition: Transition.fadeIn),
-    GetPage(name: Paths.allCat, page: () => const CategoriesScreen(), transition: Transition.fadeIn),
+    GetPage(name: Paths.allCat, page: () => CategoriesScreen(), transition: Transition.fadeIn),
     GetPage(name: Paths.allPopular, page: () => const PopularCoursesScreen(), transition: Transition.fadeIn),
     GetPage(name: Paths.alInstructor, page: () => const BestInstructorScreen(), transition: Transition.fadeIn),
     GetPage(name: Paths.notify, page: () => const NotificationsScreen(), transition: Transition.fadeIn),

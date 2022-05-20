@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
-import '../../../../models/category_model.dart';
+import '../../../../models/dummy_category_model.dart';
 import '../../../../routes/appPages.dart';
 import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
@@ -21,7 +21,7 @@ class UpComingCoursesScreen extends StatefulWidget {
 
 class _UpComingCoursesScreenState extends State<UpComingCoursesScreen> {
 
-  List<CategoryModel> categoryModel = [];
+  List<DummyCategoryModel> categoryModel = [];
   double _value = 67;
 
   @override
@@ -32,21 +32,21 @@ class _UpComingCoursesScreenState extends State<UpComingCoursesScreen> {
 
   getData() {
     setState(() {
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
+      categoryModel.add(DummyCategoryModel(
           id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
     });
   }
@@ -82,7 +82,7 @@ class _UpComingCoursesScreenState extends State<UpComingCoursesScreen> {
       child: InkWell(
         onTap: () {
           // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
         },
         child: Container(
           width: 44.w,

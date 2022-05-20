@@ -3,55 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/models/category_model.dart';
+import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/category/categories_screen.dart';
 import 'package:topgrade/views/screens/details/details_screen.dart';
 import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
-import '../../../models/category_model.dart';
+import '../../../controllers/category_controller.dart';
+import '../../../controllers/courses_controller.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/strings_manager.dart';
+import '../category/category_courses_screen.dart';
 import '../notification/notifications_screen.dart';
 import 'widgets/filter_sheet.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  List<CategoryModel> categoryModel = [];
+  final CoursesController popularCoursesController = Get.put(CoursesController());
+  final CategoryController categoryController = Get.put(CategoryController());
+  List<CoursesModel> popularCoursesModel = [];
 
-  @override
-  initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() {
-    setState(() {
-      categoryModel.add(CategoryModel(
-          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
-      categoryModel.add(CategoryModel(
-          id: "2", icon: const Icon(Icons.favorite, color: ColorManager.redColor), title: "Healthy", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
-          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
-          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
-      categoryModel.add(CategoryModel(
-          id: "5", icon: const Icon(Icons.developer_mode_outlined ,color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.lightBlueColor));
-      categoryModel.add(CategoryModel(
-          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
-      categoryModel.add(CategoryModel(
-          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
-      categoryModel.add(CategoryModel(
-          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,44 +49,87 @@ class _HomeScreenState extends State<HomeScreen> {
               buildSpaceVertical(2.h),
               buildTitle(StringsManager.categories),
               buildSpaceVertical(2.h),
-              SizedBox(
-                height: 7.h,
-                width: double.infinity,
-                child: ListView.builder(
-                    itemCount: categoryModel.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final catModel = categoryModel[index];
-                      return buildCategoryCard(catModel);
-                    }),
-              ),
+              Obx((){
+                if(categoryController.isLoading.value){
+                  return const Center(child: CircularProgressIndicator());
+                }else{
+                  return categoryController.catList.isNotEmpty ?
+                  SizedBox(
+                    height: 7.h,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        itemCount: categoryController.catList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final catModel = categoryController.catList[index];
+                          return buildCategoryCard(catModel, index);
+                        }),
+                  )
+                    : SizedBox(
+                      height: 7.h,
+                      width: double.infinity,
+                      child: Center(child: textStyle0_5(text: "No Category Available"))
+                  );
+                }
+              }),
+
               buildSpaceVertical(2.h),
               buildTitle(StringsManager.popular),
               buildSpaceVertical(1.h),
-              SizedBox(
-                height: 22.h,
-                width: double.infinity,
-                child: ListView.builder(
-                    itemCount: 6,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return buildPopularCard();
-                    }),
-              ),
+              Obx((){
+                if(popularCoursesController.isLoading.value){
+                  return const Center(child: CircularProgressIndicator());
+                }else{
+                  for(int i=0; i<popularCoursesController.coursesList.length; i++){
+                    if(popularCoursesController.coursesList[i].rating! >= 3 ){
+                      popularCoursesModel.clear();
+                      popularCoursesModel.add(popularCoursesController.coursesList[i]);
+                    }
+                  }
+                  return popularCoursesModel.isNotEmpty ?
+                  SizedBox(
+                    height: 22.h,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        itemCount: popularCoursesModel.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return buildPopularCard(popularCoursesModel[index]);
+                        }),
+                  )
+                  : SizedBox(
+                      height: 22.h,
+                      width: double.infinity,
+                      child: Center(child: textStyle0_5(text: "No Popular Courses Available"))
+                  );
+                }
+              }),
               buildSpaceVertical(2.h),
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(1.h),
-              SizedBox(
-                height: 17.h,
-                width: double.infinity,
-                child: ListView.builder(
-                    itemCount: categoryModel.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final catM = categoryModel[index];
-                      return buildInstructorCard(catM);
-                    }),
-              ),
+              Obx((){
+                if(popularCoursesController.isLoading.value){
+                  return const Center(child: CircularProgressIndicator());
+                }else{
+                  return popularCoursesController.coursesList.isNotEmpty ?
+                  SizedBox(
+                    height: 17.h,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        itemCount: popularCoursesController.coursesList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final catM = popularCoursesController.coursesList[index];
+                          return buildInstructorCard(catM);
+                        }),
+                  )
+                      : SizedBox(
+                      height: 17.h,
+                      width: double.infinity,
+                      child: Center(child: textStyle0_5(text: "No Instructor Available"))
+                  );
+                }
+              }),
               buildSpaceVertical(3.h),
             ],
           ),
@@ -115,32 +138,45 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding buildInstructorCard(CategoryModel catModel) {
+  Padding buildInstructorCard(CoursesModel catModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
       child: Container(
         width: 44.w,
         decoration: BoxDecoration(
-          color: catModel.color,
+          color: ColorManager.lightGreenColor,
           borderRadius: BorderRadius.circular(AppSize.s10),
         ),
         child: Row(
           children: [
             SizedBox(
-              height: 27.h,
+              height: 18.h,
               width: 18.w,
-              child: Image.asset(AssetsManager.girl, fit: BoxFit.fill),
+              child: catModel.instructor!.avatar != '' ?
+              Image.network(catModel.instructor!.avatar!, fit: BoxFit.fill) :
+              Image.asset(AssetsManager.girl, fit: BoxFit.fill),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildSpaceVertical(3.h),
-                textStyle0_5(text: "Albert Flores"),
-                textStyle0(text: "LifeStyle", color: ColorManager.grayColor),
-                textStyle0(text: "20k Students"),
-                textStyle0(text: "17 Courses"),
-                textStyle0(text: "(4.5)⭐"),
-              ],
+            buildSpaceHorizontal(1.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildSpaceVertical(3.h),
+                  Flexible(
+                    child: Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                  ),
+                  buildSpaceVertical(1.h),
+                  Flexible(
+                    child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),
+                  ),
+                  // textStyle0(text: "LifeStyle", color: ColorManager.grayColor),
+                  // textStyle0(text: "20k Students"),
+                  // textStyle0(text: "17 Courses"),
+                  // textStyle0(text: "(4.5)⭐"),
+                ],
+              ),
             ),
           ],
         ),
@@ -148,13 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding buildPopularCard() {
+  Padding buildPopularCard(CoursesModel popularCourse) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: (){
-          // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: popularCourse)));
         },
         child: Container(
           width: 43.w,
@@ -181,8 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.asset(AssetsManager.card,
-                                  fit: BoxFit.fill)),
+                              child: Image.network(popularCourse.image!, fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -198,20 +232,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0_5(
-                                  text: "\$50", color: ColorManager.whiteColor)),
+                              child: textStyle0(text: "\$${popularCourse.price.toString()}", color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
                   )),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0_5(text: "User Interface Design"),
+                child: textStyle0_5(text: popularCourse.name!),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(
-                    text: "By Talent Tamer", color: ColorManager.grayColor),
+                child: textStyle0(text: popularCourse.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
               buildSpaceVertical(1.h),
               Padding(
@@ -233,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         buildSpaceHorizontal(2.w),
-                        textStyle0(text: "27 Videos")
+                        textStyle0(text: "Sections: ${popularCourse.sections!.length}")
                       ],
                     ),
                     Row(
@@ -241,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         textStyle0(text: "⭐"),
                         buildSpaceHorizontal(2.w),
-                        textStyle0(text: "3.5")
+                        textStyle0(text: popularCourse.rating.toString())
                       ],
                     ),
                   ],
@@ -254,38 +286,43 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding buildCategoryCard(CategoryModel categoryModel) {
+  Padding buildCategoryCard(CategoriesModel categoryModel, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-      child: Container(
-        width: 42.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSize.s30),
-          color: categoryModel.color,
-        ),
-        child: Row(
-          children: [
-            buildSpaceHorizontal(3.w),
-            Container(
-              height: 5.h,
-              width: 10.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s30),
-                color: ColorManager.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
+      child: InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
+        },
+        child: Container(
+          width: 42.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppSize.s30),
+            color: ColorManager.lightBlueColor,
+          ),
+          child: Row(
+            children: [
+              buildSpaceHorizontal(3.w),
+              Container(
+                height: 5.h,
+                width: 10.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppSize.s30),
+                  color: ColorManager.whiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 4,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: const Icon(Icons.lightbulb, color: ColorManager.primaryColor),
               ),
-              child: categoryModel.icon,
-            ),
-            buildSpaceHorizontal(1.w),
-            Expanded(child: textStyle0_5(text: categoryModel.title!)),
-          ],
+              buildSpaceHorizontal(2.w),
+              Expanded(child: textStyle0_5(text: categoryModel.name!)),
+            ],
+          ),
         ),
       ),
     );
@@ -300,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               if(title == "Categories"){
                 // Get.toNamed(Paths.allCat);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoriesScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoriesScreen()));
               }
               else if(title == "Popular Courses"){
                 // Get.toNamed(Paths.allPopular);

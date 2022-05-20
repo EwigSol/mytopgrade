@@ -49,10 +49,14 @@ class StringsManager{
 
 
   static const String allCat = "All Categories";
+  static const String allQuiz = "Quizzes & Assignments";
   static const String mostP = "Most Popular";
   static const String trending = "Trending";
+  static const String quizzes = "Quizzes";
+  static const String assignments = "Assignments";
   static const String notify = "Notifications";
   static const String myCourse = "My Courses";
+  static const String courseCat = "Courses By Category";
   static const String all = "All";
   static const String upComing = "UpComing";
   static const String completed = "Completed";
