@@ -58,7 +58,7 @@ class CategoriesScreen extends StatelessWidget {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
-      iconTheme: const IconThemeData(color: ColorManager.blackColor),
+      automaticallyImplyLeading: false,
     );
   }
 
@@ -70,26 +70,35 @@ class CategoriesScreen extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
         },
         child: Container(
-          height: 6.h,
-          width: 42.w,
+          height: 7.h,
+          width: 40.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.s30),
-            color: ColorManager.lightBlueColor,
+              borderRadius: BorderRadius.circular(AppSize.s20),
+              color: ColorManager.primaryColor
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildSpaceHorizontal(3.w),
-              Container(
-                height: 4.h,
-                width: 8.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.s30),
-                  color: ColorManager.whiteColor,
-                ),
-                child: const Center(child: Icon(Icons.lightbulb, color: ColorManager.primaryColor)),
-              ),
-              buildSpaceHorizontal(2.w),
-              Expanded(child: textStyle0_5(text: categoryModel.name!)),
+              // buildSpaceHorizontal(3.w),
+              // Container(
+              //   height: 5.h,
+              //   width: 10.w,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(AppSize.s30),
+              //     color: ColorManager.whiteColor,
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: Colors.grey.withOpacity(0.5),
+              //         spreadRadius: 3,
+              //         blurRadius: 4,
+              //         offset: const Offset(0, 3),
+              //       ),
+              //     ],
+              //   ),
+              //   child: const Icon(Icons.lightbulb, color: ColorManager.primaryColor),
+              // ),
+              // buildSpaceHorizontal(2.w),
+              textStyle0_5(text: categoryModel.name!, color: ColorManager.whiteColor),
             ],
           ),
         ),

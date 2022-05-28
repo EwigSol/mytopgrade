@@ -3,15 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
+import 'package:topgrade/controllers/wishlist_controller.dart';
+import 'package:topgrade/models/wishlist_model.dart';
 import '../../../helpers/helper.dart';
 import '../../../helpers/text_helper.dart';
-import '../../../models/dummy_category_model.dart';
 import '../../../routes/appPages.dart';
-import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../../utils/values_manager.dart';
-import '../details/details_screen.dart';
 
 
 class FavouritesScreen extends StatefulWidget {
@@ -23,34 +22,8 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
 
-  List<DummyCategoryModel> categoryModel = [];
+  var wishlistController = Get.put(WishlistController());
 
-  @override
-  initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() {
-    setState(() {
-      categoryModel.add(DummyCategoryModel(
-          id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
-      categoryModel.add(DummyCategoryModel(
-          id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +36,26 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           child: Column(
             children: [
               buildSpaceVertical(5.h),
-              Center(
-                child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 5,
-                    runSpacing: 10,
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: categoryModel.map((item) {
-                      return buildWishlistCard();
-                    }).toList()
-                ),
-              ),
+              Obx((){
+                if(wishlistController.isLoading.value){
+                  return const Center(child: CircularProgressIndicator());
+                }else{
+                  return wishlistController.wishlist.value!.data!.items!.isNotEmpty ?
+                  Center(
+                    child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 5,
+                        runSpacing: 10,
+                        alignment: WrapAlignment.spaceEvenly,
+                        children: wishlistController.wishlist.value!.data!.items!.map((item) {
+                          return buildWishlistCard(item);
+                        }).toList()
+                    ),
+                  )
+                      : Center(child: textStyle0_5(text: "No Category Available"));
+                }
+              }),
+              buildSpaceVertical(5.h),
             ],
           ),
         ),
@@ -90,21 +72,33 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     );
   }
 
-  Padding buildWishlistCard() {
+  Padding buildWishlistCard(DataItem wishlistModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
+          Get.toNamed(Paths.details, arguments: wishlistModel, parameters: {'isWishlist': "true"});
+          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(favCourseDetail: wishlistModel, isWishlist: true)));
         },
         child: Container(
           width: 44.w,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: ColorManager.whiteColor,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppSize.s10),
-                topRight: Radius.circular(AppSize.s10)),
+                topRight: Radius.circular(AppSize.s10),
+                bottomLeft: Radius.circular(AppSize.s10),
+                bottomRight: Radius.circular(AppSize.s10)
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,16 +117,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.asset(AssetsManager.card,
-                                  fit: BoxFit.fill)),
+                              child: Image.network(wishlistModel.image!, fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
-                        bottom: 4,
+                        bottom: 0,
                         right: 0,
                         child: Container(
                           height: 4.h,
-                          width: 12.w,
+                          width: 16.w,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
@@ -140,25 +133,22 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0_5(
-                                  text: "\$50", color: ColorManager.whiteColor)),
+                              child: textStyle0_5(text: "\$${wishlistModel.price.toString()}", color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
                   )),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0_5(text: "User Interface Design"),
+                child: textStyle0_5(text: wishlistModel.name!),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(
-                    text: "By Talent Tamer", color: ColorManager.grayColor),
+                child: textStyle0(text: wishlistModel.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
               buildSpaceVertical(2.h),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -172,11 +162,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.list, color: ColorManager.whiteColor),
+                            child: Icon(Icons.list, color: ColorManager.whiteColor, size: 22),
                           ),
                         ),
                         buildSpaceHorizontal(1.w),
-                        textStyle0(text: "27 Videos")
+                        textStyle0(text: "Sections: ${wishlistModel.sections!.length}")
                       ],
                     ),
                     Row(
@@ -184,12 +174,13 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       children: [
                         textStyle0(text: "⭐"),
                         buildSpaceHorizontal(2.w),
-                        textStyle0(text: "3.5")
+                        textStyle0(text: wishlistModel.rating.toString())
                       ],
                     ),
                   ],
                 ),
               ),
+              buildSpaceVertical(1.h),
             ],
           ),
         ),

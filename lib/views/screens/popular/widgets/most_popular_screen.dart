@@ -65,8 +65,8 @@ class MostPopularScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
         onTap: (){
-          // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: popularCourse)));
+          Get.toNamed(Paths.details, arguments: popularCourse);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: popularCourse, isWishlist: false)));
         },
         child: Container(
           width: 43.w,

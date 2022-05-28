@@ -14,6 +14,9 @@ enum APIPath {
   startQuiz,
   checkAnswers,
   finishQuiz,
+  assignments,
+  addFavorite,
+  wishlist,
 
 //
 
@@ -60,6 +63,15 @@ class APIPathHelper{
 
       case APIPath.finishQuiz:
         return "/quiz/finish";
+
+      case APIPath.assignments:
+        return "/assignments";
+
+      case APIPath.addFavorite:
+        return "/wishlist/toggle";
+
+      case APIPath.wishlist:
+        return "/wishlist";
 
       default:
         return "";

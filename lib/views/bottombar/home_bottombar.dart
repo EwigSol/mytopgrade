@@ -34,7 +34,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       const MyCoursesScreen(),
       const QuizAssignmentScreen(),
       const FavouritesScreen(),
-      const ChatListScreen(),
+      // const ChatListScreen(),
       const ProfileScreen(),
     ];
   }
@@ -44,44 +44,44 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
         title: ("Home"),
-        activeColorPrimary: ColorManager.primaryColor,
-        activeColorSecondary: ColorManager.blackColor,
-        inactiveColorSecondary: ColorManager.primaryColor
+          activeColorPrimary: ColorManager.blackColor,
+          activeColorSecondary: ColorManager.primaryColor,
+          inactiveColorSecondary: ColorManager.blackColor
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.description),
         title: ("Courses"),
-          activeColorPrimary: ColorManager.primaryColor,
-          activeColorSecondary: ColorManager.blackColor,
-          inactiveColorSecondary: ColorManager.primaryColor
+          activeColorPrimary: ColorManager.blackColor,
+          activeColorSecondary: ColorManager.primaryColor,
+          inactiveColorSecondary: ColorManager.blackColor
       ),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.chrome_reader_mode),
           title: ("Quiz"),
-          activeColorPrimary: ColorManager.primaryColor,
-          activeColorSecondary: ColorManager.blackColor,
-          inactiveColorSecondary: ColorManager.primaryColor
+          activeColorPrimary: ColorManager.blackColor,
+          activeColorSecondary: ColorManager.primaryColor,
+          inactiveColorSecondary: ColorManager.blackColor
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.favorite_border),
         title: ("Likes"),
-          activeColorPrimary: ColorManager.primaryColor,
-          activeColorSecondary: ColorManager.blackColor,
-          inactiveColorSecondary: ColorManager.primaryColor
+          activeColorPrimary: ColorManager.blackColor,
+          activeColorSecondary: ColorManager.primaryColor,
+          inactiveColorSecondary: ColorManager.blackColor
       ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.chat),
-        title: ("Chat"),
-          activeColorPrimary: ColorManager.primaryColor,
-          activeColorSecondary: ColorManager.blackColor,
-          inactiveColorSecondary: ColorManager.primaryColor
-      ),
+      // PersistentBottomNavBarItem(
+      //   icon: const Icon(Icons.chat),
+      //   title: ("Chat"),
+      //     activeColorPrimary: ColorManager.primaryColor,
+      //     activeColorSecondary: ColorManager.blackColor,
+      //     inactiveColorSecondary: ColorManager.primaryColor
+      // ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person),
         title: ("Profile"),
-          activeColorPrimary: ColorManager.primaryColor,
-          activeColorSecondary: ColorManager.blackColor,
-          inactiveColorSecondary: ColorManager.primaryColor
+          activeColorPrimary: ColorManager.blackColor,
+          activeColorSecondary: ColorManager.primaryColor,
+          inactiveColorSecondary: ColorManager.blackColor
       ),
     ];
   }
@@ -123,7 +123,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
         curve: Curves.bounceOut,
         duration: Duration(milliseconds: 100),
       ),
-      navBarStyle: NavBarStyle.style1,
+      navBarStyle: NavBarStyle.style2,
     );
   }
 }

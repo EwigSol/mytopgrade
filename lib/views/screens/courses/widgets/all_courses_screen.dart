@@ -7,6 +7,7 @@ import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/courses_model.dart';
+import '../../../../routes/appPages.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
 import '../../details/details_screen.dart';
@@ -55,7 +56,8 @@ class AllCoursesScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: coursesModel)));
+          Get.toNamed(Paths.details, arguments: coursesModel);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: coursesModel, isWishlist: false)));
         },
         child: Container(
           width: 44.w,

@@ -39,7 +39,7 @@ class QuizScreen extends StatelessWidget {
                     }).toList()
                 ),
               )
-                  : Center(child: textStyle0_5(text: "No Category Available"));
+                  : Center(child: textStyle0_5(text: "No Quizzes Available"));
             }
           }),
           buildSpaceVertical(5.h),
@@ -58,7 +58,6 @@ class QuizScreen extends StatelessWidget {
       duration = "Life Time";
     }
     return Container(
-        // height: 36.h,
         width: 45.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s16),

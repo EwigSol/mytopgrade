@@ -5,73 +5,248 @@ import 'package:html/parser.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 
 import '../../../../models/courses_model.dart';
+import '../../../../models/wishlist_model.dart';
 
-class DescriptionScreen extends StatelessWidget {
+class OverviewScreen extends StatelessWidget {
   final CoursesModel? coursesDetail;
-  const DescriptionScreen({Key? key, this.coursesDetail}) : super(key: key);
+  final DataItem? favCourseDetail;
+  final MyCoursesModel? myCoursesModel;
+  final bool isWishlist;
+  final String isMyCourse;
+  const OverviewScreen({Key? key, this.coursesDetail, required this.isWishlist, this.favCourseDetail, this.myCoursesModel, required this.isMyCourse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSpaceVertical(1.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
-            child: textStyle0_5(text: _parseHtmlString(coursesDetail!.content!)),
+    return isWishlist ?
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSpaceVertical(2.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textStyle2(text: "Overview"),
+              buildSpaceVertical(2.h),
+              textStyle0(text: _parseHtmlString(favCourseDetail!.content!)),
+            ],
           ),
-          buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: Row(
-              children: [
-                const Icon(Icons.chrome_reader_mode, color: ColorManager.redColor),
-                buildSpaceHorizontal(5.w),
-                textStyle0(text: "Sections: ${coursesDetail!.sections!.length}"),
-              ],
-            ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Lectures:"),
+              textStyle0_5(text: favCourseDetail!.courseData!.result!.items!.lesson!.total!.toString()),
+            ],
           ),
-          buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: Row(
-              children: [
-                const Icon(Icons.person, color: ColorManager.redColor),
-                buildSpaceHorizontal(5.w),
-                textStyle0(text: "No of Students: ${coursesDetail!.countStudents.toString()}"),
-              ],
-            ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Quizzes:"),
+              textStyle0_5(text: favCourseDetail!.courseData!.result!.items!.quiz!.total!.toString()),
+            ],
           ),
-          buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: Row(
-              children: [
-                const Icon(Icons.desktop_mac_rounded, color: ColorManager.redColor),
-                buildSpaceHorizontal(5.w),
-                textStyle0(text: "Access on desktop, mobile & TV"),
-              ],
-            ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Assignments:"),
+              textStyle0_5(text: favCourseDetail!.courseData!.result!.items!.assignment!.total!.toString()),
+            ],
           ),
-          buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: Row(
-              children: [
-                const Icon(Icons.album_sharp, color: ColorManager.redColor),
-                buildSpaceHorizontal(5.w),
-                textStyle0(text: "Beginner Level"),
-              ],
-            ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Duration:"),
+              textStyle0_5(text: favCourseDetail!.duration!),
+            ],
           ),
-          buildSpaceVertical(7.h),
-        ],
-      ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Students:"),
+              textStyle0_5(text: favCourseDetail!.countStudents.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(7.h),
+      ],
+    )
+    :
+    isMyCourse == "true" ?
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSpaceVertical(2.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textStyle2(text: "Overview"),
+              buildSpaceVertical(2.h),
+              textStyle0(text: _parseHtmlString(myCoursesModel!.content!)),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Lectures:"),
+              textStyle0_5(text: myCoursesModel!.courseData!.result!.items!.lesson!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Quizzes:"),
+              textStyle0_5(text: myCoursesModel!.courseData!.result!.items!.quiz!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Assignments:"),
+              textStyle0_5(text: myCoursesModel!.courseData!.result!.items!.assignment!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Duration:"),
+              textStyle0_5(text: myCoursesModel!.duration!.name.substring(3)),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Students:"),
+              textStyle0_5(text: myCoursesModel!.countStudents.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(7.h),
+      ],
+    )
+    :
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSpaceVertical(2.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textStyle2(text: "Overview"),
+              buildSpaceVertical(2.h),
+              textStyle0(text: _parseHtmlString(coursesDetail!.content!)),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Lectures:"),
+              textStyle0_5(text: coursesDetail!.courseData!.result!.items!.lesson!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Quizzes:"),
+              textStyle0_5(text: coursesDetail!.courseData!.result!.items!.quiz!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Assignments:"),
+              textStyle0_5(text: coursesDetail!.courseData!.result!.items!.assignment!.total!.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Duration:"),
+              textStyle0_5(text: coursesDetail!.duration!.name.substring(3)),
+            ],
+          ),
+        ),
+        buildSpaceVertical(0.5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textStyle0_5(text: "Students:"),
+              textStyle0_5(text: coursesDetail!.countStudents.toString()),
+            ],
+          ),
+        ),
+        buildSpaceVertical(7.h),
+      ],
     );
   }
 

@@ -42,7 +42,7 @@ class AppRoutes {
     GetPage(name: Paths.notify, page: () => const NotificationsScreen(), transition: Transition.fadeIn),
     GetPage(name: Paths.updateProfile, page: () => const UpdateProfileScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.chat, page: () => const ChatScreen(), transition: Transition.zoom),
-    GetPage(name: Paths.details, page: () => const DetailsScreen(), transition: Transition.rightToLeftWithFade),
+    GetPage(name: Paths.details, page: () => DetailsScreen(isWishlist: false), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.cart, page: () => const CartScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.checkout, page: () => const CheckoutScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.addNC, page: () => const AddNewCard(), transition: Transition.rightToLeftWithFade),

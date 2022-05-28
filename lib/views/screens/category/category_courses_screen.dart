@@ -9,6 +9,7 @@ import '../../../../models/courses_model.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
 import '../../../controllers/courses_by_category_controller.dart';
+import '../../../routes/appPages.dart';
 import '../../../utils/strings_manager.dart';
 import '../details/details_screen.dart';
 
@@ -83,8 +84,8 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
         onTap: (){
-          // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: courseByCat)));
+          Get.toNamed(Paths.details, arguments: courseByCat);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: courseByCat, isWishlist: false)));
         },
         child: Container(
           width: 43.w,

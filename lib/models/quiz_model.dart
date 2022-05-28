@@ -1,4 +1,6 @@
-
+// To parse this JSON data, do
+//
+//     final quizModel = quizModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -6,15 +8,29 @@ List<QuizModel> quizModelFromJson(String str) => List<QuizModel>.from(json.decod
 
 
 class QuizModel {
-  QuizModel({this.id, this.name, this.slug, this.permalink, this.dateCreated,
-    this.dateCreatedGmt, this.dateModified, this.dateModifiedGmt, this.status, this.content, this.excerpt,
-    this.canFinishCourse, this.duration, this.assigned, this.questions, this.results, this.metaData,
+  QuizModel({
+    this.id,
+    this.name,
+    this.slug,
+    this.permalink,
+    this.dateCreated,
+    this.dateCreatedGmt,
+    this.dateModified,
+    this.dateModifiedGmt,
+    this.status,
+    this.content,
+    this.excerpt,
+    this.canFinishCourse,
+    this.duration,
+    this.assigned,
+    this.questions,
+    this.results
   });
 
   int? id;
   String? name;
   String? slug;
-  bool? permalink;
+  dynamic permalink;
   DateTime? dateCreated;
   DateTime? dateCreatedGmt;
   DateTime? dateModified;
@@ -24,10 +40,9 @@ class QuizModel {
   String? excerpt;
   bool? canFinishCourse;
   Duration? duration;
-  List<dynamic>? assigned;
-  List<dynamic>? questions;
-  List<dynamic>? results;
-  MetaData? metaData;
+  dynamic assigned;
+  List<Question>? questions;
+  dynamic results;
 
   factory QuizModel.fromJson(Map<String, dynamic> json) => QuizModel(
     id: json["id"],
@@ -43,11 +58,39 @@ class QuizModel {
     excerpt: json["excerpt"],
     canFinishCourse: json["can_finish_course"],
     duration: durationValues.map![json["duration"]],
-    assigned: List<dynamic>.from(json["assigned"].map((x) => x)),
-    questions: List<dynamic>.from(json["questions"].map((x) => x)),
-    results: List<dynamic>.from(json["results"].map((x) => x)),
-    metaData: MetaData.fromJson(json["meta_data"]),
+    assigned: json["assigned"],
+    questions: List<Question>.from(json["questions"].map((x) => Question.fromJson(x))),
+    results: json["results"],
   );
+}
+
+class AssignedClass {
+  AssignedClass({this.course});
+
+  Course? course;
+
+  factory AssignedClass.fromJson(Map<String, dynamic> json) => AssignedClass(
+    course: Course.fromJson(json["course"]),
+  );
+}
+
+class Course {
+  Course({this.id, this.title, this.slug, this.content, this.author});
+
+  String? id;
+  String? title;
+  String? slug;
+  String? content;
+  String? author;
+
+  factory Course.fromJson(Map<String, dynamic> json) => Course(
+    id: json["id"],
+    title: json["title"],
+    slug: json["slug"],
+    content: json["content"],
+    author: json["author"],
+  );
+
 }
 
 enum Duration { the10Minutes, the30Minutes, lifeTime }
@@ -58,56 +101,138 @@ final durationValues = EnumValues({
   "30 minutes": Duration.the30Minutes
 });
 
-class MetaData {
-  MetaData({this.lpRandomMode, this.lpDuration, this.lpPassingGrade,
-    this.lpInstantCheck, this.lpNegativeMarking, this.lpMinusSkipQuestions,
-    this.lpRetakeCount, this.lpPagination, this.lpReview, this.lpShowCorrectReview,
-  });
 
-  String? lpRandomMode;
-  LpDuration? lpDuration;
-  String? lpPassingGrade;
-  String? lpInstantCheck;
-  Lp? lpNegativeMarking;
-  Lp? lpMinusSkipQuestions;
-  String? lpRetakeCount;
-  String? lpPagination;
-  String? lpReview;
-  String? lpShowCorrectReview;
+class Question {
+  Question({this.object, this.id, this.title, this.type, this.point, this.options});
 
-  factory MetaData.fromJson(Map<String, dynamic> json) => MetaData(
-    lpRandomMode: json["_lp_random_mode"],
-    lpDuration: lpDurationValues.map![json["_lp_duration"]],
-    lpPassingGrade: json["_lp_passing_grade"],
-    lpInstantCheck: json["_lp_instant_check"],
-    lpNegativeMarking: lpValues.map![json["_lp_negative_marking"]],
-    lpMinusSkipQuestions: lpValues.map![json["_lp_minus_skip_questions"]],
-    lpRetakeCount: json["_lp_retake_count"],
-    lpPagination: json["_lp_pagination"],
-    lpReview: json["_lp_review"],
-    lpShowCorrectReview: json["_lp_show_correct_review"],
+  Object? object;
+  int? id;
+  String? title;
+  Type? type;
+  int? point;
+  List<Option>? options;
+
+  factory Question.fromJson(Map<String, dynamic> json) => Question(
+    object: Object.fromJson(json["object"]),
+    id: json["id"],
+    title: json["title"],
+    type: typeValues.map![json["type"]],
+    point: json["point"],
+    options: List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
   );
 }
 
-enum LpDuration { the10Minutes, the30Minutes, empty }
+class Object {
+  Object({
+    this.questionType, this.objectType,
+  });
 
-final lpDurationValues = EnumValues({
-  "": LpDuration.empty,
-  "10 minute": LpDuration.the10Minutes,
-  "30 minute": LpDuration.the30Minutes
+  Type? questionType;
+  String? objectType;
+
+  factory Object.fromJson(Map<String, dynamic> json) => Object(
+    questionType: typeValues.map![json["_question_type"]],
+    objectType: json["object_type"],
+  );
+
+}
+
+enum Type { TRUE_OR_FALSE, SINGLE_CHOICE, MULTI_CHOICE, FILL_IN_BLANKS, SORTING_CHOICE }
+
+final typeValues = EnumValues({
+  "fill_in_blanks": Type.FILL_IN_BLANKS,
+  "multi_choice": Type.MULTI_CHOICE,
+  "single_choice": Type.SINGLE_CHOICE,
+  "sorting_choice": Type.SORTING_CHOICE,
+  "true_or_false": Type.TRUE_OR_FALSE
 });
 
-enum Lp { no, empty }
+class Option {
+  Option({this.title, this.value, this.uid});
 
-final lpValues = EnumValues({
-  "": Lp.empty,
-  "no": Lp.no
-});
+  String? title;
+  String? value;
+  int? uid;
 
-enum Status { publish }
+  factory Option.fromJson(Map<String, dynamic> json) => Option(
+    title: json["title"],
+    value: json["value"],
+    uid: json["uid"],
+  );
+}
+
+class ResultsClass {
+  ResultsClass({
+    this.passingGrade,
+    this.negativeMarking,
+    this.instantCheck,
+    this.retakeCount,
+    this.questionsPerPage,
+    this.pageNumbers,
+    this.reviewQuestions,
+    this.supportOptions,
+    this.duration,
+    this.status,
+    this.attempts,
+    this.checkedQuestions,
+    this.startTime,
+    this.retaken,
+    this.totalTime,
+    this.answered,
+    this.questionIds,
+  });
+
+  String? passingGrade;
+  bool? negativeMarking;
+  bool? instantCheck;
+  int? retakeCount;
+  int? questionsPerPage;
+  bool? pageNumbers;
+  bool? reviewQuestions;
+  List<Type>? supportOptions;
+  int? duration;
+  String? status;
+  List<dynamic>? attempts;
+  List<dynamic>? checkedQuestions;
+  DateTime? startTime;
+  int? retaken;
+  int? totalTime;
+  Answered? answered;
+  List<int>? questionIds;
+
+  factory ResultsClass.fromJson(Map<String, dynamic> json) => ResultsClass(
+    passingGrade: json["passing_grade"],
+    negativeMarking: json["negative_marking"],
+    instantCheck: json["instant_check"],
+    retakeCount: json["retake_count"],
+    questionsPerPage: json["questions_per_page"],
+    pageNumbers: json["page_numbers"],
+    reviewQuestions: json["review_questions"],
+    supportOptions: List<Type>.from(json["support_options"].map((x) => typeValues.map![x])),
+    duration: json["duration"],
+    status: json["status"] ?? null,
+    attempts: json["attempts"] == null ? null : List<dynamic>.from(json["attempts"].map((x) => x)),
+    checkedQuestions: json["checked_questions"] == null ? null : List<dynamic>.from(json["checked_questions"].map((x) => x)),
+    startTime: json["start_time"] == null ? null : DateTime.parse(json["start_time"]),
+    retaken: json["retaken"] ?? null,
+    totalTime: json["total_time"] ?? null,
+    answered: json["answered"] == null ? null : Answered.fromJson(json["answered"]),
+    questionIds: json["question_ids"] == null ? null : List<int>.from(json["question_ids"].map((x) => x)),
+  );
+}
+
+class Answered {
+  Answered();
+
+  factory Answered.fromJson(Map<String, dynamic> json) => Answered();
+
+  Map<String, dynamic> toJson() => {};
+}
+
+enum Status { PUBLISH }
 
 final statusValues = EnumValues({
-  "publish": Status.publish
+  "publish": Status.PUBLISH
 });
 
 class EnumValues<T> {
@@ -117,7 +242,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    reverseMap ??= map!.map((k, v) => MapEntry(v, k));
+    reverseMap ??= map!.map((k, v) => new MapEntry(v, k));
     return reverseMap!;
   }
 }

@@ -6,6 +6,7 @@ import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/courses_model.dart';
+import '../../../../routes/appPages.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
 import '../../details/details_screen.dart';
@@ -54,8 +55,8 @@ class TrendingScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
         onTap: (){
-          // Get.toNamed(Paths.details);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: trendingModel)));
+          Get.toNamed(Paths.details, arguments: trendingModel);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: trendingModel, isWishlist: false,)));
         },
         child: Container(
           width: 43.w,

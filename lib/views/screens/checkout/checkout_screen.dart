@@ -1,6 +1,7 @@
 
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -22,7 +23,23 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
 
-  List<Color> colorList = [ColorManager.lightBlueColor, ColorManager.redColor, ColorManager.lightPurpleColor];
+  List<Color> colorList = [ColorManager.lightBlueColor, ColorManager.lightGreenColor, ColorManager.lightPurpleColor];
+  List<PaymentMethodsModel> paymentMethodsList = [];
+  int selectedPaymentMethod = -1;
+  int selectedCard = -1;
+
+  @override
+  initState(){
+    super.initState();
+    getData();
+  }
+
+  getData() {
+  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.debit, name: 'Debit Card'));
+  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.stripe, name: 'Stripe'));
+  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.paypal, name: 'Paypal'));
+  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.cod, name: 'COD'));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,86 +55,45 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             child: textStyle1(text: "Select Payment Method"),
           ),
           buildSpaceVertical(1.h),
-          Center(
-            child: Wrap(
-              direction: Axis.horizontal,
-              runSpacing: 20,
-              spacing: 10,
-              alignment: WrapAlignment.center,
-              children: [
-                Container(
-                  height: 6.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(AppSize.s16),
-                    color: ColorManager.halfWhiteColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AssetsManager.debit, height: 8.h, width: 8.w),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0_5(text: "Debit Card"),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 6.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s16),
-                      color: ColorManager.halfWhiteColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AssetsManager.stripe, height: 8.h, width: 8.w),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0_5(text: "Stripe"),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 6.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s16),
-                      color: ColorManager.halfWhiteColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AssetsManager.paypal, height: 8.h, width: 8.w),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0_5(text: "Paypal"),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 6.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s16),
-                      color: ColorManager.halfWhiteColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AssetsManager.cod, height: 8.h, width: 8.w),
-                      buildSpaceHorizontal(2.w),
-                      textStyle0_5(text: "COD"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 140,
+                    childAspectRatio: 5 / 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 15),
+                itemCount: paymentMethodsList.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext ctx, index) {
+                  return InkWell(
+                    onTap: () => setState(() => selectedPaymentMethod = index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s16),
+                          color: (selectedPaymentMethod == index) ? ColorManager.primaryColor : ColorManager.halfWhiteColor
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(paymentMethodsList[index].image, height: 8.h, width: 8.w),
+                          buildSpaceHorizontal(2.w),
+                          textStyle0_5(text: paymentMethodsList[index].name),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           ),
           buildSpaceVertical(2.h),
+          selectedPaymentMethod == 0 ?
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),
             child: textStyle1(text: "Select Your Card"),
-          ),
+          ): const SizedBox.shrink(),
           buildSpaceVertical(2.h),
+          selectedPaymentMethod == 0 ?
           SizedBox(
             height: 20.h,
             width: 100.w,
@@ -127,63 +103,76 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 itemBuilder: (context, index){
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                    child: Container(
-                      height: 20.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          color: colorList[index]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: AppPadding.p12, top: AppPadding.p12),
-                            child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
-                          ),
-                          buildSpaceVertical(3.h),
-                          Center(child: textStyle0_5(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
-                          buildSpaceVertical(2.h),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    textStyle00(text: "Card Holder", color: ColorManager.whiteColor),
-                                    textStyle0(text: "Zain Ullah", color: ColorManager.whiteColor)
-                                  ],
-                                ),
-
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    textStyle00(text: "Expires", color: ColorManager.whiteColor),
-                                    textStyle0(text: "15/26", color: ColorManager.whiteColor)
-                                  ],
-                                ),
-                              ],
+                    child: InkWell(
+                      onTap: () => setState(() => selectedCard = index),
+                      child: Container(
+                        height: 20.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                            color: colorList[index],
+                          border: selectedCard == index ? Border.all(color: ColorManager.blackColor, width: 2) : null
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: AppPadding.p12, top: AppPadding.p12),
+                              child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
                             ),
-                          ),
-                        ],
+                            buildSpaceVertical(3.h),
+                            Center(child: textStyle0_5(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
+                            buildSpaceVertical(2.h),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      textStyle00(text: "Card Holder", color: ColorManager.whiteColor),
+                                      textStyle0(text: "Zain Ullah", color: ColorManager.whiteColor)
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      textStyle00(text: "Expires", color: ColorManager.whiteColor),
+                                      textStyle0(text: "15/26", color: ColorManager.whiteColor)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
                 }
             ),
-          ),
-          buildSpaceVertical(3.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
+          )
+          : const SizedBox.shrink(),
+          buildSpaceVertical(10.h),
+          Center(
             child: InkWell(
                 onTap: (){
                   Get.toNamed(Paths.addNC);
                 },
-                child: textStyle1(text: "Add New Card")),
+                child:  Container(
+                  height: 6.h,
+                  width: 44.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s16),
+                      color: ColorManager.redColor
+                  ),
+                  child: Center(child: textStyle1(text: "Add New Card", color: ColorManager.whiteColor))
+                ),
+            ),
           ),
         ],
       ),
@@ -249,4 +238,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
+}
+
+class PaymentMethodsModel {
+  String name;
+  String image;
+  PaymentMethodsModel({required this.name, required this.image});
 }

@@ -1,5 +1,4 @@
-import 'package:another_xlider/another_xlider.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -99,20 +98,20 @@ class _FilterSheetState extends State<FilterSheet> {
             ),
           ),
           buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
-            child: FlutterSlider(
-              values: [lowerValue, upperValue],
-              rangeSlider: true,
-              max: 1000,
-              min: 0,
-              onDragging: (handlerIndex, lValue, uValue) {
-                lowerValue = lValue;
-                upperValue = uValue;
-                setState(() {});
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+          //   child: FlutterSlider(
+          //     values: [lowerValue, upperValue],
+          //     rangeSlider: true,
+          //     max: 1000,
+          //     min: 0,
+          //     onDragging: (handlerIndex, lValue, uValue) {
+          //       lowerValue = lValue;
+          //       upperValue = uValue;
+          //       setState(() {});
+          //     },
+          //   ),
+          // ),
           buildSpaceVertical(2.h),
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),

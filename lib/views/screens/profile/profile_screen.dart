@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
               backgroundImage: AssetImage(AssetsManager.person),
             ),
           ),
-          buildSpaceVertical(5.h),
+          buildSpaceVertical(3.h),
           InkWell(
               onTap: () {
                 // Get.toNamed(Paths.updateProfile)
@@ -71,10 +71,10 @@ class ProfileScreen extends StatelessWidget {
   Center buildProfileCard(String title, IconData icon, ) {
     return Center(
       child: Container(
-        height: 7.h,
+        height: 8.h,
         width: 85.w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.s28),
+            borderRadius: BorderRadius.circular(AppSize.s22),
             color: ColorManager.primaryColor),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),

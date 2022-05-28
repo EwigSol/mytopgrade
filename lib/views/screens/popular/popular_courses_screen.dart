@@ -72,7 +72,7 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
       title: textStyle2(text: StringsManager.popular),
       centerTitle: true,
       elevation: 0.5,
-      iconTheme: const IconThemeData(color: ColorManager.blackColor),
+      automaticallyImplyLeading: false,
     );
   }
 

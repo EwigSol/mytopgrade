@@ -88,7 +88,7 @@ Text textStyle2({required String text, Color? color, TextAlign? textAlign}) {
     style: GoogleFonts.poppins(
       fontSize: 16.sp,
       color:  color ?? ColorManager.blackColor,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w500,
     ),
   );
 }

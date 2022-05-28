@@ -10,6 +10,7 @@ import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../../utils/values_manager.dart';
+import 'assignment_screen.dart';
 
 class QuizAssignmentScreen extends StatefulWidget {
   const QuizAssignmentScreen({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with Single
               controller: _controller,
               children: [
                 QuizScreen(),
-                QuizScreen()
+                AssignmentScreen()
               ],
             ),
           )

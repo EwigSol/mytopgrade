@@ -28,7 +28,7 @@ class CoursesModel {
   CoursesModelDuration? duration;
   int? countStudents;
   bool? canFinish;
-  bool? canRetake;
+  var canRetake;
   int? ratakeCount;
   int? rataken;
   int? rating;
