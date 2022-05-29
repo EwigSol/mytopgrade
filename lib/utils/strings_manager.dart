@@ -61,6 +61,7 @@ class StringsManager{
   static const String upComing = "UpComing";
   static const String completed = "Completed";
   static const String wish = "Wishlist";
+  static const String lessons = "All Lessons";
   static const String profile = "Profile";
   static const String chat = "Chat";
   static const String details = "Detail";

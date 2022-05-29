@@ -42,11 +42,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             buildSpaceVertical(3.h),
             buildFormCard(),
-            buildSpaceVertical(3.h),
+            buildSpaceVertical(6.h),
             // const LineWidget(),
             // buildSpaceVertical(1.h),
-            buildSocialRow(),
-            buildSpaceVertical(1.h),
+            // buildSocialRow(),
+            // buildSpaceVertical(1.h),
             LoginText(toggleView: widget.toggleView)
           ],
         ),

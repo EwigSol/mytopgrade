@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
@@ -18,10 +19,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  int? initScreen;
+  final box = GetStorage();
 
   @override
   void initState() {
    // Timer(const Duration(hours: 3), () => Get.toNamed(Paths.onBoard));
+    initScreen = box.read("initScreen");
+    box.write("initScreen", 1);
     super.initState();
   }
 

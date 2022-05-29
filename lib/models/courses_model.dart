@@ -390,9 +390,13 @@ enum ItemStatus { completed, empty }
 
 final itemStatusValues = EnumValues({"completed": ItemStatus.completed, "": ItemStatus.empty});
 
-enum Type { lpLesson }
+enum Type { lesson, assignment, quiz }
 
-final typeValues = EnumValues({"lp_lesson": Type.lpLesson});
+final typeValues = EnumValues({
+  "lp_assignment": Type.assignment,
+  "lp_lesson": Type.lesson,
+  "lp_quiz": Type.quiz
+});
 
 enum CoursesModelStatus { publish }
 

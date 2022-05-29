@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/models/assignments_model.dart';
 import 'package:topgrade/models/category_model.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
@@ -262,6 +263,23 @@ class RemoteServices {
     } else {
       //show error message
       errorToast(StringsManager.error, "Unable to Fetch Payment Gateway List");
+      return null;
+    }
+  }
+
+  static Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
+    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.assignmentById)+id),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${StringsManager.token}',
+        });
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return assignmentByIdModelFromJson(jsonString);
+    } else {
+      //show error message
+      errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
       return null;
     }
   }

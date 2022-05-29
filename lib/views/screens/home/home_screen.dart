@@ -1,7 +1,6 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
@@ -10,11 +9,11 @@ import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/category/categories_screen.dart';
-import 'package:topgrade/views/screens/details/details_screen.dart';
 import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import '../../../controllers/category_controller.dart';
 import '../../../controllers/courses_controller.dart';
+import '../../../controllers/my_courses_controller.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/strings_manager.dart';
@@ -33,7 +32,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   final CoursesController popularCoursesController = Get.put(CoursesController());
   final CategoryController categoryController = Get.put(CategoryController());
+  var myCoursesController = Get.put(MyCoursesController());
   List<CoursesModel> popularCoursesModel = [];
+  final box = GetStorage();
+  List<String> myCoursesId = [];
+
+  @override
+  void initState() {
+    super.initState();
+    myCoursesId.clear();
+  }
 
 
   @override
@@ -56,6 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if(categoryController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
                 }else{
+
+                  for(int i=0; i<myCoursesController.myCoursesList.length; i++){
+                    myCoursesId.add(myCoursesController.myCoursesList[i].id.toString());
+                    box.write("myCoursesId", myCoursesId);
+                  }
+
                   return categoryController.catList.isNotEmpty ?
                   SizedBox(
                     height: 7.h,

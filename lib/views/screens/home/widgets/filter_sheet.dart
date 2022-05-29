@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -97,7 +98,7 @@ class _FilterSheetState extends State<FilterSheet> {
               ],
             ),
           ),
-          buildSpaceVertical(2.h),
+          // buildSpaceVertical(2.h),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
           //   child: FlutterSlider(

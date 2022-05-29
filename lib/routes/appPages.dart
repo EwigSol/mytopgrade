@@ -19,6 +19,7 @@ abstract class Routes {
   static const cart = Paths.cart;
   static const checkout = Paths.checkout;
   static const addNC = Paths.addNC;
+  static const lessons = Paths.lessons;
 }
 
 abstract class Paths {
@@ -40,4 +41,5 @@ abstract class Paths {
   static const cart = '/cart';
   static const checkout = '/checkout';
   static const addNC = '/addNC';
+  static const lessons = '/lessons';
 }

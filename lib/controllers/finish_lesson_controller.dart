@@ -14,17 +14,17 @@ class FinishLessonController extends GetxController {
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
 
-  Future<Map<String, dynamic>> submitReview(String id) async {
+  Future<Map<String, dynamic>> finishLesson(String id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    Map<String, dynamic> dataBody = { "id": id };
+    final queryParameters = {  'id': id };
 
-    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.finishLesson)),
+    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.finishLesson)).replace(queryParameters: queryParameters),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ${StringsManager.token}',
-        }, body: dataBody);
+        });
 
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;

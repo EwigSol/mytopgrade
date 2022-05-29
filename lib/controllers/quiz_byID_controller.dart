@@ -11,19 +11,16 @@ class QuizByIDController extends GetxController {
   var isLoading = true.obs;
   var quizByIDList = Rxn<QuizByIdModel>();
 
-  @override
-  void onInit() {
-    fetchQuizById();
-    super.onInit();
-  }
 
-  void fetchQuizById() async {
+  void fetchQuizById(String id) async {
     try {
       isLoading(true);
-      var courseByID = await RemoteServices.fetchQuizByID("24789");
+      var courseByID = await RemoteServices.fetchQuizByID(id);
       if (courseByID != null) {
         isLoading(false);
         quizByIDList.value = courseByID;
+      }else{
+        isLoading(false);
       }
     } finally {
       isLoading(false);

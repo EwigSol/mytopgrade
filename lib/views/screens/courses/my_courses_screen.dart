@@ -126,7 +126,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/models/my_courses_model.dart';
@@ -149,14 +148,6 @@ class MyCoursesScreen extends StatefulWidget {
 class _MyCoursesScreenState extends State<MyCoursesScreen> {
 
   var myCoursesController = Get.put(MyCoursesController());
-  final box = GetStorage();
-  List<String> myCoursesId = [];
-
-  @override
-  void initState() {
-    super.initState();
-    myCoursesId.clear();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -206,10 +197,6 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
   }
 
   Padding buildMyCoursesCard(MyCoursesModel myCoursesModel) {
-
-    myCoursesId.add(myCoursesModel.id.toString());
-    box.write("myCoursesId", myCoursesId);
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(

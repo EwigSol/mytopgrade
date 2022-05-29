@@ -43,11 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             buildSpaceVertical(6.h),
             buildFormCard(),
-            buildSpaceVertical(4.h),
+            buildSpaceVertical(6.h),
             // const LineWidget(),
             // buildSpaceVertical(2.h),
-            buildSocialRow(),
-            buildSpaceVertical(3.h),
+            // buildSocialRow(),
+            // buildSpaceVertical(3.h),
             SignupText(toggleView: widget.toggleView)
           ],
         ),

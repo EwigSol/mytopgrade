@@ -9,6 +9,7 @@ import 'package:topgrade/views/screens/chat/chat_screen.dart';
 import 'package:topgrade/views/screens/checkout/checkout_screen.dart';
 import 'package:topgrade/views/screens/checkout/widgets/add_new_card.dart';
 import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
+import 'package:topgrade/views/screens/lessons/lessons_screen.dart';
 import 'package:topgrade/views/screens/notification/notifications_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
@@ -46,6 +47,7 @@ class AppRoutes {
     GetPage(name: Paths.cart, page: () => const CartScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.checkout, page: () => const CheckoutScreen(), transition: Transition.rightToLeftWithFade),
     GetPage(name: Paths.addNC, page: () => const AddNewCard(), transition: Transition.rightToLeftWithFade),
+    GetPage(name: Paths.lessons, page: () => LessonsScreen(), transition: Transition.rightToLeftWithFade),
   ];
 }
 

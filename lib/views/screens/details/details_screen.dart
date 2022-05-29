@@ -636,7 +636,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
       child: isPaid == true ?
       InkWell(
         onTap: () {
-
+          Get.toNamed(Paths.lessons, arguments: widget.coursesDetail!.sections);
         },
         child: Container(
           height: 6.h,

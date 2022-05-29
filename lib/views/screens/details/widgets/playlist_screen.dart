@@ -1,17 +1,13 @@
 
 
-import 'dart:ui';
 
 import 'package:expandable/expandable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
-
 import '../../../../helpers/helper.dart';
 import '../../../../models/courses_model.dart';
 import '../../../../models/wishlist_model.dart';

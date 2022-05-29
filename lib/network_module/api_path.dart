@@ -17,6 +17,7 @@ enum APIPath {
   assignments,
   addFavorite,
   wishlist,
+  assignmentById
 
 //
 
@@ -72,6 +73,9 @@ class APIPathHelper{
 
       case APIPath.wishlist:
         return "/wishlist";
+
+      case APIPath.assignmentById:
+        return "/assignments/";
 
       default:
         return "";
