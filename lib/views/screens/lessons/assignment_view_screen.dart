@@ -2,15 +2,16 @@
 
 
 import 'dart:io';
-
 import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/routes/appPages.dart';
 import 'package:video_player/video_player.dart';
+import '../../../controllers/send_assignment_controller.dart';
 import '../../../controllers/start_assignment_controller.dart';
+import '../../../controllers/submit_assignment_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';
@@ -30,9 +31,13 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
   var startAssignmentController = Get.put(StartAssignmentController());
+  var submitAssignmentController = Get.put(SubmitAssignmentController());
+  var sendAssignmentController = Get.put(SendAssignmentController());
   final assignmentController = TextEditingController();
   bool started = false;
+  bool submitted = false;
   File? file;
+  String fileName = "";
 
 
   @override
@@ -93,14 +98,14 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                   },
                   child: Container(
                     height: 6.h,
-                    width: 60.w,
+                    width: 45.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s12),
                         color: ColorManager.primaryColor
                     ),
                     child: Obx(() {
                       return startAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                      Center(child: textStyle2(text: "Start Assignment", color: ColorManager.whiteColor));
+                      Center(child: textStyle0_15(text: "Start Assignment", color: ColorManager.whiteColor));
                     }),
                   ),
                 ),
@@ -124,13 +129,13 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                   ),
                 )
                     : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 20),
-                    Text('Loading'),
-                  ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 20),
+                        Text('Loading'),
+                      ],
                 ),
 
                 buildSpaceVertical(2.h),
@@ -146,86 +151,105 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                 ),
                 buildSpaceVertical(3.h),
                 Center(
+                  child: Container(
+                      height: 8.h,
+                      width: 93.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          color: ColorManager.whiteColor,
+                          border: Border.all()
+                      ),
+                      child: InkWell(
+                        onTap: () async{
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            file = File(result.files.single.path!);
+                            fileName = result.files.single.name;
+                            setState(() {  });
+
+                          } else {
+                            errorToast("Error", "User canceled the picker");
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.attach_file, color: ColorManager.primaryColor, size: 30),
+                            Expanded(child: textStyle0_5(text: fileName.isNotEmpty || fileName != "" ? fileName : "Add Assignment File" , color: ColorManager.primaryColor)),
+                          ],
+                        ),
+                      )
+                  ),
+                ),
+                buildSpaceVertical(3.h),
+
+                submitted == false ?
+                Center(
                   child: InkWell(
-                    onTap: () async{
-                      FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        file = File(result.files.single.path!);
-
-                      } else {
-                        errorToast("Error", "User canceled the picker");
-                      }
+                    onTap: () {
+                     if(assignmentController.text.isNotEmpty){
+                       if(file != null){
+                         submitAssignmentController.submit(widget.id.toString(), assignmentController.text, file!).then((response) => {
+                           if(response['status'] == true) {
+                             successToast("Success", response['message']),
+                             setState(() { submitted = true; })
+                           }else{
+                             errorToast("Error", response['message']),
+                           }
+                         });
+                       }else{
+                         errorToast("Error", "Add File Please");
+                       }
+                     }else{
+                       errorToast("Error", "Add answer Please");
+                     }
                     },
                     child: Container(
-                      height: 5.h,
-                      width: 35.w,
+                      height: 6.h,
+                      width: 50.w,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s12),
                           color: ColorManager.primaryColor
                       ),
                       child: Obx(() {
-                        return startAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                        Center(child: textStyle0_5(text: "Add File", color: ColorManager.whiteColor));
+                        return submitAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
+                        Center(child: textStyle0_5(text: "Save", color: ColorManager.whiteColor));
                       }),
                     ),
                   ),
-                ),
-                buildSpaceVertical(3.h),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          // startAssignmentController.finishLesson(widget.id.toString()).then((response) => {
-                          //   if(response['status'] == 'success') {
-                          //     successToast("Success", "Lesson Finished"),
-                          //   }else{
-                          //     errorToast("Error", "Failed to finish Lesson"),
-                          //   }
-                          // });
-                        },
-                        child: Container(
-                          height: 5.h,
-                          width: 30.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s12),
-                              color: ColorManager.primaryColor
-                          ),
-                          child: Obx(() {
-                            return startAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                            Center(child: textStyle0_5(text: "Save", color: ColorManager.whiteColor));
-                          }),
-                        ),
+                )
+                :
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      if(assignmentController.text.isNotEmpty){
+                        if(file != null){
+                          sendAssignmentController.send(widget.id.toString(), assignmentController.text, file!).then((response) => {
+                            if(response['status'] == true) {
+                              successToast("Success", response['message']),
+                              Get.offAllNamed(Paths.homeBar),
+                            }else{
+                              errorToast("Error", response['message']),
+                            }
+                          });
+                        }else{
+                          errorToast("Error", "Add File Please");
+                        }
+                      }else{
+                        errorToast("Error", "Add answer Please");
+                      }
+                    },
+                    child: Container(
+                      height: 6.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          color: ColorManager.primaryColor
                       ),
-                      InkWell(
-                        onTap: () {
-                          // startAssignmentController.finishLesson(widget.id.toString()).then((response) => {
-                          //   if(response['status'] == 'success') {
-                          //     successToast("Success", "Lesson Finished"),
-                          //   }else{
-                          //     errorToast("Error", "Failed to finish Lesson"),
-                          //   }
-                          // });
-                        },
-                        child: Container(
-                          height: 5.h,
-                          width: 30.w,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s12),
-                              color: ColorManager.primaryColor
-                          ),
-                          child: Obx(() {
-                            return startAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                            Center(child: textStyle0_5(text: "Send", color: ColorManager.whiteColor));
-                          }),
-                        ),
-                      ),
-
-                    ],
+                      child: Obx(() {
+                        return sendAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
+                        Center(child: textStyle0_5(text: "Send", color: ColorManager.whiteColor));
+                      }),
+                    ),
                   ),
                 ),
 

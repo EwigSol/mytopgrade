@@ -8,6 +8,7 @@ import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/my_courses_model.dart' as mcm;
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/lessons/quiz_view_screen.dart';
 import '../../../../controllers/assignment_byID_controller.dart';
 import '../../../../controllers/lesson_byId_controller.dart';
 import '../../../../controllers/quiz_byID_controller.dart';
@@ -749,10 +750,7 @@ class _PlaylistState extends State<Playlist> {
                       child: InkWell(
                         onTap: () {
                           if(widget.isLocked == false){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                LessonViewScreen(id: quizModelList[i].id.toString(),
-                                  url: _parseHtmlString(quizModelList[i].content!), title: quizModelList[i].name,)
-                            ));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => QuizViewScreen(quizByIdModel: quizModelList[i])));
                             // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
                             //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),

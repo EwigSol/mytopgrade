@@ -15,31 +15,31 @@ class StartQuizController extends GetxController {
   Future<Map<String, dynamic>> startQuiz(String id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    Map<String, dynamic> dataBody = { "id": id };
+    final queryParameters = {  'id': id };
 
-    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.startQuiz)),
+    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.startQuiz)).replace(queryParameters: queryParameters),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer ${StringsManager.token}',
-        }, body: dataBody);
+        });
 
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
       if (responseData['status'] == "success") {
         isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
+        result = {'status': responseData['status'], 'message': responseData['message']};
       } else {
         isDataSubmitting.value = false;
         isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
+        result = {'status': responseData['status'], 'message': responseData['message']};
 
       }
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
-      result = {'status': "error", 'message': "Server Error!\nFailed to start the course", 'data': {}};
+      result = {'status': "error", 'message': "Server Error!\nFailed to start the course"};
     }
     return result;
   }

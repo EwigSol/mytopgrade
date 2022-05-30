@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 56.h,
+        height: 60.h,
         width: 90.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
