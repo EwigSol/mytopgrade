@@ -288,12 +288,12 @@ final itemDurationValues = EnumValues({
   "39 mins": ItemDuration.the39Mins
 });
 
-enum Type { lpLesson, lpAssignment, lpQuiz }
+enum Type { lesson, assignment, quiz }
 
 final typeValues = EnumValues({
-  "lp_assignment": Type.lpAssignment,
-  "lp_lesson": Type.lpLesson,
-  "lp_quiz": Type.lpQuiz
+  "lp_assignment": Type.assignment,
+  "lp_lesson": Type.lesson,
+  "lp_quiz": Type.quiz
 });
 
 enum Status { publish }

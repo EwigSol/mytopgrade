@@ -17,7 +17,8 @@ enum APIPath {
   assignments,
   addFavorite,
   wishlist,
-  assignmentById
+  assignmentById,
+  login,
 
 //
 
@@ -76,6 +77,9 @@ class APIPathHelper{
 
       case APIPath.assignmentById:
         return "/assignments/";
+
+      case APIPath.login:
+        return "/token";
 
       default:
         return "";

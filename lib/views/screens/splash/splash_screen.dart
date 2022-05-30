@@ -20,13 +20,26 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   int? initScreen;
+  bool? isLogged = false;
   final box = GetStorage();
 
   @override
   void initState() {
-   // Timer(const Duration(hours: 3), () => Get.toNamed(Paths.onBoard));
     initScreen = box.read("initScreen");
     box.write("initScreen", 1);
+    isLogged = box.read("isLogged");
+
+   Timer(const Duration(seconds: 3), () {
+     if(initScreen == 0 || initScreen == null){
+       Get.offAllNamed(Paths.onBoard);
+     }
+     else if(isLogged == true){
+       Get.offAllNamed(Paths.homeBar);
+     }else{
+       Get.offAllNamed(Paths.authView);
+     }
+
+   });
     super.initState();
   }
 

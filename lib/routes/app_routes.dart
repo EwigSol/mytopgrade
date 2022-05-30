@@ -30,8 +30,8 @@ class AppRoutes {
   static const initial = Routes.initial;
 
   static final routes = [
-    GetPage(name: Paths.initial, page: () => const App(), transition: Transition.zoom),
-    GetPage(name: Paths.splash, page: () => const SplashScreen(), transition: Transition.zoom),
+    // GetPage(name: Paths.initial, page: () => const App(), transition: Transition.zoom),
+    GetPage(name: Paths.initial, page: () => const SplashScreen(), transition: Transition.zoom),
     GetPage(name: Paths.authView, page: () => const AuthToggleView(), transition: Transition.fadeIn),
     GetPage(name: Paths.onBoard, page: () => const OnboardingScreen(), transition: Transition.fade),
     GetPage(name: Paths.forgotPass, page: () => ForgotPasswordScreen(), transition: Transition.rightToLeftWithFade),

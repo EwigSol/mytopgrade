@@ -29,6 +29,7 @@ dependencies:
   sqflite: ^2.0.2+1
   chewie: ^1.3.3
   video_player:
+  file_picker: ^4.6.0
 
 dev_dependencies:
   flutter_test:

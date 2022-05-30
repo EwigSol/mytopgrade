@@ -258,10 +258,12 @@ class SectionItem {
   );
 }
 
-enum Type { lpLesson }
+enum Type { lesson, assignment, quiz }
 
 final typeValues = EnumValues({
-  "lp_lesson": Type.lpLesson
+  "lp_assignment": Type.assignment,
+  "lp_lesson": Type.lesson,
+  "lp_quiz": Type.quiz
 });
 
 class EnumValues<T> {

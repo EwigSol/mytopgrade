@@ -1,6 +1,9 @@
 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/assets_manager.dart';
@@ -9,6 +12,7 @@ import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/auth/widgets/simple_appbar.dart';
 import 'package:topgrade/views/widgets/action_button.dart';
 import 'package:topgrade/views/widgets/text_field.dart';
+import '../../../controllers/login_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/strings_manager.dart';
@@ -26,10 +30,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  var loginController = Get.put(LoginController());
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final bool _passwordVisibleOne = false;
   bool rememberMe = false;
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +148,36 @@ class _LoginScreenState extends State<LoginScreen> {
               buildSpaceVertical(3.h),
               InkWell(
                   onTap: () {
-                    Get.toNamed(Paths.homeBar);
+                    if(emailController.text.isNotEmpty){
+                      if(passwordController.text.isNotEmpty){
+                        loginController.login(emailController.text, passwordController.text).then((response) => {
+                          if(response['status'] == true) {
+                            box.write("token", response['token']),
+                            box.write("user_id", response['user_id']),
+                            box.write("user_login", response['user_login']),
+                            box.write("user_email", response['user_email']),
+                            box.write("user_display_name", response['user_display_name']),
+                            box.write("isLogged", true),
+                            Get.toNamed(Paths.homeBar)
+                          }else{
+                            errorToast("Error", "Unable to login"),
+                          }
+                        });
+                      }else{
+                        errorToast("Error", "Email is required");
+                      }
+                    }else{
+                      errorToast("Error", "Password is required");
+                    }
                   },
-                  child: Center(child: actionButton(StringsManager.login))),
+                  child: Obx((){
+                    if(loginController.isDataSubmitting.value == true){
+                      return const Center(child: CircularProgressIndicator());
+                    }else{
+                      return Center(child: actionButton(StringsManager.login));
+                    }
+                  }),
+              ),
             ],
           ),
         ),

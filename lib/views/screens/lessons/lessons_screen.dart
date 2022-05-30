@@ -7,7 +7,6 @@ import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
-import 'package:topgrade/views/screens/lessons/lesson_view_screen.dart';
 import '../../../controllers/assignment_byID_controller.dart';
 import '../../../controllers/lesson_byId_controller.dart';
 import '../../../controllers/quiz_byID_controller.dart';
@@ -59,8 +58,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
           }
           else if(widget.lessonSections![i].items![j].type == Type.quiz){
             quizByIDController.fetchQuizById(widget.lessonSections![i].items![j].id.toString());
-          }else{
-            quizModelList = [];
           }
 
         }
@@ -201,13 +198,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
       child: InkWell(
         onTap: () {
           // print(_parseHtmlString(lessonByIdModel.content!));
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => LessonViewScreen(
-                  id: lessonByIdModel.id.toString(),
-                  title: lessonByIdModel.name,
-                  url: _parseHtmlString(lessonByIdModel.content!)
-              )
-          ));
+          // Navigator.push(context, MaterialPageRoute(
+          //     builder: (context) => LessonViewScreen(
+          //         id: lessonByIdModel.id.toString(),
+          //         title: lessonByIdModel.name,
+          //         url: _parseHtmlString(lessonByIdModel.content!)
+          //     )
+          // ));
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';
@@ -248,7 +245,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
       child: InkWell(
         onTap: () {
           // print(_parseHtmlString(lessonByIdModel.content!));
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: assignmentByIdModel.name, url: _parseHtmlString(assignmentByIdModel.content!))));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: assignmentByIdModel.name, url: _parseHtmlString(assignmentByIdModel.content!))));
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';
@@ -289,7 +286,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
       child: InkWell(
         onTap: () {
           // print(_parseHtmlString(lessonByIdModel.content!));
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: quizByIdModel.name, url: _parseHtmlString(quizByIdModel.content!))));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: quizByIdModel.name, url: _parseHtmlString(quizByIdModel.content!))));
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';

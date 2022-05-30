@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
@@ -16,6 +17,7 @@ import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +62,16 @@ class ProfileScreen extends StatelessWidget {
           buildSpaceVertical(2.h),
           InkWell(
               onTap: () {
+                final box = GetStorage();
+                box.remove("token");
+                box.remove("user_id");
+                box.remove("user_login");
+                box.remove("user_email");
+                box.remove("user_display_name");
+                box.remove("isLogged");
                 Get.offAllNamed(Paths.authView);
               },
-              child: buildProfileCard("Logout", Icons.logout)),
+              child: buildProfileCard("Log Out", Icons.logout)),
         ],
       ),
     );
@@ -71,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
   Center buildProfileCard(String title, IconData icon, ) {
     return Center(
       child: Container(
-        height: 8.h,
+        height: 7.h,
         width: 85.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.s22),
@@ -85,27 +94,27 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    height: 5.h,
-                    width: 10.w,
+                    height: 4.h,
+                    width: 8.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s30),
                       color: ColorManager.whiteColor,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
-                          blurRadius: 4,
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 1,
                           offset: const Offset(0, 3),
                         ),
                       ],
                     ),
-                    child: Icon(icon),
+                    child: Icon(icon, size: 20),
                   ),
-                  buildSpaceHorizontal(3.w),
-                  textStyle2(text: title, color: ColorManager.whiteColor),
+                  buildSpaceHorizontal(5.w),
+                  textStyle1(text: title, color: ColorManager.whiteColor),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor),
+              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor, size: 20),
             ],
           ),
         ),

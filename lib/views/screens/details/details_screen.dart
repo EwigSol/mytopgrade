@@ -45,6 +45,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
   final box = GetStorage();
   List<String> myCoursesId = [];
   bool isPaid = false;
+  bool isLocked = true;
+  bool isPressed = false;
   String? isMyCourse;
 
   @override
@@ -263,7 +265,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 controller: _controller,
                 children: [
                   OverviewScreen(favCourseDetail: widget.favCourseDetail, isWishlist: true, isMyCourse: "false"),
-                  Playlist(favCourseDetail: widget.favCourseDetail, isWishlist: true, isMyCourse: "false"),
+                  Playlist(favCourseDetail: widget.favCourseDetail, isWishlist: true, isMyCourse: "false", isLocked: isPressed ? false : true),
                   InstructorScreen(favCourseDetail: widget.favCourseDetail, isWishlist: true, isMyCourse: "false"),
                 ],
               ),
@@ -438,7 +440,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 controller: _controller,
                 children: [
                   OverviewScreen(myCoursesModel: widget.myCoursesModel, isWishlist: false, isMyCourse: "true"),
-                  Playlist(myCoursesModel: widget.myCoursesModel, isWishlist: false, isMyCourse: "true"),
+                  Playlist(myCoursesModel: widget.myCoursesModel, isWishlist: false, isMyCourse: "true", isLocked: isPressed ? false : true),
                   InstructorScreen(myCoursesModel: widget.myCoursesModel, isWishlist: false, isMyCourse: "true"),
                 ],
               ),
@@ -612,7 +614,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 controller: _controller,
                 children: [
                   OverviewScreen(coursesDetail: widget.coursesDetail, isWishlist: false, isMyCourse: "false"),
-                  Playlist(coursesDetail: widget.coursesDetail, isWishlist: false, isMyCourse: "false"),
+                  Playlist(coursesDetail: widget.coursesDetail, isWishlist: false, isMyCourse: "false", isLocked: isPressed ? false : true),
                   InstructorScreen(coursesDetail: widget.coursesDetail, isWishlist: false, isMyCourse: "false"),
                 ],
               ),
@@ -634,9 +636,14 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
   Center buildBottomCard() {
     return Center(
       child: isPaid == true ?
+      isPressed ? const SizedBox.shrink() :
       InkWell(
         onTap: () {
-          Get.toNamed(Paths.lessons, arguments: widget.coursesDetail!.sections);
+          // Get.toNamed(Paths.lessons, arguments: widget.coursesDetail!.sections);
+          setState(() {
+            isPressed = true;
+          });
+          successToast("Congrats", "Go to Curriculum and start the lessons one by one");
         },
         child: Container(
           height: 6.h,
