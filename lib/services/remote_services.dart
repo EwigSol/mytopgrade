@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/assignment_byID_model.dart';
@@ -24,13 +25,15 @@ import '../utils/strings_manager.dart';
 
 class RemoteServices {
   static var client = http.Client();
+  final box = GetStorage();
 
-  static Future<List<CoursesModel>?> fetchCourses() async {
+  Future<List<CoursesModel>?> fetchCourses() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -42,208 +45,206 @@ class RemoteServices {
     }
   }
 
-  static Future<List<MyCoursesModel>?> fetchMyCourses() async {
-    // final queryParameters = {  'learned': learned };
-    //.replace(queryParameters: queryParameters)
+  Future<List<MyCoursesModel>?> fetchMyCourses() async {
+    String token = box.read("token");
     final uri = Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses));
     var response = await client.get(uri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return myCoursesModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch My Courses");
       return null;
     }
   }
 
-  static Future<List<CourseCategoryModel>?> fetchCourseCategories() async {
+  Future<List<CourseCategoryModel>?> fetchCourseCategories() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courseCategory)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return courseCategoryModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Course Categories");
       return null;
     }
   }
 
-  static Future<CourseByIdModel?> fetchCourseByID(String id) async {
+  Future<CourseByIdModel?> fetchCourseByID(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses)+"/"+id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return courseByIdModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Course By ID");
       return null;
     }
   }
 
-  static Future<List<LessonsModel>?> fetchLessons() async {
+  Future<List<LessonsModel>?> fetchLessons() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return lessonsModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Lessons");
       return null;
     }
   }
 
-  static Future<LessonByIdModel?> fetchLessonByID(String id) async {
+  Future<LessonByIdModel?> fetchLessonByID(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons)+"/"+id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return lessonByIdModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
       return null;
     }
   }
 
-  static Future<CourseReviewModel?> fetchCourseReviews(String id) async {
+  Future<CourseReviewModel?> fetchCourseReviews(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.review)+id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return courseReviewModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Course Reviews");
       return null;
     }
   }
 
-  static Future<List<QuizModel>?> fetchQuizList() async {
+  Future<List<QuizModel>?> fetchQuizList() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return quizModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Course Quiz List");
       return null;
     }
   }
 
-  static Future<QuizByIdModel?> fetchQuizByID(String id) async {
+  Future<QuizByIdModel?> fetchQuizByID(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz)+"/"+id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return quizByIdModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
       return null;
     }
   }
 
-  static Future<List<CategoriesModel>?> fetchCategories() async {
+  Future<List<CategoriesModel>?> fetchCategories() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/wp/v2/course_category"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return categoriesModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Courses");
       return null;
     }
   }
 
-  static Future<List<CoursesModel>?> fetchCoursesByCategory(String id) async {
+  Future<List<CoursesModel>?> fetchCoursesByCategory(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses/?category=$id"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return coursesModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Courses By Category");
       return null;
     }
   }
 
-  static Future<List<AssignmentModel>?> fetchAssignmentsList() async {
+  Future<List<AssignmentModel>?> fetchAssignmentsList() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.assignments)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return assignmentModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Assignments List");
       return null;
     }
   }
 
-  static Future<WishlistModel?> fetchWishlist() async {
+  Future<WishlistModel?> fetchWishlist() async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.wishlist)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return wishlistModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Wishlist");
       return null;
     }
@@ -261,24 +262,23 @@ class RemoteServices {
       var jsonString = response.body;
       return paymentGatewayModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Payment Gateway List");
       return null;
     }
   }
 
-  static Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
+  Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
+    String token = box.read("token");
     var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.assignmentById)+id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return assignmentByIdModelFromJson(jsonString);
     } else {
-      //show error message
       errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
       return null;
     }

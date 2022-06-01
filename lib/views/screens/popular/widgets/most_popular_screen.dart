@@ -1,17 +1,15 @@
 
+
+
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/courses_model.dart';
-import '../../../../models/dummy_category_model.dart';
 import '../../../../routes/appPages.dart';
-import '../../../../utils/assets_manager.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
-import '../../details/details_screen.dart';
 
 class MostPopularScreen extends StatelessWidget {
    MostPopularScreen({Key? key}) : super(key: key);
@@ -26,7 +24,7 @@ class MostPopularScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
         child: Column(
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             Obx((){
               if(popularCoursesController.isLoading.value){
                 return const Center(child: CircularProgressIndicator());
@@ -53,7 +51,7 @@ class MostPopularScreen extends StatelessWidget {
               }
             }),
 
-            buildSpaceVertical(4.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
           ],
         ),
       ),
@@ -66,10 +64,9 @@ class MostPopularScreen extends StatelessWidget {
       child: InkWell(
         onTap: (){
           Get.toNamed(Paths.details, arguments: popularCourse);
-          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: popularCourse, isWishlist: false)));
         },
         child: Container(
-          width: 43.w,
+          width: MediaQuery.of(context).size.width * 0.43,
           decoration: const BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.only(
@@ -80,15 +77,15 @@ class MostPopularScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: 10.h,
-                  width: 100.w,
+                  height: MediaQuery.of(context).size.height * 0.10,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: 10.h,
-                          width: 100.w,
+                          height: MediaQuery.of(context).size.height * 0.10,
+                          width: MediaQuery.of(context).size.width,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
@@ -100,8 +97,8 @@ class MostPopularScreen extends StatelessWidget {
                         bottom: 4,
                         right: 0,
                         child: Container(
-                          height: 3.h,
-                          width: 12.w,
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.12,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
@@ -122,7 +119,7 @@ class MostPopularScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: AppPadding.p4),
                 child: textStyle0(text: popularCourse.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
@@ -132,8 +129,8 @@ class MostPopularScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: 2.h,
-                          width: 4.w,
+                          height: MediaQuery.of(context).size.height * 0.02,
+                          width: MediaQuery.of(context).size.width * 0.04,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
@@ -141,7 +138,7 @@ class MostPopularScreen extends StatelessWidget {
                             child: Icon(Icons.play_circle_fill, size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(2.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: "Sections: ${popularCourse.sections!.length}")
                       ],
                     ),
@@ -149,7 +146,7 @@ class MostPopularScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(2.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: popularCourse.rating.toString())
                       ],
                     ),

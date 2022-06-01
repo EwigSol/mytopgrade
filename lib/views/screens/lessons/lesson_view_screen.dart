@@ -3,7 +3,6 @@
 
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
@@ -83,12 +82,12 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(8.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
             _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized ?
             Center(
               child: SizedBox(
-                height: 40.h,
-                width: 95.w,
+                height: MediaQuery.of(context).size.height * 0.40,
+                width: MediaQuery.of(context).size.width * 0.95,
                 child: Chewie(
                   controller: _chewieController!,
                 ),
@@ -104,7 +103,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
               ],
             ),
 
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
 
             Center(
               child: InkWell(
@@ -118,8 +117,8 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                   });
                 },
                 child: Container(
-                  height: 6.h,
-                  width: 60.w,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  width: MediaQuery.of(context).size.width * 0.60,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s12),
                       color: ColorManager.primaryColor

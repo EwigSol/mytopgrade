@@ -1,11 +1,8 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/values_manager.dart';
-
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
@@ -31,15 +28,15 @@ class NotificationsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: 7.h,
-                          width: 14.w,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.14,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSize.s28),
                             color: ColorManager.greenColor
                           ),
                           child: const Center(child: Icon(Icons.volunteer_activism, color: ColorManager.whiteColor)),
                         ),
-                        buildSpaceHorizontal(5.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
                         textStyle0(text: "You have Purchased Course")
                       ],
                     ),

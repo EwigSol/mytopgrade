@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/controllers/assignments_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/assignments_model.dart';
@@ -19,39 +18,37 @@ class AssignmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          buildSpaceVertical(5.h),
-          Obx((){
-            if(assignmentController.isLoading.value){
-              return const Center(child: CircularProgressIndicator());
-            }else{
-              return assignmentController.assignmentList.isNotEmpty ?
-              Center(
-                child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 5,
-                    runSpacing: 10,
-                    alignment: WrapAlignment.spaceAround,
-                    children: assignmentController.assignmentList.map((item) {
-                      return buildAssignmentCard(item);
-                    }).toList()
-                ),
-              )
-                  : Center(child: textStyle0_5(text: "No Assignments Available"));
-            }
-          }),
-          buildSpaceVertical(5.h),
-        ],
-      ),
+    return Column(
+      children: [
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+        Obx((){
+          if(assignmentController.isLoading.value){
+            return const Center(child: CircularProgressIndicator());
+          }else{
+            return assignmentController.assignmentList.isNotEmpty ?
+            Center(
+              child: Wrap(
+                  direction: Axis.horizontal,
+                  spacing: 5,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.spaceAround,
+                  children: assignmentController.assignmentList.map((item) {
+                    return buildAssignmentCard(item, context);
+                  }).toList()
+              ),
+            )
+                : Center(child: textStyle0_5(text: "No Assignments Available"));
+          }
+        }),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+      ],
     );
   }
 
-  Container buildAssignmentCard(AssignmentModel assignmentModel) {
+  Container buildAssignmentCard(AssignmentModel assignmentModel, BuildContext context) {
 
     return Container(
-      width: 45.w,
+      width: MediaQuery.of(context).size.width * 0.45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.s16),
         color: ColorManager.lightBlueColor,
@@ -61,19 +58,19 @@ class AssignmentScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             textStyle0(text: "Assignment Title:"),
             textStyle0_5(text: assignmentModel.name!),
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             textStyle0(text: "Assignment Date:"),
             textStyle0_5(text: dateFormat.format(assignmentModel.dateCreated!)),
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             textStyle0(text: "Assignment Duration:"),
             textStyle0_5(text: assignmentModel.duration!.format!),
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             textStyle0(text: "Assignment Status:"),
             textStyle0_5(text: assignmentModel.status!),
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           ],
         ),
       ),

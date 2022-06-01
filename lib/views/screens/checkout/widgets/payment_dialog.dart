@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/routes/appPages.dart';
@@ -21,27 +20,27 @@ class PaymentDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: SizedBox(
-        height: 30.h,
-        width: 100.w,
+        height: MediaQuery.of(context).size.height * 0.30,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             SizedBox(
-              height: 10.h,
-              width: 50.w,
+              height: MediaQuery.of(context).size.height * 0.10,
+              width: MediaQuery.of(context).size.width * 0.50,
               child: Image.asset(AssetsManager.card, fit: BoxFit.fill),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             textStyle2(text: "Payment Done Successfully"),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             InkWell(
               onTap: (){
                 Get.offAllNamed(Paths.homeBar);
               },
               child: Center(
                 child: Container(
-                  height: 6.h,
-                  width: 53.w,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  width: MediaQuery.of(context).size.width * 0.53,
                   decoration: BoxDecoration(
                     color: ColorManager.redColor,
                     borderRadius: const BorderRadius.all(

@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/models/wishlist_model.dart';
@@ -35,12 +34,12 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
           child: Column(
             children: [
-              buildSpaceVertical(5.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
               Obx((){
                 if(wishlistController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
                 }else{
-                  return wishlistController.wishlist.value!.data!.items!.isNotEmpty ?
+                  return wishlistController.wishlist.value != null ? wishlistController.wishlist.value!.data!.items!.isNotEmpty ?
                   Center(
                     child: Wrap(
                         direction: Axis.horizontal,
@@ -52,10 +51,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         }).toList()
                     ),
                   )
-                      : Center(child: textStyle0_5(text: "No Category Available"));
+                      : Center(child: textStyle0_5(text: "No Item in Wishlist"))
+                      : Center(child: textStyle0_5(text: "No Wishlist Available"));
                 }
               }),
-              buildSpaceVertical(5.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             ],
           ),
         ),
@@ -78,10 +78,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       child: InkWell(
         onTap: () {
           Get.toNamed(Paths.details, arguments: wishlistModel, parameters: {'isWishlist': "true"});
-          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(favCourseDetail: wishlistModel, isWishlist: true)));
         },
         child: Container(
-          width: 44.w,
+          width: MediaQuery.of(context).size.width * 0.44,
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: const BorderRadius.only(
@@ -104,15 +103,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: 14.h,
-                  width: 100.w,
+                  height: MediaQuery.of(context).size.height * 0.14,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: 14.h,
-                          width: 100.w,
+                          height: MediaQuery.of(context).size.height * 0.14,
+                          width: MediaQuery.of(context).size.width,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
@@ -124,8 +123,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                         bottom: 0,
                         right: 0,
                         child: Container(
-                          height: 4.h,
-                          width: 16.w,
+                          height: MediaQuery.of(context).size.height * 0.04,
+                          width: MediaQuery.of(context).size.width * 0.16,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
@@ -146,7 +145,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 padding: const EdgeInsets.only(left: AppPadding.p4),
                 child: textStyle0(text: wishlistModel.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
@@ -156,8 +155,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: 3.h,
-                          width: 7.w,
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.07,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
@@ -165,7 +164,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             child: Icon(Icons.list, color: ColorManager.whiteColor, size: 22),
                           ),
                         ),
-                        buildSpaceHorizontal(1.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
                         textStyle0(text: "Sections: ${wishlistModel.sections!.length}")
                       ],
                     ),
@@ -173,14 +172,14 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(2.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: wishlistModel.rating.toString())
                       ],
                     ),
                   ],
                 ),
               ),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             ],
           ),
         ),

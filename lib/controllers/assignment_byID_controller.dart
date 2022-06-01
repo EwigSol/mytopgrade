@@ -11,12 +11,13 @@ class AssignmentByIDController extends GetxController {
 
   var isLoading = true.obs;
   var assignmentByIDList = Rxn<AssignmentByIdModel>();
+  RemoteServices remoteServices = RemoteServices();
 
 
   void fetchAssignmentById(String id) async {
     try {
       isLoading(true);
-      var assignmentByID = await RemoteServices.fetchAssignmentByID(id);
+      var assignmentByID = await remoteServices.fetchAssignmentByID(id);
       if (assignmentByID != null) {
         isLoading(false);
         assignmentByIDList.value = assignmentByID;

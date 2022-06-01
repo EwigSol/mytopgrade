@@ -1,10 +1,8 @@
 
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/assets_manager.dart';
@@ -22,23 +20,23 @@ class OtpVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 10.h),
+        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.10),
         child: const SimpleAppBar(title: StringsManager.otpVerify),
       ),
       body: Column(
         children: [
-          buildSpaceVertical(10.h),
-          buildFormCard(),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
+          buildFormCard(context),
         ],
       ),
     );
   }
 
-  Center buildFormCard() {
+  Center buildFormCard(BuildContext context) {
     return Center(
       child: Container(
-        height: 44.h,
-        width: 90.w,
+        height: MediaQuery.of(context).size.height * 0.44,
+        width: MediaQuery.of(context).size.width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),
           color: ColorManager.whiteColor,
@@ -56,15 +54,15 @@ class OtpVerificationScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               SizedBox(
-                height: 13.h,
-                width: 30.w,
+                height: MediaQuery.of(context).size.height * 0.13,
+                width: MediaQuery.of(context).size.width * 0.30,
                 child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Center(child: textStyle1(text: "Enter the Code Sent to +923187648765", textAlign: TextAlign.center)),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
                   child: OtpPinField(
@@ -82,8 +80,8 @@ class OtpVerificationScreen extends StatelessWidget {
                         // });
                       }
                     },
-                    fieldHeight: 7.h,
-                    fieldWidth: 10.w,
+                    fieldHeight: MediaQuery.of(context).size.height * 0.07,
+                    fieldWidth: MediaQuery.of(context).size.width * 0.10,
                     otpPinFieldStyle: const OtpPinFieldStyle(
                       defaultFieldBorderColor: Colors.grey,
                       activeFieldBorderColor: ColorManager.primaryColor,
@@ -95,8 +93,8 @@ class OtpVerificationScreen extends StatelessWidget {
                     otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
                   )
               ),
-              buildSpaceVertical(3.h),
-              actionButton(StringsManager.submit),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+              actionButton(StringsManager.submit, context),
             ],
           ),
         ),

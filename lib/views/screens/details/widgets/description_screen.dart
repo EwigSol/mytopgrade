@@ -2,13 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/my_courses_model.dart';
-import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
-
 import '../../../../models/courses_model.dart';
 import '../../../../models/wishlist_model.dart';
 
@@ -26,7 +23,7 @@ class OverviewScreen extends StatelessWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -34,12 +31,12 @@ class OverviewScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle2(text: "Overview"),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               textStyle0(text: _parseHtmlString(favCourseDetail!.content!)),
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -50,7 +47,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -61,7 +58,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -72,7 +69,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -83,7 +80,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -94,7 +91,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(7.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
       ],
     )
     :
@@ -102,7 +99,7 @@ class OverviewScreen extends StatelessWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -110,12 +107,12 @@ class OverviewScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle2(text: "Overview"),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               textStyle0(text: _parseHtmlString(myCoursesModel!.content!)),
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -126,7 +123,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -137,7 +134,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -148,7 +145,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -159,7 +156,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -170,14 +167,14 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(7.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
       ],
     )
     :
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -185,12 +182,12 @@ class OverviewScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle2(text: "Overview"),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               textStyle0(text: _parseHtmlString(coursesDetail!.content!)),
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -201,7 +198,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -212,7 +209,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -223,7 +220,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -234,7 +231,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(0.5.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -245,7 +242,7 @@ class OverviewScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(7.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
       ],
     );
   }

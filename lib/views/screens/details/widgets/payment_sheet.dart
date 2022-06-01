@@ -1,8 +1,7 @@
 
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/payment_gateway_model.dart';
@@ -17,8 +16,8 @@ class PaymentSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.h,
-      width: 100.w,
+      height: MediaQuery.of(context).size.height * 0.40,
+      width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -31,8 +30,8 @@ class PaymentSheet extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14, right: AppPadding.p14, top: AppPadding.p20),
               child: Container(
-                height: 10.h,
-                width: 100.w,
+                height: MediaQuery.of(context).size.height * 0.10,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSize.s10),
                   color: ColorManager.whiteColor,
@@ -47,13 +46,13 @@ class PaymentSheet extends StatelessWidget {
                 ),
                 child: Row(
                   children:  [
-                    buildSpaceHorizontal(3.w),
+                    buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.03),
                     CircleAvatar(
                       radius: 35,
                       backgroundColor: ColorManager.halfWhiteColor,
                       child: Image.asset(AssetsManager.logo),
                     ),
-                    buildSpaceHorizontal(5.w),
+                    buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
                     textStyle0_5(text: paymentGatewayModel![index].methodTitle!)
                   ],
                 ),

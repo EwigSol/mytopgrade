@@ -10,6 +10,7 @@ class AssignmentController extends GetxController {
 
   var isLoading = true.obs;
   var assignmentList = <AssignmentModel>[].obs;
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -20,7 +21,7 @@ class AssignmentController extends GetxController {
   void fetchAssignmentsList() async {
     try {
       isLoading(true);
-      var assignment = await RemoteServices.fetchAssignmentsList();
+      var assignment = await remoteServices.fetchAssignmentsList();
       if (assignment != null) {
         isLoading(false);
         assignmentList.value = assignment;

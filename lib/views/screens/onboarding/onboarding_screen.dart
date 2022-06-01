@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import '../../../controllers/onboarding_controller.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/color_manager.dart';
@@ -40,7 +39,7 @@ class OnboardingScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
                 child: Column(
                   children: <Widget>[
-                    buildSpaceVertical(5.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -49,14 +48,14 @@ class OnboardingScreen extends StatelessWidget {
                       }),
                       ),
                     ),
-                    buildSpaceVertical(5.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         textStyle: const TextStyle(fontSize: 20, color: ColorManager.secondaryColor),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        minimumSize: Size(50.w, 6.h),
+                        minimumSize: Size(MediaQuery.of(context).size.width * 0.50, MediaQuery.of(context).size.height * 0.06),
                         primary: ColorManager.primaryColor,
                       ),
                       onPressed: _controller.forwardAction,
@@ -64,7 +63,7 @@ class OnboardingScreen extends StatelessWidget {
                         return Text(_controller.isLastPage ? StringsManager.start : StringsManager.next);
                       }),
                     ),
-                    buildSpaceVertical(5.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
                   ],
                 ),
               ),

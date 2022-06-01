@@ -10,17 +10,12 @@ class CoursesByCategoryController extends GetxController {
 
   var isLoading = true.obs;
   var coursesByCategoryList = <CoursesModel>[].obs;
-
-  @override
-  void onInit() {
-    // fetchAllCoursesByCategory();
-    super.onInit();
-  }
+  RemoteServices remoteServices = RemoteServices();
 
   void fetchAllCoursesByCategory(String id) async {
     try {
       isLoading(true);
-      var coursesByCat = await RemoteServices.fetchCoursesByCategory(id);
+      var coursesByCat = await remoteServices.fetchCoursesByCategory(id);
       if (coursesByCat != null) {
         isLoading(false);
         coursesByCategoryList.value = coursesByCat;

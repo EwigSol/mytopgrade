@@ -135,7 +135,7 @@ class CourseData {
 class Result {
   Result({this.result, this.pass, this.countItems, this.completedItems, this.items, this.evaluateType});
 
-  int? result;
+  var result;
   int? pass;
   int? countItems;
   int? completedItems;
@@ -169,8 +169,8 @@ class Items {
 class Assignment {
   Assignment({this.completed, this.passed, this.total});
 
-  int? completed;
-  int? passed;
+  var completed;
+  var passed;
   int? total;
 
   factory Assignment.fromJson(Map<String, dynamic> json) => Assignment(

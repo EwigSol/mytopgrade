@@ -1,11 +1,13 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
+import '../../../../controllers/category_controller.dart';
 import '../../../../helpers/text_helper.dart';
+import '../../../../models/category_model.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
+import 'package:get/get.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({Key? key}) : super(key: key);
@@ -20,6 +22,8 @@ class _FilterSheetState extends State<FilterSheet> {
   double lowerValue = 0;
   double upperValue = 100;
   int isSelected = 0;
+  int isCatSelected = 0;
+  final CategoryController categoryController = Get.put(CategoryController());
 
   _isSelected(int index) {
     setState(() {
@@ -27,11 +31,17 @@ class _FilterSheetState extends State<FilterSheet> {
     });
   }
 
+  _isCatSelected(int i) {
+    setState(() {
+      isCatSelected = i;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65.h,
-      width: 100.w,
+      height: MediaQuery.of(context).size.height * 0.5,
+      width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -41,27 +51,42 @@ class _FilterSheetState extends State<FilterSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildSpaceVertical(3.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+          Center(child: textStyle4(text: "Filter by")),
+          Padding(
+            padding: const EdgeInsets.only(left: AppPadding.p16, right: AppPadding.p16),
+            child: textStyle2(text: "Categories"),
+          ),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.005),
+          Obx((){
+            if(categoryController.isLoading.value){
+              return const Center(child: CircularProgressIndicator());
+            }else{
+              return categoryController.catList.isNotEmpty ?
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.06,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    itemCount: categoryController.catList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, i) {
+                      final catModel = categoryController.catList[i];
+                      return buildCategoryCard(catModel, i);
+                    }),
+              )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(child: textStyle0_5(text: "No Category Available"))
+              );
+            }
+          }),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: textStyle1(text: "Categories"),
+            child: textStyle2(text: "Price"),
           ),
-          SizedBox(
-            height: 8.h,
-            width: 100.w,
-            child: ListView.builder(
-                itemCount: 6,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return buildCategoryCard();
-                }),
-          ),
-          buildSpaceVertical(2.h),
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: textStyle1(text: "Price"),
-          ),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
             child: Row(
@@ -98,30 +123,15 @@ class _FilterSheetState extends State<FilterSheet> {
               ],
             ),
           ),
-          // buildSpaceVertical(2.h),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
-          //   child: FlutterSlider(
-          //     values: [lowerValue, upperValue],
-          //     rangeSlider: true,
-          //     max: 1000,
-          //     min: 0,
-          //     onDragging: (handlerIndex, lValue, uValue) {
-          //       lowerValue = lValue;
-          //       upperValue = uValue;
-          //       setState(() {});
-          //     },
-          //   ),
-          // ),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: textStyle1(text: "Ratings"),
+            child: textStyle2(text: "Ratings"),
           ),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           SizedBox(
-            height: 6.h,
-            width: 100.w,
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width,
             child: ListView.builder(
                 itemCount: 5,
                 scrollDirection: Axis.horizontal,
@@ -129,53 +139,59 @@ class _FilterSheetState extends State<FilterSheet> {
                   return buildRatingCard(index);
                 }),
           ),
-          buildSpaceVertical(3.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 5.h,
-                  width: 33.w,
-                  decoration: BoxDecoration(
-                    color: ColorManager.halfWhiteColor,
-                    borderRadius: BorderRadius.circular(AppSize.s28),
-                    border: Border.all(color: ColorManager.blackColor),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Reset",
-                      style: TextStyle(
-                        color: ColorManager.blackColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Container(
+          //         height: MediaQuery.of(context).size.height * 0.05,
+          //         width: MediaQuery.of(context).size.width * 0.33,
+          //         decoration: BoxDecoration(
+          //           color: ColorManager.halfWhiteColor,
+          //           borderRadius: BorderRadius.circular(AppSize.s28),
+          //           border: Border.all(color: ColorManager.blackColor),
+          //         ),
+          //         child: const Center(
+          //           child: Text(
+          //             "Reset",
+          //             style: TextStyle(
+          //               color: ColorManager.blackColor,
+          //               fontSize: 18,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //
+          //     ],
+          //   ),
+          // ),
+          Center(
+            child: InkWell(
+              onTap: (){},
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.4,
+                decoration: BoxDecoration(
+                  color: ColorManager.primaryColor,
+                  borderRadius: BorderRadius.circular(AppSize.s28),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Apply",
+                    style: TextStyle(
+                      color: ColorManager.whiteColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  height: 5.h,
-                  width: 33.w,
-                  decoration: BoxDecoration(
-                    color: ColorManager.redColor,
-                    borderRadius: BorderRadius.circular(AppSize.s28),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Apply",
-                      style: TextStyle(
-                        color: ColorManager.whiteColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-          buildSpaceVertical(3.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
         ],
       ),
     );
@@ -189,19 +205,17 @@ class _FilterSheetState extends State<FilterSheet> {
           _isSelected(index);
         },
         child: Container(
-          height: 6.h,
-          width: 20.w,
+          height: MediaQuery.of(context).size.height * 0.05,
+          width: MediaQuery.of(context).size.width * 0.22,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s22),
-              color: isSelected == index
-                  ? ColorManager.redColor
-                  : ColorManager.halfWhiteColor),
+              color: isSelected == index ? ColorManager.primaryColor : ColorManager.halfWhiteColor),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               textStyle2(text: "5"),
-              buildSpaceHorizontal(1.w),
+              buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
               textStyle2(text: "⭐"),
             ],
           ),
@@ -210,39 +224,25 @@ class _FilterSheetState extends State<FilterSheet> {
     );
   }
 
-  Padding buildCategoryCard() {
+  Padding buildCategoryCard(CategoriesModel categoryModel, int i) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 8.h,
-        width: 42.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSize.s30),
-          color: ColorManager.pinkColor,
-        ),
-        child: Row(
-          children: [
-            buildSpaceHorizontal(3.w),
-            Container(
-              height: 5.h,
-              width: 10.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s30),
-                color: ColorManager.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: const Icon(Icons.lightbulb_outline),
-            ),
-            buildSpaceHorizontal(3.w),
-            textStyle1(text: "Business"),
-          ],
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+      child: InkWell(
+        onTap: () {
+          _isCatSelected(i);
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppSize.s20),
+              color: isCatSelected == i ? ColorManager.primaryColor : ColorManager.halfWhiteColor
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              textStyle2(text: categoryModel.name!, color: ColorManager.blackColor),
+            ],
+          ),
         ),
       ),
     );

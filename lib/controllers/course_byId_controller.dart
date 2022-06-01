@@ -9,6 +9,7 @@ class CourseByIDController extends GetxController {
 
   var isLoading = true.obs;
   var courseByIDList = Rxn<CourseByIdModel>();
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -19,7 +20,7 @@ class CourseByIDController extends GetxController {
   void fetchCourseById() async {
     try {
       isLoading(true);
-      var courseByID = await RemoteServices.fetchCourseByID("32492");
+      var courseByID = await remoteServices.fetchCourseByID("32492");
       if (courseByID != null) {
         isLoading(false);
         courseByIDList.value = courseByID;

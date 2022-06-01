@@ -1,8 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:topgrade/utils/values_manager.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/color_manager.dart';
@@ -16,12 +14,12 @@ class SplashContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        buildSpaceVertical(10.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
         textStyle5(color: ColorManager.primaryColor, text: StringsManager.appName),
-        buildSpaceVertical(4.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
         Center(child: textStyle1(text: text!, textAlign: TextAlign.center)),
-        buildSpaceVertical(10.h),
-        Image.asset(image!, height: 35.h, width: 70.w),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
+        Image.asset(image!, height: MediaQuery.of(context).size.height * 0.32, width: MediaQuery.of(context).size.width * 0.70),
       ],
     );
   }

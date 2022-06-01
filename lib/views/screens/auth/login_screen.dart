@@ -1,10 +1,8 @@
 
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
@@ -16,9 +14,7 @@ import '../../../controllers/login_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/strings_manager.dart';
-import 'widgets/line_widget.dart';
 import 'widgets/signup_text.dart';
-import 'widgets/social_card.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -42,15 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 8.h),
+        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
         child: const SimpleAppBar(title: StringsManager.login),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildSpaceVertical(6.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
             buildFormCard(),
-            buildSpaceVertical(6.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
             // const LineWidget(),
             // buildSpaceVertical(2.h),
             // buildSocialRow(),
@@ -62,25 +58,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Padding buildSocialRow() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          SocialCard(img: AssetsManager.fbLogo),
-          SocialCard(img: AssetsManager.googleLogo),
-          SocialCard(img: AssetsManager.twitterLogo),
-        ],
-      ),
-    );
-  }
+  // Padding buildSocialRow() {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //       children: const [
+  //         SocialCard(img: AssetsManager.fbLogo),
+  //         SocialCard(img: AssetsManager.googleLogo),
+  //         SocialCard(img: AssetsManager.twitterLogo),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: 60.h,
-        width: 90.w,
+        height: MediaQuery.of(context).size.height * 0.60,
+        width: MediaQuery.of(context).size.width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
           color: ColorManager.whiteColor,
@@ -98,8 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Image.asset(AssetsManager.logo, height: 15.h, width: 30.w)),
-              buildSpaceVertical(1.h),
+              Center(child: Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.15, width: MediaQuery.of(context).size.width * 0.30)),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
                 child: textStyle11(text: "Email"),
@@ -108,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
                 child: textStyle11(text: "Password"),
@@ -119,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPass: true,
                 passwordVisibility: _passwordVisibleOne,
               ),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -145,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               InkWell(
                   onTap: () {
                     if(emailController.text.isNotEmpty){
@@ -174,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if(loginController.isDataSubmitting.value == true){
                       return const Center(child: CircularProgressIndicator());
                     }else{
-                      return Center(child: actionButton(StringsManager.login));
+                      return Center(child: actionButton(StringsManager.login, context));
                     }
                   }),
               ),

@@ -98,7 +98,7 @@ class CourseData {
   CourseDataGraduation? graduation;
   CourseDataStatus? status;
   DateTime? startTime;
-  DateTime? endTime;
+  var endTime;
   DateTime? expirationTime;
   Result? result;
 

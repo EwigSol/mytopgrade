@@ -2,7 +2,7 @@
 
 class StringsManager{
   static const String appName = "MY TOP GRADE";
-  static const String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXVzaW5nLWdvdWxkLjE4LTE0MS0xNTctMTEyLnBsZXNrLnBhZ2UiLCJpYXQiOjE2NTM0MDAyMjUsIm5iZiI6MTY1MzQwMDIyNSwiZXhwIjoxNjU0MDA1MDI1LCJkYXRhIjp7InVzZXIiOnsiaWQiOiIzIn19fQ.cd2nf3SZ0gz-VcQkuK_ozlaLmaBEzp2oJxX1GAIwAXk";
+  // static const String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXVzaW5nLWdvdWxkLjE4LTE0MS0xNTctMTEyLnBsZXNrLnBhZ2UiLCJpYXQiOjE2NTQwMTEwNjksIm5iZiI6MTY1NDAxMTA2OSwiZXhwIjoxNjU0NjE1ODY5LCJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NTEyIn19fQ.5BcZlgtiC6rZr9KddYYPT-Ox9tzEnNPA6hFn2Ix46aA";
   static const String error = "Oops! Error Occurred";
   static const String success = "Hurrah!";
   static const String loggedIn = "Successfully Logged In";

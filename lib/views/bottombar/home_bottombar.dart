@@ -96,7 +96,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       navBarHeight: 55,
       padding: const NavBarPadding.only(bottom: 2),
       confineInSafeArea: true,
-      handleAndroidBackButtonPress: false,
+      handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: const NavBarDecoration(

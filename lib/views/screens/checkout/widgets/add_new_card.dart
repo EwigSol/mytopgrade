@@ -1,9 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
-
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/color_manager.dart';
 import '../../../../utils/strings_manager.dart';
@@ -31,11 +29,11 @@ class _AddNewCardState extends State<AddNewCard> {
       appBar: buildAppBar(),
       body: Column(
         children: [
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           Center(
             child: Container(
-              height: 25.h,
-              width: 80.w,
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 0.80,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSize.s10),
                   color: ColorManager.redColor
@@ -47,9 +45,9 @@ class _AddNewCardState extends State<AddNewCard> {
                     padding: EdgeInsets.only(left: AppPadding.p12, top: AppPadding.p12),
                     child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
                   ),
-                  buildSpaceVertical(3.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                   Center(child: textStyle11(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
-                  buildSpaceVertical(2.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
                     child: Row(
@@ -79,11 +77,11 @@ class _AddNewCardState extends State<AddNewCard> {
               ),
             ),
           ),
-          buildSpaceVertical(5.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
           Center(
             child: Container(
-              height: 45.h,
-              width: 90.w,
+              height: MediaQuery.of(context).size.height * 0.45,
+              width: MediaQuery.of(context).size.width * 0.90,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSize.s16),
                   color: ColorManager.whiteColor,
@@ -100,31 +98,31 @@ class _AddNewCardState extends State<AddNewCard> {
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
                 child: Column(
                   children: [
-                    buildSpaceVertical(3.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                     CustomTextField(
                       controller: cardNoController,
                       hintName: StringsManager.cardNo,
                     ),
-                    buildSpaceVertical(3.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                     CustomTextField(
                       controller: cardNameController,
                       hintName: StringsManager.cardNa,
                     ),
-                    buildSpaceVertical(3.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          height: 7.h,
-                          width: 40.w,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.40,
                           child: CustomTextField(
                             controller: expireController,
                             hintName: StringsManager.expire,
                           ),
                         ),
                         SizedBox(
-                          height: 7.h,
-                          width: 40.w,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.40,
                           child: CustomTextField(
                             controller: cvvController,
                             hintName: StringsManager.cvv,
@@ -132,11 +130,11 @@ class _AddNewCardState extends State<AddNewCard> {
                         ),
                       ],
                     ),
-                    buildSpaceVertical(3.h),
+                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                     Center(
                       child: Container(
-                        height: 6.h,
-                        width: 53.w,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.53,
                         decoration: BoxDecoration(
                           color: ColorManager.redColor,
                           borderRadius: const BorderRadius.all(

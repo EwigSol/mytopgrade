@@ -11,17 +11,12 @@ class LessonByIDController extends GetxController {
 
   var isLoading = true.obs;
   var lessonByIDList = Rxn<LessonByIdModel>();
-
-  // @override
-  // void onInit() {
-  //   fetchLessonById();
-  //   super.onInit();
-  // }
+  RemoteServices remoteServices = RemoteServices();
 
   void fetchLessonById(String id) async {
     try {
       isLoading(true);
-      var lessonByID = await RemoteServices.fetchLessonByID(id);
+      var lessonByID = await remoteServices.fetchLessonByID(id);
       if (lessonByID != null) {
         isLoading(false);
         lessonByIDList.value = lessonByID;

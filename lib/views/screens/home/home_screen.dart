@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/category_model.dart';
@@ -36,11 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CoursesModel> popularCoursesModel = [];
   final box = GetStorage();
   List<String> myCoursesId = [];
+  String? name;
 
   @override
   void initState() {
     super.initState();
     myCoursesId.clear();
+    popularCoursesModel.clear();
+    name = box.read("user_display_name");
   }
 
 
@@ -53,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSpaceVertical(7.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.07),
               buildAppBar(),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               buildSearchAndFilterRow(context),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.categories),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Obx((){
                 if(categoryController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
@@ -72,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return categoryController.catList.isNotEmpty ?
                   SizedBox(
-                    height: 7.h,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     width: double.infinity,
                     child: ListView.builder(
                         itemCount: categoryController.catList.length,
@@ -83,29 +85,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         }),
                   )
                     : SizedBox(
-                      height: 7.h,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       width: double.infinity,
                       child: Center(child: textStyle0_5(text: "No Category Available"))
                   );
                 }
               }),
 
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.popular),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Obx((){
                 if(popularCoursesController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
                 }else{
                   for(int i=0; i<popularCoursesController.coursesList.length; i++){
                     if(popularCoursesController.coursesList[i].rating! >= 3 ){
-                      popularCoursesModel.clear();
                       popularCoursesModel.add(popularCoursesController.coursesList[i]);
                     }
                   }
                   return popularCoursesModel.isNotEmpty ?
                   SizedBox(
-                    height: 23.h,
+                    height: MediaQuery.of(context).size.height * 0.23,
                     width: double.infinity,
                     child: ListView.builder(
                         itemCount: popularCoursesModel.length,
@@ -115,22 +116,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         }),
                   )
                   : SizedBox(
-                      height: 22.h,
+                      height: MediaQuery.of(context).size.height * 0.22,
                       width: double.infinity,
                       child: Center(child: textStyle0_5(text: "No Popular Courses Available"))
                   );
                 }
               }),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.instructor),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Obx((){
                 if(popularCoursesController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
                 }else{
                   return popularCoursesController.coursesList.isNotEmpty ?
                   SizedBox(
-                    height: 15.h,
+                    height: MediaQuery.of(context).size.height * 0.15,
                     width: double.infinity,
                     child: ListView.builder(
                         itemCount: popularCoursesController.coursesList.length,
@@ -141,13 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         }),
                   )
                       : SizedBox(
-                      height: 17.h,
+                      height: MediaQuery.of(context).size.height * 0.17,
                       width: double.infinity,
                       child: Center(child: textStyle0_5(text: "No Instructor Available"))
                   );
                 }
               }),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
             ],
           ),
         ),
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4, vertical: AppPadding.p4),
       child: Container(
-        width: 60.w,
+        width: MediaQuery.of(context).size.width * 0.60,
         decoration: BoxDecoration(
           color: ColorManager.whiteColor,
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Row(
           children: [
-            buildSpaceHorizontal(2.w),
+            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             catModel.instructor!.avatar != '' ?
             CircleAvatar(
               radius: 35,
@@ -187,15 +188,15 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: ColorManager.whiteColor,
               backgroundImage: AssetImage(AssetsManager.girl),
             ),
-            buildSpaceHorizontal(2.w),
+            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildSpaceVertical(2.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                   Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-                  buildSpaceVertical(1.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                   Flexible(
                     child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),
@@ -245,14 +246,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildPopularCard(CoursesModel popularCourse) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p6),
       child: InkWell(
         onTap: (){
           Get.toNamed(Paths.details, arguments: popularCourse);
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(coursesDetail: popularCourse, isWishlist: false)));
         },
         child: Container(
-          width: 60.w,
+          width: MediaQuery.of(context).size.width * 0.60,
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.circular(AppSize.s10),
@@ -269,15 +269,15 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: 12.h,
-                  width: 100.w,
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: 12.h,
-                          width: 100.w,
+                          height: MediaQuery.of(context).size.height * 0.12,
+                          width: MediaQuery.of(context).size.width,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
@@ -289,8 +289,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 4,
                         right: 0,
                         child: Container(
-                          height: 3.h,
-                          width: 12.w,
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.12,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
@@ -311,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: AppPadding.p4),
                 child: textStyle0(text: popularCourse.instructor!.name.toString(), color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
@@ -321,8 +321,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: 2.h,
-                          width: 4.w,
+                          height: MediaQuery.of(context).size.height * 0.02,
+                          width: MediaQuery.of(context).size.width * 0.04,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
@@ -330,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Icon(Icons.play_circle_fill, size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(2.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: "Sections: ${popularCourse.sections!.length}")
                       ],
                     ),
@@ -338,7 +338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(2.w),
+                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: popularCourse.rating.toString())
                       ],
                     ),
@@ -360,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
         },
         child: Container(
-          width: 40.w,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.s20),
             color: ColorManager.primaryColor
@@ -425,8 +425,8 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 6.h,
-          width: 70.w,
+          height: MediaQuery.of(context).size.height * 0.06,
+          width: MediaQuery.of(context).size.width * 0.70,
           child: TextFormField(
             controller: searchController,
             validator: (value) {
@@ -460,7 +460,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        buildSpaceHorizontal(4.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.04),
         InkWell(
           onTap: () {
             showModalBottomSheet(
@@ -474,8 +474,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
           },
           child: Container(
-            height: 5.h,
-            width: 10.w,
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.10,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s8),
               color: ColorManager.primaryColor,
@@ -503,35 +503,35 @@ class _HomeScreenState extends State<HomeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            textStyle4(text: "Hi, Zain"),
+            textStyle4(text: "Hi, $name"),
             textStyle0_5(
                 text: "Find a source you want to learn!",
                 color: ColorManager.grayColor),
           ],
         ),
-        InkWell(
-          onTap: () {
-            // Get.toNamed(Paths.notify);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-          },
-          child: Container(
-            height: 4.h,
-            width: 8.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s10),
-              color: ColorManager.whiteColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 4,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: const Icon(Icons.notifications),
-          ),
-        ),
+        // InkWell(
+        //   onTap: () {
+        //     // Get.toNamed(Paths.notify);
+        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+        //   },
+        //   child: Container(
+        //     height: MediaQuery.of(context).size.height * 0.04,
+        //     width: MediaQuery.of(context).size.width * 0.08,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(AppSize.s10),
+        //       color: ColorManager.whiteColor,
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.grey.withOpacity(0.5),
+        //           spreadRadius: 3,
+        //           blurRadius: 4,
+        //           offset: const Offset(0, 3),
+        //         ),
+        //       ],
+        //     ),
+        //     child: const Icon(Icons.notifications),
+        //   ),
+        // ),
       ],
     );
   }

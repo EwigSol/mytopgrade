@@ -1,10 +1,7 @@
 
 
 
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
 import '../../../controllers/send_assignment_controller.dart';
@@ -14,7 +11,6 @@ import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';
 import 'package:get/get.dart';
-import '../../widgets/text_field.dart';
 
 class QuizViewScreen extends StatefulWidget {
   final QuizByIdModel quizByIdModel;
@@ -33,6 +29,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
   bool started = false;
   bool submitted = false;
   List<bool> listCheck = [];
+  var selectedAnswer = 0;
 
 
   @override
@@ -50,26 +47,26 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          buildSpaceVertical(5.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
           textStyle2(text: widget.quizByIdModel.name!),
-          buildSpaceVertical(1.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           textStyle0_5(text: widget.quizByIdModel.duration!),
-          buildSpaceVertical(3.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
           Center(
             child: InkWell(
               onTap: () {
                 startQuizController.startQuiz(widget.quizByIdModel.id.toString()).then((response) => {
                   if(response['status'] == 'success') {
-                    successToast("Success", "Quiz Started"),
+                    successToast("Success", response['message']),
                     setState((){ started = true; })
                   }else{
-                    errorToast("Error", "Failed to Start Quiz"),
+                    errorToast("Error", response['message']),
                   }
                 });
               },
               child: Container(
-                height: 6.h,
-                width: 45.w,
+                height: MediaQuery.of(context).size.height * 0.06,
+                width: MediaQuery.of(context).size.width * 0.45,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.s12),
                     color: ColorManager.primaryColor
@@ -88,7 +85,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(4.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
             Expanded(
               child: ListView.builder(
                   itemCount: widget.quizByIdModel.questions!.length,
@@ -98,7 +95,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                     final questions = widget.quizByIdModel.questions![index];
                     if(questions.type == "true_or_false"){
                       return Container(
-                        width: 90.w,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
                           boxShadow: [
@@ -112,39 +109,53 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                         ),
                         child: Column(
                           children: [
-                            buildSpaceVertical(1.h),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                             textStyle0_5(text: questions.title!),
-                            Center(
-                              child: Wrap(
-                                  direction: Axis.horizontal,
-                                  spacing: 10,
-                                  runSpacing: 20,
-                                  alignment: WrapAlignment.spaceEvenly,
-                                  children: questions.options!.map((item) {
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Checkbox(
-                                          value: listCheck[index],
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              listCheck[index] = value!;
-                                            });
-                                          },
-                                        ),
-                                        textStyle0(text: item.title!)
-                                      ],
-                                    );
-                                  }).toList()
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: RadioListTile(
+                                      activeColor: Colors.white,
+                                      contentPadding: const EdgeInsets.only(right: 1.0),
+                                      title: const Text(
+                                        "True",
+                                        style: TextStyle(color: Colors.white, fontSize: 10),
+                                      ),
+                                      value: 0,
+                                      groupValue: selectedAnswer,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedAnswer = int.parse(value.toString());
+                                        });
+                                      }),
+                                ),
+                                Expanded(
+                                  child: RadioListTile(
+                                      activeColor: Colors.white,
+                                      contentPadding: const EdgeInsets.only(right: 1.0),
+                                      title: const Text(
+                                        "False",
+                                        style: TextStyle(color: Colors.white, fontSize: 10),
+                                      ),
+                                      value: 1,
+                                      groupValue: selectedAnswer,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedAnswer = int.parse(value.toString());
+                                        });
+                                      }),
+                                ),
+                              ],
                             ),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                           ],
                         ),
                       );
                     }
                     else if(questions.type == "multi_choice"){
                       return Container(
-                        width: 90.w,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
                           boxShadow: [
@@ -158,7 +169,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                         ),
                         child: Column(
                           children: [
-                            buildSpaceVertical(1.h),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                             textStyle0_5(text: questions.title!),
                             Center(
                               child: Wrap(
@@ -184,18 +195,40 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                   }).toList()
                               ),
                             ),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                           ],
                         ),
                       );
                     }
                     else if(questions.type == "fill_in_blanks"){
-                      return Container();
+                      return Container(
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                            textStyle0_5(text: questions.title!),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                          ],
+                        ),
+                      );
                     }
                     return const SizedBox.shrink();
                   }
               ),
             ),
-            buildSpaceVertical(3.h),
+
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
 
             Center(
               child: InkWell(
@@ -218,8 +251,8 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   // }
                 },
                 child: Container(
-                  height: 6.h,
-                  width: 50.w,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  width: MediaQuery.of(context).size.width * 0.50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s12),
                       color: ColorManager.primaryColor
@@ -232,7 +265,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
               ),
             ),
 
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
           ],
         ),
       ),

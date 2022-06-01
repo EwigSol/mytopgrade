@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
@@ -55,11 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
             Positioned(
-              top: 20.h,
-              left: 52.w,
-              right: 25.w,
+              top: MediaQuery.of(context).size.height * 0.20,
+              left: MediaQuery.of(context).size.width * 0.52,
+              right: MediaQuery.of(context).size.width * 0.25,
               child: Container(
-                height: 10.h,
+                height: MediaQuery.of(context).size.height * 0.10,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSize.s28),
                   color: Colors.white24
@@ -67,8 +66,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: SizedBox(
-                    height: 10.h,
-                    width: 10.w,
+                    height: MediaQuery.of(context).size.height * 0.10,
+                    width: MediaQuery.of(context).size.width * 0.10,
                     child: Image.asset(AssetsManager.bookIcon, fit: BoxFit.fill),
                   ),
                 ),
@@ -78,8 +77,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Align(
               alignment: Alignment.center,
               child: SizedBox(
-                height: 30.h,
-                width: 60.w,
+                height: MediaQuery.of(context).size.height * 0.30,
+                width: MediaQuery.of(context).size.width * 0.60,
                 child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
               ),
             ),
@@ -87,10 +86,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
             Positioned(
-              bottom: 22.h,
-              left: 8.w,
+              bottom: MediaQuery.of(context).size.height * 0.22,
+              left: MediaQuery.of(context).size.width * 0.08,
               child: Container(
-                height: 11.h,
+                height: MediaQuery.of(context).size.height * 0.11,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.s28),
                     color: Colors.white24
@@ -98,8 +97,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: SizedBox(
-                    height: 10.h,
-                    width: 23.w,
+                    height: MediaQuery.of(context).size.height * 0.10,
+                    width: MediaQuery.of(context).size.width * 0.23,
                     child: Image.asset(AssetsManager.boxIcon, fit: BoxFit.fill),
                   ),
                 ),
@@ -107,12 +106,12 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
 
             Positioned(
-              bottom: 10.h,
-              left: 20.w,
-              right: 20.w,
+              bottom: MediaQuery.of(context).size.height * 0.10,
+              left: MediaQuery.of(context).size.width * 0.20,
+              right: MediaQuery.of(context).size.width * 0.20,
               child: SizedBox(
-                height: 7.h,
-                width: 50.w,
+                height: MediaQuery.of(context).size.height * 0.07,
+                width: MediaQuery.of(context).size.width * 0.50,
                 child: Image.asset(AssetsManager.arrowIcon, fit: BoxFit.fill),
               ),
             ),

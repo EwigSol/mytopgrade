@@ -1,9 +1,7 @@
 
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
@@ -51,8 +49,8 @@ class _CartScreenState extends State<CartScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p12),
                           child: Container(
-                            height: 12.h,
-                            width: 88.w,
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.width * 0.88,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(AppSize.s16),
                                 color: ColorManager.halfWhiteColor
@@ -61,8 +59,8 @@ class _CartScreenState extends State<CartScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 SizedBox(
-                                  height: 11.h,
-                                  width: 22.w,
+                                  height: MediaQuery.of(context).size.height * 0.11,
+                                  width: MediaQuery.of(context).size.width * 0.22,
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(AppSize.s10),
                                       child: Image.network(cartController.products[index]['productImage'], fit: BoxFit.fill)),
@@ -78,9 +76,9 @@ class _CartScreenState extends State<CartScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         textStyle0(text: "3.5"),
-                                        buildSpaceHorizontal(1.w),
+                                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
                                         textStyle0(text: "⭐"),
-                                        buildSpaceHorizontal(1.w),
+                                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
                                         textStyle0(text: "1250 Ratings"),
                                       ],
                                     ),
@@ -102,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             const Icon(Icons.delete, color: ColorManager.redColor, size: 16),
-                                            buildSpaceHorizontal(1.w),
+                                            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
                                             textStyle0(text: "Remove", color: ColorManager.redColor),
                                           ],
                                         ),
@@ -118,10 +116,10 @@ class _CartScreenState extends State<CartScreen> {
                       }
                   )
               ),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               Container(
-                height: 15.h,
-                width: 80.w,
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 0.80,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.s16),
                     color: ColorManager.halfWhiteColor
@@ -163,7 +161,7 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
               ),
-              buildSpaceVertical(10.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
             ],
           );
         }
@@ -185,8 +183,8 @@ class _CartScreenState extends State<CartScreen> {
 
   Container buildBottomCard() {
     return Container(
-      height: 7.h,
-      width: 100.w,
+      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width,
       color: ColorManager.whiteColor,
       child: InkWell(
         onTap: (){
@@ -194,8 +192,8 @@ class _CartScreenState extends State<CartScreen> {
         },
         child: Center(
           child: Container(
-            height: 6.h,
-            width: 53.w,
+            height: MediaQuery.of(context).size.height * 0.06,
+            width: MediaQuery.of(context).size.width * 0.53,
             decoration: BoxDecoration(
               color: ColorManager.redColor,
               borderRadius: const BorderRadius.all(

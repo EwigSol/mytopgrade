@@ -1,27 +1,29 @@
 
 
 import 'dart:convert';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';
-import '../utils/strings_manager.dart';
 
 class CheckAnswersController extends GetxController {
   var isDataSubmitting = false.obs;
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
+  final box = GetStorage();
 
   Future<Map<String, dynamic>> checkAnswers(String id, String answers) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
     Map<String, dynamic> dataBody = { "id": id, "answered": answers };
+    String token = box.read("token");
 
     var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.checkAnswers)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${StringsManager.token}',
+          'Authorization': 'Bearer $token',
         }, body: dataBody);
 
     if (response.statusCode == 200) {

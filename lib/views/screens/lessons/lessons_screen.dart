@@ -1,8 +1,6 @@
 
 
-import 'package:html/parser.dart' show parse;
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:get/get.dart';
@@ -74,7 +72,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
       body: SingleChildScrollView(
           child: Column(
             children: [
-              buildSpaceVertical(5.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
               // widget.lessonSections!.isNotEmpty ?
               // ListView.builder(
               //     itemCount: widget.lessonSections!.length,
@@ -134,7 +132,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       : Center(child: textStyle0_5(text: "No Lesson Available"));
                 }
               }),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Obx((){
                 if(assignmentByIDController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
@@ -155,7 +153,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       : Center(child: textStyle0_5(text: "No Assignment Available"));
                 }
               }),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Obx((){
                 if(quizByIDController.isLoading.value){
                   return const Center(child: CircularProgressIndicator());
@@ -176,7 +174,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       : Center(child: textStyle0_5(text: "No Quiz Available"));
                 }
               }),
-              buildSpaceVertical(5.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             ],
           ),
       ),
@@ -211,7 +209,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           // print(imageLink);
         },
         child: Container(
-          width: 40.w,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
               color: ColorManager.lightGreenColor
@@ -221,16 +219,16 @@ class _LessonsScreenState extends State<LessonsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Title:"),
                 textStyle0_5(text: lessonByIdModel.name!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Duration:"),
                 textStyle0_5(text: lessonByIdModel.duration!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Status:"),
                 textStyle0_5(text: lessonByIdModel.status!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               ],
             ),
           ),
@@ -252,7 +250,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           // print(imageLink);
         },
         child: Container(
-          width: 40.w,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
               color: ColorManager.lightGreenColor
@@ -262,16 +260,16 @@ class _LessonsScreenState extends State<LessonsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Title:"),
                 textStyle0_5(text: assignmentByIdModel.name!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Duration:"),
                 textStyle0_5(text: assignmentByIdModel.duration!.format!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Status:"),
                 textStyle0_5(text: assignmentByIdModel.status!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               ],
             ),
           ),
@@ -293,7 +291,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           // print(imageLink);
         },
         child: Container(
-          width: 40.w,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
               color: ColorManager.lightGreenColor
@@ -303,16 +301,16 @@ class _LessonsScreenState extends State<LessonsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Title:"),
                 textStyle0_5(text: quizByIdModel.name!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Duration:"),
                 textStyle0_5(text: quizByIdModel.duration!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 textStyle0(text: "Lesson Status:"),
                 textStyle0_5(text: quizByIdModel.status!),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               ],
             ),
           ),
@@ -321,9 +319,4 @@ class _LessonsScreenState extends State<LessonsScreen> {
     );
   }
 
-  String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String parsedString = parse(document.body!.text).documentElement!.text;
-    return parsedString;
-  }
 }

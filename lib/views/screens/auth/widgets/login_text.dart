@@ -3,7 +3,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/utils/color_manager.dart';
 
 class LoginText extends StatelessWidget {
@@ -13,7 +12,7 @@ class LoginText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 5.h,
+      height: MediaQuery.of(context).size.height * 0.05,
       width: double.infinity,
       child: Center(
         child: RichText(

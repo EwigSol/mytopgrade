@@ -1,10 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
-
 import '../../../helpers/text_helper.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
@@ -24,6 +23,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
+  final box = GetStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    usernameController.text = box.read("user_display_name");
+    emailController.text = box.read("user_email");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +41,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
         child: Column(
           children: [
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             SizedBox(
-              height: 15.h,
-              width: 50.w,
+              height: MediaQuery.of(context).size.height * 0.15,
+              width: MediaQuery.of(context).size.width * 0.50,
               child: Stack(
                 children: [
                   const Align(
@@ -53,8 +60,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     right: 20,
                     bottom: 10,
                     child: Container(
-                      height: 5.h,
-                      width: 10.w,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.10,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s30),
                         color: ColorManager.whiteColor,
@@ -73,12 +80,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 ],
               ),
             ),
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             CustomTextField(
               controller: usernameController,
               hintName: StringsManager.userName,
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
               child: IntlPhoneField(
@@ -109,9 +116,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   filled: true,
                 ),
                 initialCountryCode: 'ZA',
-                onChanged: (phone) {
-                  print(phone.completeNumber);
-                },
+                onChanged: (phone) {},
               ),
             ),
             CustomTextField(
@@ -119,8 +124,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               hintName: StringsManager.email,
             ),
 
-            buildSpaceVertical(6.h),
-            actionButton(StringsManager.uProfile),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
+            actionButton(StringsManager.uProfile, context),
           ],
         ),
       ),

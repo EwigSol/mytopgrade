@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:video_player/video_player.dart';
@@ -79,11 +78,11 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildSpaceVertical(5.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
               textStyle2(text: widget.title!),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               textStyle0_5(text: widget.duration!),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               Center(
                 child: InkWell(
                   onTap: () {
@@ -97,8 +96,8 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                     });
                   },
                   child: Container(
-                    height: 6.h,
-                    width: 45.w,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.45,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s12),
                         color: ColorManager.primaryColor
@@ -117,12 +116,12 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSpaceVertical(4.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
                 _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized ?
                 Center(
                   child: SizedBox(
-                    height: 30.h,
-                    width: 95.w,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    width: MediaQuery.of(context).size.width * 0.95,
                     child: Chewie(
                       controller: _chewieController!,
                     ),
@@ -138,22 +137,22 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                       ],
                 ),
 
-                buildSpaceVertical(2.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                 Padding(
                   padding: const EdgeInsets.only(left: AppPadding.p20),
                   child: textStyle2(text: "Answer"),
                 ),
-                buildSpaceVertical(1.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                 CustomTextField(
                   controller: assignmentController,
                   hintName: "Enter your answer",
                   inputLines: 10,
                 ),
-                buildSpaceVertical(3.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
                   child: Container(
-                      height: 8.h,
-                      width: 93.w,
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width * 0.93,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s12),
                           color: ColorManager.whiteColor,
@@ -180,7 +179,7 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                       )
                   ),
                 ),
-                buildSpaceVertical(3.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
 
                 submitted == false ?
                 Center(
@@ -204,8 +203,8 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                      }
                     },
                     child: Container(
-                      height: 6.h,
-                      width: 50.w,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s12),
                           color: ColorManager.primaryColor
@@ -239,8 +238,8 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                       }
                     },
                     child: Container(
-                      height: 6.h,
-                      width: 50.w,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s12),
                           color: ColorManager.primaryColor
@@ -253,7 +252,7 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
                   ),
                 ),
 
-                buildSpaceVertical(5.h),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
               ],
             ),
       ),

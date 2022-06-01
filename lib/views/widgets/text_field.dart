@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import '../../utils/color_manager.dart';
 import '../../utils/values_manager.dart';
 

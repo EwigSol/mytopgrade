@@ -9,6 +9,7 @@ class WishlistController extends GetxController {
 
   var isLoading = true.obs;
   var wishlist = Rxn<WishlistModel>();
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -19,7 +20,7 @@ class WishlistController extends GetxController {
   void fetchWishlists() async {
     try {
       isLoading(true);
-      var item = await RemoteServices.fetchWishlist();
+      var item = await remoteServices.fetchWishlist();
       if (item != null) {
         isLoading(false);
         wishlist.value = item;

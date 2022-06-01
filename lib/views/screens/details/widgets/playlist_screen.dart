@@ -3,7 +3,6 @@
 import 'package:html/parser.dart' show parse;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/my_courses_model.dart' as mcm;
 import 'package:topgrade/utils/color_manager.dart';
@@ -140,8 +139,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: lessonModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 50.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.50,
                 child: ListView.builder(
                   itemCount: lessonModelList.length,
                   itemBuilder: (context, i){
@@ -154,29 +153,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: lessonModelList[i].id.toString(),
                                   url: _parseHtmlString(lessonModelList[i].content!), title: lessonModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -191,15 +172,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,8 +198,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -242,7 +223,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Lesson Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(assignmentByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -260,8 +241,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: assignmentModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: assignmentModelList.length,
                   itemBuilder: (context, i){
@@ -274,29 +255,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: assignmentModelList[i].id.toString(),
                                   url: _parseHtmlString(assignmentModelList[i].content!), title: assignmentModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -311,15 +274,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -337,8 +300,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -360,7 +323,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Assignments Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(quizByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -378,8 +341,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: quizModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: quizModelList.length,
                   itemBuilder: (context, i){
@@ -392,29 +355,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: quizModelList[i].id.toString(),
                                   url: _parseHtmlString(quizModelList[i].content!), title: quizModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -429,15 +374,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,8 +400,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -478,7 +423,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Quizzes Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
       ],
     )
     :
@@ -502,8 +447,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: lessonModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 50.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.50,
                 child: ListView.builder(
                   itemCount: lessonModelList.length,
                   itemBuilder: (context, i){
@@ -516,29 +461,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: lessonModelList[i].id.toString(),
                                   url: _parseHtmlString(lessonModelList[i].content!), title: lessonModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -553,15 +480,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -579,8 +506,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -604,7 +531,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Lesson Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(assignmentByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -622,8 +549,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: assignmentModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: assignmentModelList.length,
                   itemBuilder: (context, i){
@@ -636,29 +563,11 @@ class _PlaylistState extends State<Playlist> {
                                 AssignmentViewScreen(id: assignmentModelList[i].id.toString(), duration: assignmentModelList[i].duration!.format,
                                   url: _parseHtmlString(assignmentModelList[i].content!), title: assignmentModelList[i].name, )
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -673,15 +582,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -699,8 +608,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -722,7 +631,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Assignments Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(quizByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -740,8 +649,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: quizModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: quizModelList.length,
                   itemBuilder: (context, i){
@@ -751,29 +660,11 @@ class _PlaylistState extends State<Playlist> {
                         onTap: () {
                           if(widget.isLocked == false){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => QuizViewScreen(quizByIdModel: quizModelList[i])));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -788,15 +679,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -814,8 +705,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -837,7 +728,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Quizzes Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
       ],
     )
     :
@@ -860,8 +751,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: lessonModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 50.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.50,
                 child: ListView.builder(
                   itemCount: lessonModelList.length,
                   itemBuilder: (context, i){
@@ -874,29 +765,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: lessonModelList[i].id.toString(),
                                   url: _parseHtmlString(lessonModelList[i].content!), title: lessonModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -911,15 +784,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -937,8 +810,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -962,7 +835,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Lesson Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(assignmentByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -980,8 +853,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: assignmentModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: assignmentModelList.length,
                   itemBuilder: (context, i){
@@ -994,29 +867,11 @@ class _PlaylistState extends State<Playlist> {
                                 LessonViewScreen(id: assignmentModelList[i].id.toString(),
                                   url: _parseHtmlString(assignmentModelList[i].content!), title: assignmentModelList[i].name,)
                             ));
-                            // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: true, isAssignment: false, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.assignment){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: true, isQuiz: false)
-                            //   ));
-                            // }
-                            // else if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.quiz){
-                            //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),
-                            //           isLesson: false, isAssignment: false, isQuiz: true)
-                            //   ));
-                            // }
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -1031,15 +886,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1057,8 +912,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -1080,7 +935,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Assignments Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Obx((){
           if(quizByIDController.isLoading.value){
             return const Center(child: CircularProgressIndicator());
@@ -1098,8 +953,8 @@ class _PlaylistState extends State<Playlist> {
               ),
               expanded: quizModelList.isNotEmpty ?
               SizedBox(
-                width: 100.w,
-                height: 20.h,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: ListView.builder(
                   itemCount: quizModelList.length,
                   itemBuilder: (context, i){
@@ -1133,8 +988,8 @@ class _PlaylistState extends State<Playlist> {
                           }
                         },
                         child: Container(
-                          height: 8.h,
-                          width: 95.w,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(AppSize.s16),
                               color: ColorManager.halfWhiteColor
@@ -1149,15 +1004,15 @@ class _PlaylistState extends State<Playlist> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        height: 4.h,
-                                        width: 8.w,
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.width * 0.08,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(AppSize.s28),
                                             color: ColorManager.whiteColor
                                         ),
                                         child: Center(child: textStyle0_5(text: "${i+1}")),
                                       ),
-                                      buildSpaceHorizontal(2.w),
+                                      buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1175,8 +1030,8 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                                 Container(
-                                  height: 4.h,
-                                  width: 8.w,
+                                  height: MediaQuery.of(context).size.height * 0.04,
+                                  width: MediaQuery.of(context).size.width * 0.08,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(AppSize.s28),
                                       color: ColorManager.whiteColor
@@ -1198,7 +1053,7 @@ class _PlaylistState extends State<Playlist> {
                 : Center(child: textStyle0_5(text: "No Quizzes Available"));
           }
         }),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
       ],
     );
     // widget.coursesDetail!.sections!.isNotEmpty ?

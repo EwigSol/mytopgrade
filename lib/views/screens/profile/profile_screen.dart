@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
@@ -27,39 +26,39 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
           const Center(
             child: CircleAvatar(
-              radius: 60,
+              radius: 70,
               backgroundColor: ColorManager.halfWhiteColor,
               backgroundImage: AssetImage(AssetsManager.person),
             ),
           ),
-          buildSpaceVertical(3.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
           InkWell(
               onTap: () {
                 // Get.toNamed(Paths.updateProfile)
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen()));
               },
-              child: buildProfileCard("Edit Profile", Icons.edit)
+              child: buildProfileCard("Edit Profile", Icons.edit, context)
           ),
-          buildSpaceVertical(2.h),
-          buildProfileCard("Payment Details", Icons.account_balance_wallet_outlined),
-          buildSpaceVertical(2.h),
-          InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-              },
-              child: buildProfileCard("Notification", Icons.notifications)),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+          buildProfileCard("Payment Details", Icons.account_balance_wallet_outlined, context),
+          // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+          // InkWell(
+          //     onTap: (){
+          //       Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+          //     },
+          //     child: buildProfileCard("Notification", Icons.notifications, context)),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen()));
               },
-              child: buildProfileCard("Wishlist", Icons.favorite)),
-          buildSpaceVertical(2.h),
-          buildProfileCard("Language", Icons.language),
-          buildSpaceVertical(2.h),
+              child: buildProfileCard("Wishlist", Icons.favorite, context)),
+          // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+          // buildProfileCard("Language", Icons.language, context),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
               onTap: () {
                 final box = GetStorage();
@@ -71,17 +70,17 @@ class ProfileScreen extends StatelessWidget {
                 box.remove("isLogged");
                 Get.offAllNamed(Paths.authView);
               },
-              child: buildProfileCard("Log Out", Icons.logout)),
+              child: buildProfileCard("Log Out", Icons.logout, context)),
         ],
       ),
     );
   }
 
-  Center buildProfileCard(String title, IconData icon, ) {
+  Center buildProfileCard(String title, IconData icon, BuildContext context ) {
     return Center(
       child: Container(
-        height: 7.h,
-        width: 85.w,
+        height: MediaQuery.of(context).size.height * 0.09,
+        width: MediaQuery.of(context).size.width * 0.85,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.s22),
             color: ColorManager.primaryColor),
@@ -94,8 +93,8 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    height: 4.h,
-                    width: 8.w,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.12,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s30),
                       color: ColorManager.whiteColor,
@@ -110,11 +109,11 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     child: Icon(icon, size: 20),
                   ),
-                  buildSpaceHorizontal(5.w),
-                  textStyle1(text: title, color: ColorManager.whiteColor),
+                  buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
+                  textStyle2(text: title, color: ColorManager.whiteColor),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor, size: 20),
+              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor, size: 25),
             ],
           ),
         ),

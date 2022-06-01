@@ -1,9 +1,7 @@
 
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
@@ -49,12 +47,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),
             child: textStyle1(text: "Select Payment Method"),
           ),
-          buildSpaceVertical(1.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
             child: GridView.builder(
@@ -77,8 +75,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(paymentMethodsList[index].image, height: 8.h, width: 8.w),
-                          buildSpaceHorizontal(2.w),
+                          Image.asset(paymentMethodsList[index].image, height: MediaQuery.of(context).size.height * 0.08, width: MediaQuery.of(context).size.width * 0.08),
+                          buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
                           textStyle0_5(text: paymentMethodsList[index].name),
                         ],
                       ),
@@ -86,17 +84,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   );
                 }),
           ),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           selectedPaymentMethod == 0 ?
           Padding(
             padding: const EdgeInsets.only(left: AppPadding.p12),
             child: textStyle1(text: "Select Your Card"),
           ): const SizedBox.shrink(),
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           selectedPaymentMethod == 0 ?
           SizedBox(
-            height: 20.h,
-            width: 100.w,
+            height: MediaQuery.of(context).size.height * 0.20,
+            width: MediaQuery.of(context).size.width,
             child: ListView.builder(
                 itemCount: colorList.length,
                 scrollDirection: Axis.horizontal,
@@ -106,8 +104,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: InkWell(
                       onTap: () => setState(() => selectedCard = index),
                       child: Container(
-                        height: 20.h,
-                        width: 60.w,
+                        height: MediaQuery.of(context).size.height * 0.20,
+                        width: MediaQuery.of(context).size.width * 0.60,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppSize.s10),
                             color: colorList[index],
@@ -120,9 +118,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               padding: EdgeInsets.only(left: AppPadding.p12, top: AppPadding.p12),
                               child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
                             ),
-                            buildSpaceVertical(3.h),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                             Center(child: textStyle0_5(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
-                            buildSpaceVertical(2.h),
+                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
                               child: Row(
@@ -157,15 +155,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           )
           : const SizedBox.shrink(),
-          buildSpaceVertical(10.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
           Center(
             child: InkWell(
                 onTap: (){
                   Get.toNamed(Paths.addNC);
                 },
                 child:  Container(
-                  height: 6.h,
-                  width: 44.w,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  width: MediaQuery.of(context).size.width * 0.44,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s16),
                       color: ColorManager.redColor
@@ -192,8 +190,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   Container buildBottomCard() {
     return Container(
-      height: 7.h,
-      width: 100.w,
+      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width,
       color: ColorManager.whiteColor,
       child: InkWell(
         onTap: (){
@@ -207,8 +205,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         },
         child: Center(
           child: Container(
-            height: 6.h,
-            width: 53.w,
+            height: MediaQuery.of(context).size.height * 0.06,
+            width: MediaQuery.of(context).size.width * 0.53,
             decoration: BoxDecoration(
               color: ColorManager.redColor,
               borderRadius: const BorderRadius.all(

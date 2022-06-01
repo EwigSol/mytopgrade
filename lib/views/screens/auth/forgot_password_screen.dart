@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/routes/appPages.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/assets_manager.dart';
@@ -23,23 +22,23 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 10.h),
+        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
         child: const SimpleAppBar(title: StringsManager.forgotPas),
       ),
       body: Column(
         children: [
-          buildSpaceVertical(10.h),
-          buildFormCard(),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.1),
+          buildFormCard(context),
         ],
       ),
     );
   }
 
-  Center buildFormCard() {
+  Center buildFormCard(BuildContext context) {
     return Center(
       child: Container(
-        height: 39.h,
-        width: 90.w,
+        height: MediaQuery.of(context).size.height * 0.39,
+        width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),
           color: ColorManager.whiteColor,
@@ -57,19 +56,19 @@ class ForgotPasswordScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildSpaceVertical(2.h),
-              Image.asset(AssetsManager.logo, height: 15.h, width: 30.w),
-              buildSpaceVertical(2.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.15, width: MediaQuery.of(context).size.width * 0.30),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               CustomTextField(
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
-              buildSpaceVertical(3.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               InkWell(
                   onTap: () {
                     Get.toNamed(Paths.otpVerify);
                   },
-                  child: actionButton(StringsManager.submit)),
+                  child: actionButton(StringsManager.submit, context)),
             ],
           ),
         ),

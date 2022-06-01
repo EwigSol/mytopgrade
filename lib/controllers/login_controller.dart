@@ -18,14 +18,11 @@ class LoginController extends GetxController {
     isDataSubmitting.value = true;
     final queryParameters = {  'username': userName, 'password': password };
 
-    var response = await client.post(
-        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.login)
-        ).replace(queryParameters: queryParameters));
+    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.login)).replace(queryParameters: queryParameters));
 
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      // if (responseData['status'] == "success") {
         isDataReadingCompleted.value = true;
         result = {
           'status': true,
@@ -35,11 +32,6 @@ class LoginController extends GetxController {
           'user_email': responseData['user_email'],
           'user_display_name': responseData['user_display_name'],
         };
-      // } else {
-      //   isDataSubmitting.value = false;
-      //   isDataReadingCompleted.value = true;
-      //   result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
-      // }
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;

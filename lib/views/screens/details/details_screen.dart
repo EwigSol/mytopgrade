@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/models/my_courses_model.dart';
@@ -105,17 +104,17 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             SizedBox(
-                height: 28.h,
-                width: 100.w,
+                height: MediaQuery.of(context).size.height * 0.28,
+                width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: 27.h,
-                        width: 90.w,
+                        height: MediaQuery.of(context).size.height * 0.27,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(AppSize.s10),
@@ -129,8 +128,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                       top: 4,
                       right: 15,
                       child: Container(
-                        height: 6.h,
-                        width: 20.w,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.10,
                         decoration: const BoxDecoration(
                             color: ColorManager.redColor,
                             borderRadius: BorderRadius.only(
@@ -150,8 +149,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                     ),
                   ],
                 )),
-            buildSpaceVertical(1.h),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -175,7 +174,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             textStyle0(text: widget.favCourseDetail!.rating!.toString()),
-                            buildSpaceHorizontal(0.5.w),
+                            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.005),
                             textStyle0(text: "⭐"),
                           ],
                         ),
@@ -185,7 +184,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -212,7 +211,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p22),
@@ -225,10 +224,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 tabs: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                           child: Text("Overview", style: GoogleFonts.poppins(
-                            fontSize: 10.sp,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                           ),),
                       )
@@ -236,10 +235,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Curriculum", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -247,10 +246,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Instructor", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -280,17 +279,17 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             SizedBox(
-                height: 28.h,
-                width: 100.w,
+                height: MediaQuery.of(context).size.height * 0.28,
+                width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: 27.h,
-                        width: 90.w,
+                        height: MediaQuery.of(context).size.height * 0.27,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(AppSize.s10),
@@ -304,8 +303,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                       top: 4,
                       right: 15,
                       child: Container(
-                        height: 6.h,
-                        width: 20.w,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.10,
                         decoration: const BoxDecoration(
                             color: ColorManager.redColor,
                             borderRadius: BorderRadius.only(
@@ -325,8 +324,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                     ),
                   ],
                 )),
-            buildSpaceVertical(1.h),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -350,7 +349,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             textStyle0(text: widget.myCoursesModel!.rating!.toString()),
-                            buildSpaceHorizontal(0.5.w),
+                            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.005),
                             textStyle0(text: "⭐"),
                           ],
                         ),
@@ -360,7 +359,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -387,7 +386,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p22),
@@ -400,10 +399,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 tabs: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Overview", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -411,10 +410,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Curriculum", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -422,10 +421,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Instructor", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -454,17 +453,17 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             SizedBox(
-                height: 28.h,
-                width: 100.w,
+                height: MediaQuery.of(context).size.height * 0.28,
+                width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: 27.h,
-                        width: 90.w,
+                        height: MediaQuery.of(context).size.height * 0.27,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(AppSize.s10),
@@ -478,8 +477,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                       top: 4,
                       right: 15,
                       child: Container(
-                        height: 6.h,
-                        width: 20.w,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.height * 0.10,
                         decoration: const BoxDecoration(
                             color: ColorManager.redColor,
                             borderRadius: BorderRadius.only(
@@ -499,8 +498,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                     ),
                   ],
                 )),
-            buildSpaceVertical(1.h),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -524,7 +523,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             textStyle0(text: widget.coursesDetail!.rating!.toString()),
-                            buildSpaceHorizontal(0.5.w),
+                            buildSpaceHorizontal(MediaQuery.of(context).size.height * 0.005),
                             textStyle0(text: "⭐"),
                           ],
                         ),
@@ -534,7 +533,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
               child: Row(
@@ -561,7 +560,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 ],
               ),
             ),
-            buildSpaceVertical(2.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p22),
@@ -574,10 +573,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 tabs: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Overview", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -585,10 +584,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Curriculum", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -596,10 +595,10 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
 
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
-                      height: 4.h,
+                      height: MediaQuery.of(context).size.height * 0.04,
                       child: Tab(
                         child: Text("Instructor", style: GoogleFonts.poppins(
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),),
                       )
@@ -624,7 +623,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
         ),
       ),
       bottomSheet: SizedBox(
-          height: 7.h, width: 100.w,
+          height: MediaQuery.of(context).size.height * 0.07, width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.only(bottom: AppPadding.p10),
             child: buildBottomCard(),
@@ -646,8 +645,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
           successToast("Congrats", "Go to Curriculum and start the lessons one by one");
         },
         child: Container(
-          height: 6.h,
-          width: 60.w,
+          height: MediaQuery.of(context).size.height * 0.06,
+          width: MediaQuery.of(context).size.width * 0.60,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s12),
               color: ColorManager.primaryColor
@@ -679,8 +678,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                     });
               },
               child: Container(
-                height: 6.h,
-                width: 60.w,
+                height: MediaQuery.of(context).size.height * 0.06,
+                width: MediaQuery.of(context).size.width * 0.60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppSize.s12),
                     color: ColorManager.primaryColor
@@ -714,8 +713,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             });
           },
           child: Container(
-            height: 5.h,
-            width: 5.w,
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.05,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s16),
               color: ColorManager.whiteColor
@@ -726,7 +725,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             }),
           ),
         ),
-        buildSpaceHorizontal(9.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.09),
         InkWell(
           onTap: (){
             CartModel cart = CartModel(
@@ -746,7 +745,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
           },
           child: const Center(child: Icon(Icons.shopping_cart, color: ColorManager.redColor, size: 30)),
         ),
-        buildSpaceHorizontal(5.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
       ],
     )
     :
@@ -769,8 +768,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             });
           },
           child: Container(
-            height: 5.h,
-            width: 5.w,
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.05,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.s16),
                 color: ColorManager.whiteColor
@@ -781,7 +780,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             }),
           ),
         ),
-        buildSpaceHorizontal(9.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.09),
         InkWell(
           onTap: (){
             CartModel cart = CartModel(
@@ -801,7 +800,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
           },
           child: const Center(child: Icon(Icons.shopping_cart, color: ColorManager.redColor, size: 30)),
         ),
-        buildSpaceHorizontal(5.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
       ],
     )
     :
@@ -823,8 +822,8 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             });
           },
           child: Container(
-            height: 5.h,
-            width: 5.w,
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.05,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.s16),
                 color: ColorManager.whiteColor
@@ -835,7 +834,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
             }),
           ),
         ),
-        buildSpaceHorizontal(9.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.09),
         InkWell(
           onTap: (){
             CartModel cart = CartModel(
@@ -855,7 +854,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
           },
           child: const Center(child: Icon(Icons.shopping_cart, color: ColorManager.redColor, size: 30)),
         ),
-        buildSpaceHorizontal(5.w),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
       ],
     );
   }

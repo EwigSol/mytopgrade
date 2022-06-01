@@ -1,7 +1,8 @@
 
+
+
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/utils/assets_manager.dart';
@@ -25,7 +26,7 @@ class InstructorScreen extends StatelessWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         favCourseDetail!.instructor!.avatar! != "" ?
         Center(
           child: CircleAvatar(
@@ -42,7 +43,7 @@ class InstructorScreen extends StatelessWidget {
             child: Image.asset(AssetsManager.logo),
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -53,7 +54,7 @@ class InstructorScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -61,7 +62,7 @@ class InstructorScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle0_5(text: "Description"),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               textStyle0(text: _parseHtmlString(favCourseDetail!.instructor!.description!)),
             ],
           ),
@@ -76,7 +77,7 @@ class InstructorScreen extends StatelessWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Center(
           child: CircleAvatar(
             radius: 80,
@@ -84,7 +85,7 @@ class InstructorScreen extends StatelessWidget {
             backgroundImage: NetworkImage(myCoursesModel!.instructor!.avatar!),
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -95,7 +96,7 @@ class InstructorScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -103,7 +104,7 @@ class InstructorScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle0_5(text: "Description"),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               textStyle0(text: _parseHtmlString(myCoursesModel!.instructor!.description!)),
             ],
           ),
@@ -117,7 +118,7 @@ class InstructorScreen extends StatelessWidget {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Center(
           child: CircleAvatar(
             radius: 80,
@@ -125,7 +126,7 @@ class InstructorScreen extends StatelessWidget {
             backgroundImage: NetworkImage(coursesDetail!.instructor!.avatar!),
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Row(
@@ -136,7 +137,7 @@ class InstructorScreen extends StatelessWidget {
             ],
           ),
         ),
-        buildSpaceVertical(2.h),
+        buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
           child: Column(
@@ -144,7 +145,7 @@ class InstructorScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textStyle0_5(text: "Description"),
-              buildSpaceVertical(1.h),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               textStyle0(text: _parseHtmlString(coursesDetail!.instructor!.description!)),
             ],
           ),

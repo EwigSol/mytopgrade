@@ -10,6 +10,7 @@ class CourseReviewsController extends GetxController {
 
   var isLoading = true.obs;
   var courseReviews = Rxn<CourseReviewModel>();
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -20,7 +21,7 @@ class CourseReviewsController extends GetxController {
   void fetchCourseById() async {
     try {
       isLoading(true);
-      var courseReview = await RemoteServices.fetchCourseReviews("32492");
+      var courseReview = await remoteServices.fetchCourseReviews("32492");
       if (courseReview != null) {
         isLoading(false);
         courseReviews.value = courseReview;

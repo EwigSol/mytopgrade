@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/utils/strings_manager.dart';
@@ -31,7 +30,7 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildSpaceVertical(1.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             Obx((){
               if(popularCoursesController.isLoading.value){
                 return const Center(child: CircularProgressIndicator());
@@ -49,13 +48,13 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
                   ),
                 )
                     : SizedBox(
-                    height: 17.h,
+                    height: MediaQuery.of(context).size.height * 0.17,
                     width: double.infinity,
                     child: Center(child: textStyle0_5(text: "No Instructor Available"))
                 );
               }
             }),
-            buildSpaceVertical(6.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
           ],
         ),
       ),
@@ -76,8 +75,8 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: Container(
-        width: 45.w,
-        height: 17.h,
+        width: MediaQuery.of(context).size.width * 0.45,
+        height: MediaQuery.of(context).size.height * 0.17,
         decoration: BoxDecoration(
           color: ColorManager.whiteColor,
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -92,7 +91,7 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
         ),
         child: Row(
           children: [
-            buildSpaceHorizontal(2.w),
+            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             catModel.instructor!.avatar != '' ?
             CircleAvatar(
               radius: 35,
@@ -105,15 +104,15 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
               backgroundColor: ColorManager.whiteColor,
               backgroundImage: AssetImage(AssetsManager.girl),
             ),
-            buildSpaceHorizontal(2.w),
+            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildSpaceVertical(2.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                   Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-                  buildSpaceVertical(1.h),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                   Flexible(
                     child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),

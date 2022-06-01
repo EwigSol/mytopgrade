@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/category_model.dart';
 import 'package:topgrade/utils/strings_manager.dart';
@@ -25,7 +24,7 @@ class CategoriesScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             Obx((){
               if(categoryController.isLoading.value){
                 return const Center(child: CircularProgressIndicator());
@@ -45,7 +44,7 @@ class CategoriesScreen extends StatelessWidget {
                     : Center(child: textStyle0_5(text: "No Category Available"));
               }
             }),
-            buildSpaceVertical(5.h),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
           ],
         ),
       ),
@@ -70,8 +69,8 @@ class CategoriesScreen extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
         },
         child: Container(
-          height: 7.h,
-          width: 40.w,
+          height: MediaQuery.of(context).size.height * 0.07,
+          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
               color: ColorManager.primaryColor

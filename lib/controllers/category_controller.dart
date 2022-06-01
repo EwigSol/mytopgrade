@@ -10,6 +10,7 @@ class CategoryController extends GetxController {
 
   var isLoading = true.obs;
   var catList = <CategoriesModel>[].obs;
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -20,7 +21,7 @@ class CategoryController extends GetxController {
   void fetchAllCategories() async {
     try {
       isLoading(true);
-      var categories = await RemoteServices.fetchCategories();
+      var categories = await remoteServices.fetchCategories();
       if (categories != null) {
         isLoading(false);
         catList.value = categories;

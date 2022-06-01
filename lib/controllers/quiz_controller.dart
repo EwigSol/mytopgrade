@@ -10,6 +10,7 @@ class QuizController extends GetxController {
 
   var isLoading = true.obs;
   var quizList = <QuizModel>[].obs;
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -20,7 +21,7 @@ class QuizController extends GetxController {
   void fetchQuizList() async {
     try {
       isLoading(true);
-      var quiz = await RemoteServices.fetchQuizList();
+      var quiz = await remoteServices.fetchQuizList();
       if (quiz != null) {
         isLoading(false);
         quizList.value = quiz;

@@ -10,6 +10,7 @@ class CoursesController extends GetxController {
 
   var isLoading = true.obs;
   var coursesList = <CoursesModel>[].obs;
+  RemoteServices remoteServices = RemoteServices();
 
   @override
   void onInit() {
@@ -20,7 +21,7 @@ class CoursesController extends GetxController {
   void fetchAllCourses() async {
     try {
       isLoading(true);
-      var courses = await RemoteServices.fetchCourses();
+      var courses = await remoteServices.fetchCourses();
       if (courses != null) {
         isLoading(false);
         coursesList.value = courses;

@@ -1,7 +1,8 @@
 
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/utils/color_manager.dart';
@@ -33,7 +34,7 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
       appBar: buildAppBar(),
       body: Column(
         children: [
-          buildSpaceVertical(2.h),
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p6),
             child: TabBar(
@@ -81,7 +82,7 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
         child: Text(StringsManager.trending, style: GoogleFonts.poppins(
-          fontSize: 12.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
         ),),
       ),
@@ -93,7 +94,7 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
         child: Text(StringsManager.mostP, style: GoogleFonts.poppins(
-          fontSize: 12.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w400,
         ),),
       ),
