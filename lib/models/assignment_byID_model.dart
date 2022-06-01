@@ -1,9 +1,9 @@
-
-
+// ignore_for_file: file_names
 
 import 'dart:convert';
 
-AssignmentByIdModel assignmentByIdModelFromJson(String str) => AssignmentByIdModel.fromJson(json.decode(str));
+AssignmentByIdModel assignmentByIdModelFromJson(String str) =>
+    AssignmentByIdModel.fromJson(json.decode(str));
 
 class AssignmentByIdModel {
   AssignmentByIdModel({
@@ -56,32 +56,34 @@ class AssignmentByIdModel {
   AssignmentAnswer? assignmentAnswer;
   List<dynamic>? evaluation;
 
-  factory AssignmentByIdModel.fromJson(Map<String, dynamic> json) => AssignmentByIdModel(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    permalink: json["permalink"],
-    dateCreated: DateTime.parse(json["date_created"]),
-    dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
-    dateModified: DateTime.parse(json["date_modified"]),
-    dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
-    status: json["status"],
-    content: json["content"],
-    excerpt: json["excerpt"],
-    assigned: Assigned.fromJson(json["assigned"]),
-    retakeCount: json["retake_count"],
-    retaken: json["retaken"],
-    duration: Duration.fromJson(json["duration"]),
-    introdution: json["introdution"],
-    passingGrade: json["passing_grade"],
-    allowFileType: json["allow_file_type"],
-    filesAmount: json["files_amount"],
-    attachment: List<dynamic>.from(json["attachment"].map((x) => x)),
-    results: Results.fromJson(json["results"]),
-    assignmentAnswer: json["assignment_answer"] != [] ? AssignmentAnswer.fromJson(json["assignment_answer"]) : null,
-    evaluation: List<dynamic>.from(json["evaluation"].map((x) => x)),
-  );
-
+  factory AssignmentByIdModel.fromJson(Map<String, dynamic> json) =>
+      AssignmentByIdModel(
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        permalink: json["permalink"],
+        dateCreated: DateTime.parse(json["date_created"]),
+        dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
+        dateModified: DateTime.parse(json["date_modified"]),
+        dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
+        status: json["status"],
+        content: json["content"],
+        excerpt: json["excerpt"],
+        assigned: Assigned.fromJson(json["assigned"]),
+        retakeCount: json["retake_count"],
+        retaken: json["retaken"],
+        duration: Duration.fromJson(json["duration"]),
+        introdution: json["introdution"],
+        passingGrade: json["passing_grade"],
+        allowFileType: json["allow_file_type"],
+        filesAmount: json["files_amount"],
+        attachment: List<dynamic>.from(json["attachment"].map((x) => x)),
+        results: Results.fromJson(json["results"]),
+        assignmentAnswer: json["assignment_answer"] != []
+            ? AssignmentAnswer.fromJson(json["assignment_answer"])
+            : null,
+        evaluation: List<dynamic>.from(json["evaluation"].map((x) => x)),
+      );
 }
 
 class Assigned {
@@ -90,9 +92,8 @@ class Assigned {
   Course? course;
 
   factory Assigned.fromJson(Map<String, dynamic> json) => Assigned(
-    course: Course.fromJson(json["course"]),
-  );
-
+        course: Course.fromJson(json["course"]),
+      );
 }
 
 class Course {
@@ -111,13 +112,12 @@ class Course {
   String? author;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-    id: json["id"],
-    title: json["title"],
-    slug: json["slug"],
-    content: json["content"],
-    author: json["author"],
-  );
-
+        id: json["id"],
+        title: json["title"],
+        slug: json["slug"],
+        content: json["content"],
+        author: json["author"],
+      );
 }
 
 class AssignmentAnswer {
@@ -129,11 +129,12 @@ class AssignmentAnswer {
   String? note;
   Map<String, FileValue>? file;
 
-  factory AssignmentAnswer.fromJson(Map<String, dynamic> json) => AssignmentAnswer(
-    note: json["note"],
-    file: Map.from(json["file"]).map((k, v) => MapEntry<String, FileValue>(k, FileValue.fromJson(v))),
-  );
-
+  factory AssignmentAnswer.fromJson(Map<String, dynamic> json) =>
+      AssignmentAnswer(
+        note: json["note"],
+        file: Map.from(json["file"]).map(
+            (k, v) => MapEntry<String, FileValue>(k, FileValue.fromJson(v))),
+      );
 }
 
 class FileValue {
@@ -154,14 +155,13 @@ class FileValue {
   int? size;
 
   factory FileValue.fromJson(Map<String, dynamic> json) => FileValue(
-    file: json["file"],
-    url: json["url"],
-    type: json["type"],
-    filename: json["filename"],
-    savedTime: DateTime.parse(json["saved_time"]),
-    size: json["size"],
-  );
-
+        file: json["file"],
+        url: json["url"],
+        type: json["type"],
+        filename: json["filename"],
+        savedTime: DateTime.parse(json["saved_time"]),
+        size: json["size"],
+      );
 }
 
 class Duration {
@@ -174,10 +174,9 @@ class Duration {
   int? time;
 
   factory Duration.fromJson(Map<String, dynamic> json) => Duration(
-    format: json["format"],
-    time: json["time"],
-  );
-
+        format: json["format"],
+        time: json["time"],
+      );
 }
 
 class Results {
@@ -192,9 +191,8 @@ class Results {
   DateTime? expirationTime;
 
   factory Results.fromJson(Map<String, dynamic> json) => Results(
-    status: json["status"],
-    startTime: DateTime.parse(json["start_time"]),
-    expirationTime: DateTime.parse(json["expiration_time"]),
-  );
-
+        status: json["status"],
+        startTime: DateTime.parse(json["start_time"]),
+        expirationTime: DateTime.parse(json["expiration_time"]),
+      );
 }

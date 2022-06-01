@@ -1,17 +1,13 @@
-
-
+// ignore_for_file: file_names
 
 import 'package:get/state_manager.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
 import '../services/remote_services.dart';
 
-
 class QuizByIDController extends GetxController {
-
   var isLoading = true.obs;
   var quizByIDList = Rxn<QuizByIdModel>();
   RemoteServices remoteServices = RemoteServices();
-
 
   void fetchQuizById(String id) async {
     try {
@@ -25,5 +21,4 @@ class QuizByIDController extends GetxController {
       isLoading(false);
     }
   }
-
 }

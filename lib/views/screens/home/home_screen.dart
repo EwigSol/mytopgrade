@@ -1,23 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:topgrade/controllers/category_controller.dart';
+import 'package:topgrade/controllers/courses_controller.dart';
+import 'package:topgrade/controllers/my_courses_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/category_model.dart';
 import 'package:topgrade/models/courses_model.dart';
+import 'package:topgrade/routes/appPages.dart';
+import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/utils/strings_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/category/categories_screen.dart';
+import 'package:topgrade/views/screens/category/category_courses_screen.dart';
 import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
-import '../../../controllers/category_controller.dart';
-import '../../../controllers/courses_controller.dart';
-import '../../../controllers/my_courses_controller.dart';
-import '../../../routes/appPages.dart';
-import '../../../utils/assets_manager.dart';
-import '../../../utils/strings_manager.dart';
-import '../category/category_courses_screen.dart';
-import '../notification/notifications_screen.dart';
 import 'widgets/filter_sheet.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +27,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  final CoursesController popularCoursesController = Get.put(CoursesController());
+  final CoursesController popularCoursesController =
+      Get.put(CoursesController());
   final CategoryController categoryController = Get.put(CategoryController());
   var myCoursesController = Get.put(MyCoursesController());
   List<CoursesModel> popularCoursesModel = [];
@@ -44,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
     popularCoursesModel.clear();
     name = box.read("user_display_name");
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,90 +60,101 @@ class _HomeScreenState extends State<HomeScreen> {
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.categories),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              Obx((){
-                if(categoryController.isLoading.value){
+              Obx(() {
+                if (categoryController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-
-                  for(int i=0; i<myCoursesController.myCoursesList.length; i++){
-                    myCoursesId.add(myCoursesController.myCoursesList[i].id.toString());
+                } else {
+                  for (int i = 0;
+                      i < myCoursesController.myCoursesList.length;
+                      i++) {
+                    myCoursesId.add(
+                        myCoursesController.myCoursesList[i].id.toString());
                     box.write("myCoursesId", myCoursesId);
                   }
 
-                  return categoryController.catList.isNotEmpty ?
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: double.infinity,
-                    child: ListView.builder(
-                        itemCount: categoryController.catList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final catModel = categoryController.catList[index];
-                          return buildCategoryCard(catModel, index);
-                        }),
-                  )
-                    : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: double.infinity,
-                      child: Center(child: textStyle0_5(text: "No Category Available"))
-                  );
+                  return categoryController.catList.isNotEmpty
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              itemCount: categoryController.catList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                final catModel =
+                                    categoryController.catList[index];
+                                return buildCategoryCard(catModel, index);
+                              }),
+                        )
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: double.infinity,
+                          child: Center(
+                              child:
+                                  textStyle0_5(text: "No Category Available")));
                 }
               }),
-
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.popular),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              Obx((){
-                if(popularCoursesController.isLoading.value){
+              Obx(() {
+                if (popularCoursesController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-                  for(int i=0; i<popularCoursesController.coursesList.length; i++){
-                    if(popularCoursesController.coursesList[i].rating! >= 3 ){
-                      popularCoursesModel.add(popularCoursesController.coursesList[i]);
+                } else {
+                  for (int i = 0;
+                      i < popularCoursesController.coursesList.length;
+                      i++) {
+                    if (popularCoursesController.coursesList[i].rating! >= 3) {
+                      popularCoursesModel
+                          .add(popularCoursesController.coursesList[i]);
                     }
                   }
-                  return popularCoursesModel.isNotEmpty ?
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    width: double.infinity,
-                    child: ListView.builder(
-                        itemCount: popularCoursesModel.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return buildPopularCard(popularCoursesModel[index]);
-                        }),
-                  )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.22,
-                      width: double.infinity,
-                      child: Center(child: textStyle0_5(text: "No Popular Courses Available"))
-                  );
+                  return popularCoursesModel.isNotEmpty
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.23,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              itemCount: popularCoursesModel.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return buildPopularCard(
+                                    popularCoursesModel[index]);
+                              }),
+                        )
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.22,
+                          width: double.infinity,
+                          child: Center(
+                              child: textStyle0_5(
+                                  text: "No Popular Courses Available")));
                 }
               }),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              Obx((){
-                if(popularCoursesController.isLoading.value){
+              Obx(() {
+                if (popularCoursesController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-                  return popularCoursesController.coursesList.isNotEmpty ?
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    width: double.infinity,
-                    child: ListView.builder(
-                        itemCount: popularCoursesController.coursesList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final catM = popularCoursesController.coursesList[index];
-                          return buildInstructorCard(catM);
-                        }),
-                  )
+                } else {
+                  return popularCoursesController.coursesList.isNotEmpty
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              itemCount:
+                                  popularCoursesController.coursesList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                final catM =
+                                    popularCoursesController.coursesList[index];
+                                return buildInstructorCard(catM);
+                              }),
+                        )
                       : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.17,
-                      width: double.infinity,
-                      child: Center(child: textStyle0_5(text: "No Instructor Available"))
-                  );
+                          height: MediaQuery.of(context).size.height * 0.17,
+                          width: double.infinity,
+                          child: Center(
+                              child: textStyle0_5(
+                                  text: "No Instructor Available")));
                 }
               }),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
@@ -158,7 +167,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildInstructorCard(CoursesModel catModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4, vertical: AppPadding.p4),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p4, vertical: AppPadding.p4),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.60,
         decoration: BoxDecoration(
@@ -176,38 +186,46 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           children: [
             buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
-            catModel.instructor!.avatar != '' ?
-            CircleAvatar(
-              radius: 35,
-              backgroundColor: ColorManager.whiteColor,
-              backgroundImage: NetworkImage(catModel.instructor!.avatar!),
-            )
-            :
-            const CircleAvatar(
-              radius: 35,
-              backgroundColor: ColorManager.whiteColor,
-              backgroundImage: AssetImage(AssetsManager.girl),
-            ),
+            catModel.instructor!.avatar != ''
+                ? CircleAvatar(
+                    radius: 35,
+                    backgroundColor: ColorManager.whiteColor,
+                    backgroundImage: NetworkImage(catModel.instructor!.avatar!),
+                  )
+                : const CircleAvatar(
+                    radius: 35,
+                    backgroundColor: ColorManager.whiteColor,
+                    backgroundImage: AssetImage(AssetsManager.girl),
+                  ),
             buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                  Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                  Text(
+                    catModel.instructor!.name!.name,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                   Flexible(
-                    child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),
+                    child: Text(
+                      catModel.instructor!.description!,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 11, color: ColorManager.grayColor),
+                    ),
                   ),
                 ],
               ),
             ),
-
           ],
         ),
-      //  Row(
+        //  Row(
         //           children: [
         //             SizedBox(
         //               height: 18.h,
@@ -246,9 +264,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildPopularCard(CoursesModel popularCourse) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p6),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p6, vertical: AppPadding.p6),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Get.toNamed(Paths.details, arguments: popularCourse);
         },
         child: Container(
@@ -282,7 +301,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(popularCourse.image!, fit: BoxFit.fill)),
+                              child: Image.network(popularCourse.image!,
+                                  fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -298,7 +318,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0(text: "\$${popularCourse.price.toString()}", color: ColorManager.whiteColor)),
+                              child: textStyle0(
+                                  text: "\$${popularCourse.price.toString()}",
+                                  color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
@@ -309,11 +331,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: popularCourse.instructor!.name.toString(), color: ColorManager.grayColor),
+                child: textStyle0(
+                    text: popularCourse.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -327,18 +352,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.play_circle_fill, size: 16, color: ColorManager.whiteColor),
+                            child: Icon(Icons.play_circle_fill,
+                                size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
-                        textStyle0(text: "Sections: ${popularCourse.sections!.length}")
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
+                        textStyle0(
+                            text: "Sections: ${popularCourse.sections!.length}")
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: popularCourse.rating.toString())
                       ],
                     ),
@@ -357,14 +386,17 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      CategoryCoursesScreen(id: categoryModel.id.toString())));
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.s20),
-            color: ColorManager.primaryColor
-          ),
+              borderRadius: BorderRadius.circular(AppSize.s20),
+              color: ColorManager.primaryColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -387,7 +419,8 @@ class _HomeScreenState extends State<HomeScreen> {
               //   child: const Icon(Icons.lightbulb, color: ColorManager.primaryColor),
               // ),
               // buildSpaceHorizontal(2.w),
-              textStyle0_5(text: categoryModel.name!, color: ColorManager.whiteColor),
+              textStyle0_5(
+                  text: categoryModel.name!, color: ColorManager.whiteColor),
             ],
           ),
         ),
@@ -402,17 +435,24 @@ class _HomeScreenState extends State<HomeScreen> {
         textStyle0_5(text: title),
         InkWell(
             onTap: () {
-              if(title == "Categories"){
+              if (title == "Categories") {
                 // Get.toNamed(Paths.allCat);
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoriesScreen()));
-              }
-              else if(title == "Popular Courses"){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CategoriesScreen()));
+              } else if (title == "Popular Courses") {
                 // Get.toNamed(Paths.allPopular);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const PopularCoursesScreen()));
-              }
-              else if(title == "Best Instructors"){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PopularCoursesScreen()));
+              } else if (title == "Best Instructors") {
                 // Get.toNamed(Paths.alInstructor);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BestInstructorScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BestInstructorScreen()));
               }
             },
             child: textStyle0_5(text: StringsManager.seeAll)),
@@ -436,20 +476,20 @@ class _HomeScreenState extends State<HomeScreen> {
               return null;
             },
             decoration: InputDecoration(
-              enabledBorder:  const OutlineInputBorder(
-                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+              enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
                 borderSide: BorderSide(color: Colors.grey),
               ),
               focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              errorBorder : const OutlineInputBorder(
-                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+              errorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
                 borderSide: BorderSide(color: ColorManager.redColor),
               ),
               focusedErrorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all( Radius.circular(AppSize.s10)),
+                borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
                 borderSide: BorderSide(color: ColorManager.redColor),
               ),
               hintText: StringsManager.search,
@@ -466,9 +506,11 @@ class _HomeScreenState extends State<HomeScreen> {
             showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
                 builder: (context) {
-                  return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                  return StatefulBuilder(
+                      builder: (context, StateSetter customSetState) {
                     return const FilterSheet();
                   });
                 });
@@ -488,8 +530,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            child:
-                const Icon(Icons.apps, color: ColorManager.whiteColor, size: 28),
+            child: const Icon(Icons.apps,
+                color: ColorManager.whiteColor, size: 28),
           ),
         ),
       ],

@@ -1,12 +1,10 @@
-
-
+// ignore_for_file: file_names
 
 import 'package:get/state_manager.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
 import '../services/remote_services.dart';
 
 class CourseByIDController extends GetxController {
-
   var isLoading = true.obs;
   var courseByIDList = Rxn<CourseByIdModel>();
   RemoteServices remoteServices = RemoteServices();
@@ -29,5 +27,4 @@ class CourseByIDController extends GetxController {
       isLoading(false);
     }
   }
-
 }
