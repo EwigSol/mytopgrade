@@ -351,10 +351,7 @@ class _PlaylistState extends State<Playlist> {
                       child: InkWell(
                         onTap: () {
                           if(widget.isLocked == false){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                LessonViewScreen(id: quizModelList[i].id.toString(),
-                                  url: _parseHtmlString(quizModelList[i].content!), title: quizModelList[i].name,)
-                            ));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => QuizViewScreen(quizByIdModel: quizModelList[i])));
                           }
                         },
                         child: Container(
@@ -963,10 +960,7 @@ class _PlaylistState extends State<Playlist> {
                       child: InkWell(
                         onTap: () {
                           if(widget.isLocked == false){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                LessonViewScreen(id: quizModelList[i].id.toString(),
-                                  url: _parseHtmlString(quizModelList[i].content!), title: quizModelList[i].name,)
-                            ));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => QuizViewScreen(quizByIdModel: quizModelList[i])));
                             // if(widget.myCoursesModel!.sections![index].items![i].type == mcm.Type.lesson){
                             //   Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             //       LessonViewScreen(id: widget.myCoursesModel!.sections![index].items![i].id.toString(),

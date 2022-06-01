@@ -30,6 +30,8 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
   bool submitted = false;
   List<bool> listCheck = [];
   var selectedAnswer = 0;
+  List<int> listAnswer = [];
+  int groupValue = -1;
 
 
   @override
@@ -86,7 +88,9 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
-            Expanded(
+            SizedBox(
+              // height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                   itemCount: widget.quizByIdModel.questions!.length,
                   shrinkWrap: true,
@@ -94,132 +98,157 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   itemBuilder: (context, index){
                     final questions = widget.quizByIdModel.questions![index];
                     if(questions.type == "true_or_false"){
-                      return Container(
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                            textStyle0_5(text: questions.title!),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: RadioListTile(
-                                      activeColor: Colors.white,
-                                      contentPadding: const EdgeInsets.only(right: 1.0),
-                                      title: const Text(
-                                        "True",
-                                        style: TextStyle(color: Colors.white, fontSize: 10),
-                                      ),
-                                      value: 0,
-                                      groupValue: selectedAnswer,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedAnswer = int.parse(value.toString());
-                                        });
-                                      }),
-                                ),
-                                Expanded(
-                                  child: RadioListTile(
-                                      activeColor: Colors.white,
-                                      contentPadding: const EdgeInsets.only(right: 1.0),
-                                      title: const Text(
-                                        "False",
-                                        style: TextStyle(color: Colors.white, fontSize: 10),
-                                      ),
-                                      value: 1,
-                                      groupValue: selectedAnswer,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedAnswer = int.parse(value.toString());
-                                        });
-                                      }),
-                                ),
-                              ],
-                            ),
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                          ],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p6),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                            color: ColorManager.whiteColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                              textStyle0_5(text: questions.title!),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // _myRadioButton(
+                                  //   title: "True",
+                                  //   value: 0,
+                                  //   onChanged: (newValue) => setState(() => groupValue = newValue),
+                                  // ),
+                                  // _myRadioButton(
+                                  //   title: "False",
+                                  //   value: 1,
+                                  //   onChanged: (newValue) => setState(() => groupValue = newValue),
+                                  // ),
+                                  Expanded(
+                                    child: RadioListTile(
+                                        activeColor: ColorManager.blackColor,
+                                        contentPadding: const EdgeInsets.only(right: 1.0),
+                                        title: const Text(
+                                          "True",
+                                          style: TextStyle(color: ColorManager.blackColor, fontSize: 10),
+                                        ),
+                                        value: 0,
+                                        groupValue: selectedAnswer,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            // listAnswer.add(int.parse(value.toString()));
+                                            selectedAnswer = int.parse(value.toString());
+                                          });
+                                        }),
+                                  ),
+                                  Expanded(
+                                    child: RadioListTile(
+                                        activeColor: ColorManager.blackColor,
+                                        contentPadding: const EdgeInsets.only(right: 1.0),
+                                        title: const Text(
+                                          "False",
+                                          style: TextStyle(color: ColorManager.blackColor, fontSize: 10),
+                                        ),
+                                        value: 1,
+                                        groupValue: selectedAnswer,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            // listAnswer.add(int.parse(value.toString()));
+                                            selectedAnswer = int.parse(value.toString());
+                                          });
+                                        }),
+                                  ),
+                                ],
+                              ),
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                            ],
+                          ),
                         ),
                       );
                     }
                     else if(questions.type == "multi_choice"){
-                      return Container(
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                            textStyle0_5(text: questions.title!),
-                            Center(
-                              child: Wrap(
-                                  direction: Axis.horizontal,
-                                  spacing: 10,
-                                  runSpacing: 20,
-                                  alignment: WrapAlignment.spaceEvenly,
-                                  children: questions.options!.map((item) {
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Checkbox(
-                                          value: listCheck[index],
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              listCheck[index] = value!;
-                                            });
-                                          },
-                                        ),
-                                        textStyle0(text: item.title!)
-                                      ],
-                                    );
-                                  }).toList()
+                      listCheck = List.generate(questions.options!.length, (index) => false);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p6),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                            color: ColorManager.whiteColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: const Offset(0, 3),
                               ),
-                            ),
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                          ],
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                              textStyle0_5(text: questions.title!),
+                              Center(
+                                child: Wrap(
+                                    direction: Axis.horizontal,
+                                    spacing: 10,
+                                    runSpacing: 20,
+                                    alignment: WrapAlignment.spaceEvenly,
+                                    children: questions.options!.map((item) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                            value: listCheck[index],
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                listCheck[index] = value!;
+                                              });
+                                            },
+                                          ),
+                                          textStyle0(text: item.title!)
+                                        ],
+                                      );
+                                    }).toList()
+                                ),
+                              ),
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                            ],
+                          ),
                         ),
                       );
                     }
                     else if(questions.type == "fill_in_blanks"){
-                      return Container(
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                            textStyle0_5(text: questions.title!),
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                          ],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12, vertical: AppPadding.p6),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                            color: ColorManager.whiteColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                              textStyle0_5(text: questions.title!),
+                              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                            ],
+                          ),
                         ),
                       );
                     }
@@ -278,6 +307,14 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
+    );
+  }
+
+  Widget _myRadioButton({required String title, required int value, required Function onChanged}) {
+    return Radio(
+      value: value,
+      groupValue: groupValue,
+      onChanged: onChanged(),
     );
   }
 }
