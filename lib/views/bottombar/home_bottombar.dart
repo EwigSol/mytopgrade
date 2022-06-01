@@ -1,15 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/views/screens/courses/my_courses_screen.dart';
+import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:topgrade/views/screens/home/home_screen.dart';
+import 'package:topgrade/views/screens/profile/profile_screen.dart';
 import 'package:topgrade/views/screens/quiz/quiz_assignment_screen.dart';
-import 'package:topgrade/views/screens/quiz/quiz_screen.dart';
-import '../screens/chat/chat_list_screen.dart';
-import '../screens/courses/my_courses_screen.dart';
-import '../screens/favourites/favourites_screen.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/profile/profile_screen.dart';
-
 
 class HomeBottomBar extends StatefulWidget {
   const HomeBottomBar({Key? key}) : super(key: key);
@@ -19,7 +15,6 @@ class HomeBottomBar extends StatefulWidget {
 }
 
 class _HomeBottomBarState extends State<HomeBottomBar> {
-
   late PersistentTabController _controller;
 
   @override
@@ -42,33 +37,29 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.home),
-        title: ("Home"),
+          icon: const Icon(Icons.home),
+          title: ("Home"),
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor
-      ),
+          inactiveColorSecondary: ColorManager.blackColor),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.description),
-        title: ("Courses"),
+          icon: const Icon(Icons.description),
+          title: ("Courses"),
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor
-      ),
+          inactiveColorSecondary: ColorManager.blackColor),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.chrome_reader_mode),
           title: ("Quiz"),
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor
-      ),
+          inactiveColorSecondary: ColorManager.blackColor),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.favorite_border),
-        title: ("Likes"),
+          icon: const Icon(Icons.favorite_border),
+          title: ("Likes"),
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor
-      ),
+          inactiveColorSecondary: ColorManager.blackColor),
       // PersistentBottomNavBarItem(
       //   icon: const Icon(Icons.chat),
       //   title: ("Chat"),
@@ -77,12 +68,11 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       //     inactiveColorSecondary: ColorManager.primaryColor
       // ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person),
-        title: ("Profile"),
+          icon: const Icon(Icons.person),
+          title: ("Profile"),
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor
-      ),
+          inactiveColorSecondary: ColorManager.blackColor),
     ];
   }
 
@@ -100,15 +90,15 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       resizeToAvoidBottomInset: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: const NavBarDecoration(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(28), topLeft: Radius.circular(20)),
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(28), topLeft: Radius.circular(20)),
         colorBehindNavBar: Colors.white,
         boxShadow: [
           BoxShadow(
-              color: Color.fromRGBO(0,0,0,.1),
+              color: Color.fromRGBO(0, 0, 0, .1),
               blurRadius: 2.0,
               spreadRadius: 5.0,
-              offset: Offset(2,4)
-          ),
+              offset: Offset(2, 4)),
         ],
       ),
       popAllScreensOnTapOfSelectedTab: true,

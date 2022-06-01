@@ -2,10 +2,12 @@
 //
 //     final quizByIdModel = quizByIdModelFromJson(jsonString);
 
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
-QuizByIdModel quizByIdModelFromJson(String str) => QuizByIdModel.fromJson(json.decode(str));
-
+QuizByIdModel quizByIdModelFromJson(String str) =>
+    QuizByIdModel.fromJson(json.decode(str));
 
 class QuizByIdModel {
   QuizByIdModel({
@@ -45,24 +47,24 @@ class QuizByIdModel {
   Results? results;
 
   factory QuizByIdModel.fromJson(Map<String, dynamic> json) => QuizByIdModel(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    permalink: json["permalink"],
-    dateCreated: DateTime.parse(json["date_created"]),
-    dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
-    dateModified: DateTime.parse(json["date_modified"]),
-    dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
-    status: json["status"],
-    content: json["content"],
-    excerpt: json["excerpt"],
-    canFinishCourse: json["can_finish_course"],
-    duration: json["duration"],
-    assigned: Assigned.fromJson(json["assigned"]),
-    questions: List<Question>.from(json["questions"].map((x) => Question.fromJson(x))),
-    results: Results.fromJson(json["results"]),
-  );
-
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        permalink: json["permalink"],
+        dateCreated: DateTime.parse(json["date_created"]),
+        dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
+        dateModified: DateTime.parse(json["date_modified"]),
+        dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
+        status: json["status"],
+        content: json["content"],
+        excerpt: json["excerpt"],
+        canFinishCourse: json["can_finish_course"],
+        duration: json["duration"],
+        assigned: Assigned.fromJson(json["assigned"]),
+        questions: List<Question>.from(
+            json["questions"].map((x) => Question.fromJson(x))),
+        results: Results.fromJson(json["results"]),
+      );
 }
 
 class Assigned {
@@ -73,9 +75,8 @@ class Assigned {
   Course? course;
 
   factory Assigned.fromJson(Map<String, dynamic> json) => Assigned(
-    course: Course.fromJson(json["course"]),
-  );
-
+        course: Course.fromJson(json["course"]),
+      );
 }
 
 class Course {
@@ -94,14 +95,13 @@ class Course {
   String? author;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-    id: json["id"],
-    title: json["title"],
-    slug: json["slug"],
-    content: json["content"],
-    author: json["author"],
-  );
+        id: json["id"],
+        title: json["title"],
+        slug: json["slug"],
+        content: json["content"],
+        author: json["author"],
+      );
 }
-
 
 class Question {
   Question({
@@ -121,14 +121,14 @@ class Question {
   List<Option>? options;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
-    object: Object.fromJson(json["object"]),
-    id: json["id"],
-    title: json["title"],
-    type: json["type"],
-    point: json["point"],
-    options: List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
-  );
-
+        object: Object.fromJson(json["object"]),
+        id: json["id"],
+        title: json["title"],
+        type: json["type"],
+        point: json["point"],
+        options:
+            List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
+      );
 }
 
 class Object {
@@ -141,10 +141,9 @@ class Object {
   String? objectType;
 
   factory Object.fromJson(Map<String, dynamic> json) => Object(
-    questionType: json["_question_type"],
-    objectType: json["object_type"],
-  );
-
+        questionType: json["_question_type"],
+        objectType: json["object_type"],
+      );
 }
 
 class Option {
@@ -159,11 +158,10 @@ class Option {
   int? uid;
 
   factory Option.fromJson(Map<String, dynamic> json) => Option(
-    title: json["title"],
-    value: json["value"],
-    uid: json["uid"],
-  );
-
+        title: json["title"],
+        value: json["value"],
+        uid: json["uid"],
+      );
 }
 
 class Results {
@@ -206,33 +204,32 @@ class Results {
   List<int>? questionIds;
 
   factory Results.fromJson(Map<String, dynamic> json) => Results(
-    passingGrade: json["passing_grade"],
-    negativeMarking: json["negative_marking"],
-    instantCheck: json["instant_check"],
-    retakeCount: json["retake_count"],
-    questionsPerPage: json["questions_per_page"],
-    pageNumbers: json["page_numbers"],
-    reviewQuestions: json["review_questions"],
-    supportOptions: List<String>.from(json["support_options"].map((x) => x)),
-    duration: json["duration"],
-    status: json["status"],
-    attempts: List<dynamic>.from(json["attempts"].map((x) => x)),
-    checkedQuestions: List<dynamic>.from(json["checked_questions"].map((x) => x)),
-    startTime: DateTime.parse(json["start_time"]),
-    retaken: json["retaken"],
-    totalTime: json["total_time"],
-    answered: Answered.fromJson(json["answered"]),
-    questionIds: List<int>.from(json["question_ids"].map((x) => x)),
-  );
-
+        passingGrade: json["passing_grade"],
+        negativeMarking: json["negative_marking"],
+        instantCheck: json["instant_check"],
+        retakeCount: json["retake_count"],
+        questionsPerPage: json["questions_per_page"],
+        pageNumbers: json["page_numbers"],
+        reviewQuestions: json["review_questions"],
+        supportOptions:
+            List<String>.from(json["support_options"].map((x) => x)),
+        duration: json["duration"],
+        status: json["status"],
+        attempts: List<dynamic>.from(json["attempts"].map((x) => x)),
+        checkedQuestions:
+            List<dynamic>.from(json["checked_questions"].map((x) => x)),
+        startTime: DateTime.parse(json["start_time"]),
+        retaken: json["retaken"],
+        totalTime: json["total_time"],
+        answered: Answered.fromJson(json["answered"]),
+        questionIds: List<int>.from(json["question_ids"].map((x) => x)),
+      );
 }
 
 class Answered {
   Answered();
 
-  factory Answered.fromJson(Map<String, dynamic> json) => Answered(
-  );
+  factory Answered.fromJson(Map<String, dynamic> json) => Answered();
 
-  Map<String, dynamic> toJson() => {
-  };
+  Map<String, dynamic> toJson() => {};
 }

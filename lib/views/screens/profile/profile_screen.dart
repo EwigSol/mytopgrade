@@ -1,22 +1,18 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/assets_manager.dart';
+import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/utils/strings_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
-import 'package:topgrade/views/screens/notification/notifications_screen.dart';
 import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
-import '../../../helpers/text_helper.dart';
-import '../../../utils/color_manager.dart';
-import '../../../utils/strings_manager.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +34,15 @@ class ProfileScreen extends StatelessWidget {
           InkWell(
               onTap: () {
                 // Get.toNamed(Paths.updateProfile)
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateProfileScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UpdateProfileScreen()));
               },
-              child: buildProfileCard("Edit Profile", Icons.edit, context)
-          ),
+              child: buildProfileCard("Edit Profile", Icons.edit, context)),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          buildProfileCard("Payment Details", Icons.account_balance_wallet_outlined, context),
+          buildProfileCard("Payment Details",
+              Icons.account_balance_wallet_outlined, context),
           // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           // InkWell(
           //     onTap: (){
@@ -52,8 +51,11 @@ class ProfileScreen extends StatelessWidget {
           //     child: buildProfileCard("Notification", Icons.notifications, context)),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen()));
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FavouritesScreen()));
               },
               child: buildProfileCard("Wishlist", Icons.favorite, context)),
           // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
@@ -76,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Center buildProfileCard(String title, IconData icon, BuildContext context ) {
+  Center buildProfileCard(String title, IconData icon, BuildContext context) {
     return Center(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.09,
@@ -109,11 +111,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     child: Icon(icon, size: 20),
                   ),
-                  buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
+                  buildSpaceHorizontal(
+                      MediaQuery.of(context).size.width * 0.05),
                   textStyle2(text: title, color: ColorManager.whiteColor),
                 ],
               ),
-              const Icon(Icons.arrow_forward_ios, color: ColorManager.whiteColor, size: 25),
+              const Icon(Icons.arrow_forward_ios,
+                  color: ColorManager.whiteColor, size: 25),
             ],
           ),
         ),

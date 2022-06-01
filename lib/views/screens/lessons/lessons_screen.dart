@@ -1,19 +1,19 @@
-
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:topgrade/controllers/assignment_byID_controller.dart';
+import 'package:topgrade/controllers/lesson_byId_controller.dart';
+import 'package:topgrade/controllers/quiz_byID_controller.dart';
+import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:get/get.dart';
+import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
-import '../../../controllers/assignment_byID_controller.dart';
-import '../../../controllers/lesson_byId_controller.dart';
-import '../../../controllers/quiz_byID_controller.dart';
-import '../../../helpers/helper.dart';
-import '../../../helpers/text_helper.dart';
-import '../../../models/lesson_byID_model.dart';
-import '../../../utils/color_manager.dart';
-import '../../../utils/strings_manager.dart';
-import '../../../utils/values_manager.dart';
+import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/utils/strings_manager.dart';
+import 'package:topgrade/utils/values_manager.dart';
 
 class LessonsScreen extends StatefulWidget {
   List<Section>? lessonSections;
@@ -24,9 +24,10 @@ class LessonsScreen extends StatefulWidget {
 }
 
 class _LessonsScreenState extends State<LessonsScreen> {
-
-  final LessonByIDController lessonByIDController = Get.put(LessonByIDController());
-  final AssignmentByIDController assignmentByIDController = Get.put(AssignmentByIDController());
+  final LessonByIDController lessonByIDController =
+      Get.put(LessonByIDController());
+  final AssignmentByIDController assignmentByIDController =
+      Get.put(AssignmentByIDController());
   final QuizByIDController quizByIDController = Get.put(QuizByIDController());
   List<LessonByIdModel> lessonModelList = [];
   List<AssignmentByIdModel> assignmentModelList = [];
@@ -43,21 +44,22 @@ class _LessonsScreenState extends State<LessonsScreen> {
   }
 
   getLessons() {
-    for(int i=0; i< widget.lessonSections!.length; i++){
-      if(widget.lessonSections![i].items!.isNotEmpty){
-        for(int j=0; j<widget.lessonSections![i].items!.length; j++){
+    for (int i = 0; i < widget.lessonSections!.length; i++) {
+      if (widget.lessonSections![i].items!.isNotEmpty) {
+        for (int j = 0; j < widget.lessonSections![i].items!.length; j++) {
           // print(widget.lessonSections![i].items![j].type.toString().substring(typeValues.toString().indexOf('.') + 1));
           // print(Type.lesson.name);
-          if(widget.lessonSections![i].items![j].type == Type.lesson){
-            lessonByIDController.fetchLessonById(widget.lessonSections![i].items![j].id.toString());
+          if (widget.lessonSections![i].items![j].type == Type.lesson) {
+            lessonByIDController.fetchLessonById(
+                widget.lessonSections![i].items![j].id.toString());
+          } else if (widget.lessonSections![i].items![j].type ==
+              Type.assignment) {
+            assignmentByIDController.fetchAssignmentById(
+                widget.lessonSections![i].items![j].id.toString());
+          } else if (widget.lessonSections![i].items![j].type == Type.quiz) {
+            quizByIDController.fetchQuizById(
+                widget.lessonSections![i].items![j].id.toString());
           }
-          else if(widget.lessonSections![i].items![j].type == Type.assignment){
-            assignmentByIDController.fetchAssignmentById(widget.lessonSections![i].items![j].id.toString());
-          }
-          else if(widget.lessonSections![i].items![j].type == Type.quiz){
-            quizByIDController.fetchQuizById(widget.lessonSections![i].items![j].id.toString());
-          }
-
         }
       }
     }
@@ -65,118 +67,123 @@ class _LessonsScreenState extends State<LessonsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: SingleChildScrollView(
-          child: Column(
-            children: [
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              // widget.lessonSections!.isNotEmpty ?
-              // ListView.builder(
-              //     itemCount: widget.lessonSections!.length,
-              //     shrinkWrap: true,
-              //     physics: const NeverScrollableScrollPhysics(),
-              //     itemBuilder: (context, index) {
-              //       return Padding(
-              //         padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p16),
-              //         child: Container(
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(AppSize.s16),
-              //             color: ColorManager.whiteColor,
-              //             boxShadow: [
-              //               BoxShadow(
-              //                 color: Colors.grey.withOpacity(0.5),
-              //                 spreadRadius: 1,
-              //                 blurRadius: 1,
-              //                 offset: const Offset(0, 3), // changes position of shadow
-              //               ),
-              //             ],
-              //           ),
-              //           child: ExpandablePanel(
-              //             header: Padding(
-              //               padding: const EdgeInsets.only(top: AppPadding.p6, left: AppPadding.p12),
-              //               child: textStyle0_5(text: widget.lessonSections![index].title!),
-              //             ),
-              //             collapsed: Padding(
-              //               padding: const EdgeInsets.only(bottom: AppPadding.p6, left: AppPadding.p16),
-              //               child: Text("Videos: ${widget.lessonSections![index].items!.length} ", softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis,),
-              //             ),
-              //             expanded: widget.lessonSections![index].items!.isNotEmpty ?
-              //
-              //                 : Center(child: textStyle0_5(text: "No Videos in this section")),
-              //           ),
-              //         ),
-              //       );
-              //     }
-              // )
-              // : Center(child: textStyle0_5(text: "No section available in this course")),
-              Obx((){
-                if(lessonByIDController.isLoading.value){
-                  return const Center(child: CircularProgressIndicator());
-                }else{
-                  lessonByIDController.lessonByIDList.value != null ? lessonModelList.add(lessonByIDController.lessonByIDList.value!) : null;
-                  return lessonModelList.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 10,
-                        runSpacing: 20,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: lessonModelList.map((item) {
-                          return buildLessonsCard(item);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No Lesson Available"));
-                }
-              }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              Obx((){
-                if(assignmentByIDController.isLoading.value){
-                  return const Center(child: CircularProgressIndicator());
-                }else{
-                  assignmentByIDController.assignmentByIDList.value != null ? assignmentModelList.add(assignmentByIDController.assignmentByIDList.value!) : null;
-                  return assignmentModelList.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 10,
-                        runSpacing: 20,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: assignmentModelList.map((item) {
-                          return buildAssignmentCard(item);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No Assignment Available"));
-                }
-              }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              Obx((){
-                if(quizByIDController.isLoading.value){
-                  return const Center(child: CircularProgressIndicator());
-                }else{
-                  quizByIDController.quizByIDList.value != null ? quizModelList.add(quizByIDController.quizByIDList.value!) : null;
-                  return quizModelList.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 10,
-                        runSpacing: 20,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: quizModelList.map((item) {
-                          return buildQuizCard(item);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No Quiz Available"));
-                }
-              }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-            ],
-          ),
+        child: Column(
+          children: [
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+            // widget.lessonSections!.isNotEmpty ?
+            // ListView.builder(
+            //     itemCount: widget.lessonSections!.length,
+            //     shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     itemBuilder: (context, index) {
+            //       return Padding(
+            //         padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p16),
+            //         child: Container(
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(AppSize.s16),
+            //             color: ColorManager.whiteColor,
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 color: Colors.grey.withOpacity(0.5),
+            //                 spreadRadius: 1,
+            //                 blurRadius: 1,
+            //                 offset: const Offset(0, 3), // changes position of shadow
+            //               ),
+            //             ],
+            //           ),
+            //           child: ExpandablePanel(
+            //             header: Padding(
+            //               padding: const EdgeInsets.only(top: AppPadding.p6, left: AppPadding.p12),
+            //               child: textStyle0_5(text: widget.lessonSections![index].title!),
+            //             ),
+            //             collapsed: Padding(
+            //               padding: const EdgeInsets.only(bottom: AppPadding.p6, left: AppPadding.p16),
+            //               child: Text("Videos: ${widget.lessonSections![index].items!.length} ", softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis,),
+            //             ),
+            //             expanded: widget.lessonSections![index].items!.isNotEmpty ?
+            //
+            //                 : Center(child: textStyle0_5(text: "No Videos in this section")),
+            //           ),
+            //         ),
+            //       );
+            //     }
+            // )
+            // : Center(child: textStyle0_5(text: "No section available in this course")),
+            Obx(() {
+              if (lessonByIDController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                lessonByIDController.lessonByIDList.value != null
+                    ? lessonModelList
+                        .add(lessonByIDController.lessonByIDList.value!)
+                    : null;
+                return lessonModelList.isNotEmpty
+                    ? Center(
+                        child: Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 10,
+                            runSpacing: 20,
+                            alignment: WrapAlignment.spaceEvenly,
+                            children: lessonModelList.map((item) {
+                              return buildLessonsCard(item);
+                            }).toList()),
+                      )
+                    : Center(child: textStyle0_5(text: "No Lesson Available"));
+              }
+            }),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            Obx(() {
+              if (assignmentByIDController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                assignmentByIDController.assignmentByIDList.value != null
+                    ? assignmentModelList
+                        .add(assignmentByIDController.assignmentByIDList.value!)
+                    : null;
+                return assignmentModelList.isNotEmpty
+                    ? Center(
+                        child: Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 10,
+                            runSpacing: 20,
+                            alignment: WrapAlignment.spaceEvenly,
+                            children: assignmentModelList.map((item) {
+                              return buildAssignmentCard(item);
+                            }).toList()),
+                      )
+                    : Center(
+                        child: textStyle0_5(text: "No Assignment Available"));
+              }
+            }),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            Obx(() {
+              if (quizByIDController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                quizByIDController.quizByIDList.value != null
+                    ? quizModelList.add(quizByIDController.quizByIDList.value!)
+                    : null;
+                return quizModelList.isNotEmpty
+                    ? Center(
+                        child: Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 10,
+                            runSpacing: 20,
+                            alignment: WrapAlignment.spaceEvenly,
+                            children: quizModelList.map((item) {
+                              return buildQuizCard(item);
+                            }).toList()),
+                      )
+                    : Center(child: textStyle0_5(text: "No Quiz Available"));
+              }
+            }),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+          ],
+        ),
       ),
     );
   }
@@ -212,8 +219,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
-              color: ColorManager.lightGreenColor
-          ),
+              color: ColorManager.lightGreenColor),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: Column(
@@ -253,8 +259,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
-              color: ColorManager.lightGreenColor
-          ),
+              color: ColorManager.lightGreenColor),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: Column(
@@ -294,8 +299,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
-              color: ColorManager.lightGreenColor
-          ),
+              color: ColorManager.lightGreenColor),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: Column(
@@ -318,5 +322,4 @@ class _LessonsScreenState extends State<LessonsScreen> {
       ),
     );
   }
-
 }
