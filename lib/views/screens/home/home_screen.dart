@@ -35,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final box = GetStorage();
   List<String> myCoursesId = [];
   String? name;
+  double height = Get.height;
+  double width = Get.width;
 
   @override
   void initState() {
@@ -53,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.07),
+              buildSpaceVertical(height * 0.07),
               buildAppBar(),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+              buildSpaceVertical(height * 0.03),
               buildSearchAndFilterRow(context),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.categories),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               Obx(() {
                 if (categoryController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return categoryController.catList.isNotEmpty
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.07,
+                          height: height * 0.07,
                           width: double.infinity,
                           child: ListView.builder(
                               itemCount: categoryController.catList.length,
@@ -86,16 +88,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               }),
                         )
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.07,
+                          height: height * 0.07,
                           width: double.infinity,
                           child: Center(
                               child:
                                   textStyle0_5(text: "No Category Available")));
                 }
               }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.popular),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              buildSpaceVertical(height * 0.01),
               Obx(() {
                 if (popularCoursesController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
@@ -110,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return popularCoursesModel.isNotEmpty
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.23,
+                          height: height * 0.23,
                           width: double.infinity,
                           child: ListView.builder(
                               itemCount: popularCoursesModel.length,
@@ -121,23 +123,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               }),
                         )
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.22,
+                          height: height * 0.22,
                           width: double.infinity,
                           child: Center(
                               child: textStyle0_5(
                                   text: "No Popular Courses Available")));
                 }
               }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.instructor),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              buildSpaceVertical(height * 0.01),
               Obx(() {
                 if (popularCoursesController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   return popularCoursesController.coursesList.isNotEmpty
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: height * 0.15,
                           width: double.infinity,
                           child: ListView.builder(
                               itemCount:
@@ -150,14 +152,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               }),
                         )
                       : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.17,
+                          height: height * 0.17,
                           width: double.infinity,
                           child: Center(
                               child: textStyle0_5(
                                   text: "No Instructor Available")));
                 }
               }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+              buildSpaceVertical(height * 0.03),
             ],
           ),
         ),
@@ -170,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(
           horizontal: AppPadding.p4, vertical: AppPadding.p4),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.60,
+        width: width * 0.60,
         decoration: BoxDecoration(
           color: ColorManager.whiteColor,
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -185,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Row(
           children: [
-            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+            buildSpaceHorizontal(width * 0.02),
             catModel.instructor!.avatar != ''
                 ? CircleAvatar(
                     radius: 35,
@@ -197,12 +199,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: ColorManager.whiteColor,
                     backgroundImage: AssetImage(AssetsManager.girl),
                   ),
-            buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+            buildSpaceHorizontal(width * 0.02),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+                  buildSpaceVertical(height * 0.02),
                   Text(
                     catModel.instructor!.name!.name,
                     maxLines: 3,
@@ -210,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: const TextStyle(
                         fontSize: 12, fontWeight: FontWeight.bold),
                   ),
-                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                  buildSpaceVertical(height * 0.01),
                   Flexible(
                     child: Text(
                       catModel.instructor!.description!,
@@ -225,53 +227,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        //  Row(
-        //           children: [
-        //             SizedBox(
-        //               height: 18.h,
-        //               width: 18.w,
-        //               child: catModel.instructor!.avatar != '' ?
-        //               Image.network(catModel.instructor!.avatar!, fit: BoxFit.fill) :
-        //               Image.asset(AssetsManager.girl, fit: BoxFit.fill),
-        //             ),
-        //             buildSpaceHorizontal(1.w),
-        //             Expanded(
-        //               child: Column(
-        //                 crossAxisAlignment: CrossAxisAlignment.start,
-        //                 children: [
-        //                   buildSpaceVertical(3.h),
-        //                   Flexible(
-        //                     child: Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
-        //                       style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-        //                   ),
-        //                   buildSpaceVertical(1.h),
-        //                   Flexible(
-        //                     child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
-        //                       style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),
-        //                   ),
-        //                   // textStyle0(text: "LifeStyle", color: ColorManager.grayColor),
-        //                   // textStyle0(text: "20k Students"),
-        //                   // textStyle0(text: "17 Courses"),
-        //                   // textStyle0(text: "(4.5)⭐"),
-        //                 ],
-        //               ),
-        //             ),
-        //           ],
-        //         ),
       ),
     );
   }
 
   Padding buildPopularCard(CoursesModel popularCourse) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p6, vertical: AppPadding.p6),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       child: InkWell(
         onTap: () {
           Get.toNamed(Paths.details, arguments: popularCourse);
         },
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.60,
+          width: width * 0.50,
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: BorderRadius.circular(AppSize.s10),
@@ -288,57 +256,61 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.width,
+                  // height: height * 0.14,
+                  width: width,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.12,
-                          width: MediaQuery.of(context).size.width,
+                          height: height * 0.12,
+                          width: width,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
                               child: Image.network(popularCourse.image!,
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover)),
                         ),
                       ),
                       Positioned(
                         bottom: 4,
                         right: 0,
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          width: MediaQuery.of(context).size.width * 0.12,
+                          height: height * 0.03,
+                          width: width * 0.12,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(AppSize.s16),
-                                bottomLeft: Radius.circular(AppSize.s16),
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
                               )),
                           child: Center(
                               child: textStyle0(
-                                  text: "\$${popularCourse.price.toString()}",
+                                  text: "\$\ ${popularCourse.price.toString()}",
                                   color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4),
+                padding: const EdgeInsets.only(left: 4),
                 child: textStyle0_5(text: popularCourse.name!),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4),
+                padding: const EdgeInsets.only(
+                  left: 4,
+                ),
                 child: textStyle0(
                     text: popularCourse.instructor!.name.toString(),
                     color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              buildSpaceVertical(height * 0.01),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: AppPadding.p4, right: AppPadding.p4),
+                  left: 4,
+                  right: 4,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -346,18 +318,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.02,
-                          width: MediaQuery.of(context).size.width * 0.04,
+                          height: height * 0.024,
+                          // width: width * 0.04,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s20),
+                              borderRadius: BorderRadius.circular(20),
                               color: ColorManager.redColor),
                           child: const Center(
                             child: Icon(Icons.play_circle_fill,
                                 size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(
-                            MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(width * 0.02),
                         textStyle0(
                             text: "Sections: ${popularCourse.sections!.length}")
                       ],
@@ -366,8 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(
-                            MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(width * 0.02),
                         textStyle0(text: popularCourse.rating.toString())
                       ],
                     ),
@@ -383,44 +353,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildCategoryCard(CategoriesModel categoryModel, int index) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      CategoryCoursesScreen(id: categoryModel.id.toString())));
+          Get.to(() => CategoryCoursesScreen(id: categoryModel.id.toString()));
         },
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s20),
+              borderRadius: BorderRadius.circular(10),
               color: ColorManager.primaryColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // buildSpaceHorizontal(3.w),
-              // Container(
-              //   height: 5.h,
-              //   width: 10.w,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(AppSize.s30),
-              //     color: ColorManager.whiteColor,
-              //     boxShadow: [
-              //       BoxShadow(
-              //         color: Colors.grey.withOpacity(0.5),
-              //         spreadRadius: 3,
-              //         blurRadius: 4,
-              //         offset: const Offset(0, 3),
-              //       ),
-              //     ],
-              //   ),
-              //   child: const Icon(Icons.lightbulb, color: ColorManager.primaryColor),
-              // ),
-              // buildSpaceHorizontal(2.w),
-              textStyle0_5(
-                  text: categoryModel.name!, color: ColorManager.whiteColor),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: textStyle0_5(
+                    text: categoryModel.name!, color: ColorManager.whiteColor),
+              ),
             ],
           ),
         ),
@@ -465,8 +414,8 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.06,
-          width: MediaQuery.of(context).size.width * 0.70,
+          height: height * 0.06,
+          width: width * 0.70,
           child: TextFormField(
             controller: searchController,
             validator: (value) {
@@ -500,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.04),
+        buildSpaceHorizontal(width * 0.04),
         InkWell(
           onTap: () {
             showModalBottomSheet(
@@ -516,8 +465,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
           },
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.05,
-            width: MediaQuery.of(context).size.width * 0.10,
+            height: height * 0.05,
+            width: width * 0.10,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s8),
               color: ColorManager.primaryColor,
@@ -557,8 +506,8 @@ class _HomeScreenState extends State<HomeScreen> {
         //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
         //   },
         //   child: Container(
-        //     height: MediaQuery.of(context).size.height * 0.04,
-        //     width: MediaQuery.of(context).size.width * 0.08,
+        //     height: height * 0.04,
+        //     width: width * 0.08,
         //     decoration: BoxDecoration(
         //       borderRadius: BorderRadius.circular(AppSize.s10),
         //       color: ColorManager.whiteColor,

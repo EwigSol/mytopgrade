@@ -77,7 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 bottom: MediaQuery.of(context).size.height * 0.22,
                 left: MediaQuery.of(context).size.width * 0.08,
                 child: Container(
-                  // height: MediaQuery.of(context).size.height * 0.11,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s10),
                       color: Colors.white24),
@@ -97,8 +96,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 left: MediaQuery.of(context).size.width * 0.40,
                 right: MediaQuery.of(context).size.width * 0.20,
                 child: SizedBox(
-                  // height: MediaQuery.of(context).size.height * 0.07,
-                  // width: MediaQuery.of(context).size.width * 0.50,
                   child: Image.asset(AssetsManager.arrowIcon, fit: BoxFit.fill),
                 ),
               ),
