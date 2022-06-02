@@ -169,13 +169,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding buildInstructorCard(CoursesModel catModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p4, vertical: AppPadding.p4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       child: Container(
-        width: width * 0.60,
+        width: width * 0.50,
         decoration: BoxDecoration(
           color: ColorManager.whiteColor,
-          borderRadius: BorderRadius.circular(AppSize.s10),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.3),
@@ -216,10 +215,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Flexible(
                     child: Text(
                       catModel.instructor!.description!,
-                      maxLines: 5,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontSize: 11, color: ColorManager.grayColor),
+                          fontSize: 10, color: ColorManager.grayColor),
                     ),
                   ),
                 ],
@@ -286,9 +285,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 bottomLeft: Radius.circular(10),
                               )),
                           child: Center(
-                              child: textStyle0(
-                                  text: "\$\ ${popularCourse.price.toString()}",
-                                  color: ColorManager.whiteColor)),
+                            child: popularCourse.price != 0
+                                ? textStyle0(
+                                    text:
+                                        "\$\ ${popularCourse.price.toString()}",
+                                    color: ColorManager.whiteColor)
+                                : textStyle0(
+                                    text: " Free ",
+                                    color: ColorManager.whiteColor),
+                          ),
                         ),
                       ),
                     ],
