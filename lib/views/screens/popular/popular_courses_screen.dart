@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -18,8 +15,8 @@ class PopularCoursesScreen extends StatefulWidget {
   State<PopularCoursesScreen> createState() => _PopularCoursesScreenState();
 }
 
-class _PopularCoursesScreenState extends State<PopularCoursesScreen> with SingleTickerProviderStateMixin {
-
+class _PopularCoursesScreenState extends State<PopularCoursesScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _controller;
 
   @override
@@ -32,37 +29,35 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: [
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p6),
-            child: TabBar(
-              isScrollable: true,
-              indicator: BoxDecoration(color: ColorManager.redColor, borderRadius: BorderRadius.circular(AppSize.s22)),
-              controller: _controller,
-              unselectedLabelColor: ColorManager.blackColor,
-              unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
-              tabs: [
-                buildPopularTab(),
-                buildTrendingTab()
-
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p6, horizontal: AppPadding.p6),
+              child: TabBar(
+                isScrollable: true,
+                indicator: BoxDecoration(
+                    color: ColorManager.redColor,
+                    borderRadius: BorderRadius.circular(AppSize.s22)),
+                controller: _controller,
+                unselectedLabelColor: ColorManager.blackColor,
+                unselectedLabelStyle:
+                    const TextStyle(color: ColorManager.blackColor),
+                tabs: [buildPopularTab(), buildTrendingTab()],
+              ),
             ),
-          ),
-
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.75,
-            width: MediaQuery.of(context).size.width,
-            child: TabBarView(
-              controller: _controller,
-              children: [
-                MostPopularScreen(),
-                TrendingScreen()
-              ],
-            ),
-          )
-        ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              width: MediaQuery.of(context).size.width,
+              child: TabBarView(
+                controller: _controller,
+                children: [MostPopularScreen(), TrendingScreen()],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -81,10 +76,13 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.trending, style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),),
+        child: Text(
+          StringsManager.trending,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }
@@ -93,10 +91,13 @@ class _PopularCoursesScreenState extends State<PopularCoursesScreen> with Single
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.mostP, style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),),
+        child: Text(
+          StringsManager.mostP,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }

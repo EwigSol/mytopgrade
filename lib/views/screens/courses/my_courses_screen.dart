@@ -1,130 +1,3 @@
-//
-//
-// import 'package:flutter/material.dart';
-// import 'package:sizer/sizer.dart';
-// import 'package:topgrade/helpers/helper.dart';
-// import 'package:topgrade/utils/values_manager.dart';
-// import 'package:topgrade/views/screens/courses/widgets/all_courses_screen.dart';
-// import 'package:topgrade/views/screens/courses/widgets/completed_courses_screen.dart';
-// import 'package:topgrade/views/screens/courses/widgets/upcoming_courses_screen.dart';
-// import 'package:get/get.dart';
-// import '../../../controllers/my_courses_controller.dart';
-// import '../../../helpers/text_helper.dart';
-// import '../../../utils/color_manager.dart';
-// import '../../../utils/strings_manager.dart';
-//
-//
-// class MyCoursesScreen extends StatefulWidget {
-//   const MyCoursesScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   State<MyCoursesScreen> createState() => _MyCoursesScreenState();
-// }
-//
-// class _MyCoursesScreenState extends State<MyCoursesScreen> {
-//   String? title;
-//   int? selectedIndex;
-//
-//   final MyCoursesController myCoursesController = Get.put(MyCoursesController());
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     setState(() {
-//       selectedIndex = 0;
-//     });
-//   }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: ColorManager.whiteColor,
-//       appBar: buildAppBar(),
-//       body: Column(
-//         children: [
-//           buildSpaceVertical(2.h),
-//           SizedBox(
-//             height: 6.h,
-//             width: double.infinity,
-//             child: ListView.builder(
-//                 itemCount: 3,
-//                 scrollDirection: Axis.horizontal,
-//                 itemBuilder: (context, index) {
-//                   if(index == 0){
-//                     title = StringsManager.all;
-//                   }else if(index == 1){
-//                     title = StringsManager.upComing;
-//                   } else if(index == 2){
-//                     title = StringsManager.completed;
-//                   }
-//                   return Padding(
-//                     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-//                     child: InkWell(
-//                       onTap: () {
-//                         setState(() {
-//                           selectedIndex = index;
-//                         });
-//                       },
-//                       child: Container(
-//                         height: 5.h,
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(AppSize.s22),
-//                           color: selectedIndex == index ? ColorManager.redColor : ColorManager.whiteColor,
-//                           border: Border.all(color: ColorManager.blackColor, width: 0.5),
-//                         ),
-//                         child: Row(
-//                           children: [
-//                             buildSpaceHorizontal(3.w),
-//                             Container(
-//                               height: 4.h,
-//                               width: 8.w,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(AppSize.s30),
-//                                 color: ColorManager.whiteColor,
-//                                 boxShadow: [
-//                                   BoxShadow(
-//                                     color: Colors.grey.withOpacity(0.5),
-//                                     spreadRadius: 3,
-//                                     blurRadius: 4,
-//                                     offset: const Offset(0, 3),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             buildSpaceHorizontal(3.w),
-//                             textStyle1(text: title!, color: selectedIndex == index ? ColorManager.whiteColor : ColorManager.blackColor),
-//                             buildSpaceHorizontal(2.w),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   );
-//                 }
-//             ),
-//           ),
-//           Expanded(
-//               child: selectedIndex == 0 ? AllCoursesScreen() : selectedIndex == 1 ? const UpComingCoursesScreen() : const CompletedCoursesScreen()
-//           ),
-//           buildSpaceVertical(5.h),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   AppBar buildAppBar() {
-//     return AppBar(
-//       title: textStyle2(text: StringsManager.myCourse),
-//       centerTitle: true,
-//       backgroundColor: ColorManager.whiteColor,
-//       elevation: 0.5,
-//     );
-//   }
-// }
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/models/my_courses_model.dart';
@@ -136,7 +9,6 @@ import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../../utils/values_manager.dart';
 
-
 class MyCoursesScreen extends StatefulWidget {
   const MyCoursesScreen({Key? key}) : super(key: key);
 
@@ -145,8 +17,9 @@ class MyCoursesScreen extends StatefulWidget {
 }
 
 class _MyCoursesScreenState extends State<MyCoursesScreen> {
-
   var myCoursesController = Get.put(MyCoursesController());
+  double height = Get.height;
+  double width = Get.width;
 
   @override
   Widget build(BuildContext context) {
@@ -155,30 +28,31 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
       appBar: buildAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: [
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              Obx((){
-                if(myCoursesController.isLoading.value){
+              buildSpaceVertical(height * 0.05),
+              Obx(() {
+                if (myCoursesController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-                  return myCoursesController.myCoursesList.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 5,
-                        runSpacing: 10,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: myCoursesController.myCoursesList.map((item) {
-                          return buildMyCoursesCard(item);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No My Course Available"));
+                } else {
+                  return myCoursesController.myCoursesList.isNotEmpty
+                      ? Center(
+                          child: Wrap(
+                              direction: Axis.horizontal,
+                              spacing: 5,
+                              runSpacing: 10,
+                              alignment: WrapAlignment.spaceEvenly,
+                              children:
+                                  myCoursesController.myCoursesList.map((item) {
+                                return buildMyCoursesCard(item);
+                              }).toList()),
+                        )
+                      : Center(
+                          child: textStyle0_5(text: "No My Course Available"));
                 }
               }),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+              buildSpaceVertical(height * 0.05),
             ],
           ),
         ),
@@ -197,21 +71,21 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
 
   Padding buildMyCoursesCard(MyCoursesModel myCoursesModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Paths.details, arguments: myCoursesModel, parameters: {'isMyCourse': "true"});
+          Get.toNamed(Paths.details,
+              arguments: myCoursesModel, parameters: {'isMyCourse': "true"});
         },
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.44,
+          width: width * 0.44,
           decoration: BoxDecoration(
             color: ColorManager.whiteColor,
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(AppSize.s10),
-                topRight: Radius.circular(AppSize.s10),
-                bottomLeft: Radius.circular(AppSize.s10),
-                bottomRight: Radius.circular(AppSize.s10)
-            ),
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
@@ -220,57 +94,67 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
                 offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
-
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.14,
-                  width: MediaQuery.of(context).size.width,
+                  height: height * 0.14,
+                  width: width,
                   child: Stack(
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.14,
-                          width: MediaQuery.of(context).size.width,
+                          height: height * 0.14,
+                          width: width,
                           child: ClipRRect(
                               borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(AppSize.s10),
-                                  topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(myCoursesModel.image!, fit: BoxFit.fill)),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: Image.network(myCoursesModel.image!,
+                                  fit: BoxFit.cover)),
                         ),
                       ),
                       Positioned(
                         bottom: 0,
                         right: 0,
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.04,
-                          width: MediaQuery.of(context).size.width * 0.16,
+                          height: height * 0.04,
+                          width: width * 0.16,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(AppSize.s16),
-                                bottomLeft: Radius.circular(AppSize.s16),
+                                topLeft: Radius.circular(16),
+                                bottomLeft: Radius.circular(16),
                               )),
                           child: Center(
-                              child: textStyle0_5(text: "\$${myCoursesModel.price.toString()}", color: ColorManager.whiteColor)),
+                            child: myCoursesModel.price != 0
+                                ? textStyle0_5(
+                                    text:
+                                        "\$${myCoursesModel.price.toString()}",
+                                    color: ColorManager.whiteColor)
+                                : textStyle0_5(
+                                    text: "Free",
+                                    color: ColorManager.whiteColor),
+                          ),
                         ),
                       ),
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4),
+                padding: const EdgeInsets.only(left: 4),
                 child: textStyle0_5(text: myCoursesModel.name!),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: myCoursesModel.instructor!.name.toString(), color: ColorManager.grayColor),
+                padding: const EdgeInsets.only(left: 4),
+                child: textStyle0(
+                    text: myCoursesModel.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(left: 4, right: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -278,35 +162,44 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          width: MediaQuery.of(context).size.width * 0.07,
+                          // height: height * 0.03,
+                          // width: width * 0.07,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppSize.s20),
+                              borderRadius: BorderRadius.circular(20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.list, color: ColorManager.whiteColor, size: 22),
+                            child: Icon(Icons.play_circle_fill,
+                                color: ColorManager.whiteColor, size: 22),
                           ),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
-                        textStyle0(text: "Sections: ${myCoursesModel.sections!.length}")
+                        buildSpaceHorizontal(width * 0.01),
+                        textStyle0(
+                            text:
+                                "Sections: ${myCoursesModel.sections!.length}")
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(width * 0.02),
                         textStyle0(text: myCoursesModel.rating.toString())
                       ],
                     ),
                   ],
                 ),
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              buildSpaceVertical(height * 0.01),
             ],
           ),
         ),
       ),
     );
   }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
 }

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     myCoursesId.clear();
-    popularCoursesModel.clear();
+    // popularCoursesModel;
     name = box.read("user_display_name");
   }
 
@@ -106,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       i < popularCoursesController.coursesList.length;
                       i++) {
                     if (popularCoursesController.coursesList[i].rating! >= 3) {
+                      // popularCoursesModel.clear();
                       popularCoursesModel
                           .add(popularCoursesController.coursesList[i]);
                     }
@@ -505,30 +506,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: ColorManager.grayColor),
           ],
         ),
-        // InkWell(
-        //   onTap: () {
-        //     // Get.toNamed(Paths.notify);
-        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-        //   },
-        //   child: Container(
-        //     height: height * 0.04,
-        //     width: width * 0.08,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(AppSize.s10),
-        //       color: ColorManager.whiteColor,
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.grey.withOpacity(0.5),
-        //           spreadRadius: 3,
-        //           blurRadius: 4,
-        //           offset: const Offset(0, 3),
-        //         ),
-        //       ],
-        //     ),
-        //     child: const Icon(Icons.notifications),
-        //   ),
-        // ),
       ],
     );
   }
+
+  // @override
+  // void dispose() {
+  //   popularCoursesController.dispose();
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
 }
