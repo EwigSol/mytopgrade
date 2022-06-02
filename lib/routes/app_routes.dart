@@ -12,6 +12,8 @@ import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:topgrade/views/screens/lessons/lessons_screen.dart';
 import 'package:topgrade/views/screens/notification/notifications_screen.dart';
 import 'package:topgrade/views/screens/onboarding/onboarding_screen.dart';
+import 'package:topgrade/views/screens/payment/payment_screen.dart';
+import 'package:topgrade/views/screens/payment/payment_success_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
 import 'package:topgrade/views/screens/splash/splash_screen.dart';
@@ -88,6 +90,14 @@ class AppRoutes {
     GetPage(
         name: Paths.lessons,
         page: () => LessonsScreen(),
+        transition: Transition.rightToLeftWithFade),
+    GetPage(
+        name: Paths.payment,
+        page: () => const PaymentScreen(),
+        transition: Transition.rightToLeftWithFade),
+    GetPage(
+        name: Paths.paymentSuccess,
+        page: () => const PaymentSuccessScreen(),
         transition: Transition.rightToLeftWithFade),
   ];
 }

@@ -6,10 +6,13 @@ import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../../controllers/cart_controller.dart';
+import '../../../controllers/payment_gateway_controller.dart';
 import '../../../helpers/text_helper.dart';
+import '../../../models/payment_gateway_model.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
+import '../details/widgets/payment_sheet.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -21,6 +24,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
 
   var cartController = Get.put(CartController());
+  var paymentGatewayController = Get.put(PaymentGatewayController());
+  List<PaymentGatewayModel> paymentGatewayModel = [];
 
   @override
   void initState() {
@@ -186,41 +191,83 @@ class _CartScreenState extends State<CartScreen> {
       height: MediaQuery.of(context).size.height * 0.07,
       width: MediaQuery.of(context).size.width,
       color: ColorManager.whiteColor,
-      child: InkWell(
-        onTap: (){
-          Get.toNamed(Paths.checkout);
-        },
-        child: Center(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.06,
-            width: MediaQuery.of(context).size.width * 0.53,
-            decoration: BoxDecoration(
-              color: ColorManager.redColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
+      child: Obx(() {
+        if (paymentGatewayController.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          paymentGatewayModel.clear();
+          for (int i = 0; i < paymentGatewayController.gatewayList.length; i++) {
+            if (paymentGatewayController.gatewayList[i].enabled == true) {
+              paymentGatewayModel.add(paymentGatewayController.gatewayList[i]);
+            }
+          }
+          return InkWell(
+            onTap: () {
+              List<String> productIdList = [];
+              for(int i=0; i<cartController.totalItem.value; i++){
+                productIdList.add(cartController.products[i]['productId']);
+              }
+              showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  builder: (context) {
+                    return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                      return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productIdList: productIdList, isCart: true);
+                    });
+                  });
+            },
+            child: Center(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.06,
+                width: MediaQuery.of(context).size.width * 0.60,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.s12),
+                    color: ColorManager.primaryColor),
+                child: Center(
+                    child: textStyle2(
+                        text: "Buy Now", color: ColorManager.whiteColor)),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorManager.primaryColor.withOpacity(0.2),
-                  spreadRadius: 4,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
             ),
-            child: const Center(
-              child: Text(
-                "Checkout",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+          );
+        }
+      }),
+      // InkWell(
+      //   onTap: (){
+      //     Get.toNamed(Paths.checkout);
+      //   },
+      //   child: Center(
+      //     child: Container(
+      //       height: MediaQuery.of(context).size.height * 0.06,
+      //       width: MediaQuery.of(context).size.width * 0.53,
+      //       decoration: BoxDecoration(
+      //         color: ColorManager.redColor,
+      //         borderRadius: const BorderRadius.all(
+      //           Radius.circular(10),
+      //         ),
+      //         boxShadow: [
+      //           BoxShadow(
+      //             color: ColorManager.primaryColor.withOpacity(0.2),
+      //             spreadRadius: 4,
+      //             blurRadius: 7,
+      //             offset: const Offset(0, 3),
+      //           ),
+      //         ],
+      //       ),
+      //       child: const Center(
+      //         child: Text(
+      //           "Checkout",
+      //           style: TextStyle(
+      //             color: Colors.white,
+      //             fontSize: 18,
+      //             fontWeight: FontWeight.bold,
+      //           ),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

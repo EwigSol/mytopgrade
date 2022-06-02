@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/controllers/category_controller.dart';
@@ -27,8 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  final CoursesController popularCoursesController =
-      Get.put(CoursesController());
+  final CoursesController popularCoursesController = Get.put(CoursesController());
   final CategoryController categoryController = Get.put(CategoryController());
   var myCoursesController = Get.put(MyCoursesController());
   List<CoursesModel> popularCoursesModel = [];

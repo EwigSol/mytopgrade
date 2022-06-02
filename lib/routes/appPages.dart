@@ -20,6 +20,8 @@ abstract class Routes {
   static const checkout = Paths.checkout;
   static const addNC = Paths.addNC;
   static const lessons = Paths.lessons;
+  static const payment = Paths.payment;
+  static const paymentSuccess = Paths.paymentSuccess;
 }
 
 abstract class Paths {
@@ -42,4 +44,6 @@ abstract class Paths {
   static const checkout = '/checkout';
   static const addNC = '/addNC';
   static const lessons = '/lessons';
+  static const payment = '/payment';
+  static const paymentSuccess = '/paymentSuccess';
 }

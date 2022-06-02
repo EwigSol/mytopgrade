@@ -787,12 +787,10 @@ class _DetailsScreenState extends State<DetailsScreen>
               ? const SizedBox.shrink()
               : InkWell(
                   onTap: () {
-                    // Get.toNamed(Paths.lessons, arguments: widget.coursesDetail!.sections);
                     setState(() {
                       isPressed = true;
                     });
-                    successToast("Congrats",
-                        "Go to Curriculum and start the lessons one by one");
+                    successToast("Congrats", "Go to Curriculum and start the lessons one by one");
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,
@@ -800,9 +798,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s12),
                         color: ColorManager.primaryColor),
-                    child: Center(
-                        child: textStyle2(
-                            text: "Start Now", color: ColorManager.whiteColor)),
+                    child: Center(child: textStyle2(text: "Start Now", color: ColorManager.whiteColor)),
                   ),
                 )
           : Obx(() {
@@ -810,28 +806,49 @@ class _DetailsScreenState extends State<DetailsScreen>
                 return const Center(child: CircularProgressIndicator());
               } else {
                 paymentGatewayModel.clear();
-                for (int i = 0;
-                    i < paymentGatewayController.gatewayList.length;
-                    i++) {
+                for (int i = 0; i < paymentGatewayController.gatewayList.length; i++) {
                   if (paymentGatewayController.gatewayList[i].enabled == true) {
-                    paymentGatewayModel
-                        .add(paymentGatewayController.gatewayList[i]);
+                    paymentGatewayModel.add(paymentGatewayController.gatewayList[i]);
                   }
                 }
                 return InkWell(
                   onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        builder: (context) {
-                          return StatefulBuilder(
-                              builder: (context, StateSetter customSetState) {
-                            return PaymentSheet(
-                                paymentGatewayModel: paymentGatewayModel);
+                    if(widget.isWishlist){
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          builder: (context) {
+                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.favCourseDetail!.id.toString(), isCart: false);
+                            });
                           });
-                        });
+                    }
+                    else if(isMyCourse == "true"){
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          builder: (context) {
+                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.myCoursesModel!.id.toString(), isCart: false);
+                            });
+                          });
+                    }
+                    else{
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          builder: (context) {
+                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.coursesDetail!.id.toString(), isCart: false);
+                            });
+                          });
+                    }
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,
