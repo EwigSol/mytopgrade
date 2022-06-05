@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -26,27 +23,28 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   var loginController = Get.put(LoginController());
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final bool _passwordVisibleOne = false;
   bool rememberMe = false;
   final box = GetStorage();
+  double height = Get.height;
+  double width = Get.width;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
+        preferredSize: Size(double.infinity, height * 0.08),
         child: const SimpleAppBar(title: StringsManager.login),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
+            buildSpaceVertical(height * 0.06),
             buildFormCard(),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
+            buildSpaceVertical(height * 0.06),
             // const LineWidget(),
             // buildSpaceVertical(2.h),
             // buildSocialRow(),
@@ -75,8 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.60,
-        width: MediaQuery.of(context).size.width * 0.90,
+        height: height * 0.62,
+        width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
           color: ColorManager.whiteColor,
@@ -94,19 +92,23 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.15, width: MediaQuery.of(context).size.width * 0.30)),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              Center(
+                  child: Image.asset(AssetsManager.logo,
+                      height: height * 0.15, width: width * 0.30)),
+              buildSpaceVertical(height * 0.01),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
                 child: textStyle11(text: "Email"),
               ),
               CustomTextField(
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              buildSpaceVertical(height * 0.01),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
                 child: textStyle11(text: "Password"),
               ),
               CustomTextField(
@@ -115,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPass: true,
                 passwordVisibility: _passwordVisibleOne,
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -134,45 +136,54 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   InkWell(
-                      onTap: () {
-                        Get.toNamed(Paths.forgotPass);
-                      },
-                      child: textStyle0(text: StringsManager.forgotPass),
+                    onTap: () {
+                      Get.toNamed(Paths.forgotPass);
+                    },
+                    child: textStyle0(text: StringsManager.forgotPass),
                   )
                 ],
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+              buildSpaceVertical(height * 0.03),
               InkWell(
-                  onTap: () {
-                    if(emailController.text.isNotEmpty){
-                      if(passwordController.text.isNotEmpty){
-                        loginController.login(emailController.text, passwordController.text).then((response) => {
-                          if(response['status'] == true) {
-                            box.write("token", response['token']),
-                            box.write("user_id", response['user_id']),
-                            box.write("user_login", response['user_login']),
-                            box.write("user_email", response['user_email']),
-                            box.write("user_display_name", response['user_display_name']),
-                            box.write("isLogged", true),
-                            Get.toNamed(Paths.homeBar)
-                          }else{
-                            errorToast("Error", "Unable to login"),
-                          }
-                        });
-                      }else{
-                        errorToast("Error", "Email is required");
-                      }
-                    }else{
-                      errorToast("Error", "Password is required");
+                onTap: () {
+                  if (emailController.text.isNotEmpty) {
+                    if (passwordController.text.isNotEmpty) {
+                      loginController
+                          .login(emailController.text, passwordController.text)
+                          .then((response) => {
+                                if (response['status'] == true)
+                                  {
+                                    box.write("token", response['token']),
+                                    box.write("user_id", response['user_id']),
+                                    box.write(
+                                        "user_login", response['user_login']),
+                                    box.write(
+                                        "user_email", response['user_email']),
+                                    box.write("user_display_name",
+                                        response['user_display_name']),
+                                    box.write("isLogged", true),
+                                    Get.toNamed(Paths.homeBar)
+                                  }
+                                else
+                                  {
+                                    errorToast("Error", "Unable to login"),
+                                  }
+                              });
+                    } else {
+                      errorToast("Error", "Email is required");
                     }
-                  },
-                  child: Obx((){
-                    if(loginController.isDataSubmitting.value == true){
-                      return const Center(child: CircularProgressIndicator());
-                    }else{
-                      return Center(child: actionButton(StringsManager.login, context));
-                    }
-                  }),
+                  } else {
+                    errorToast("Error", "Password is required");
+                  }
+                },
+                child: Obx(() {
+                  if (loginController.isDataSubmitting.value == true) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return Center(
+                        child: actionButton(StringsManager.login, context));
+                  }
+                }),
               ),
             ],
           ),
@@ -180,5 +191,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 }
