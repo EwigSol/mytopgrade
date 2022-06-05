@@ -1,17 +1,15 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/auth/widgets/simple_appbar.dart';
 import 'package:topgrade/views/widgets/action_button.dart';
 import 'package:topgrade/views/widgets/text_field.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/strings_manager.dart';
 import 'widgets/login_text.dart';
+import 'package:get/get.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function toggleView;
@@ -26,51 +24,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final bool _passwordVisibleOne = false;
+  double height = Get.height;
+  double width = Get.width;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
-        child: const SimpleAppBar(title: StringsManager.register),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-            buildFormCard(),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-            // const LineWidget(),
-            // buildSpaceVertical(1.h),
-            // buildSocialRow(),
-            // buildSpaceVertical(1.h),
-            LoginText(toggleView: widget.toggleView)
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildSpaceVertical(height * 0.03),
+              buildFormCard(),
+              buildSpaceVertical(height * 0.06),
+              // const LineWidget(),
+              // buildSpaceVertical(1.h),
+              // buildSocialRow(),
+              // buildSpaceVertical(1.h),
+              LoginText(toggleView: widget.toggleView)
+            ],
+          ),
         ),
       ),
       // bottomSheet: ,
     );
   }
 
-  // Padding buildSocialRow() {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //       children: const [
-  //         SocialCard(img: AssetsManager.fbLogo),
-  //         SocialCard(img: AssetsManager.googleLogo),
-  //         SocialCard(img: AssetsManager.twitterLogo),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.72,
-        width: MediaQuery.of(context).size.width * 0.90,
+        height: height * 0.75,
+        width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
           color: ColorManager.whiteColor,
@@ -88,9 +72,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.13, width: MediaQuery.of(context).size.width * 0.26)),
+              Center(
+                  child: Image.asset(AssetsManager.logo,
+                      height: height * 0.13, width: width * 0.26)),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Username"),
               ),
               CustomTextField(
@@ -98,33 +85,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintName: StringsManager.userName,
               ),
               Padding(
-                padding: const EdgeInsets.only( top:AppPadding.p10, left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    top: AppPadding.p10,
+                    left: AppPadding.p10,
+                    bottom: AppPadding.p6),
                 child: textStyle11(text: "Phone No"),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: height * 0.1,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   child: IntlPhoneField(
                     decoration: const InputDecoration(
-                      enabledBorder:  OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.s10)),
                         borderSide: BorderSide(color: ColorManager.grayColor),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.s10)),
                         borderSide: BorderSide(color: ColorManager.grayColor),
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.s10)),
                         borderSide: BorderSide(color: ColorManager.redColor),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.s10)),
                         borderSide: BorderSide(color: ColorManager.redColor),
                       ),
                       disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.s10)),
                         borderSide: BorderSide(color: ColorManager.grayColor),
                       ),
                       hintText: StringsManager.phoneNo,
@@ -133,13 +129,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       filled: true,
                     ),
                     initialCountryCode: 'ZA',
-                    onChanged: (phone) {
-                    },
+                    onChanged: (phone) {},
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Email"),
               ),
               CustomTextField(
@@ -147,7 +143,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintName: StringsManager.email,
               ),
               Padding(
-                padding: const EdgeInsets.only(top:AppPadding.p10, left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    top: AppPadding.p10,
+                    left: AppPadding.p10,
+                    bottom: AppPadding.p6),
                 child: textStyle11(text: "Password"),
               ),
               CustomTextField(
@@ -156,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 isPass: true,
                 passwordVisibility: _passwordVisibleOne,
               ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              buildSpaceVertical(height * 0.02),
               Center(child: actionButton(StringsManager.register, context)),
             ],
           ),
@@ -164,5 +163,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
 }

@@ -35,22 +35,24 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity, height * 0.08),
-        child: const SimpleAppBar(title: StringsManager.login),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildSpaceVertical(height * 0.06),
-            buildFormCard(),
-            buildSpaceVertical(height * 0.06),
-            // const LineWidget(),
-            // buildSpaceVertical(2.h),
-            // buildSocialRow(),
-            // buildSpaceVertical(3.h),
-            SignupText(toggleView: widget.toggleView)
-          ],
+      // appBar: PreferredSize(
+      //   preferredSize: Size(double.infinity, height * 0.08),
+      //   child: const SimpleAppBar(title: StringsManager.login),
+      // ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildSpaceVertical(height * 0.06),
+              buildFormCard(),
+              buildSpaceVertical(height * 0.06),
+              // const LineWidget(),
+              // buildSpaceVertical(2.h),
+              // buildSocialRow(),
+              // buildSpaceVertical(3.h),
+              SignupText(toggleView: widget.toggleView)
+            ],
+          ),
         ),
       ),
     );
