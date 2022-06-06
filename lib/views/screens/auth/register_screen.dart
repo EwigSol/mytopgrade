@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:topgrade/controllers/login_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/auth/login_screen.dart';
+import 'package:topgrade/views/screens/home/home_screen.dart';
 import 'package:topgrade/views/widgets/action_button.dart';
 import 'package:topgrade/views/widgets/text_field.dart';
 import '../../../helpers/text_helper.dart';
@@ -23,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  var loginController = Get.put(LoginController());
   final bool _passwordVisibleOne = false;
   double height = Get.height;
   double width = Get.width;
@@ -49,6 +53,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       // bottomSheet: ,
     );
   }
+
+  // Padding buildSocialRow() {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //       children: const [
+  //         SocialCard(img: AssetsManager.fbLogo),
+  //         SocialCard(img: AssetsManager.googleLogo),
+  //         SocialCard(img: AssetsManager.twitterLogo),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Center buildFormCard() {
     return Center(
@@ -156,7 +174,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 passwordVisibility: _passwordVisibleOne,
               ),
               buildSpaceVertical(height * 0.02),
-              Center(child: actionButton(StringsManager.register, context)),
+              Center(
+                  child: InkWell(
+                      onTap: () async {
+                        await loginController.createUser(
+                            userName: usernameController.text,
+                            email: emailController.text,
+                            password: passwordController.text);
+                        Get.to(LoginScreen);
+                        print(usernameController.text +
+                            emailController.text +
+                            passwordController.text);
+                      },
+                      child: actionButton(StringsManager.register, context))),
             ],
           ),
         ),

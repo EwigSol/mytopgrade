@@ -1,5 +1,3 @@
-
-
 enum APIPath {
   courses,
   courseCategory,
@@ -19,14 +17,15 @@ enum APIPath {
   wishlist,
   assignmentById,
   login,
+  register,
 
 //
 
 }
 
-class APIPathHelper{
-  static String getValue(APIPath path){
-    switch(path){
+class APIPathHelper {
+  static String getValue(APIPath path) {
+    switch (path) {
       case APIPath.courses:
         return "/courses";
 
@@ -80,6 +79,9 @@ class APIPathHelper{
 
       case APIPath.login:
         return "/token";
+
+      case APIPath.register:
+        return "/wc/v3/customers";
 
       default:
         return "";
