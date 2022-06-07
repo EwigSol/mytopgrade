@@ -2,15 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:topgrade/helpers/helper.dart';
+import '../../../controllers/update_customer_controller.dart';
 import '../../../helpers/text_helper.dart';
+import '../../../models/user_model.dart';
+import '../../../routes/appPages.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../../utils/values_manager.dart';
 import '../../widgets/action_button.dart';
 import '../../widgets/text_field.dart';
+import 'package:get/get.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({Key? key}) : super(key: key);
@@ -24,6 +27,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final box = GetStorage();
+  var updateCustomerController = Get.put(UpdateCustomerController());
 
   @override
   void initState() {
@@ -86,46 +90,76 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               hintName: StringsManager.userName,
             ),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-              child: IntlPhoneField(
-                decoration: const InputDecoration(
-                  enabledBorder:  OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.grayColor),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.grayColor),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.redColor),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.redColor),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-                    borderSide: BorderSide(color: ColorManager.grayColor),
-                  ),
-                  hintText: StringsManager.phoneNo,
-                  hintStyle: TextStyle(fontSize: AppSize.s12),
-                  fillColor: ColorManager.whiteColor,
-                  filled: true,
-                ),
-                initialCountryCode: 'ZA',
-                onChanged: (phone) {},
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+            //   child: IntlPhoneField(
+            //     decoration: const InputDecoration(
+            //       enabledBorder:  OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+            //         borderSide: BorderSide(color: ColorManager.grayColor),
+            //       ),
+            //       focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+            //         borderSide: BorderSide(color: ColorManager.grayColor),
+            //       ),
+            //       errorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+            //         borderSide: BorderSide(color: ColorManager.redColor),
+            //       ),
+            //       focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+            //         borderSide: BorderSide(color: ColorManager.redColor),
+            //       ),
+            //       disabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
+            //         borderSide: BorderSide(color: ColorManager.grayColor),
+            //       ),
+            //       hintText: StringsManager.phoneNo,
+            //       hintStyle: TextStyle(fontSize: AppSize.s12),
+            //       fillColor: ColorManager.whiteColor,
+            //       filled: true,
+            //     ),
+            //     initialCountryCode: 'ZA',
+            //     onChanged: (phone) {},
+            //   ),
+            // ),
             CustomTextField(
               controller: emailController,
               hintName: StringsManager.email,
             ),
 
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-            actionButton(StringsManager.uProfile, context),
+            InkWell(
+                onTap: () {
+                  UserModel userModel;
+                  if(usernameController.text.isNotEmpty){
+                    if(emailController.text.isNotEmpty){
+                      updateCustomerController.updateCustomer(usernameController.text, emailController.text, "id").then((response) => {
+                        if(response['status'] == true) {
+                          userModel = response['userData'],
+                          box.write("user_id", userModel.id.toString()),
+                          box.write("user_email", userModel.email),
+                          box.write("user_display_name", userModel.username),
+                          Get.toNamed(Paths.homeBar)
+                        }else{
+                          errorToast("Error", response['message']),
+                        }
+                      });
+                    }else{
+                      errorToast("Error", "Email is required");
+                    }
+                  }else{
+                    errorToast("Error", "User Name is required");
+                  }
+                },
+                child: Obx((){
+                  if(updateCustomerController.isDataSubmitting.value == true){
+                    return const Center(child: CircularProgressIndicator());
+                  }else{
+                    return actionButton(StringsManager.register, context);
+                  }
+                }),
+            ),
           ],
         ),
       ),
