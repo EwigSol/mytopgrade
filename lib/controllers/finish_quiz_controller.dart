@@ -15,10 +15,11 @@ class FinishQuizController extends GetxController {
   final box = GetStorage();
 
   Future<Map<String, dynamic>> finishQuiz(List<dynamic> multiChoiceAnswers, trueFalseAnswers, sortingAnswers, singleChoiceAnswers, fillBlanksAnswers,
-      String multiChoiceId, trueFalseId, sortingId, singleId, fillBlanksId) async {
+      String multiChoiceId, trueFalseId, sortingId, singleId, fillBlanksId, id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
     Map<String, dynamic> dataBody = {
+      "id": id,
       "answered[$multiChoiceId]": multiChoiceAnswers,
       "answered[$trueFalseId]": trueFalseAnswers,
       "answered[$sortingId]": sortingAnswers,
@@ -37,6 +38,7 @@ class FinishQuizController extends GetxController {
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
+      print(responseData);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {'status': true, 'message': "Quiz Finished Successfully"};

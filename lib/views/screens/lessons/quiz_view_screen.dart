@@ -807,7 +807,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   //   errorToast("Error", "Add answer Please");
                   // }
                   finishQuizController.finishQuiz(multiChoiceAnswers, trueFalseAnswers, sortingAnswers, singleChoiceAnswers, fillBlanksAnswers,
-                      multiChoiceQuestion!, trueFalseQuestion, sortingQuestion, singleChoiceQuestion, fillBlanksQuestion).then((response) => {
+                      multiChoiceQuestion!, trueFalseQuestion, sortingQuestion, singleChoiceQuestion, fillBlanksQuestion, widget.quizByIdModel.id.toString()).then((response) => {
                     if(response['status'] == true) {
                       successToast("Success", "Quiz Finished Successfully"),
                       Get.toNamed(Paths.homeBar)
