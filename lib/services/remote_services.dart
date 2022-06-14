@@ -92,7 +92,7 @@ class RemoteServices {
       var jsonString = response.body;
       return courseByIdModelFromJson(jsonString);
     } else {
-      errorToast(StringsManager.error, "Unable to Fetch Course By ID");
+      // errorToast(StringsManager.error, "Unable to Fetch Course By ID");
       return null;
     }
   }
@@ -126,7 +126,7 @@ class RemoteServices {
       var jsonString = response.body;
       return lessonByIdModelFromJson(jsonString);
     } else {
-      errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
+      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
       return null;
     }
   }
@@ -177,7 +177,7 @@ class RemoteServices {
       var jsonString = response.body;
       return quizByIdModelFromJson(jsonString);
     } else {
-      errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
+      // errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
       return null;
     }
   }
@@ -228,7 +228,7 @@ class RemoteServices {
       var jsonString = response.body;
       return assignmentModelFromJson(jsonString);
     } else {
-      errorToast(StringsManager.error, "Unable to Fetch Assignments List");
+      // errorToast(StringsManager.error, "Unable to Fetch Assignments List");
       return null;
     }
   }
@@ -279,7 +279,7 @@ class RemoteServices {
       var jsonString = response.body;
       return assignmentByIdModelFromJson(jsonString);
     } else {
-      errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
+      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
       return null;
     }
   }

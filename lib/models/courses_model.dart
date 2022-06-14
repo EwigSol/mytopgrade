@@ -91,8 +91,7 @@ class CoursesModel {
         price: json["price"],
         originPrice: json["origin_price"],
         salePrice: json["sale_price"],
-        categories: List<Category>.from(
-            json["categories"].map((x) => Category.fromJson(x))),
+        categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
         instructor: Instructor.fromJson(json["instructor"]),
         sections: List<Section>.from(

@@ -156,7 +156,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   if(updateCustomerController.isDataSubmitting.value == true){
                     return const Center(child: CircularProgressIndicator());
                   }else{
-                    return actionButton(StringsManager.register, context);
+                    return actionButton("UPDATE", context);
                   }
                 }),
             ),

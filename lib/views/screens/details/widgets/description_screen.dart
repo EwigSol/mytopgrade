@@ -227,7 +227,7 @@ class OverviewScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               textStyle0_5(text: "Duration:"),
-              textStyle0_5(text: coursesDetail!.duration!.name.substring(3)),
+              coursesDetail!.duration != null ? textStyle0_5(text: coursesDetail!.duration!.name.substring(3)) : const SizedBox.shrink(),
             ],
           ),
         ),

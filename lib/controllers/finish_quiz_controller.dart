@@ -14,10 +14,17 @@ class FinishQuizController extends GetxController {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<Map<String, dynamic>> finishQuiz(String id) async {
+  Future<Map<String, dynamic>> finishQuiz(List<dynamic> multiChoiceAnswers, trueFalseAnswers, sortingAnswers, singleChoiceAnswers, fillBlanksAnswers,
+      String multiChoiceId, trueFalseId, sortingId, singleId, fillBlanksId) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    Map<String, dynamic> dataBody = { "id": id };
+    Map<String, dynamic> dataBody = {
+      "answered[$multiChoiceId]": multiChoiceAnswers,
+      "answered[$trueFalseId]": trueFalseAnswers,
+      "answered[$sortingId]": sortingAnswers,
+      "answered[$singleId]": singleChoiceAnswers,
+      "answered[$fillBlanksId]": fillBlanksAnswers,
+    };
     String token = box.read("token");
 
     var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.finishQuiz)),
@@ -25,24 +32,18 @@ class FinishQuizController extends GetxController {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
-        }, body: dataBody);
-
+        }, body: jsonEncode(dataBody));
+    print(response.statusCode);
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      if (responseData['status'] == "success") {
-        isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
-      } else {
-        isDataSubmitting.value = false;
-        isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
-
-      }
+      isDataSubmitting.value = false;
+      isDataReadingCompleted.value = true;
+      result = {'status': true, 'message': "Quiz Finished Successfully"};
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
-      result = {'status': "error", 'message': "Server Error!\nFailed to start the course", 'data': {}};
+      result = {'status': false, 'message': "Server Error!\nFailed to finish the quiz"};
     }
     return result;
   }
