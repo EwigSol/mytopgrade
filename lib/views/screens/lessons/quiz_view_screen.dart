@@ -322,9 +322,7 @@ import 'package:flutter/material.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
 import '../../../controllers/finish_quiz_controller.dart';
-import '../../../controllers/send_assignment_controller.dart';
 import '../../../controllers/start_quiz_controller.dart';
-import '../../../controllers/submit_assignment_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/color_manager.dart';
@@ -346,7 +344,6 @@ class QuizViewScreen extends StatefulWidget {
 class _QuizViewScreenState extends State<QuizViewScreen> {
   var startQuizController = Get.put(StartQuizController());
   var finishQuizController = Get.put(FinishQuizController());
-  final assignmentController = TextEditingController();
   bool started = false;
   bool submitted = false;
   var selectedAnswer = 0;
@@ -413,22 +410,22 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
             Center(
             child: InkWell(
               onTap: () {
-                setState(() {
-                  started = true;
-                });
-                // startQuizController.startQuiz(widget.quizByIdModel.id.toString()).then((response) => {
-                //   if (response['status'] == 'success')
-                //     {
-                //       successToast("Success", response['message']),
-                //       setState(() {
-                //         started = true;
-                //       })
-                //     }
-                //   else
-                //     {
-                //       errorToast("Error", response['message']),
-                //     }
+                // setState(() {
+                //   started = true;
                 // });
+                startQuizController.startQuiz(widget.quizByIdModel.id.toString()).then((response) => {
+                  if (response['status'] == 'success')
+                    {
+                      successToast("Success", response['message']),
+                      setState(() {
+                        started = true;
+                      })
+                    }
+                  else
+                    {
+                      errorToast("Error", response['message']),
+                    }
+                });
               },
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.06,
@@ -778,21 +775,21 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
             Center(
               child: InkWell(
                 onTap: () {
-                  print("multi choice");
-                  print(multiChoiceQuestion);
-                  print(multiChoiceAnswers);
-                  print("true false");
-                  print(trueFalseQuestion);
-                  print(trueFalseAnswers);
-                  print("sorting");
-                  print(sortingQuestion);
-                  print(sortingAnswers);
-                  print("single");
-                  print(singleChoiceQuestion);
-                  print(singleChoiceAnswers);
-                  print("fill blanks");
-                  print(fillBlanksQuestion);
-                  print(fillBlanksAnswers);
+                  // print("multi choice");
+                  // print(multiChoiceQuestion);
+                  // print(multiChoiceAnswers);
+                  // print("true false");
+                  // print(trueFalseQuestion);
+                  // print(trueFalseAnswers);
+                  // print("sorting");
+                  // print(sortingQuestion);
+                  // print(sortingAnswers);
+                  // print("single");
+                  // print(singleChoiceQuestion);
+                  // print(singleChoiceAnswers);
+                  // print("fill blanks");
+                  // print(fillBlanksQuestion);
+                  // print(fillBlanksAnswers);
                   // if(assignmentController.text.isNotEmpty){
                   //   if(file != null){
                   //     submitAssignmentController.submit(widget.id.toString(), assignmentController.text, file!).then((response) => {
