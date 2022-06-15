@@ -63,13 +63,8 @@ class FinishQuizController extends GetxController {
       print(responded.statusCode);
       print('success');
       isDataSubmitting.value = false;
-<<<<<<< HEAD
       // Map<String, dynamic> responseData = jsonDecode(response.body);
       // print(jsonDecode(response.body));
-=======
-      Map<String, dynamic> responseData = jsonDecode(response.body);
-      print(responseData);
->>>>>>> 1d03803160c3b13950c10f833fac11a9c974d937
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {'status': true, 'message': "Quiz Finished Successfully"};

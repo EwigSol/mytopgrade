@@ -1,6 +1,3 @@
-
-
-
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -13,21 +10,18 @@ import 'package:get/get.dart';
 
 class LessonViewScreen extends StatefulWidget {
   final String? id, url, title;
-  const LessonViewScreen({Key? key, this.id, this.url, this.title}) : super(key: key);
+  const LessonViewScreen({Key? key, this.id, this.url, this.title})
+      : super(key: key);
 
   @override
   State<LessonViewScreen> createState() => _LessonViewScreenState();
 }
 
 class _LessonViewScreenState extends State<LessonViewScreen> {
-
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
-  var finishLessonController = Get.put(FinishLessonController());
-  // final LessonByIDController lessonByIDController = Get.put(LessonByIDController());
-  // final AssignmentByIDController assignmentByIDController = Get.put(AssignmentByIDController());
-  // final QuizByIDController quizByIDController = Get.put(QuizByIDController());
-  // LessonByIdModel? lessonByIdModel;
+  final FinishLessonController finishLessonController =
+      Get.put(FinishLessonController());
 
   @override
   void initState() {
@@ -83,54 +77,60 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
-            _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized ?
-            Center(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.40,
-                width: MediaQuery.of(context).size.width * 0.95,
-                child: Chewie(
-                  controller: _chewieController!,
-                ),
-              ),
-            )
+            _chewieController != null &&
+                    _chewieController!.videoPlayerController.value.isInitialized
+                ? Center(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.40,
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: Chewie(
+                        controller: _chewieController!,
+                      ),
+                    ),
+                  )
                 : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                SizedBox(height: 20),
-                Text('Loading'),
-              ],
-            ),
-
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(),
+                      SizedBox(height: 20),
+                      Text('Loading'),
+                    ],
+                  ),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-
             Center(
               child: InkWell(
                 onTap: () {
-                  finishLessonController.finishLesson(widget.id.toString()).then((response) => {
-                    if(response['status'] == 'success') {
-                      successToast("Success", "Lesson Finished"),
-                    }else{
-                      errorToast("Error", "Failed to finish Lesson"),
-                    }
-                  });
+                  finishLessonController
+                      .finishLesson(widget.id.toString())
+                      .then((response) => {
+                            if (response['status'] == 'success')
+                              {
+                                successToast("Success", "Lesson Finished"),
+                              }
+                            else
+                              {
+                                errorToast("Error", "Failed to finish Lesson"),
+                              }
+                          });
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.60,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s12),
-                      color: ColorManager.primaryColor
-                  ),
+                      color: ColorManager.primaryColor),
                   child: Obx(() {
-                    return finishLessonController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                    Center(child: textStyle2(text: "Finish Lesson", color: ColorManager.whiteColor));
+                    return finishLessonController.isDataSubmitting.value == true
+                        ? const Center(child: CircularProgressIndicator())
+                        : Center(
+                            child: textStyle2(
+                                text: "Finish Lesson",
+                                color: ColorManager.whiteColor));
                   }),
                 ),
               ),
             )
-
           ],
         ),
       ),
@@ -345,6 +345,3 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
     );
   }
 }
-
-
-

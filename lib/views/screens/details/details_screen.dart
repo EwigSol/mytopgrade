@@ -42,9 +42,11 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
-  var cartController = Get.put(CartController());
-  var addFavController = Get.put(AddFavoriteController());
-  var paymentGatewayController = Get.put(PaymentGatewayController());
+  final CartController cartController = Get.put(CartController());
+  final AddFavoriteController addFavController =
+      Get.put(AddFavoriteController());
+  final PaymentGatewayController paymentGatewayController =
+      Get.put(PaymentGatewayController());
   List<PaymentGatewayModel> paymentGatewayModel = [];
   final box = GetStorage();
   List<String> myCoursesId = [];
@@ -64,10 +66,10 @@ class _DetailsScreenState extends State<DetailsScreen>
     var data = Get.arguments;
     String? check = Get.parameters['isWishlist'];
     isMyCourse = Get.parameters['isMyCourse'];
-    check == "true" ? widget.isWishlist = true : widget.isWishlist = false;
+    check == "true" ? widget.isWishlist = true : widget.isWishlist = true;
     isMyCourse == "true"
         ? widget.myCoursesModel = data
-        : widget.isWishlist == false
+        : widget.isWishlist == true
             ? widget.coursesDetail = data
             : widget.favCourseDetail = data;
     _controller = TabController(length: 3, vsync: this);
@@ -790,7 +792,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                     setState(() {
                       isPressed = true;
                     });
-                    successToast("Congrats", "Go to Curriculum and start the lessons one by one");
+                    successToast("Congrats",
+                        "Go to Curriculum and start the lessons one by one");
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,
@@ -798,7 +801,9 @@ class _DetailsScreenState extends State<DetailsScreen>
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppSize.s12),
                         color: ColorManager.primaryColor),
-                    child: Center(child: textStyle2(text: "Start Now", color: ColorManager.whiteColor)),
+                    child: Center(
+                        child: textStyle2(
+                            text: "Start Now", color: ColorManager.whiteColor)),
                   ),
                 )
           : Obx(() {
@@ -806,46 +811,62 @@ class _DetailsScreenState extends State<DetailsScreen>
                 return const Center(child: CircularProgressIndicator());
               } else {
                 paymentGatewayModel.clear();
-                for (int i = 0; i < paymentGatewayController.gatewayList.length; i++) {
+                for (int i = 0;
+                    i < paymentGatewayController.gatewayList.length;
+                    i++) {
                   if (paymentGatewayController.gatewayList[i].enabled == true) {
-                    paymentGatewayModel.add(paymentGatewayController.gatewayList[i]);
+                    paymentGatewayModel
+                        .add(paymentGatewayController.gatewayList[i]);
                   }
                 }
                 return InkWell(
                   onTap: () {
-                    if(widget.isWishlist){
+                    if (widget.isWishlist) {
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
                           builder: (context) {
-                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
-                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.favCourseDetail!.id.toString(), isCart: false);
+                            return StatefulBuilder(
+                                builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(
+                                  paymentGatewayModel: paymentGatewayModel,
+                                  productId:
+                                      widget.favCourseDetail!.id.toString(),
+                                  isCart: false);
                             });
                           });
-                    }
-                    else if(isMyCourse == "true"){
+                    } else if (isMyCourse == "true") {
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
                           builder: (context) {
-                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
-                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.myCoursesModel!.id.toString(), isCart: false);
+                            return StatefulBuilder(
+                                builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(
+                                  paymentGatewayModel: paymentGatewayModel,
+                                  productId:
+                                      widget.myCoursesModel!.id.toString(),
+                                  isCart: false);
                             });
                           });
-                    }
-                    else{
+                    } else {
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
                           builder: (context) {
-                            return StatefulBuilder(builder: (context, StateSetter customSetState) {
-                              return PaymentSheet(paymentGatewayModel: paymentGatewayModel, productId: widget.coursesDetail!.id.toString(), isCart: false);
+                            return StatefulBuilder(
+                                builder: (context, StateSetter customSetState) {
+                              return PaymentSheet(
+                                  paymentGatewayModel: paymentGatewayModel,
+                                  productId:
+                                      widget.coursesDetail!.id.toString(),
+                                  isCart: false);
                             });
                           });
                     }
