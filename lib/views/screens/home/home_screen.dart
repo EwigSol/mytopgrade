@@ -19,7 +19,7 @@ import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import 'widgets/filter_sheet.dart';
 import 'package:get/get.dart';
 
-import 'widgets/popularcard.dart';
+import 'widgets/PopularCourse.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
