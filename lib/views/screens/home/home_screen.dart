@@ -19,6 +19,8 @@ import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
 import 'widgets/filter_sheet.dart';
 import 'package:get/get.dart';
 
+import 'widgets/popularcard.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               buildTitle(StringsManager.popular),
               buildSpaceVertical(height * 0.01),
               Obx(() => popularCoursesController.isLoading.value == null
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : SizedBox(
                           height: height * 0.23,
                           width: double.infinity,
@@ -108,8 +110,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                   popularCoursesController.coursesList.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return buildPopularCard(popularCoursesController
-                                    .coursesList[index]);
+                                return PopularCourse(
+                                  argument: popularCoursesController
+                                      .coursesList[index].id,
+                                  image: popularCoursesController
+                                      .coursesList[index].image,
+                                  instructor: popularCoursesController
+                                      .coursesList[index].instructor,
+                                  name: popularCoursesController
+                                      .coursesList[index].name,
+                                  price: popularCoursesController
+                                      .coursesList[index].price,
+                                  sectionslength: popularCoursesController
+                                      .coursesList[index].sections!.length,
+                                  rating: popularCoursesController
+                                      .coursesList[index].rating,
+                                );
                               }),
                         )
                   // if (popularCoursesController.isLoading.value) {
@@ -146,12 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
               buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(height * 0.01),
-              Obx(() {
-                if (popularCoursesController.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return popularCoursesController.coursesList.isNotEmpty
-                      ? SizedBox(
+              Obx(() => popularCoursesController.isLoading.value == null
+                      ? const CircularProgressIndicator()
+                      : SizedBox(
                           height: height * 0.15,
                           width: double.infinity,
                           child: ListView.builder(
@@ -164,14 +177,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return buildInstructorCard(catM);
                               }),
                         )
-                      : SizedBox(
-                          height: height * 0.17,
-                          width: double.infinity,
-                          child: Center(
-                              child: textStyle0_5(
-                                  text: "No Instructor Available")));
-                }
-              }),
+                  // {
+                  //   if (popularCoursesController.isLoading.value) {
+                  //     return const Center(child: CircularProgressIndicator());
+                  //   } else {
+                  //     return popularCoursesController.coursesList.isNotEmpty
+                  //         ? SizedBox(
+                  //             height: height * 0.15,
+                  //             width: double.infinity,
+                  //             child: ListView.builder(
+                  //                 itemCount:
+                  //                     popularCoursesController.coursesList.length,
+                  //                 scrollDirection: Axis.horizontal,
+                  //                 itemBuilder: (context, index) {
+                  //                   final catM =
+                  //                       popularCoursesController.coursesList[index];
+                  //                   return buildInstructorCard(catM);
+                  //                 }),
+                  //           )
+                  //         : SizedBox(
+                  //             height: height * 0.17,
+                  //             width: double.infinity,
+                  //             child: Center(
+                  //                 child: textStyle0_5(
+                  //                     text: "No Instructor Available")));
+                  //   }
+                  ),
               buildSpaceVertical(height * 0.03),
             ],
           ),
@@ -238,132 +269,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Padding buildPopularCard(CoursesModel popularCourse) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(Paths.details, arguments: popularCourse);
-        },
-        child: Container(
-          width: width * 0.50,
-          decoration: BoxDecoration(
-            color: ColorManager.whiteColor,
-            borderRadius: BorderRadius.circular(AppSize.s10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 1,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                  // height: height * 0.14,
-                  width: width,
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: height * 0.12,
-                          width: width,
-                          child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(AppSize.s10),
-                                  topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(popularCourse.image!,
-                                  fit: BoxFit.cover)),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 4,
-                        right: 0,
-                        child: Container(
-                          height: height * 0.03,
-                          width: width * 0.12,
-                          decoration: const BoxDecoration(
-                              color: ColorManager.redColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                              )),
-                          child: Center(
-                            child: popularCourse.price != 0
-                                ? textStyle0(
-                                    text:
-                                        "\$\ ${popularCourse.price.toString()}",
-                                    color: ColorManager.whiteColor)
-                                : textStyle0(
-                                    text: " Free ",
-                                    color: ColorManager.whiteColor),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: textStyle0_5(text: popularCourse.name!),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 4,
-                ),
-                child: textStyle0(
-                    text: popularCourse.instructor!.name.toString(),
-                    color: ColorManager.grayColor),
-              ),
-              buildSpaceVertical(height * 0.01),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 4,
-                  right: 4,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          height: height * 0.024,
-                          // width: width * 0.04,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: ColorManager.redColor),
-                          child: const Center(
-                            child: Icon(Icons.play_circle_fill,
-                                size: 16, color: ColorManager.whiteColor),
-                          ),
-                        ),
-                        buildSpaceHorizontal(width * 0.02),
-                        textStyle0(
-                            text: "Sections: ${popularCourse.sections!.length}")
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(width * 0.02),
-                        textStyle0(text: popularCourse.rating.toString())
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

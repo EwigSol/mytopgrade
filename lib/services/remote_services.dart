@@ -62,27 +62,6 @@ class RemoteServices {
     }
   }
 
-  Future<CourseByIdModel?> fetchCourseByID(String id) async {
-    String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(APIBase.baseURL +
-            APIPathHelper.getValue(APIPath.courses) +
-            "/" +
-            id),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return courseByIdModelFromJson(jsonString);
-    } else {
-      // errorToast(StringsManager.error, "Unable to Fetch Course By ID");
-      return null;
-    }
-  }
-
   Future<List<LessonsModel>?> fetchLessons() async {
     String token = box.read("token");
     var response = await client.get(

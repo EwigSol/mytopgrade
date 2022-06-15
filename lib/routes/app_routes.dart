@@ -73,7 +73,9 @@ class AppRoutes {
     // GetPage(name: Paths.chat, page: () => const ChatScreen(), transition: Transition.zoom),
     GetPage(
         name: Paths.details,
-        page: () => DetailsScreen(isWishlist: false),
+        page: () => DetailsScreen(
+              isWishlist: false,
+            ),
         transition: Transition.rightToLeftWithFade),
     GetPage(
         name: Paths.cart,
