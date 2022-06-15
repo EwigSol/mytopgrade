@@ -21,12 +21,14 @@ class FinishQuizController extends GetxController {
       trueFalseId,
       sortingId,
       singleId,
-      fillBlanksId) async {
+      fillBlanksId,
+      String id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
 
     var dataBody = {
-      'id': 32860,
+      // 'id': 32860,
+      'id': id,
       'answered[$multiChoiceId]': multiChoiceAnswers,
       'answered[$trueFalseId]': trueFalseAnswers,
       'answered[$sortingId]': sortingAnswers,
@@ -35,7 +37,7 @@ class FinishQuizController extends GetxController {
     };
     String token = box.read("token");
 
-    var request = await http.MultipartRequest(
+    var request = http.MultipartRequest(
         'Post',
         Uri.parse(
             APIBase.baseURL + APIPathHelper.getValue(APIPath.finishQuiz)));
@@ -45,7 +47,8 @@ class FinishQuizController extends GetxController {
       'Authorization': 'Bearer $token',
     });
     request.fields.addAll({
-      'id': '32860',
+      // 'id': '32860',
+      'id': id.toString(),
       'answered[$multiChoiceId]': multiChoiceAnswers.toString(),
       'answered[$trueFalseId]': trueFalseAnswers.toString(),
       'answered[$sortingId]': sortingAnswers.toString(),
