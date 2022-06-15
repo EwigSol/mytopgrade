@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
@@ -27,33 +25,15 @@ class RemoteServices {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<List<CoursesModel>?> fetchCourses() async {
-    String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses)),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return coursesModelFromJson(jsonString);
-    } else {
-      //show error message
-      errorToast(StringsManager.error, "Unable to Fetch Courses");
-      return null;
-    }
-  }
-
   Future<List<MyCoursesModel>?> fetchMyCourses() async {
     String token = box.read("token");
-    final uri = Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses));
-    var response = await client.get(uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final uri =
+        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses));
+    var response = await client.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return myCoursesModelFromJson(jsonString);
@@ -65,7 +45,9 @@ class RemoteServices {
 
   Future<List<CourseCategoryModel>?> fetchCourseCategories() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courseCategory)),
+    var response = await client.get(
+        Uri.parse(
+            APIBase.baseURL + APIPathHelper.getValue(APIPath.courseCategory)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -82,7 +64,11 @@ class RemoteServices {
 
   Future<CourseByIdModel?> fetchCourseByID(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses)+"/"+id),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.courses) +
+            "/" +
+            id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -99,7 +85,8 @@ class RemoteServices {
 
   Future<List<LessonsModel>?> fetchLessons() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons)),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -116,7 +103,11 @@ class RemoteServices {
 
   Future<LessonByIdModel?> fetchLessonByID(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons)+"/"+id),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.lessons) +
+            "/" +
+            id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -133,7 +124,9 @@ class RemoteServices {
 
   Future<CourseReviewModel?> fetchCourseReviews(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.review)+id),
+    var response = await client.get(
+        Uri.parse(
+            APIBase.baseURL + APIPathHelper.getValue(APIPath.review) + id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -150,7 +143,8 @@ class RemoteServices {
 
   Future<List<QuizModel>?> fetchQuizList() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz)),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -167,7 +161,9 @@ class RemoteServices {
 
   Future<QuizByIdModel?> fetchQuizByID(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz)+"/"+id),
+    var response = await client.get(
+        Uri.parse(
+            APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz) + "/" + id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -184,7 +180,9 @@ class RemoteServices {
 
   Future<List<CategoriesModel>?> fetchCategories() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/wp/v2/course_category"),
+    var response = await client.get(
+        Uri.parse(
+            "https://musing-gould.18-141-157-112.plesk.page/wp-json/wp/v2/course_category"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -201,7 +199,9 @@ class RemoteServices {
 
   Future<List<CoursesModel>?> fetchCoursesByCategory(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses/?category=$id"),
+    var response = await client.get(
+        Uri.parse(
+            "https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses/?category=$id"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -218,7 +218,9 @@ class RemoteServices {
 
   Future<List<AssignmentModel>?> fetchAssignmentsList() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.assignments)),
+    var response = await client.get(
+        Uri.parse(
+            APIBase.baseURL + APIPathHelper.getValue(APIPath.assignments)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -235,7 +237,8 @@ class RemoteServices {
 
   Future<WishlistModel?> fetchWishlist() async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.wishlist)),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.wishlist)),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -253,11 +256,12 @@ class RemoteServices {
   static Future<List<PaymentGatewayModel>?> fetchGatewaysList() async {
     String userName = "ck_62b64e6a92c2c362330491e2044f7e49414ca6c9";
     String password = "cs_6dab149b45ec92999adfc637192d53b3f589d41a";
-    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$userName:$password'));
-    var response = await client.get(Uri.parse("https://musing-gould.18-141-157-112.plesk.page/wp-json/wc/v3/payment_gateways"),
-        headers: {
-          'Authorization': basicAuth
-        });
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$userName:$password'));
+    var response = await client.get(
+        Uri.parse(
+            "https://musing-gould.18-141-157-112.plesk.page/wp-json/wc/v3/payment_gateways"),
+        headers: {'Authorization': basicAuth});
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return paymentGatewayModelFromJson(jsonString);
@@ -269,7 +273,10 @@ class RemoteServices {
 
   Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.assignmentById)+id),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.assignmentById) +
+            id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/controllers/category_controller.dart';
@@ -29,7 +27,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  final CoursesController popularCoursesController = Get.put(CoursesController());
+  final CoursesController popularCoursesController =
+      Get.put(CoursesController());
   final CategoryController categoryController = Get.put(CategoryController());
   var myCoursesController = Get.put(MyCoursesController());
   List<CoursesModel> popularCoursesModel = [];
@@ -43,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     myCoursesId.clear();
-    popularCoursesModel.clear();
+    // popularCoursesModel.clear();
     name = box.read("user_display_name");
   }
 
@@ -99,38 +98,51 @@ class _HomeScreenState extends State<HomeScreen> {
               buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.popular),
               buildSpaceVertical(height * 0.01),
-              Obx(() {
-                if (popularCoursesController.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  for (int i = 0;
-                      i < popularCoursesController.coursesList.length;
-                      i++) {
-                    if (popularCoursesController.coursesList[i].rating! >= 3) {
-                      popularCoursesModel
-                          .add(popularCoursesController.coursesList[i]);
-                    }
-                  }
-                  return popularCoursesModel.isNotEmpty
-                      ? SizedBox(
+              Obx(() => popularCoursesController.isLoading.value == null
+                      ? CircularProgressIndicator()
+                      : SizedBox(
                           height: height * 0.23,
                           width: double.infinity,
                           child: ListView.builder(
-                              itemCount: popularCoursesModel.length,
+                              itemCount:
+                                  popularCoursesController.coursesList.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return buildPopularCard(
-                                    popularCoursesModel[index]);
+                                return buildPopularCard(popularCoursesController
+                                    .coursesList[index]);
                               }),
                         )
-                      : SizedBox(
-                          height: height * 0.22,
-                          width: double.infinity,
-                          child: Center(
-                              child: textStyle0_5(
-                                  text: "No Popular Courses Available")));
-                }
-              }),
+                  // if (popularCoursesController.isLoading.value) {
+                  //   return const Center(child: CircularProgressIndicator());
+                  // } else {
+                  //   for (int i = 0;
+                  //       i < popularCoursesController.coursesList.length;
+                  //       i++) {
+                  //     if (popularCoursesController.coursesList[i].rating! >= 3) {
+                  //       popularCoursesModel
+                  //           .add(popularCoursesController.coursesList[i]);
+                  //     }
+                  //   }
+                  //   return popularCoursesModel.isNotEmpty
+                  //       ? SizedBox(
+                  //           height: height * 0.23,
+                  //           width: double.infinity,
+                  //           child: ListView.builder(
+                  //               itemCount: popularCoursesModel.length,
+                  //               scrollDirection: Axis.horizontal,
+                  //               itemBuilder: (context, index) {
+                  //                 return buildPopularCard(
+                  //                     popularCoursesModel[index]);
+                  //               }),
+                  //         )
+                  //       : SizedBox(
+                  //           height: height * 0.22,
+                  //           width: double.infinity,
+                  //           child: Center(
+                  //               child: textStyle0_5(
+                  //                   text: "No Popular Courses Available")));
+                  // }
+                  ),
               buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(height * 0.01),

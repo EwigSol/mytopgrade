@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:topgrade/controllers/courses_controller.dart';
 import 'package:topgrade/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  Get.put(CoursesController());
   runApp(const MyApp());
 }
 
