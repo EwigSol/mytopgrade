@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/quiz_byID_model.dart';
 import '../../../controllers/finish_quiz_controller.dart';
+import '../../../controllers/quiz_byID_controller.dart';
 import '../../../controllers/start_quiz_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
@@ -12,10 +13,9 @@ import 'package:get/get.dart';
 import '../../widgets/text_field.dart';
 
 class QuizViewScreen extends StatefulWidget {
-  final QuizByIdModel quizByIdModel;
+  var id;
 
-  const QuizViewScreen({Key? key, required this.quizByIdModel})
-      : super(key: key);
+  QuizViewScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<QuizViewScreen> createState() => _QuizViewScreenState();
@@ -24,6 +24,8 @@ class QuizViewScreen extends StatefulWidget {
 class _QuizViewScreenState extends State<QuizViewScreen> {
   var startQuizController = Get.put(StartQuizController());
   var finishQuizController = Get.put(FinishQuizController());
+  var quizByIdController = Get.put(QuizByIDController());
+  QuizByIdModel? quizByIdModel;
   bool started = false;
   bool submitted = false;
   var selectedAnswer = 0;
@@ -52,27 +54,33 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
   @override
   void initState() {
     super.initState();
+    getQuizByIdData();
+  }
 
-    for (int i = 0; i < widget.quizByIdModel.questions!.length; i++) {
-      if (widget.quizByIdModel.questions![i].type == 'multi_choice') {
-        answerList.add(List.generate(
-            widget.quizByIdModel.questions![i].options!.length,
-            (index) => false));
+  getQuizByIdData()async {
+    quizByIdModel = await quizByIdController.fetchQuizByID(widget.id);
+    getAnswers();
+  }
+
+  getAnswers(){
+    for (int i = 0; i < quizByIdModel!.questions!.length; i++) {
+      if (quizByIdModel!.questions![i].type == 'multi_choice') {
+        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      } else if (widget.quizByIdModel.questions![i].type == 'true_or_false') {
+      }
+      else if (quizByIdModel!.questions![i].type == 'true_or_false') {
         answerList.add([-1]);
         listRadio.add(1);
-      } else if (widget.quizByIdModel.questions![i].type == 'sorting_choice') {
-        answerList.add(List.generate(
-            widget.quizByIdModel.questions![i].options!.length,
-            (index) => false));
+      }
+      else if (quizByIdModel!.questions![i].type == 'sorting_choice') {
+        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      } else if (widget.quizByIdModel.questions![i].type == 'single_choice') {
-        answerList.add(List.generate(
-            widget.quizByIdModel.questions![i].options!.length,
-            (index) => false));
+      }
+      else if (quizByIdModel!.questions![i].type == 'single_choice') {
+        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      } else {
+      }
+      else {
         answerList.add([false]);
         listRadio.add(2);
       }
@@ -81,7 +89,8 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return quizByIdModel != null ?
+    Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: started == false
@@ -89,9 +98,9 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-                textStyle2(text: widget.quizByIdModel.name!),
+                textStyle2(text: quizByIdModel!.name!),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                textStyle0_5(text: widget.quizByIdModel.duration!),
+                textStyle0_5(text: quizByIdModel!.duration!),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
                   child: InkWell(
@@ -100,7 +109,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                       //   started = true;
                       // });
                       startQuizController
-                          .startQuiz(widget.quizByIdModel.id.toString())
+                          .startQuiz(quizByIdModel!.id.toString())
                           .then((response) => {
                                 if (response['status'] == 'success')
                                   {
@@ -144,12 +153,11 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
-                        itemCount: widget.quizByIdModel.questions!.length,
+                        itemCount: quizByIdModel!.questions!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final questions =
-                              widget.quizByIdModel.questions![index];
+                          final questions = quizByIdModel!.questions![index];
 
                           if (questions.type == "true_or_false") {
                             return Padding(
@@ -565,7 +573,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                 trueFalseQuestion,
                                 sortingQuestion,
                                 singleChoiceQuestion,
-                                fillBlanksQuestion, widget.quizByIdModel.id.toString())
+                                fillBlanksQuestion, quizByIdModel!.id.toString())
                             .then((response) => {
                                   if (response['status'] == true)
                                     {
@@ -602,12 +610,13 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                 ],
               ),
             ),
-    );
+    )
+    : const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: widget.quizByIdModel.name!),
+      title: textStyle2(text: quizByIdModel!.name!),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,

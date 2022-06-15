@@ -224,9 +224,9 @@ class Item {
   );
 }
 
-enum Type { lpLesson }
+enum Type { lpLesson, lpAssignment, lpQuiz }
 
-final typeValues = EnumValues({"lp_lesson": Type.lpLesson});
+final typeValues = EnumValues({"lp_lesson": Type.lpLesson, "lp_assignment": Type.lpAssignment, "lp_quiz": Type.lpQuiz});
 
 class EnumValues<T> {
   Map<String, T>? map;

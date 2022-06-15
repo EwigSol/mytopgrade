@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
@@ -16,9 +17,10 @@ class InstructorScreen extends StatelessWidget {
   final CoursesModel? coursesDetail;
   final DataItem? favCourseDetail;
   final MyCoursesModel? myCoursesModel;
+  final CourseByIdModel? courseByIdModel;
   final bool isWishlist;
   final String isMyCourse;
-  const InstructorScreen({Key? key, this.coursesDetail, required this.isWishlist, this.favCourseDetail, this.myCoursesModel, required this.isMyCourse}) : super(key: key);
+  const InstructorScreen({Key? key, this.coursesDetail, required this.isWishlist, this.favCourseDetail, this.myCoursesModel, required this.isMyCourse, this.courseByIdModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +125,7 @@ class InstructorScreen extends StatelessWidget {
           child: CircleAvatar(
             radius: 80,
             backgroundColor: ColorManager.halfWhiteColor,
-            backgroundImage: NetworkImage(coursesDetail!.instructor!.avatar!),
+            backgroundImage: NetworkImage(courseByIdModel!.instructor!.avatar!),
           ),
         ),
         buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
@@ -133,7 +135,7 @@ class InstructorScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               textStyle0_5(text: "Instructor Name:"),
-              textStyle0_5(text: coursesDetail!.instructor!.name!.name),
+              textStyle0_5(text: courseByIdModel!.instructor!.name!),
             ],
           ),
         ),
@@ -146,7 +148,7 @@ class InstructorScreen extends StatelessWidget {
             children: [
               textStyle0_5(text: "Description"),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              textStyle0(text: _parseHtmlString(coursesDetail!.instructor!.description!)),
+              textStyle0(text: _parseHtmlString(courseByIdModel!.instructor!.description!)),
             ],
           ),
         ),

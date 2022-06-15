@@ -1,24 +1,52 @@
 // ignore_for_file: file_names
 
 import 'package:get/state_manager.dart';
+import 'package:get_storage/get_storage.dart';
 import '../models/lesson_byID_model.dart';
-import '../services/remote_services.dart';
+import 'package:http/http.dart' as http;
+import '../network_module/api_base.dart';
+import '../network_module/api_path.dart';
 
 class LessonByIDController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var lessonByIDList = Rxn<LessonByIdModel>();
-  RemoteServices remoteServices = RemoteServices();
+  final box = GetStorage();
+  static var client = http.Client();
 
-  void fetchLessonById(String id) async {
-    try {
-      isLoading(true);
-      var lessonByID = await remoteServices.fetchLessonByID(id);
-      if (lessonByID != null) {
-        isLoading(false);
-        lessonByIDList.value = lessonByID;
-      }
-    } finally {
-      isLoading(false);
+  Future<LessonByIdModel?> fetchLessonByID(String id) async {
+    isLoading.value = true;
+    String token = box.read("token");
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.lessons) +
+            "/" +
+            id),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      isLoading.value = false;
+      return lessonByIdModelFromJson(jsonString);
+    } else {
+      isLoading.value = false;
+      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
+      return null;
     }
   }
+
+  // void fetchLessonById(String id) async {
+  //   try {
+  //     isLoading(true);
+  //     var lessonByID = await remoteServices.fetchLessonByID(id);
+  //     if (lessonByID != null) {
+  //       isLoading(false);
+  //       lessonByIDList.value = lessonByID;
+  //     }
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 }

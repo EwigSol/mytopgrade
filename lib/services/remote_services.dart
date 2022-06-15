@@ -80,26 +80,7 @@ class RemoteServices {
     }
   }
 
-  Future<LessonByIdModel?> fetchLessonByID(String id) async {
-    String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(APIBase.baseURL +
-            APIPathHelper.getValue(APIPath.lessons) +
-            "/" +
-            id),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return lessonByIdModelFromJson(jsonString);
-    } else {
-      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
-      return null;
-    }
-  }
+
 
   Future<CourseReviewModel?> fetchCourseReviews(String id) async {
     String token = box.read("token");
@@ -138,24 +119,7 @@ class RemoteServices {
     }
   }
 
-  Future<QuizByIdModel?> fetchQuizByID(String id) async {
-    String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(
-            APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz) + "/" + id),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return quizByIdModelFromJson(jsonString);
-    } else {
-      // errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
-      return null;
-    }
-  }
+
 
   Future<List<CategoriesModel>?> fetchCategories() async {
     String token = box.read("token");
@@ -250,23 +214,5 @@ class RemoteServices {
     }
   }
 
-  Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
-    String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(APIBase.baseURL +
-            APIPathHelper.getValue(APIPath.assignmentById) +
-            id),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return assignmentByIdModelFromJson(jsonString);
-    } else {
-      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
-      return null;
-    }
-  }
+
 }

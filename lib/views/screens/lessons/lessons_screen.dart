@@ -39,31 +39,31 @@ class _LessonsScreenState extends State<LessonsScreen> {
     lessonModelList.clear();
     assignmentModelList.clear();
     quizModelList.clear();
-    getLessons();
+    // getLessons();
     super.initState();
   }
 
-  getLessons() {
-    for (int i = 0; i < widget.lessonSections!.length; i++) {
-      if (widget.lessonSections![i].items!.isNotEmpty) {
-        for (int j = 0; j < widget.lessonSections![i].items!.length; j++) {
-          // print(widget.lessonSections![i].items![j].type.toString().substring(typeValues.toString().indexOf('.') + 1));
-          // print(Type.lesson.name);
-          if (widget.lessonSections![i].items![j].type == Type.lesson) {
-            lessonByIDController.fetchLessonById(
-                widget.lessonSections![i].items![j].id.toString());
-          } else if (widget.lessonSections![i].items![j].type ==
-              Type.assignment) {
-            assignmentByIDController.fetchAssignmentById(
-                widget.lessonSections![i].items![j].id.toString());
-          } else if (widget.lessonSections![i].items![j].type == Type.quiz) {
-            quizByIDController.fetchQuizById(
-                widget.lessonSections![i].items![j].id.toString());
-          }
-        }
-      }
-    }
-  }
+  // getLessons() {
+  //   for (int i = 0; i < widget.lessonSections!.length; i++) {
+  //     if (widget.lessonSections![i].items!.isNotEmpty) {
+  //       for (int j = 0; j < widget.lessonSections![i].items!.length; j++) {
+  //         // print(widget.lessonSections![i].items![j].type.toString().substring(typeValues.toString().indexOf('.') + 1));
+  //         // print(Type.lesson.name);
+  //         if (widget.lessonSections![i].items![j].type == Type.lesson) {
+  //           lessonByIDController.fetchLessonById(
+  //               widget.lessonSections![i].items![j].id.toString());
+  //         } else if (widget.lessonSections![i].items![j].type ==
+  //             Type.assignment) {
+  //           assignmentByIDController.fetchAssignmentById(
+  //               widget.lessonSections![i].items![j].id.toString());
+  //         } else if (widget.lessonSections![i].items![j].type == Type.quiz) {
+  //           quizByIDController.fetchQuizById(
+  //               widget.lessonSections![i].items![j].id.toString());
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:topgrade/controllers/assignment_byID_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/send_assignment_controller.dart';
@@ -16,10 +18,11 @@ import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../widgets/text_field.dart';
+import 'package:html/parser.dart' show parse;
 
 class AssignmentViewScreen extends StatefulWidget {
-  final String? id, url, title, duration;
-  const AssignmentViewScreen({Key? key, this.id, this.url, this.title, this.duration}) : super(key: key);
+  var id;
+  AssignmentViewScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<AssignmentViewScreen> createState() => _AssignmentViewScreenState();
@@ -32,6 +35,8 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
   var startAssignmentController = Get.put(StartAssignmentController());
   var submitAssignmentController = Get.put(SubmitAssignmentController());
   var sendAssignmentController = Get.put(SendAssignmentController());
+  var assignmentByIdController = Get.put(AssignmentByIDController());
+  AssignmentByIdModel? assignmentByIdModel;
   final assignmentController = TextEditingController();
   bool started = false;
   bool submitted = false;
@@ -42,11 +47,16 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
   @override
   void initState() {
     super.initState();
+    getAssignmentByIdData();
+  }
+
+  getAssignmentByIdData()async {
+    assignmentByIdModel = await assignmentByIdController.fetchAssignmentByID(widget.id);
     initializePlayer();
   }
 
   Future<void> initializePlayer() async {
-    _controller = VideoPlayerController.network(widget.url!);
+    _controller = VideoPlayerController.network(_parseHtmlString(assignmentByIdModel!.content!));
     await Future.wait([_controller.initialize()]);
     _createChewieController();
     setState(() {});
@@ -57,7 +67,7 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
       videoPlayerController: _controller,
       autoPlay: false,
       looping: false,
-      hideControlsTimer: const Duration(seconds: 1),
+      // hideControlsTimer: Duration(seconds: 1),
       placeholder: Container(color: ColorManager.grayColor),
     );
   }
@@ -71,7 +81,8 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return assignmentByIdModel != null ?
+    Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: started == false ?
@@ -79,9 +90,9 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              textStyle2(text: widget.title!),
+              textStyle2(text: assignmentByIdModel!.name!),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              textStyle0_5(text: widget.duration!),
+              textStyle0_5(text: assignmentByIdModel!.duration!.time.toString()),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               Center(
                 child: InkWell(
@@ -256,15 +267,24 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
               ],
             ),
       ),
-    );
+    )
+    :
+    const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: widget.title!),
+      title: textStyle2(text: assignmentByIdModel!.name!),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
     );
   }
+
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString = parse(document.body!.text).documentElement!.text;
+    return parsedString;
+  }
+
 }

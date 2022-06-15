@@ -1,17 +1,19 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart' show parse;
 
 class LessonViewScreen extends StatefulWidget {
-  final String? id, url, title;
-  const LessonViewScreen({Key? key, this.id, this.url, this.title})
-      : super(key: key);
+  var id;
+  LessonViewScreen({Key? key, this.id}) : super(key: key);
 
   @override
   State<LessonViewScreen> createState() => _LessonViewScreenState();
@@ -20,12 +22,17 @@ class LessonViewScreen extends StatefulWidget {
 class _LessonViewScreenState extends State<LessonViewScreen> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
-  final FinishLessonController finishLessonController =
-      Get.put(FinishLessonController());
+  final FinishLessonController finishLessonController = Get.put(FinishLessonController());
+  final LessonByIDController lessonByIDController = Get.put(LessonByIDController());
+  LessonByIdModel? lessonModelList;
 
   @override
   void initState() {
     super.initState();
+    getLessonByIdData();
+  }
+  getLessonByIdData()async {
+    lessonModelList = await lessonByIDController.fetchLessonByID(widget.id);
     initializePlayer();
   }
 
@@ -44,7 +51,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   // }
 
   Future<void> initializePlayer() async {
-    _controller = VideoPlayerController.network(widget.url!);
+    _controller = VideoPlayerController.network(_parseHtmlString(lessonModelList!.content!));
     await Future.wait([_controller.initialize()]);
     _createChewieController();
     setState(() {});
@@ -69,7 +76,8 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return lessonModelList != null ?
+        Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: SingleChildScrollView(
@@ -77,9 +85,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
-            _chewieController != null &&
-                    _chewieController!.videoPlayerController.value.isInitialized
-                ? Center(
+                 Center(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.40,
                       width: MediaQuery.of(context).size.width * 0.95,
@@ -87,16 +93,8 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                         controller: _chewieController!,
                       ),
                     ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(height: 20),
-                      Text('Loading'),
-                    ],
                   ),
+
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             Center(
               child: InkWell(
@@ -328,7 +326,8 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
       //         : Center(child: textStyle0_5(text: "No Data Available in this Lesson"));
       //   }
       // }),
-    );
+    )
+    : const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 
   // String _parseHtmlString(String htmlString) {
@@ -338,10 +337,16 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   // }
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: widget.title!),
+      title: textStyle2(text: lessonModelList!.name!),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
     );
+  }
+
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString = parse(document.body!.text).documentElement!.text;
+    return parsedString;
   }
 }
