@@ -79,9 +79,9 @@ class AssignmentByIdModel {
         filesAmount: json["files_amount"],
         attachment: List<dynamic>.from(json["attachment"].map((x) => x)),
         results: Results.fromJson(json["results"]),
-        assignmentAnswer: json["assignment_answer"] != []
-            ? AssignmentAnswer.fromJson(json["assignment_answer"])
-            : null,
+        // assignmentAnswer: json["assignment_answer"] != []
+        //     ? AssignmentAnswer.fromJson(json["assignment_answer"])
+        //     : null,
         evaluation: List<dynamic>.from(json["evaluation"].map((x) => x)),
       );
 }

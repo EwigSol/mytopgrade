@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -14,36 +11,70 @@ class FinishQuizController extends GetxController {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<Map<String, dynamic>> finishQuiz(List<dynamic> multiChoiceAnswers, trueFalseAnswers, sortingAnswers, singleChoiceAnswers, fillBlanksAnswers,
-      String multiChoiceId, trueFalseId, sortingId, singleId, fillBlanksId) async {
+  Future<Map<String, dynamic>> finishQuiz(
+      multiChoiceAnswers,
+      trueFalseAnswers,
+      sortingAnswers,
+      singleChoiceAnswers,
+      fillBlanksAnswers,
+      int multiChoiceId,
+      trueFalseId,
+      sortingId,
+      singleId,
+      fillBlanksId) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    Map<String, dynamic> dataBody = {
-      "answered[$multiChoiceId]": multiChoiceAnswers,
-      "answered[$trueFalseId]": trueFalseAnswers,
-      "answered[$sortingId]": sortingAnswers,
-      "answered[$singleId]": singleChoiceAnswers,
-      "answered[$fillBlanksId]": fillBlanksAnswers,
+
+    var dataBody = {
+      'id': 32860,
+      'answered[$multiChoiceId]': multiChoiceAnswers,
+      'answered[$trueFalseId]': trueFalseAnswers,
+      'answered[$sortingId]': sortingAnswers,
+      'answered[$singleId]': singleChoiceAnswers,
+      'answered[$fillBlanksId]': fillBlanksAnswers,
     };
     String token = box.read("token");
 
-    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.finishQuiz)),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        }, body: jsonEncode(dataBody));
-    print(response.statusCode);
+    var request = await http.MultipartRequest(
+        'Post',
+        Uri.parse(
+            APIBase.baseURL + APIPathHelper.getValue(APIPath.finishQuiz)));
+    request.headers.addAll({
+      'Content-Type': 'multipart/form-data',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    request.fields.addAll({
+      'id': '32860',
+      'answered[$multiChoiceId]': multiChoiceAnswers.toString(),
+      'answered[$trueFalseId]': trueFalseAnswers.toString(),
+      'answered[$sortingId]': sortingAnswers.toString(),
+      'answered[$singleId]': singleChoiceAnswers.toString(),
+      'answered[$fillBlanksId]': fillBlanksAnswers.toString(),
+    });
+
+    var response = await request.send();
+    var responded = await http.Response.fromStream(response);
+    final responseData = responded.body;
+    // print(jsonEncode(dataBody));
+    // print(request.);
     if (response.statusCode == 200) {
+      print(responseData);
+      print(responded.statusCode);
+      print('success');
       isDataSubmitting.value = false;
-      Map<String, dynamic> responseData = jsonDecode(response.body);
+      // Map<String, dynamic> responseData = jsonDecode(response.body);
+      // print(jsonDecode(response.body));
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {'status': true, 'message': "Quiz Finished Successfully"};
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
-      result = {'status': false, 'message': "Server Error!\nFailed to finish the quiz"};
+      result = {
+        'status': false,
+        'message': "Server Error!\nFailed to finish the quiz"
+      };
     }
     return result;
   }
