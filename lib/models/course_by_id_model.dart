@@ -10,7 +10,7 @@ class CourseByIdModel {
     this.dateCreatedGmt, this.dateModified, this.dateModifiedGmt, this.onSale, this.status,
     this.content, this.excerpt, this.duration, this.countStudents, this.canFinish, this.canRetake,
     this.ratakeCount, this.rataken, this.rating, this.price, this.originPrice, this.salePrice,
-    this.categories, this.tags, this.instructor, this.sections, this.courseData, this.metaData,
+    this.categories, this.tags, this.instructor, this.sections, this.courseData,
   });
 
   int? id;
@@ -29,7 +29,7 @@ class CourseByIdModel {
   String? duration;
   int? countStudents;
   bool? canFinish;
-  int? canRetake;
+  var canRetake;
   int? ratakeCount;
   int? rataken;
   int? rating;
@@ -41,7 +41,7 @@ class CourseByIdModel {
   Instructor? instructor;
   List<Section>? sections;
   CourseData? courseData;
-  List<dynamic>? metaData;
+  // List<dynamic>? metaData;
 
   factory CourseByIdModel.fromJson(Map<String, dynamic> json) => CourseByIdModel(
     id: json["id"],
@@ -72,7 +72,7 @@ class CourseByIdModel {
     instructor: Instructor.fromJson(json["instructor"]),
     sections: List<Section>.from(json["sections"].map((x) => Section.fromJson(x))),
     courseData: CourseData.fromJson(json["course_data"]),
-    metaData: List<dynamic>.from(json["meta_data"].map((x) => x)),
+    // metaData: List<dynamic>.from(json["meta_data"].map((x) => x)),
   );
 }
 
@@ -135,9 +135,9 @@ class Items {
 class Assignment {
   Assignment({this.completed, this.passed, this.total});
 
-  int? completed;
-  int? passed;
-  int? total;
+  var completed;
+  var passed;
+  var total;
 
   factory Assignment.fromJson(Map<String, dynamic> json) => Assignment(
     completed: json["completed"],

@@ -68,11 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (categoryController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  for (int i = 0;
-                      i < myCoursesController.myCoursesList.length;
-                      i++) {
-                    myCoursesId.add(
-                        myCoursesController.myCoursesList[i].id.toString());
+                  for (int i = 0; i < myCoursesController.myCoursesList.length; i++) {
+                    myCoursesId.add(myCoursesController.myCoursesList[i].id.toString());
                     box.write("myCoursesId", myCoursesId);
                   }
 

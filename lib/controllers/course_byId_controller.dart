@@ -15,18 +15,10 @@ class CourseByIDController extends GetxController {
   static var client = http.Client();
   final box = GetStorage();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   Future<CourseByIdModel?> fetchCourseByID(String id) async {
+    isLoading.value = true;
     String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(APIBase.baseURL +
-            APIPathHelper.getValue(APIPath.courses) +
-            "/" +
-            id),
+    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses) + "/" + id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -34,10 +26,12 @@ class CourseByIDController extends GetxController {
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      courseByIDList.value = await courseByIdModelFromJson(jsonString);
+      courseByIDList.value =  courseByIdModelFromJson(jsonString);
+      isLoading.value = false;
       return courseByIdModelFromJson(jsonString);
     } else {
       // errorToast(StringsManager.error, "Unable to Fetch Course By ID");
+      isLoading.value = false;
       return null;
     }
   }

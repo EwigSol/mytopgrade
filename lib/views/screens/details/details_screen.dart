@@ -5,10 +5,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:topgrade/controllers/add_favorite_controller.dart';
 import 'package:topgrade/controllers/cart_controller.dart';
+import 'package:topgrade/controllers/course_byId_controller.dart';
 import 'package:topgrade/controllers/payment_gateway_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/cart_model.dart';
+import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/models/payment_gateway_model.dart';
@@ -43,11 +45,11 @@ class _DetailsScreenState extends State<DetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
   final CartController cartController = Get.put(CartController());
-  final AddFavoriteController addFavController =
-      Get.put(AddFavoriteController());
-  final PaymentGatewayController paymentGatewayController =
-      Get.put(PaymentGatewayController());
+  final AddFavoriteController addFavController = Get.put(AddFavoriteController());
+  final PaymentGatewayController paymentGatewayController = Get.put(PaymentGatewayController());
+  final CourseByIDController courseByIDController = Get.put(CourseByIDController());
   List<PaymentGatewayModel> paymentGatewayModel = [];
+  CourseByIdModel? courseByIdModel;
   final box = GetStorage();
   List<String> myCoursesId = [];
   bool isPaid = false;
@@ -62,18 +64,17 @@ class _DetailsScreenState extends State<DetailsScreen>
     checkPayment();
   }
 
-  initalize() {
+  initalize() async {
     var data = Get.arguments;
-    String? check = Get.parameters['isWishlist'];
-    isMyCourse = Get.parameters['isMyCourse'];
-    check == "true" ? widget.isWishlist = true : widget.isWishlist = true;
-    isMyCourse == "true"
-        ? widget.myCoursesModel = data
-        : widget.isWishlist == true
-            ? widget.coursesDetail = data
-            : widget.favCourseDetail = data;
-    _controller = TabController(length: 3, vsync: this);
-    myCoursesId = box.read("myCoursesId").cast<String>();
+    print(data);
+    courseByIdModel = await courseByIDController.fetchCourseByID(data.toString());
+    print(courseByIdModel);
+    // String? check = Get.parameters['isWishlist'];
+    // isMyCourse = Get.parameters['isMyCourse'];
+    // check == "true" ? widget.isWishlist = true : widget.isWishlist = true;
+    // isMyCourse == "true" ? widget.myCoursesModel = data : widget.isWishlist == true ? widget.coursesDetail = data : widget.favCourseDetail = data;
+    // _controller = TabController(length: 3, vsync: this);
+    // myCoursesId = box.read("myCoursesId").cast<String>();
     cartController.open();
   }
 
@@ -547,7 +548,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                     ],
                   ),
                 )
-              : SingleChildScrollView(
+              :
+      SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -561,10 +563,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                               Align(
                                 alignment: Alignment.center,
                                 child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.27,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.90,
+                                  height: MediaQuery.of(context).size.height * 0.27,
+                                  width: MediaQuery.of(context).size.width * 0.90,
                                   child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(AppSize.s10),
@@ -574,8 +574,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                                               Radius.circular(AppSize.s10),
                                           bottomRight:
                                               Radius.circular(AppSize.s10)),
-                                      child: Image.network(
-                                          widget.coursesDetail!.image!,
+                                      child:  Image.network(
+                                          courseByIdModel!.image!,
                                           fit: BoxFit.fill)),
                                 ),
                               ),
@@ -605,7 +605,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                           color: ColorManager.whiteColor),
                                       textStyle0(
                                           text:
-                                              "\$${widget.coursesDetail!.price.toString()}",
+                                              "\$${courseByIdModel!.price.toString()}",
                                           color: ColorManager.whiteColor),
                                     ],
                                   ),
@@ -627,7 +627,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 textStyle0(text: "Course Title"),
-                                textStyle2(text: widget.coursesDetail!.name!),
+                                textStyle2(text: courseByIdModel!.name!),
                               ],
                             ),
                             Column(
@@ -642,7 +642,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       textStyle0(
-                                          text: widget.coursesDetail!.rating!
+                                          text: courseByIdModel!.rating!
                                               .toString()),
                                       buildSpaceHorizontal(
                                           MediaQuery.of(context).size.height *
@@ -669,8 +669,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                               children: [
                                 textStyle0(text: "Course Teacher"),
                                 textStyle0_5(
-                                    text: widget
-                                        .coursesDetail!.instructor!.name!.name),
+                                    text: courseByIdModel!.instructor!.name!),
                               ],
                             ),
                             Column(
@@ -682,7 +681,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                       left: AppPadding.p40),
                                   child: textStyle0_5(
                                       text:
-                                          "${widget.coursesDetail!.sections!.length}"),
+                                          "${courseByIdModel!.sections!.length}"),
                                 ),
                               ],
                             ),
