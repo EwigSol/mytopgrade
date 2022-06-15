@@ -419,37 +419,24 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                   onChanged: (bool? value) {
                                                     singleChoiceAnswers.clear();
                                                     setState(() {
-                                                      for (var element
-                                                          in questions
-                                                              .options!) {
-                                                        answerList[index][i] =
-                                                            false;
+                                                      for (var element in questions.options!) {
+                                                        answerList[index][i] = false;
                                                       }
-                                                      answerList[index][i] =
-                                                          value;
-                                                      singleChoiceQuestion =
-                                                          questions.id
-                                                              .toString();
-                                                      singleChoiceAnswers.add(
-                                                          questions
-                                                              .options![i].value
-                                                              .toString());
+                                                      answerList[index][i] = value;
+                                                      singleChoiceQuestion = questions.id.toString();
+                                                      singleChoiceAnswers.add(questions.options![i].value.toString());
                                                       // print(answerList[index][i]);
                                                       // print(questions.id.toString());
                                                       // print(questions.options![i].uid.toString());
                                                     });
                                                   },
                                                 ),
-                                                textStyle0(
-                                                    text: questions
-                                                        .options![i].title!)
+                                                textStyle0(text: questions.options![i].title!)
                                               ],
                                             );
                                           }),
                                     ),
-                                    buildSpaceVertical(
-                                        MediaQuery.of(context).size.height *
-                                            0.01),
+                                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                                   ],
                                 ),
                               ),
@@ -578,7 +565,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                 trueFalseQuestion,
                                 sortingQuestion,
                                 singleChoiceQuestion,
-                                fillBlanksQuestion)
+                                fillBlanksQuestion, widget.quizByIdModel.id.toString())
                             .then((response) => {
                                   if (response['status'] == true)
                                     {
