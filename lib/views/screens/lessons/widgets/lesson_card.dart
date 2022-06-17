@@ -48,6 +48,7 @@ class _LessonCardState extends State<LessonCard> {
     url = _parseHtmlString(lessonModelList.content!);
 
     name = lessonModelList.name!;
+    print(widget.id);
     print(url);
     print(name);
   }

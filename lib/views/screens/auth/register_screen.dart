@@ -1,13 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:topgrade/controllers/login_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/user_model.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/auth/widgets/simple_appbar.dart';
+import 'package:topgrade/views/screens/home/home_screen.dart';
 import 'package:topgrade/views/widgets/action_button.dart';
 import 'package:topgrade/views/widgets/text_field.dart';
 import '../../../controllers/register_controller.dart';
@@ -29,54 +29,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final LoginController loginController = Get.put(LoginController());
   final bool _passwordVisibleOne = false;
   var registerController = Get.put(RegisterController());
   final box = GetStorage();
+  double height = Get.height;
+  double width = Get.width;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
-        child: const SimpleAppBar(title: StringsManager.register),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-            buildFormCard(),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-            // const LineWidget(),
-            // buildSpaceVertical(1.h),
-            // buildSocialRow(),
-            // buildSpaceVertical(1.h),
-            LoginText(toggleView: widget.toggleView)
-          ],
+      // appBar: PreferredSize(
+      //   preferredSize:
+      //       Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
+      //   child: const SimpleAppBar(title: StringsManager.register),
+      // ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildSpaceVertical(height * 0.06),
+              buildFormCard(),
+              buildSpaceVertical(height * 0.06),
+              // const LineWidget(),
+              // buildSpaceVertical(1.h),
+              // buildSocialRow(),
+              // buildSpaceVertical(1.h),
+              LoginText(toggleView: widget.toggleView)
+            ],
+          ),
         ),
       ),
       // bottomSheet: ,
     );
   }
 
-  // Padding buildSocialRow() {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //       children: const [
-  //         SocialCard(img: AssetsManager.fbLogo),
-  //         SocialCard(img: AssetsManager.googleLogo),
-  //         SocialCard(img: AssetsManager.twitterLogo),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.72,
-        width: MediaQuery.of(context).size.width * 0.90,
+        height: height * 0.60,
+        width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
           color: ColorManager.whiteColor,
@@ -94,9 +86,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.13, width: MediaQuery.of(context).size.width * 0.26)),
+              Center(
+                  child: Image.asset(AssetsManager.logo,
+                      height: height * 0.15, width: width * 0.30)),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Username"),
               ),
               CustomTextField(
@@ -145,7 +140,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               //   ),
               // ),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Email"),
               ),
               CustomTextField(
@@ -153,7 +149,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintName: StringsManager.email,
               ),
               Padding(
-                padding: const EdgeInsets.only(top:AppPadding.p10, left: AppPadding.p10, bottom: AppPadding.p6),
+                padding: const EdgeInsets.only(
+                    top: AppPadding.p10,
+                    left: AppPadding.p10,
+                    bottom: AppPadding.p6),
                 child: textStyle11(text: "Password"),
               ),
               CustomTextField(
@@ -164,38 +163,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               InkWell(
-                onTap: () {
-                  UserModel userModel;
-                  if(usernameController.text.isNotEmpty){
-                    if(emailController.text.isNotEmpty){
-                      if(passwordController.text.isNotEmpty){
-                        registerController.register(usernameController.text, emailController.text, passwordController.text).then((response) => {
-                          if(response['status'] == true) {
-                            userModel = response['userData'],
-                            box.write("user_id", userModel.id.toString()),
-                            box.write("user_email", userModel.email),
-                            box.write("user_display_name", userModel.username),
-                            Get.toNamed(Paths.homeBar)
-                          }else{
-                            errorToast("Error", response['message']),
-                          }
-                        });
-                      }else{
-                        errorToast("Error", "Password is required");
-                      }
-                    }else{
-                      errorToast("Error", "Email is required");
-                    }
-                  }else{
-                    errorToast("Error", "UserName is required");
-                  }
-
+                onTap: () async {
+                  // UserModel userModel;
+                  // if (usernameController.text.isNotEmpty) {
+                  //   if (emailController.text.isNotEmpty) {
+                  //     if (passwordController.text.isNotEmpty) {
+                  await registerController.register(usernameController.text,
+                      emailController.text, passwordController.text);
+                  await loginController.login(
+                      emailController.text, passwordController.text);
+                  var username = await box.read("user_display_name");
+                  Get.snackbar('Welcome Back',
+                      'Welcome ${username} to your Educational Portal',
+                      snackPosition: SnackPosition.BOTTOM);
+                  Get.toNamed(Paths.homeBar);
+                  //             .then((response) => {
+                  //                   if (response['status'] == true)
+                  //                     {
+                  //                       userModel = response['userData'],
+                  //                       box.write(
+                  //                           "user_id", userModel.id.toString()),
+                  //                       box.write("user_email", userModel.email),
+                  //                       box.write("user_display_name",
+                  //                           userModel.username),
+                  //                       Get.toNamed(Paths.homeBar)
+                  //                     }
+                  //                   else
+                  //                     {
+                  //                       errorToast("Error", response['message']),
+                  //                     }
+                  //                 });
+                  //       } else {
+                  //         errorToast("Error", "Password is required");
+                  //       }
+                  //     } else {
+                  //       errorToast("Error", "Email is required");
+                  //     }
+                  //   } else {
+                  //     errorToast("Error", "UserName is required");
+                  //   }
+                  // },
                 },
-                child: Obx((){
-                  if(registerController.isDataSubmitting.value == true){
+                child: Obx(() {
+                  if (registerController.isDataSubmitting.value == true) {
                     return const Center(child: CircularProgressIndicator());
-                  }else{
-                    return Center(child: actionButton(StringsManager.register, context));
+                  } else {
+                    return Center(
+                        child: actionButton(StringsManager.register, context));
                   }
                 }),
               ),
@@ -205,5 +219,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
 }

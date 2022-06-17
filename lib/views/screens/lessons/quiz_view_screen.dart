@@ -112,9 +112,6 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      // setState(() {
-                      //   started = true;
-                      // });
                       startQuizController
                           .startQuiz(widget.model.id.toString())
                           .then((response) => {
@@ -551,37 +548,6 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   Center(
                     child: InkWell(
                       onTap: () async {
-                        // print("multi choice");
-                        // print(multiChoiceQuestion);
-                        // print(multiChoiceAnswers);
-                        // print("true false");
-                        // print(trueFalseQuestion);
-                        // print(trueFalseAnswers);
-                        // print("sorting");
-                        // print(sortingQuestion);
-                        // print(sortingAnswers);
-                        // print("single");
-                        // print(singleChoiceQuestion);
-                        // print(singleChoiceAnswers);
-                        // print("fill blanks");
-                        // print(fillBlanksQuestion);
-                        // print(fillBlanksAnswers);
-                        // if(assignmentController.text.isNotEmpty){
-                        //   if(file != null){
-                        //     submitAssignmentController.submit(widget.id.toString(), assignmentController.text, file!).then((response) => {
-                        //       if(response['status'] == true) {
-                        //         successToast("Success", response['message']),
-                        //         setState(() { submitted = true; })
-                        //       }else{
-                        //         errorToast("Error", response['message']),
-                        //       }
-                        //     });
-                        //   }else{
-                        //     errorToast("Error", "Add File Please");
-                        //   }
-                        // }else{
-                        //   errorToast("Error", "Add answer Please");
-                        // }
                         await finishQuizController
                             .finishQuiz(
                                 multiChoiceAnswers,
