@@ -14,8 +14,17 @@ import '../../widgets/text_field.dart';
 
 class QuizViewScreen extends StatefulWidget {
   var id;
+  var model;
+  var name;
+  var duration;
 
-  QuizViewScreen({Key? key, required this.id}) : super(key: key);
+  QuizViewScreen(
+      {Key? key,
+      required this.id,
+      required this.duration,
+      required this.name,
+      required this.model})
+      : super(key: key);
 
   @override
   State<QuizViewScreen> createState() => _QuizViewScreenState();
@@ -55,32 +64,31 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
   void initState() {
     super.initState();
     getQuizByIdData();
-  }
-
-  getQuizByIdData()async {
-    quizByIdModel = await quizByIdController.fetchQuizByID(widget.id);
     getAnswers();
   }
 
-  getAnswers(){
-    for (int i = 0; i < quizByIdModel!.questions!.length; i++) {
-      if (quizByIdModel!.questions![i].type == 'multi_choice') {
-        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
+  getQuizByIdData() async {
+    quizByIdModel = await quizByIdController.fetchQuizByID(widget.id);
+  }
+
+  getAnswers() {
+    for (int i = 0; i < widget.model.questions!.length; i++) {
+      if (widget.model.questions![i].type == 'multi_choice') {
+        answerList.add(List.generate(
+            widget.model.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      }
-      else if (quizByIdModel!.questions![i].type == 'true_or_false') {
+      } else if (widget.model.questions![i].type == 'true_or_false') {
         answerList.add([-1]);
         listRadio.add(1);
-      }
-      else if (quizByIdModel!.questions![i].type == 'sorting_choice') {
-        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
+      } else if (widget.model.questions![i].type == 'sorting_choice') {
+        answerList.add(List.generate(
+            widget.model.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      }
-      else if (quizByIdModel!.questions![i].type == 'single_choice') {
-        answerList.add(List.generate(quizByIdModel!.questions![i].options!.length, (index) => false));
+      } else if (widget.model.questions![i].type == 'single_choice') {
+        answerList.add(List.generate(
+            widget.model.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      }
-      else {
+      } else {
         answerList.add([false]);
         listRadio.add(2);
       }
@@ -89,8 +97,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return quizByIdModel != null ?
-    Scaffold(
+    return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: started == false
@@ -98,9 +105,9 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-                textStyle2(text: quizByIdModel!.name!),
+                textStyle2(text: widget.name),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                textStyle0_5(text: quizByIdModel!.duration!),
+                textStyle0_5(text: widget.duration!),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
                   child: InkWell(
@@ -109,7 +116,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                       //   started = true;
                       // });
                       startQuizController
-                          .startQuiz(quizByIdModel!.id.toString())
+                          .startQuiz(widget.model.id.toString())
                           .then((response) => {
                                 if (response['status'] == 'success')
                                   {
@@ -153,11 +160,11 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
-                        itemCount: quizByIdModel!.questions!.length,
+                        itemCount: widget.model.questions!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final questions = quizByIdModel!.questions![index];
+                          final questions = widget.model.questions![index];
 
                           if (questions.type == "true_or_false") {
                             return Padding(
@@ -427,24 +434,37 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                   onChanged: (bool? value) {
                                                     singleChoiceAnswers.clear();
                                                     setState(() {
-                                                      for (var element in questions.options!) {
-                                                        answerList[index][i] = false;
+                                                      for (var element
+                                                          in questions
+                                                              .options!) {
+                                                        answerList[index][i] =
+                                                            false;
                                                       }
-                                                      answerList[index][i] = value;
-                                                      singleChoiceQuestion = questions.id.toString();
-                                                      singleChoiceAnswers.add(questions.options![i].value.toString());
+                                                      answerList[index][i] =
+                                                          value;
+                                                      singleChoiceQuestion =
+                                                          questions.id
+                                                              .toString();
+                                                      singleChoiceAnswers.add(
+                                                          questions
+                                                              .options![i].value
+                                                              .toString());
                                                       // print(answerList[index][i]);
                                                       // print(questions.id.toString());
                                                       // print(questions.options![i].uid.toString());
                                                     });
                                                   },
                                                 ),
-                                                textStyle0(text: questions.options![i].title!)
+                                                textStyle0(
+                                                    text: questions
+                                                        .options![i].title!)
                                               ],
                                             );
                                           }),
                                     ),
-                                    buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                                    buildSpaceVertical(
+                                        MediaQuery.of(context).size.height *
+                                            0.01),
                                   ],
                                 ),
                               ),
@@ -573,7 +593,8 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                 trueFalseQuestion,
                                 sortingQuestion,
                                 singleChoiceQuestion,
-                                fillBlanksQuestion, quizByIdModel!.id.toString())
+                                fillBlanksQuestion,
+                                widget.model.id.toString())
                             .then((response) => {
                                   if (response['status'] == true)
                                     {
@@ -610,13 +631,12 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                 ],
               ),
             ),
-    )
-    : const Scaffold(body: Center(child: CircularProgressIndicator()));
+    );
   }
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: quizByIdModel!.name!),
+      title: textStyle2(text: widget.model.name!),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,

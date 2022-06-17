@@ -1,6 +1,3 @@
-
-
-
 import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
@@ -22,269 +19,303 @@ import 'package:html/parser.dart' show parse;
 
 class AssignmentViewScreen extends StatefulWidget {
   var id;
-  AssignmentViewScreen({Key? key, required this.id}) : super(key: key);
+  var name;
+  var duration;
+  var url;
+  AssignmentViewScreen(
+      {Key? key,
+      required this.id,
+      required this.duration,
+      required this.name,
+      required this.url})
+      : super(key: key);
 
   @override
   State<AssignmentViewScreen> createState() => _AssignmentViewScreenState();
 }
 
 class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
-
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
   var startAssignmentController = Get.put(StartAssignmentController());
   var submitAssignmentController = Get.put(SubmitAssignmentController());
   var sendAssignmentController = Get.put(SendAssignmentController());
-  var assignmentByIdController = Get.put(AssignmentByIDController());
-  AssignmentByIdModel? assignmentByIdModel;
   final assignmentController = TextEditingController();
   bool started = false;
   bool submitted = false;
   File? file;
   String fileName = "";
 
+  // Future<void> initializePlayer() async {
+  //   _controller = VideoPlayerController.network(
+  //       _parseHtmlString(assignmentByIdModel!.content!));
+  //   await Future.wait([_controller.initialize()]);
+  //   _createChewieController();
+  //   setState(() {});
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    getAssignmentByIdData();
-  }
+  // void _createChewieController() {
+  //   _chewieController = ChewieController(
+  //     videoPlayerController: _controller,
+  //     autoPlay: false,
+  //     looping: false,
+  //     // hideControlsTimer: Duration(seconds: 1),
+  //     placeholder: Container(color: ColorManager.grayColor),
+  //   );
+  // }
 
-  getAssignmentByIdData()async {
-    assignmentByIdModel = await assignmentByIdController.fetchAssignmentByID(widget.id);
-    initializePlayer();
-  }
-
-  Future<void> initializePlayer() async {
-    _controller = VideoPlayerController.network(_parseHtmlString(assignmentByIdModel!.content!));
-    await Future.wait([_controller.initialize()]);
-    _createChewieController();
-    setState(() {});
-  }
-
-  void _createChewieController() {
-    _chewieController = ChewieController(
-      videoPlayerController: _controller,
-      autoPlay: false,
-      looping: false,
-      // hideControlsTimer: Duration(seconds: 1),
-      placeholder: Container(color: ColorManager.grayColor),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-    _chewieController?.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _controller.dispose();
+  //   _chewieController?.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return assignmentByIdModel != null ?
-    Scaffold(
+    return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
-      body: started == false ?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              textStyle2(text: assignmentByIdModel!.name!),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              textStyle0_5(text: assignmentByIdModel!.duration!.time.toString()),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-              Center(
-                child: InkWell(
-                  onTap: () {
-                    startAssignmentController.startAssignment(widget.id.toString()).then((response) => {
-                      if(response['message'] == 'You cannot start this Assignment') {
-                        successToast("Success", "Assignment Started"),
-                        setState((){ started = true; })
-                      }else{
-                        errorToast("Error", "Failed to Start Assignment"),
-                      }
-                    });
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.s12),
-                        color: ColorManager.primaryColor
-                    ),
-                    child: Obx(() {
-                      return startAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                      Center(child: textStyle0_15(text: "Start Assignment", color: ColorManager.whiteColor));
-                    }),
-                  ),
-                ),
-              )
-            ],
-          )
-          :
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: started == false
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
-                _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized ?
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+                textStyle2(text: widget.name),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                textStyle0_5(text: widget.duration.time.toString()),
+                buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.30,
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    child: Chewie(
-                      controller: _chewieController!,
+                  child: InkWell(
+                    onTap: () {
+                      startAssignmentController
+                          .startAssignment(widget.id.toString())
+                          .then((response) => {
+                                if (response['message'] ==
+                                    'You cannot start this Assignment')
+                                  {
+                                    successToast(
+                                        "Success", "Assignment Started"),
+                                    setState(() {
+                                      started = true;
+                                    })
+                                  }
+                                else
+                                  {
+                                    errorToast(
+                                        "Error", "Failed to Start Assignment"),
+                                  }
+                              });
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s12),
+                          color: ColorManager.primaryColor),
+                      child: Obx(() {
+                        return startAssignmentController
+                                    .isDataSubmitting.value ==
+                                true
+                            ? const Center(child: CircularProgressIndicator())
+                            : Center(
+                                child: textStyle0_15(
+                                    text: "Start Assignment",
+                                    color: ColorManager.whiteColor));
+                      }),
                     ),
                   ),
                 )
-                    : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        CircularProgressIndicator(),
-                        SizedBox(height: 20),
-                        Text('Loading'),
-                      ],
-                ),
-
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                Padding(
-                  padding: const EdgeInsets.only(left: AppPadding.p20),
-                  child: textStyle2(text: "Answer"),
-                ),
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                CustomTextField(
-                  controller: assignmentController,
-                  hintName: "Enter your answer",
-                  inputLines: 10,
-                ),
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-                Center(
-                  child: Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width * 0.93,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s12),
-                          color: ColorManager.whiteColor,
-                          border: Border.all()
-                      ),
-                      child: InkWell(
-                        onTap: () async{
-                          FilePickerResult? result = await FilePicker.platform.pickFiles();
-                          if (result != null) {
-                            file = File(result.files.single.path!);
-                            fileName = result.files.single.name;
-                            setState(() {  });
-
-                          } else {
-                            errorToast("Error", "User canceled the picker");
-                          }
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(Icons.attach_file, color: ColorManager.primaryColor, size: 30),
-                            Expanded(child: textStyle0_5(text: fileName.isNotEmpty || fileName != "" ? fileName : "Add Assignment File" , color: ColorManager.primaryColor)),
+              ],
+            )
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
+                  _chewieController != null &&
+                          _chewieController!
+                              .videoPlayerController.value.isInitialized
+                      ? Center(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.30,
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            child: Chewie(
+                              controller: _chewieController!,
+                            ),
+                          ),
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 20),
+                            Text('Loading'),
                           ],
                         ),
-                      )
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+                  Padding(
+                    padding: const EdgeInsets.only(left: AppPadding.p20),
+                    child: textStyle2(text: "Answer"),
                   ),
-                ),
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-
-                submitted == false ?
-                Center(
-                  child: InkWell(
-                    onTap: () {
-                     if(assignmentController.text.isNotEmpty){
-                       if(file != null){
-                         submitAssignmentController.submit(widget.id.toString(), assignmentController.text, file!).then((response) => {
-                           if(response['status'] == true) {
-                             successToast("Success", response['message']),
-                             setState(() { submitted = true; })
-                           }else{
-                             errorToast("Error", response['message']),
-                           }
-                         });
-                       }else{
-                         errorToast("Error", "Add File Please");
-                       }
-                     }else{
-                       errorToast("Error", "Add answer Please");
-                     }
-                    },
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+                  CustomTextField(
+                    controller: assignmentController,
+                    hintName: "Enter your answer",
+                    inputLines: 10,
+                  ),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+                  Center(
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s12),
-                          color: ColorManager.primaryColor
-                      ),
-                      child: Obx(() {
-                        return submitAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                        Center(child: textStyle0_5(text: "Save", color: ColorManager.whiteColor));
-                      }),
-                    ),
-                  ),
-                )
-                :
-                Center(
-                  child: InkWell(
-                    onTap: () {
-                      if(assignmentController.text.isNotEmpty){
-                        if(file != null){
-                          sendAssignmentController.send(widget.id.toString(), assignmentController.text, file!).then((response) => {
-                            if(response['status'] == true) {
-                              successToast("Success", response['message']),
-                              Get.offAllNamed(Paths.homeBar),
-                            }else{
-                              errorToast("Error", response['message']),
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.93,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s12),
+                            color: ColorManager.whiteColor,
+                            border: Border.all()),
+                        child: InkWell(
+                          onTap: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+                            if (result != null) {
+                              file = File(result.files.single.path!);
+                              fileName = result.files.single.name;
+                              setState(() {});
+                            } else {
+                              errorToast("Error", "User canceled the picker");
                             }
-                          });
-                        }else{
-                          errorToast("Error", "Add File Please");
-                        }
-                      }else{
-                        errorToast("Error", "Add answer Please");
-                      }
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s12),
-                          color: ColorManager.primaryColor
-                      ),
-                      child: Obx(() {
-                        return sendAssignmentController.isDataSubmitting.value == true ? const Center(child: CircularProgressIndicator()) :
-                        Center(child: textStyle0_5(text: "Send", color: ColorManager.whiteColor));
-                      }),
-                    ),
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(Icons.attach_file,
+                                  color: ColorManager.primaryColor, size: 30),
+                              Expanded(
+                                  child: textStyle0_5(
+                                      text:
+                                          fileName.isNotEmpty || fileName != ""
+                                              ? fileName
+                                              : "Add Assignment File",
+                                      color: ColorManager.primaryColor)),
+                            ],
+                          ),
+                        )),
                   ),
-                ),
-
-                buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              ],
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
+                  submitted == false
+                      ? Center(
+                          child: InkWell(
+                            onTap: () {
+                              if (assignmentController.text.isNotEmpty) {
+                                if (file != null) {
+                                  submitAssignmentController
+                                      .submit(widget.id.toString(),
+                                          assignmentController.text, file!)
+                                      .then((response) => {
+                                            if (response['status'] == true)
+                                              {
+                                                successToast("Success",
+                                                    response['message']),
+                                                setState(() {
+                                                  submitted = true;
+                                                })
+                                              }
+                                            else
+                                              {
+                                                errorToast("Error",
+                                                    response['message']),
+                                              }
+                                          });
+                                } else {
+                                  errorToast("Error", "Add File Please");
+                                }
+                              } else {
+                                errorToast("Error", "Add answer Please");
+                              }
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.06,
+                              width: MediaQuery.of(context).size.width * 0.50,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s12),
+                                  color: ColorManager.primaryColor),
+                              child: Obx(() {
+                                return submitAssignmentController
+                                            .isDataSubmitting.value ==
+                                        true
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
+                                    : Center(
+                                        child: textStyle0_5(
+                                            text: "Save",
+                                            color: ColorManager.whiteColor));
+                              }),
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: InkWell(
+                            onTap: () {
+                              if (assignmentController.text.isNotEmpty) {
+                                if (file != null) {
+                                  sendAssignmentController
+                                      .send(widget.id.toString(),
+                                          assignmentController.text, file!)
+                                      .then((response) => {
+                                            if (response['status'] == true)
+                                              {
+                                                successToast("Success",
+                                                    response['message']),
+                                                Get.offAllNamed(Paths.homeBar),
+                                              }
+                                            else
+                                              {
+                                                errorToast("Error",
+                                                    response['message']),
+                                              }
+                                          });
+                                } else {
+                                  errorToast("Error", "Add File Please");
+                                }
+                              } else {
+                                errorToast("Error", "Add answer Please");
+                              }
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.06,
+                              width: MediaQuery.of(context).size.width * 0.50,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s12),
+                                  color: ColorManager.primaryColor),
+                              child: Obx(() {
+                                return sendAssignmentController
+                                            .isDataSubmitting.value ==
+                                        true
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
+                                    : Center(
+                                        child: textStyle0_5(
+                                            text: "Send",
+                                            color: ColorManager.whiteColor));
+                              }),
+                            ),
+                          ),
+                        ),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+                ],
+              ),
             ),
-      ),
-    )
-    :
-    const Scaffold(body: Center(child: CircularProgressIndicator()));
+    );
   }
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: assignmentByIdModel!.name!),
+      title: textStyle2(text: widget.name),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
     );
   }
-
-  String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String parsedString = parse(document.body!.text).documentElement!.text;
-    return parsedString;
-  }
-
 }

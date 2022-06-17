@@ -48,6 +48,8 @@ class _LessonCardState extends State<LessonCard> {
     url = _parseHtmlString(lessonModelList.content!);
 
     name = lessonModelList.name!;
+    print(url);
+    print(name);
   }
 
   @override
