@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/models/lesson_byID_model.dart';
@@ -29,47 +30,27 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  final LessonByIDController lessonByIDController =
-      Get.put(LessonByIDController());
-  late LessonByIdModel lessonModelList = LessonByIdModel();
-  String? url;
-  String? name;
-
-  @override
-  void initState() {
-    super.initState();
-    lessonModelList;
-    getLessonByIdData();
-  }
-
-  getLessonByIdData() async {
-    lessonModelList =
-        (await lessonByIDController.fetchLessonByID(widget.id.toString()))!;
-    url = _parseHtmlString(lessonModelList.content!);
-
-    name = lessonModelList.name!;
-    print(widget.id);
-    print(url);
-    print(name);
-  }
-
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppPadding.p4, horizontal: AppPadding.p16),
       child: InkWell(
-          onTap: () {
-            if (widget.isLocked == false) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LessonViewScreen(
-                            id: widget.id.toString(),
-                            url: url,
-                            name: name,
-                          )));
-            }
+          onTap: () async {
+            await box.write("lesson_id", widget.id.toString());
+            print('id at the time of navigation is ${box.read("lesson_id")}');
+            // if (widget.isLocked == false) {
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LessonViewScreen(
+                          id: widget.id.toString(),
+                          // url: url,
+                          // name: name,
+                        )));
+            // }
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.08,
@@ -138,12 +119,5 @@ class _LessonCardState extends State<LessonCard> {
             ),
           )),
     );
-  }
-
-  String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
-    return parsedString;
   }
 }

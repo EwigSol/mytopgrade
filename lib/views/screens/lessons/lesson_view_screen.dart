@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:html/parser.dart';
+import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
 import '../../../helpers/text_helper.dart';
@@ -8,44 +12,69 @@ import '../../../utils/values_manager.dart';
 import 'package:get/get.dart';
 import 'widgets/VideoItems.dart';
 
-class LessonViewScreen extends StatelessWidget {
+class LessonViewScreen extends StatefulWidget {
   var id;
-  var name;
-  var url;
-  LessonViewScreen({Key? key, this.id, required this.name, required this.url})
-      : super(key: key);
+  LessonViewScreen({
+    Key? key,
+    this.id,
+  }) : super(key: key);
+
+  @override
+  State<LessonViewScreen> createState() => _LessonViewScreenState();
+}
+
+class _LessonViewScreenState extends State<LessonViewScreen> {
   final FinishLessonController finishLessonController =
       Get.put(FinishLessonController());
+  final LessonByIDController lessonByIDController =
+      Get.put(LessonByIDController());
+  late LessonByIdModel lessonModelList = LessonByIdModel();
+  String? url;
+  String? name;
+
+  @override
+  void initState() {
+    super.initState();
+    lessonByIDController;
+    lessonModelList;
+    getLessonByIdData();
+  }
+
+  getLessonByIdData() async {
+    lessonModelList =
+        (await lessonByIDController.fetchLessonByID(widget.id.toString()))!;
+    url = _parseHtmlString(lessonModelList.content!);
+
+    name = lessonModelList.name!;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
-      appBar: name != null
-          ? buildAppBar(name.toString())
-          : buildAppBar('sorry not working'),
+      appBar: buildAppBar(name),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
-            Center(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.40,
-                width: MediaQuery.of(context).size.width * 0.95,
-                child: VideoItems(
-                  videoPlayerController: VideoPlayerController.network(url),
-                  looping: false,
-                  autoplay: true,
-                ),
-              ),
-            ),
+            // Center(
+            //   child: SizedBox(
+            //     height: MediaQuery.of(context).size.height * 0.40,
+            //     width: MediaQuery.of(context).size.width * 0.95,
+            //     child: VideoItems(
+            //       videoPlayerController: VideoPlayerController.network(url!),
+            //       looping: false,
+            //       autoplay: true,
+            //     ),
+            //   ),
+            // ),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
             Center(
               child: InkWell(
                 onTap: () {
                   finishLessonController
-                      .finishLesson(id.toString())
+                      .finishLesson(widget.id.toString())
                       .then((response) => {
                             if (response['status'] == 'success')
                               {
@@ -89,6 +118,13 @@ class LessonViewScreen extends StatelessWidget {
       elevation: 0.5,
     );
   }
+
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString =
+        parse(document.body!.text).documentElement!.text;
+    return parsedString;
+  }
 }
 // class LessonViewScreen extends StatefulWidget {
 
@@ -110,20 +146,13 @@ class LessonViewScreen extends StatelessWidget {
 //   @override
 //   void initState() {
 //     super.initState();
-//     print(widget.id);
-//     print(widget.name);
-//     print(widget.url);
 //     // lessonModelList;
 //     // getLessonByIdData();
 //   }
 
 //   // getLessonByIdData() async {
 //   //   lessonModelList = (await lessonByIDController.fetchLessonByID(widget.id))!;
-//   // print(lessonModelList.name);
-//   // print(lessonModelList.id);
-//   // print(lessonModelList.content);
-//   // print(lessonModelList.permalink);
-//   // print(lessonModelList.excerpt);
+
 
 //   // _chewieController = ChewieController(
 //   //   videoPlayerController: VideoPlayerController.network(
@@ -133,12 +162,11 @@ class LessonViewScreen extends StatelessWidget {
 //   //   hideControlsTimer: const Duration(seconds: 1),
 //   //   placeholder: Container(color: ColorManager.grayColor),
 //   // );
-//   // print(_chewieController);
+
 //   // }
 
 //   // Future<void> initializePlayer() async {
 //   //   _controller = );
-//   //   print(_controller);
 
 //   // }
 

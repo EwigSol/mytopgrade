@@ -29,11 +29,11 @@ class RegisterController extends GetxController {
                 "https://musing-gould.18-141-157-112.plesk.page/wp-json/wc/v3/customers")
             .replace(queryParameters: queryParameters),
         headers: {'Authorization': basicAuth});
-    print(response.body);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      print(responseData);
+
       isDataReadingCompleted.value = true;
       result = {'status': true, 'userData': userModelFromJson(response.body)};
     } else {

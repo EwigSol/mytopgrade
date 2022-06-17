@@ -19,16 +19,11 @@ import 'package:html/parser.dart' show parse;
 
 class AssignmentViewScreen extends StatefulWidget {
   var id;
-  var name;
-  var duration;
-  var url;
-  AssignmentViewScreen(
-      {Key? key,
-      required this.id,
-      required this.duration,
-      required this.name,
-      required this.url})
-      : super(key: key);
+
+  AssignmentViewScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<AssignmentViewScreen> createState() => _AssignmentViewScreenState();
@@ -45,31 +40,27 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
   bool submitted = false;
   File? file;
   String fileName = "";
+  late AssignmentByIdModel assignmentByIdModel = AssignmentByIdModel();
+  final AssignmentByIDController assignmentByIdController =
+      Get.put(AssignmentByIDController());
+  String? name;
+  String? url;
+  Duration? duration;
 
-  // Future<void> initializePlayer() async {
-  //   _controller = VideoPlayerController.network(
-  //       _parseHtmlString(assignmentByIdModel!.content!));
-  //   await Future.wait([_controller.initialize()]);
-  //   _createChewieController();
-  //   setState(() {});
-  // }
+  @override
+  void initState() {
+    super.initState();
+    assignmentByIdModel;
+    getAssignmentByIdData();
+  }
 
-  // void _createChewieController() {
-  //   _chewieController = ChewieController(
-  //     videoPlayerController: _controller,
-  //     autoPlay: false,
-  //     looping: false,
-  //     // hideControlsTimer: Duration(seconds: 1),
-  //     placeholder: Container(color: ColorManager.grayColor),
-  //   );
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _controller.dispose();
-  //   _chewieController?.dispose();
-  // }
+  getAssignmentByIdData() async {
+    assignmentByIdModel = (await assignmentByIdController
+        .fetchAssignmentByID(widget.id.toString()))!;
+    url = _parseHtmlString(assignmentByIdModel.content!);
+    name = assignmentByIdModel.name!;
+    duration = assignmentByIdModel.duration;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +72,10 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-                textStyle2(text: widget.name),
+                textStyle2(text: assignmentByIdModel.name!),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                textStyle0_5(text: widget.duration.time.toString()),
+                textStyle0_5(
+                    text: assignmentByIdModel.duration!.time.toString()),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
                   child: InkWell(
@@ -312,10 +304,17 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: widget.name),
+      title: textStyle2(text: assignmentByIdModel.name!),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
     );
+  }
+
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString =
+        parse(document.body!.text).documentElement!.text;
+    return parsedString;
   }
 }

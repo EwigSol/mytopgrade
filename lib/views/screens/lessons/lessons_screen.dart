@@ -47,8 +47,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
   //   for (int i = 0; i < widget.lessonSections!.length; i++) {
   //     if (widget.lessonSections![i].items!.isNotEmpty) {
   //       for (int j = 0; j < widget.lessonSections![i].items!.length; j++) {
-  //         // print(widget.lessonSections![i].items![j].type.toString().substring(typeValues.toString().indexOf('.') + 1));
-  //         // print(Type.lesson.name);
   //         if (widget.lessonSections![i].items![j].type == Type.lesson) {
   //           lessonByIDController.fetchLessonById(
   //               widget.lessonSections![i].items![j].id.toString());
@@ -202,7 +200,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: () {
-          // print(_parseHtmlString(lessonByIdModel.content!));
           // Navigator.push(context, MaterialPageRoute(
           //     builder: (context) => LessonViewScreen(
           //         id: lessonByIdModel.id.toString(),
@@ -213,7 +210,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';
-          // print(imageLink);
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.40,
@@ -248,12 +244,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: () {
-          // print(_parseHtmlString(lessonByIdModel.content!));
           // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: assignmentByIdModel.name, url: _parseHtmlString(assignmentByIdModel.content!))));
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';
-          // print(imageLink);
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.40,
@@ -288,12 +282,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: () {
-          // print(_parseHtmlString(lessonByIdModel.content!));
           // Navigator.push(context, MaterialPageRoute(builder: (context) => LessonViewScreen(title: quizByIdModel.name, url: _parseHtmlString(quizByIdModel.content!))));
           // var document = parse(lessonByIdModel.content);
           // dom.Element? link = document.querySelector('video/mp4');
           // String? imageLink = link != null ? link.attributes['src'] : '';
-          // print(imageLink);
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.40,

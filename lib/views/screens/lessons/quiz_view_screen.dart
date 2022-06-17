@@ -14,26 +14,24 @@ import '../../widgets/text_field.dart';
 
 class QuizViewScreen extends StatefulWidget {
   var id;
-  var model;
-  var name;
-  var duration;
+  // var model;
+  // var name;
+  // var duration;
 
-  QuizViewScreen(
-      {Key? key,
-      required this.id,
-      required this.duration,
-      required this.name,
-      required this.model})
-      : super(key: key);
+  QuizViewScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<QuizViewScreen> createState() => _QuizViewScreenState();
 }
 
 class _QuizViewScreenState extends State<QuizViewScreen> {
+  var quizByIdController = Get.put(QuizByIDController());
   var startQuizController = Get.put(StartQuizController());
   var finishQuizController = Get.put(FinishQuizController());
-  var quizByIdController = Get.put(QuizByIDController());
+
   QuizByIdModel? quizByIdModel;
   bool started = false;
   bool submitted = false;
@@ -60,39 +58,43 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
   /// store radio check button list...
   List<int> listRadio = [];
 
-  @override
-  void initState() {
-    super.initState();
-    getQuizByIdData();
+  getQuizByIdData() async {
+    var _quizByIdModel =
+        await quizByIdController.fetchQuizByID(widget.id.toString());
+    setState(() {
+      quizByIdModel = _quizByIdModel;
+    });
     getAnswers();
   }
 
-  getQuizByIdData() async {
-    quizByIdModel = await quizByIdController.fetchQuizByID(widget.id);
-  }
-
   getAnswers() {
-    for (int i = 0; i < widget.model.questions!.length; i++) {
-      if (widget.model.questions![i].type == 'multi_choice') {
+    for (int i = 0; i < quizByIdModel!.questions!.length; i++) {
+      if (quizByIdModel!.questions![i].type == 'multi_choice') {
         answerList.add(List.generate(
-            widget.model.questions![i].options!.length, (index) => false));
+            quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      } else if (widget.model.questions![i].type == 'true_or_false') {
+      } else if (quizByIdModel!.questions![i].type == 'true_or_false') {
         answerList.add([-1]);
         listRadio.add(1);
-      } else if (widget.model.questions![i].type == 'sorting_choice') {
+      } else if (quizByIdModel!.questions![i].type == 'sorting_choice') {
         answerList.add(List.generate(
-            widget.model.questions![i].options!.length, (index) => false));
+            quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
-      } else if (widget.model.questions![i].type == 'single_choice') {
+      } else if (quizByIdModel!.questions![i].type == 'single_choice') {
         answerList.add(List.generate(
-            widget.model.questions![i].options!.length, (index) => false));
+            quizByIdModel!.questions![i].options!.length, (index) => false));
         listRadio.add(0);
       } else {
         answerList.add([false]);
         listRadio.add(2);
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getQuizByIdData();
   }
 
   @override
@@ -105,15 +107,19 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-                textStyle2(text: widget.name),
+                quizByIdModel != null
+                    ? textStyle2(text: quizByIdModel!.name!)
+                    : CircularProgressIndicator(),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-                textStyle0_5(text: widget.duration!),
+                quizByIdModel != null
+                    ? textStyle0_5(text: quizByIdModel!.duration!)
+                    : CircularProgressIndicator(),
                 buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
                 Center(
                   child: InkWell(
                     onTap: () {
                       startQuizController
-                          .startQuiz(widget.model.id.toString())
+                          .startQuiz(quizByIdModel!.id.toString())
                           .then((response) => {
                                 if (response['status'] == 'success')
                                   {
@@ -157,11 +163,11 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
-                        itemCount: widget.model.questions!.length,
+                        itemCount: quizByIdModel!.questions!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final questions = widget.model.questions![index];
+                          final questions = quizByIdModel!.questions![index];
 
                           if (questions.type == "true_or_false") {
                             return Padding(
@@ -300,9 +306,6 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                           questions
                                                               .options![i].uid
                                                               .toString());
-                                                      // print(answerList[index][i]);
-                                                      // print(questions.id.toString());
-                                                      // print(questions.options![i].uid.toString());
                                                     });
                                                   },
                                                 ),
@@ -369,8 +372,6 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                       sortingAnswers.add(
                                                           questions.options![j]
                                                               .value);
-                                                      // print(answerList[index][j]);
-                                                      // print(questions.id.toString());
                                                     });
                                                   },
                                                 ),
@@ -446,9 +447,6 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                           questions
                                                               .options![i].value
                                                               .toString());
-                                                      // print(answerList[index][i]);
-                                                      // print(questions.id.toString());
-                                                      // print(questions.options![i].uid.toString());
                                                     });
                                                   },
                                                 ),
@@ -560,7 +558,7 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                 sortingQuestion,
                                 singleChoiceQuestion,
                                 fillBlanksQuestion,
-                                widget.model.id.toString())
+                                quizByIdModel!.id.toString())
                             .then((response) => {
                                   if (response['status'] == true)
                                     {
@@ -602,7 +600,9 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: textStyle2(text: widget.model.name!),
+      title: quizByIdModel != null
+          ? textStyle2(text: quizByIdModel!.name!)
+          : CircularProgressIndicator(),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,

@@ -29,26 +29,6 @@ class QuizCard extends StatefulWidget {
 }
 
 class _QuizCardState extends State<QuizCard> {
-  late QuizByIdModel quizByIdModel = QuizByIdModel();
-  final QuizByIDController quizByIdController = Get.put(QuizByIDController());
-  String? name;
-  var duration;
-  var model;
-
-  @override
-  void initState() {
-    super.initState();
-    quizByIdModel;
-    getQuizByIdData();
-  }
-
-  getQuizByIdData() async {
-    quizByIdModel =
-        (await quizByIdController.fetchQuizByID(widget.id.toString()))!;
-    name = quizByIdModel.name!;
-    duration = quizByIdModel.duration;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,9 +42,6 @@ class _QuizCardState extends State<QuizCard> {
                   MaterialPageRoute(
                       builder: (context) => QuizViewScreen(
                             id: widget.id.toString(),
-                            duration: duration,
-                            name: name,
-                            model: quizByIdModel,
                           )));
             }
           },

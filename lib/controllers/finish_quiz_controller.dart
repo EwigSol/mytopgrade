@@ -59,15 +59,9 @@ class FinishQuizController extends GetxController {
     var response = await request.send();
     var responded = await http.Response.fromStream(response);
     final responseData = responded.body;
-    // print(jsonEncode(dataBody));
-    // print(request.);
+
     if (response.statusCode == 200) {
-      print(responseData);
-      print(responded.statusCode);
-      print('success');
       isDataSubmitting.value = false;
-      // Map<String, dynamic> responseData = jsonDecode(response.body);
-      // print(jsonDecode(response.body));
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {'status': true, 'message': "Quiz Finished Successfully"};

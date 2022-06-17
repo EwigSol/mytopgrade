@@ -31,31 +31,6 @@ class AssignmentCard extends StatefulWidget {
 }
 
 class _AssignmentCardState extends State<AssignmentCard> {
-  late AssignmentByIdModel assignmentByIdModel = AssignmentByIdModel();
-  final AssignmentByIDController assignmentByIdController =
-      Get.put(AssignmentByIDController());
-  String? name;
-  String? url;
-  Duration? duration;
-
-  @override
-  void initState() {
-    super.initState();
-    assignmentByIdModel;
-    getAssignmentByIdData();
-  }
-
-  getAssignmentByIdData() async {
-    assignmentByIdModel = (await assignmentByIdController
-        .fetchAssignmentByID(widget.id.toString()))!;
-    url = _parseHtmlString(assignmentByIdModel.content!);
-    name = assignmentByIdModel.name!;
-    duration = assignmentByIdModel.duration;
-    print(name);
-    print(url);
-    print(duration);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,9 +44,9 @@ class _AssignmentCardState extends State<AssignmentCard> {
                   MaterialPageRoute(
                       builder: (context) => AssignmentViewScreen(
                             id: widget.id.toString(),
-                            url: url,
-                            name: name,
-                            duration: duration,
+                            // url: url,
+                            // name: name,
+                            // duration: duration,
                           )));
             }
           },
@@ -142,12 +117,5 @@ class _AssignmentCardState extends State<AssignmentCard> {
             ),
           )),
     );
-  }
-
-  String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
-    return parsedString;
   }
 }

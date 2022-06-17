@@ -11,36 +11,36 @@ class LessonByIdModel {
     this.name,
     this.slug,
     this.permalink,
-    this.dateCreated,
-    this.dateCreatedGmt,
-    this.dateModified,
-    this.dateModifiedGmt,
+    // this.dateCreated,
+    // this.dateCreatedGmt,
+    // this.dateModified,
+    // this.dateModifiedGmt,
     this.status,
     this.content,
     this.excerpt,
     this.canFinishCourse,
     this.duration,
-    this.assigned,
-    this.results,
-    this.metaData,
+    // this.assigned,
+    // this.results,
+    // this.metaData,
   });
 
   int? id;
   String? name;
   String? slug;
   String? permalink;
-  DateTime? dateCreated;
-  DateTime? dateCreatedGmt;
-  DateTime? dateModified;
-  DateTime? dateModifiedGmt;
+  // DateTime? dateCreated;
+  // DateTime? dateCreatedGmt;
+  // DateTime? dateModified;
+  // DateTime? dateModifiedGmt;
   String? status;
   String? content;
   String? excerpt;
   bool? canFinishCourse;
   String? duration;
-  Assigned? assigned;
-  Results? results;
-  MetaData? metaData;
+  // Assigned? assigned;
+  // Results? results;
+  // MetaData? metaData;
 
   factory LessonByIdModel.fromJson(Map<String, dynamic> json) =>
       LessonByIdModel(
@@ -48,18 +48,18 @@ class LessonByIdModel {
         name: json["name"],
         slug: json["slug"],
         permalink: json["permalink"],
-        dateCreated: DateTime.parse(json["date_created"]),
-        dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
-        dateModified: DateTime.parse(json["date_modified"]),
-        dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
+        // dateCreated: DateTime.parse(json["date_created"]),
+        // dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
+        // dateModified: DateTime.parse(json["date_modified"]),
+        // dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
         status: json["status"],
         content: json["content"],
         excerpt: json["excerpt"],
         canFinishCourse: json["can_finish_course"],
         duration: json["duration"],
-        assigned: Assigned.fromJson(json["assigned"]),
-        results: Results.fromJson(json["results"]),
-        metaData: MetaData.fromJson(json["meta_data"]),
+        // assigned: Assigned.fromJson(json["assigned"]),
+        // results: Results.fromJson(json["results"]),
+        // metaData: MetaData.fromJson(json["meta_data"]),
       );
 }
 

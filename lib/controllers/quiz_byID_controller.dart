@@ -26,7 +26,9 @@ class QuizByIDController extends GetxController {
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
+      quizByIDList.value = quizByIdModelFromJson(jsonString);
       isLoading.value = false;
+
       return quizByIdModelFromJson(jsonString);
     } else {
       isLoading.value = false;

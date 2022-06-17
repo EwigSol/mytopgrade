@@ -30,7 +30,6 @@ class LoginController extends GetxController {
       box.write("user_email", responseData['user_email']);
       box.write("user_display_name", responseData['user_display_name']);
       box.write("isLogged", true);
-      print(responseData['token']);
       result = {
         'status': true,
         'token': responseData['token'],
