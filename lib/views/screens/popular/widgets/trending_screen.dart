@@ -1,8 +1,6 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
@@ -13,48 +11,67 @@ import '../../../../utils/values_manager.dart';
 
 class TrendingScreen extends StatelessWidget {
   TrendingScreen({Key? key}) : super(key: key);
-  final CoursesController trendingCoursesController = Get.put(CoursesController());
+  final CoursesController trendingCoursesController =
+      Get.put(CoursesController());
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-        child: Column(
-          children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-            Obx((){
-              if(trendingCoursesController.isLoading.value){
-                return const Center(child: CircularProgressIndicator());
-              }else{
-                // trendingCoursesController.coursesList.sort((a, b) => a.countStudents!.compareTo(int.parse(b.countStudents.toString())));
-                return trendingCoursesController.coursesList.isNotEmpty ?
-                Center(
-                  child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 5,
-                      runSpacing: 10,
-                      alignment: WrapAlignment.spaceEvenly,
-                      children: trendingCoursesController.coursesList.map((item) {
-                        return buildPopularCard(item, context);
-                      }).toList()
-                  ),
-                )
-                    : Center(child: textStyle0_5(text: "No Trending Courses Available"));
-              }
-            }),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
-          ],
-        ),
+        child: Column(children: [
+          buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+          Obx(() {
+            if (trendingCoursesController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              // trendingCoursesController.coursesList.sort((a, b) => a.countStudents!.compareTo(int.parse(b.countStudents.toString())));
+              return trendingCoursesController.coursesList.isNotEmpty
+                  ? GridView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              // childAspectRatio: 3 / 2,
+                              crossAxisSpacing: 1,
+                              mainAxisSpacing: 10),
+                      itemCount: trendingCoursesController.coursesList.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return PopularCourse(
+                          argument:
+                              trendingCoursesController.coursesList[index].id,
+                          image: trendingCoursesController
+                              .coursesList[index].image,
+                          sectionslength: trendingCoursesController
+                              .coursesList[index].sections!.length,
+                          instructor: trendingCoursesController
+                              .coursesList[index].instructor,
+                          name:
+                              trendingCoursesController.coursesList[index].name,
+                          price: trendingCoursesController
+                              .coursesList[index].price,
+                          rating: trendingCoursesController
+                              .coursesList[index].rating,
+                        );
+                      })
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    );
+            }
+          }),
+        ]),
       ),
     );
   }
 
   Padding buildPopularCard(CoursesModel trendingModel, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Get.toNamed(Paths.details, arguments: trendingModel);
         },
         child: Container(
@@ -82,7 +99,8 @@ class TrendingScreen extends StatelessWidget {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(trendingModel.image!, fit: BoxFit.fill)),
+                              child: Image.network(trendingModel.image!,
+                                  fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -98,7 +116,9 @@ class TrendingScreen extends StatelessWidget {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0(text: "\$${trendingModel.price.toString()}", color: ColorManager.whiteColor)),
+                              child: textStyle0(
+                                  text: "\$${trendingModel.price.toString()}",
+                                  color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
@@ -109,7 +129,9 @@ class TrendingScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: trendingModel.instructor!.name.toString(), color: ColorManager.grayColor),
+                child: textStyle0(
+                    text: trendingModel.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Padding(
@@ -132,15 +154,18 @@ class TrendingScreen extends StatelessWidget {
                                 color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
-                        textStyle0(text: "Sections: ${trendingModel.sections!.length}")
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
+                        textStyle0(
+                            text: "Sections: ${trendingModel.sections!.length}")
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: trendingModel.rating.toString())
                       ],
                     ),
@@ -154,4 +179,3 @@ class TrendingScreen extends StatelessWidget {
     );
   }
 }
-

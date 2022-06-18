@@ -47,6 +47,7 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
                 }
                 return popularCoursesModel.isNotEmpty
                     ? GridView.builder(
+                        physics: ScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         gridDelegate:
