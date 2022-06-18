@@ -70,7 +70,8 @@ class PopularCourse extends StatelessWidget {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(image, fit: BoxFit.cover)),
+                              child:
+                                  Image.network(image, fit: BoxFit.fitWidth)),
                         ),
                       ),
                       Positioned(
@@ -122,7 +123,7 @@ class PopularCourse extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: height * 0.024,
+                          height: height * 0.020,
                           // width: width * 0.04,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),

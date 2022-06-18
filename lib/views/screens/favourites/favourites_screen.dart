@@ -1,16 +1,14 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/models/wishlist_model.dart';
+import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../helpers/helper.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
 import '../../../utils/values_manager.dart';
-
 
 class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({Key? key}) : super(key: key);
@@ -20,9 +18,7 @@ class FavouritesScreen extends StatefulWidget {
 }
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
-
   var wishlistController = Get.put(WishlistController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,24 +31,44 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           child: Column(
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-              Obx((){
-                if(wishlistController.isLoading.value){
+              Obx(() {
+                if (wishlistController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-                  return wishlistController.wishlist.value != null ? wishlistController.wishlist.value!.data!.items!.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 5,
-                        runSpacing: 10,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: wishlistController.wishlist.value!.data!.items!.map((item) {
-                          return buildWishlistCard(item);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No Item in Wishlist"))
-                      : Center(child: textStyle0_5(text: "No Wishlist Available"));
+                } else {
+                  return wishlistController.wishlist.value != null
+                      ? GridView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  // childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 10),
+                          itemCount: wishlistController
+                              .wishlist.value!.data!.items!.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return PopularCourse(
+                              argument: wishlistController
+                                  .wishlist.value!.data!.items![index].id,
+                              image: wishlistController
+                                  .wishlist.value!.data!.items![index].image,
+                              sectionslength: wishlistController.wishlist.value!
+                                  .data!.items![index].sections!.length,
+                              instructor: wishlistController.wishlist.value!
+                                  .data!.items![index].instructor,
+                              name: wishlistController
+                                  .wishlist.value!.data!.items![index].name,
+                              price: wishlistController
+                                  .wishlist.value!.data!.items![index].price,
+                              rating: wishlistController
+                                  .wishlist.value!.data!.items![index].rating,
+                            );
+                          })
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        );
                 }
               }),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
@@ -74,10 +90,12 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   Padding buildWishlistCard(DataItem wishlistModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p6, vertical: AppPadding.p10),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Paths.details, arguments: wishlistModel, parameters: {'isWishlist': "true"});
+          Get.toNamed(Paths.details,
+              arguments: wishlistModel, parameters: {'isWishlist': "true"});
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.44,
@@ -87,8 +105,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 topLeft: Radius.circular(AppSize.s10),
                 topRight: Radius.circular(AppSize.s10),
                 bottomLeft: Radius.circular(AppSize.s10),
-                bottomRight: Radius.circular(AppSize.s10)
-            ),
+                bottomRight: Radius.circular(AppSize.s10)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
@@ -97,7 +114,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
-
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +132,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: Image.network(wishlistModel.image!, fit: BoxFit.fill)),
+                              child: Image.network(wishlistModel.image!,
+                                  fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -132,7 +149,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0_5(text: "\$${wishlistModel.price.toString()}", color: ColorManager.whiteColor)),
+                              child: textStyle0_5(
+                                  text: "\$${wishlistModel.price.toString()}",
+                                  color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
@@ -143,11 +162,14 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: wishlistModel.instructor!.name.toString(), color: ColorManager.grayColor),
+                child: textStyle0(
+                    text: wishlistModel.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -161,18 +183,22 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.list, color: ColorManager.whiteColor, size: 22),
+                            child: Icon(Icons.list,
+                                color: ColorManager.whiteColor, size: 22),
                           ),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.01),
-                        textStyle0(text: "Sections: ${wishlistModel.sections!.length}")
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.01),
+                        textStyle0(
+                            text: "Sections: ${wishlistModel.sections!.length}")
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: wishlistModel.rating.toString())
                       ],
                     ),

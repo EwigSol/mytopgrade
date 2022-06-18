@@ -7,6 +7,7 @@ import 'package:topgrade/controllers/add_favorite_controller.dart';
 import 'package:topgrade/controllers/cart_controller.dart';
 import 'package:topgrade/controllers/course_byId_controller.dart';
 import 'package:topgrade/controllers/payment_gateway_controller.dart';
+import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/cart_model.dart';
@@ -48,6 +49,7 @@ class _DetailsScreenState extends State<DetailsScreen>
   final CartController cartController = Get.put(CartController());
   final AddFavoriteController addFavController =
       Get.put(AddFavoriteController());
+  final WishlistController wishlistController = Get.put(WishlistController());
   final PaymentGatewayController paymentGatewayController =
       Get.put(PaymentGatewayController());
   final CourseByIDController courseByIDController =
@@ -86,12 +88,7 @@ class _DetailsScreenState extends State<DetailsScreen>
         });
       }
     }
-    // String? check = Get.parameters['isWishlist'];
-    // isMyCourse = Get.parameters['isMyCourse'];
-    // check == "true" ? widget.isWishlist = true : widget.isWishlist = true;
-    // isMyCourse == "true" ? widget.myCoursesModel = data : widget.isWishlist == true ? widget.coursesDetail = data : widget.favCourseDetail = data;
     _controller = TabController(length: 3, vsync: this);
-    // myCoursesId = box.read("myCoursesId").cast<String>();
     cartController.open();
   }
 
@@ -948,218 +945,73 @@ class _DetailsScreenState extends State<DetailsScreen>
   }
 
   AppBar buildAppBar() {
-    return widget.isWishlist
-        ? AppBar(
-            title: textStyle2(text: StringsManager.details),
-            centerTitle: false,
-            backgroundColor: ColorManager.whiteColor,
-            elevation: 0.5,
-            iconTheme: const IconThemeData(color: ColorManager.blackColor),
-            actions: [
-              InkWell(
-                onTap: () {
-                  addFavController
-                      .addFavorite(widget.favCourseDetail!.id.toString())
-                      .then((response) => {
-                            if (response['status'] == 'success')
-                              {
-                                successToast(
-                                    "Success", "Course Added to Wishlist"),
-                              }
-                            else
-                              {
-                                errorToast(
-                                    "Error", "Failed to Add Course to Wishlist")
-                              }
-                          });
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.05,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s16),
-                      color: ColorManager.whiteColor),
-                  child: Obx(() {
-                    return addFavController.isDataSubmitting.value == true
-                        ? const Center(child: CircularProgressIndicator())
-                        : const Icon(Icons.favorite,
-                            color: ColorManager.redColor);
-                  }),
-                ),
-              ),
-              buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.09),
-              InkWell(
-                onTap: () {
-                  CartModel cart = CartModel(
-                      quantity: 1,
-                      productId: widget.favCourseDetail!.id.toString(),
-                      price: double.parse(
-                          widget.favCourseDetail!.price.toString()),
-                      name: widget.favCourseDetail!.name,
-                      image: widget.favCourseDetail!.image);
+    var data = Get.arguments;
+    return AppBar(
+      title: textStyle2(text: StringsManager.details),
+      centerTitle: false,
+      backgroundColor: ColorManager.whiteColor,
+      elevation: 0.5,
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
+      actions: [
+        InkWell(
+          onTap: () {
+            addFavController.addFavorite(data.toString()).then((response) => {
+                  if (response['message'] ==
+                      'This course has been added to your wishlists')
+                    {
+                      Get.snackbar("Success", "Course Added to Wishlist",
+                          snackPosition: SnackPosition.BOTTOM),
+                    }
+                  else
+                    {
+                      Get.snackbar("Success", "Course Removed from WishList",
+                          snackPosition: SnackPosition.BOTTOM)
+                    }
+                });
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.05,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s16),
+                color: ColorManager.whiteColor),
+            child: Obx(() {
+              return addFavController.added.value == false
+                  ? const Icon(
+                      Icons.favorite_border,
+                      color: ColorManager.blackColor,
+                    )
+                  : const Icon(Icons.favorite, color: ColorManager.redColor);
+            }),
+          ),
+        ),
+        // buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.09),
+        // InkWell(
+        //   onTap: () {
+        //     CartModel cart = CartModel(
+        //         quantity: 1,
+        //         productId: widget.favCourseDetail!.id.toString(),
+        //         price: double.parse(widget.favCourseDetail!.price.toString()),
+        //         name: widget.favCourseDetail!.name,
+        //         image: widget.favCourseDetail!.image);
 
-                  cartController.insert(cart).then((value) => {
-                        if (value.name != null)
-                          {
-                            successToast(
-                                "Success", "Course Added to Cart Successfully"),
-                            Get.toNamed(Paths.cart),
-                          }
-                        else
-                          {errorToast("Error", "Failed to Add Course to Cart")}
-                      });
-                },
-                child: const Center(
-                    child: Icon(Icons.shopping_cart,
-                        color: ColorManager.redColor, size: 30)),
-              ),
-              buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
-            ],
-          )
-        : isMyCourse == "true"
-            ? AppBar(
-                title: textStyle2(text: StringsManager.details),
-                centerTitle: false,
-                backgroundColor: ColorManager.whiteColor,
-                elevation: 0.5,
-                iconTheme: const IconThemeData(color: ColorManager.blackColor),
-                actions: [
-                  InkWell(
-                    onTap: () {
-                      addFavController
-                          .addFavorite(widget.myCoursesModel!.id.toString())
-                          .then((response) => {
-                                if (response['status'] == 'success')
-                                  {
-                                    successToast(
-                                        "Success", "Course Added to Wishlist"),
-                                  }
-                                else
-                                  {
-                                    errorToast("Error",
-                                        "Failed to Add Course to Wishlist")
-                                  }
-                              });
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.05,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s16),
-                          color: ColorManager.whiteColor),
-                      child: Obx(() {
-                        return addFavController.isDataSubmitting.value == true
-                            ? const Center(child: CircularProgressIndicator())
-                            : const Icon(Icons.favorite,
-                                color: ColorManager.redColor);
-                      }),
-                    ),
-                  ),
-                  buildSpaceHorizontal(
-                      MediaQuery.of(context).size.width * 0.09),
-                  InkWell(
-                    onTap: () {
-                      CartModel cart = CartModel(
-                          quantity: 1,
-                          productId: widget.myCoursesModel!.id.toString(),
-                          price: double.parse(
-                              widget.myCoursesModel!.price.toString()),
-                          name: widget.myCoursesModel!.name,
-                          image: widget.myCoursesModel!.image);
-
-                      cartController.insert(cart).then((value) => {
-                            if (value.name != null)
-                              {
-                                successToast("Success",
-                                    "Course Added to Cart Successfully"),
-                                Get.toNamed(Paths.cart),
-                              }
-                            else
-                              {
-                                errorToast(
-                                    "Error", "Failed to Add Course to Cart")
-                              }
-                          });
-                    },
-                    child: const Center(
-                        child: Icon(Icons.shopping_cart,
-                            color: ColorManager.redColor, size: 30)),
-                  ),
-                  buildSpaceHorizontal(
-                      MediaQuery.of(context).size.width * 0.05),
-                ],
-              )
-            : AppBar(
-                title: textStyle2(text: StringsManager.details),
-                centerTitle: false,
-                backgroundColor: ColorManager.whiteColor,
-                elevation: 0.5,
-                iconTheme: const IconThemeData(color: ColorManager.blackColor),
-                actions: [
-                  InkWell(
-                    onTap: () {
-                      addFavController
-                          .addFavorite(widget.coursesDetail!.id.toString())
-                          .then((response) => {
-                                if (response['status'] == 'success')
-                                  {
-                                    successToast(
-                                        "Success", "Course Added to Wishlist"),
-                                  }
-                                else
-                                  {
-                                    errorToast("Error",
-                                        "Failed to Add Course to Wishlist")
-                                  }
-                              });
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.05,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s16),
-                          color: ColorManager.whiteColor),
-                      child: Obx(() {
-                        return addFavController.isDataSubmitting.value == true
-                            ? const Center(child: CircularProgressIndicator())
-                            : const Icon(Icons.favorite,
-                                color: ColorManager.redColor);
-                      }),
-                    ),
-                  ),
-                  buildSpaceHorizontal(
-                      MediaQuery.of(context).size.width * 0.09),
-                  InkWell(
-                    onTap: () {
-                      CartModel cart = CartModel(
-                          quantity: 1,
-                          productId: widget.coursesDetail!.id.toString(),
-                          price: double.parse(
-                              widget.coursesDetail!.price.toString()),
-                          name: widget.coursesDetail!.name,
-                          image: widget.coursesDetail!.image);
-
-                      cartController.insert(cart).then((value) => {
-                            if (value.name != null)
-                              {
-                                successToast("Success",
-                                    "Course Added to Cart Successfully"),
-                                Get.toNamed(Paths.cart),
-                              }
-                            else
-                              {
-                                errorToast(
-                                    "Error", "Failed to Add Course to Cart")
-                              }
-                          });
-                    },
-                    child: const Center(
-                        child: Icon(Icons.shopping_cart,
-                            color: ColorManager.redColor, size: 30)),
-                  ),
-                  buildSpaceHorizontal(
-                      MediaQuery.of(context).size.width * 0.05),
-                ],
-              );
+        //     cartController.insert(cart).then((value) => {
+        //           if (value.name != null)
+        //             {
+        //               successToast(
+        //                   "Success", "Course Added to Cart Successfully"),
+        //               Get.toNamed(Paths.cart),
+        //             }
+        //           else
+        //             {errorToast("Error", "Failed to Add Course to Cart")}
+        //         });
+        //   },
+        //   child: const Center(
+        //       child: Icon(Icons.shopping_cart,
+        //           color: ColorManager.whiteColor, size: 30)),
+        // ),
+        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
+      ],
+    );
   }
 }

@@ -1,5 +1,3 @@
-
-
 enum APIPath {
   courses,
   courseCategory,
@@ -24,9 +22,9 @@ enum APIPath {
 
 }
 
-class APIPathHelper{
-  static String getValue(APIPath path){
-    switch(path){
+class APIPathHelper {
+  static String getValue(APIPath path) {
+    switch (path) {
       case APIPath.courses:
         return "/courses";
 
@@ -70,7 +68,7 @@ class APIPathHelper{
         return "/assignments";
 
       case APIPath.addFavorite:
-        return "/wishlist/toggle";
+        return "/wishlist/toggle?";
 
       case APIPath.wishlist:
         return "/wishlist";

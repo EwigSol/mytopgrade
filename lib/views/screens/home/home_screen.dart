@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Get.put(CoursesController());
   final CategoryController categoryController = Get.put(CategoryController());
   var myCoursesController = Get.put(MyCoursesController());
+  final CoursesController coursesController = Get.put(CoursesController());
   List<CoursesModel> popularCoursesModel = [];
   final box = GetStorage();
   List<String> myCoursesId = [];
@@ -143,115 +144,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
               buildSpaceVertical(height * 0.02),
-              buildTitle(StringsManager.instructor),
-              buildSpaceVertical(height * 0.01),
-              Obx(() => popularCoursesController.isLoading.value == null
-                      ? const CircularProgressIndicator()
-                      : SizedBox(
-                          height: height * 0.15,
-                          width: double.infinity,
-                          child: ListView.builder(
-                              itemCount:
-                                  popularCoursesController.coursesList.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                final catM =
-                                    popularCoursesController.coursesList[index];
-                                return buildInstructorCard(catM);
-                              }),
-                        )
-                  // {
-                  //   if (popularCoursesController.isLoading.value) {
-                  //     return const Center(child: CircularProgressIndicator());
-                  //   } else {
-                  //     return popularCoursesController.coursesList.isNotEmpty
-                  //         ? SizedBox(
-                  //             height: height * 0.15,
-                  //             width: double.infinity,
-                  //             child: ListView.builder(
-                  //                 itemCount:
-                  //                     popularCoursesController.coursesList.length,
-                  //                 scrollDirection: Axis.horizontal,
-                  //                 itemBuilder: (context, index) {
-                  //                   final catM =
-                  //                       popularCoursesController.coursesList[index];
-                  //                   return buildInstructorCard(catM);
-                  //                 }),
-                  //           )
-                  //         : SizedBox(
-                  //             height: height * 0.17,
-                  //             width: double.infinity,
-                  //             child: Center(
-                  //                 child: textStyle0_5(
-                  //                     text: "No Instructor Available")));
-                  //   }
-                  ),
+              buildTitle('All Courses'),
+              // buildSpaceVertical(height * 0.01),
+              Obx(() => coursesController.isLoading.value != null
+                  ? GridView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              // childAspectRatio: 3 / 2,
+                              crossAxisSpacing: 1,
+                              mainAxisSpacing: 10),
+                      itemCount: coursesController.coursesList.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return PopularCourse(
+                          argument: coursesController.coursesList[index].id,
+                          image: coursesController.coursesList[index].image,
+                          sectionslength: coursesController
+                              .coursesList[index].sections!.length,
+                          instructor:
+                              coursesController.coursesList[index].instructor,
+                          name: coursesController.coursesList[index].name,
+                          price: coursesController.coursesList[index].price,
+                          rating: coursesController.coursesList[index].rating,
+                        );
+                      })
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    )),
               buildSpaceVertical(height * 0.03),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Padding buildInstructorCard(CoursesModel catModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-      child: Container(
-        width: width * 0.50,
-        decoration: BoxDecoration(
-          color: ColorManager.whiteColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            buildSpaceHorizontal(width * 0.02),
-            catModel.instructor!.avatar != ''
-                ? CircleAvatar(
-                    radius: 35,
-                    backgroundColor: ColorManager.whiteColor,
-                    backgroundImage: NetworkImage(catModel.instructor!.avatar!),
-                  )
-                : const CircleAvatar(
-                    radius: 35,
-                    backgroundColor: ColorManager.whiteColor,
-                    backgroundImage: AssetImage(AssetsManager.girl),
-                  ),
-            buildSpaceHorizontal(width * 0.02),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildSpaceVertical(height * 0.02),
-                  Text(
-                    catModel.instructor!.name!.name,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.bold),
-                  ),
-                  buildSpaceVertical(height * 0.01),
-                  Flexible(
-                    child: Text(
-                      catModel.instructor!.description!,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 10, color: ColorManager.grayColor),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -302,12 +227,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const PopularCoursesScreen()));
-              } else if (title == "Best Instructors") {
+              } else if (title == "All Courses") {
                 // Get.toNamed(Paths.alInstructor);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BestInstructorScreen()));
+                        builder: (context) => const PopularCoursesScreen()));
               }
             },
             child: textStyle0_5(text: StringsManager.seeAll)),

@@ -1,20 +1,13 @@
 import 'dart:convert';
-
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/models/assignment_byID_model.dart';
 import 'package:topgrade/models/assignments_model.dart';
 import 'package:topgrade/models/category_model.dart';
-import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/course_review_model.dart';
 import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:topgrade/models/lessons_model.dart';
-import 'package:topgrade/models/my_courses_model.dart';
-import 'package:topgrade/models/quiz_byID_model.dart';
 import 'package:topgrade/models/quiz_model.dart';
-import 'package:topgrade/models/wishlist_model.dart';
 import '../models/course_category_model.dart';
 import '../models/payment_gateway_model.dart';
 import '../network_module/api_base.dart';
@@ -152,24 +145,6 @@ class RemoteServices {
       return assignmentModelFromJson(jsonString);
     } else {
       // errorToast(StringsManager.error, "Unable to Fetch Assignments List");
-      return null;
-    }
-  }
-
-  Future<WishlistModel?> fetchWishlist() async {
-    String token = box.read("token");
-    var response = await client.get(
-        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.wishlist)),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return wishlistModelFromJson(jsonString);
-    } else {
-      errorToast(StringsManager.error, "Unable to Fetch Wishlist");
       return null;
     }
   }
