@@ -23,7 +23,8 @@ class CoursesController extends GetxController {
     super.onInit();
   }
 
-  Future<List<CoursesModel>?> fetchCourses() async {
+  Future<List<CoursesModel>> fetchCourses() async {
+    isLoading.value = true;
     String token = box.read("token");
     var response = await client.get(
         Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses)),
@@ -32,26 +33,9 @@ class CoursesController extends GetxController {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      coursesList.value = coursesModelFromJson(jsonString);
-      return coursesModelFromJson(jsonString);
-    } else {
-      //show error message
-      errorToast(StringsManager.error, "Unable to Fetch Courses");
-      return null;
-    }
-  }
 
-  // void fetchAllCourses() async {
-  //   try {
-  //     isLoading(true);
-  //     var courses = await fetchCourses();
-  //     if (courses != null) {
-  //       isLoading(false);
-  //     }
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
+    coursesList.value = coursesModelFromJson(response.body);
+    isLoading.value = false;
+    return coursesModelFromJson(response.body);
+  }
 }

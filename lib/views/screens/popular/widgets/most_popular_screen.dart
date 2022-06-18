@@ -9,6 +9,7 @@ import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
 
 class MostPopularScreen extends StatelessWidget {
   MostPopularScreen({Key? key}) : super(key: key);
@@ -33,25 +34,61 @@ class MostPopularScreen extends StatelessWidget {
                     i < popularCoursesController.coursesList.length;
                     i++) {
                   if (popularCoursesController.coursesList[i].rating! >= 3) {
-                    popularCoursesModel.clear();
+                    // popularCoursesModel.clear();
                     popularCoursesModel
                         .add(popularCoursesController.coursesList[i]);
                   }
                 }
                 return popularCoursesModel.isNotEmpty
-                    ? Center(
-                        child: Wrap(
-                            direction: Axis.horizontal,
-                            spacing: 5,
-                            runSpacing: 10,
-                            alignment: WrapAlignment.spaceEvenly,
-                            children: popularCoursesModel.map((item) {
-                              return buildPopularCard(item, context);
-                            }).toList()),
-                      )
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                // childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 1,
+                                mainAxisSpacing: 10),
+                        itemCount: popularCoursesModel.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return PopularCourse(
+                            argument: popularCoursesModel[index].id,
+                            image: popularCoursesModel[index].image,
+                            sectionslength:
+                                popularCoursesModel[index].sections!.length,
+                            instructor: popularCoursesModel[index].instructor,
+                            name: popularCoursesModel[index].name,
+                            price: popularCoursesModel[index].price,
+                            rating: popularCoursesModel[index].rating,
+                          );
+                        })
                     : Center(
-                        child:
-                            textStyle0_5(text: "No Popular Courses Available"));
+                        child: CircularProgressIndicator(),
+                      );
+                // ? Wrap(
+                //     crossAxisAlignment: WrapCrossAlignment.start,
+                //     direction: Axis.vertical,
+                //     spacing: 10,
+                //     runSpacing: 2,
+                //     alignment: WrapAlignment.start,
+                //     runAlignment: WrapAlignment.start,
+                //     children: [
+                //       for (int i = 0; i < popularCoursesModel.length; i++)
+                //         PopularCourse(
+                //           argument: popularCoursesModel[i].id,
+                //           image: popularCoursesModel[i].image,
+                //           sectionslength:
+                //               popularCoursesModel[i].sections!.length,
+                //           instructor: popularCoursesModel[i].instructor,
+                //           name: popularCoursesModel[i].name,
+                //           price: popularCoursesModel[i].price,
+                //           rating: popularCoursesModel[i].rating,
+                //         )
+                //     ],
+                //   )
+                // : Center(
+                //     child:
+                //         textStyle0_5(text: "No Popular Courses Available"));
               }
             }),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),

@@ -68,8 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (categoryController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  for (int i = 0; i < myCoursesController.myCoursesList.length; i++) {
-                    myCoursesId.add(myCoursesController.myCoursesList[i].id.toString());
+                  for (int i = 0;
+                      i < myCoursesController.myCoursesList.length;
+                      i++) {
+                    myCoursesId.add(
+                        myCoursesController.myCoursesList[i].id.toString());
                     box.write("myCoursesId", myCoursesId);
                   }
 
@@ -97,65 +100,48 @@ class _HomeScreenState extends State<HomeScreen> {
               buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.popular),
               buildSpaceVertical(height * 0.01),
-              Obx(() => popularCoursesController.isLoading.value == null
-                      ? const CircularProgressIndicator()
-                      : SizedBox(
+              Obx(() {
+                if (popularCoursesController.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  for (int i = 0;
+                      i < popularCoursesController.coursesList.length;
+                      i++) {
+                    if (popularCoursesController.coursesList[i].rating! >= 3) {
+                      popularCoursesModel
+                          .add(popularCoursesController.coursesList[i]);
+                    }
+                  }
+                  return popularCoursesModel.isNotEmpty
+                      ? SizedBox(
                           height: height * 0.23,
                           width: double.infinity,
                           child: ListView.builder(
-                              itemCount:
-                                  popularCoursesController.coursesList.length,
+                              itemCount: popularCoursesModel.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return PopularCourse(
-                                  argument: popularCoursesController
-                                      .coursesList[index].id,
-                                  image: popularCoursesController
-                                      .coursesList[index].image,
-                                  instructor: popularCoursesController
-                                      .coursesList[index].instructor,
-                                  name: popularCoursesController
-                                      .coursesList[index].name,
-                                  price: popularCoursesController
-                                      .coursesList[index].price,
-                                  sectionslength: popularCoursesController
-                                      .coursesList[index].sections!.length,
-                                  rating: popularCoursesController
-                                      .coursesList[index].rating,
+                                  argument: popularCoursesModel[index].id,
+                                  image: popularCoursesModel[index].image,
+                                  sectionslength: popularCoursesModel[index]
+                                      .sections!
+                                      .length,
+                                  instructor:
+                                      popularCoursesModel[index].instructor,
+                                  name: popularCoursesModel[index].name,
+                                  price: popularCoursesModel[index].price,
+                                  rating: popularCoursesModel[index].rating,
                                 );
                               }),
                         )
-                  // if (popularCoursesController.isLoading.value) {
-                  //   return const Center(child: CircularProgressIndicator());
-                  // } else {
-                  //   for (int i = 0;
-                  //       i < popularCoursesController.coursesList.length;
-                  //       i++) {
-                  //     if (popularCoursesController.coursesList[i].rating! >= 3) {
-                  //       popularCoursesModel
-                  //           .add(popularCoursesController.coursesList[i]);
-                  //     }
-                  //   }
-                  //   return popularCoursesModel.isNotEmpty
-                  //       ? SizedBox(
-                  //           height: height * 0.23,
-                  //           width: double.infinity,
-                  //           child: ListView.builder(
-                  //               itemCount: popularCoursesModel.length,
-                  //               scrollDirection: Axis.horizontal,
-                  //               itemBuilder: (context, index) {
-                  //                 return buildPopularCard(
-                  //                     popularCoursesModel[index]);
-                  //               }),
-                  //         )
-                  //       : SizedBox(
-                  //           height: height * 0.22,
-                  //           width: double.infinity,
-                  //           child: Center(
-                  //               child: textStyle0_5(
-                  //                   text: "No Popular Courses Available")));
-                  // }
-                  ),
+                      : SizedBox(
+                          height: height * 0.22,
+                          width: double.infinity,
+                          child: Center(
+                              child: textStyle0_5(
+                                  text: "No Popular Courses Available")));
+                }
+              }),
               buildSpaceVertical(height * 0.02),
               buildTitle(StringsManager.instructor),
               buildSpaceVertical(height * 0.01),

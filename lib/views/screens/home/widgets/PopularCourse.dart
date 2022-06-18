@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
@@ -14,16 +15,15 @@ class PopularCourse extends StatelessWidget {
   var instructor;
   var sectionslength;
   var rating;
-  PopularCourse(
-      {required this.rating,
-      required this.sectionslength,
-      required this.instructor,
-      required this.name,
-      required this.price,
-      required this.image,
-      required this.argument,
-      Key? key})
-      : super(key: key);
+  PopularCourse({
+    this.rating,
+    this.sectionslength,
+    this.instructor,
+    this.name,
+    this.price,
+    this.image,
+    this.argument,
+  });
 
   double width = Get.width;
   double height = Get.height;
