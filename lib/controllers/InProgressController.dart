@@ -1,13 +1,14 @@
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:topgrade/models/InProgressModel.dart';
 import '../models/my_courses_model.dart';
 import '../services/remote_services.dart';
 import 'package:http/http.dart' as http;
 
-class MyCoursesController extends GetxController {
+class InProgressController extends GetxController {
   static var client = http.Client();
   var isLoading = true.obs;
-  var myCoursesList = <MyCoursesModel>[].obs;
+  var inProgressCourseList = <InProgressModel>[].obs;
   RemoteServices remoteServices = RemoteServices();
   final box = GetStorage();
 
@@ -17,19 +18,19 @@ class MyCoursesController extends GetxController {
     super.onInit();
   }
 
-  Future<List<MyCoursesModel>?> fetchMyCourses() async {
+  Future<List<InProgressModel>?> fetchMyCourses() async {
     isLoading.value = true;
     String token = box.read("token");
     final uri = Uri.parse(
-        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses?learned=true');
+        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses?learned=true&course_filter=in-progress');
     var response = await client.get(uri, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     });
     var jsonString = response.body;
-    myCoursesList.value = myCoursesModelFromJson(jsonString);
+    inProgressCourseList.value = inProgressCoursesFromJson(jsonString);
     isLoading.value = false;
-    return myCoursesModelFromJson(jsonString);
+    return inProgressCoursesFromJson(jsonString);
   }
 }

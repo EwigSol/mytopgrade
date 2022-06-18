@@ -1,134 +1,202 @@
-//
-//
-// import 'package:flutter/material.dart';
-// import 'package:sizer/sizer.dart';
-// import 'package:get/get.dart';
-// import '../../../../helpers/helper.dart';
-// import '../../../../helpers/text_helper.dart';
-// import '../../../../models/dummy_category_model.dart';
-// import '../../../../routes/appPages.dart';
-// import '../../../../utils/assets_manager.dart';
-// import '../../../../utils/color_manager.dart';
-// import '../../../../utils/values_manager.dart';
-// import '../../details/details_screen.dart';
-//
-// class CompletedCoursesScreen extends StatefulWidget {
-//   const CompletedCoursesScreen({Key? key}) : super(key: key);
-//   @override
-//   State<CompletedCoursesScreen> createState() => _CompletedCoursesScreenState();
-// }
-//
-// class _CompletedCoursesScreenState extends State<CompletedCoursesScreen> {
-//
-//   List<DummyCategoryModel> categoryModel = [];
-//   double _value = 67;
-//
-//   @override
-//   initState() {
-//     super.initState();
-//     getData();
-//   }
-//
-//   getData() {
-//     setState(() {
-//       categoryModel.add(DummyCategoryModel(
-//           id: "1", icon: const Icon(Icons.design_services_rounded, color: ColorManager.lightPurpleColor), title: "Design", color: ColorManager.pinkColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "2", icon: const Icon(Icons.developer_mode_outlined, color: ColorManager.lightPurpleColor), title: "Development", color: ColorManager.greenColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "3", icon: const Icon(Icons.announcement_rounded, color: ColorManager.pinkColor), title: "Marketing", color: ColorManager.lightPurpleColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "4", icon: const Icon(Icons.lightbulb, color: ColorManager.lightBlueColor), title: "Business", color: ColorManager.lightGreenColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "5", icon: const Icon(Icons.favorite ,color: ColorManager.redColor), title: "Healthy", color: ColorManager.lightBlueColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "6", icon: const Icon(Icons.photo, color: ColorManager.greenColor), title: "Photography", color: ColorManager.lightPurpleColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "7", icon: const Icon(Icons.volunteer_activism, color: ColorManager.lightBlueColor), title: "LifeStyle", color: ColorManager.greenColor));
-//       categoryModel.add(DummyCategoryModel(
-//           id: "8", icon: const Icon(Icons.music_note_rounded, color: ColorManager.pinkColor), title: "Music", color: ColorManager.lightBlueColor));
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-//         child: Column(
-//           children: [
-//             buildSpaceVertical(5.h),
-//             Center(
-//               child: Wrap(
-//                   direction: Axis.horizontal,
-//                   spacing: 5,
-//                   runSpacing: 10,
-//                   alignment: WrapAlignment.spaceEvenly,
-//                   children: categoryModel.map((item) {
-//                     return buildCoursesCard();
-//                   }).toList()
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Padding buildCoursesCard() {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p10),
-//       child: InkWell(
-//         onTap: () {
-//           // Get.toNamed(Paths.details);
-//           // Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
-//         },
-//         child: Container(
-//           width: 44.w,
-//           decoration: const BoxDecoration(
-//             color: ColorManager.whiteColor,
-//             borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(AppSize.s10),
-//                 topRight: Radius.circular(AppSize.s10)),
-//           ),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               SizedBox(
-//                 height: 14.h,
-//                 width: 100.w,
-//                 child: ClipRRect(
-//                     borderRadius: const BorderRadius.only(
-//                         topLeft: Radius.circular(AppSize.s10),
-//                         topRight: Radius.circular(AppSize.s10)),
-//                     child: Image.asset(AssetsManager.card,
-//                         fit: BoxFit.fill)),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.only(left: AppPadding.p4),
-//                 child: textStyle0_5(text: "User Interface Design"),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.only(left: AppPadding.p4),
-//                 child: textStyle0(text: "By Talent Tamer", color: ColorManager.grayColor),
-//               ),
-//               buildSpaceVertical(2.h),
-//               Center(
-//                 child: Container(
-//                   height: 5.h,
-//                   width: 35.w,
-//                   decoration: BoxDecoration(
-//                     border: Border.all(color: ColorManager.redColor),
-//                     borderRadius: BorderRadius.circular(AppSize.s16),
-//                     color: ColorManager.whiteColor
-//                   ),
-//                   child: Center(child: textStyle0(text: "View Certificate")),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+// ignore_for_file: must_be_immutable
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:topgrade/controllers/courses_controller.dart';
+import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/models/courses_model.dart';
+import 'package:topgrade/routes/appPages.dart';
+import 'package:topgrade/utils/color_manager.dart';
+import 'package:topgrade/utils/values_manager.dart';
+import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+
+class FinishedCourses extends StatefulWidget {
+  FinishedCourses({Key? key}) : super(key: key);
+
+  @override
+  State<FinishedCourses> createState() => _FinishedCoursesState();
+}
+
+class _FinishedCoursesState extends State<FinishedCourses> {
+  final CoursesController popularCoursesController =
+      Get.put(CoursesController());
+
+  List<CoursesModel> popularCoursesModel = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+        child: Column(
+          children: [
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+            Obx(() {
+              if (popularCoursesController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                for (int i = 0;
+                    i < popularCoursesController.coursesList.length;
+                    i++) {
+                  if (popularCoursesController.coursesList[i].rating! >= 3) {
+                    // popularCoursesModel.clear();
+                    popularCoursesModel
+                        .add(popularCoursesController.coursesList[i]);
+                  }
+                }
+                return popularCoursesModel.isNotEmpty
+                    ? GridView.builder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                // childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 1,
+                                mainAxisSpacing: 10),
+                        itemCount: popularCoursesModel.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return PopularCourse(
+                            argument: popularCoursesModel[index].id,
+                            image: popularCoursesModel[index].image,
+                            sectionslength:
+                                popularCoursesModel[index].sections!.length,
+                            instructor: popularCoursesModel[index].instructor,
+                            name: popularCoursesModel[index].name,
+                            price: popularCoursesModel[index].price,
+                            rating: popularCoursesModel[index].rating,
+                          );
+                        })
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              }
+            }),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding buildPopularCard(CoursesModel popularCourse, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p6, vertical: AppPadding.p4),
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(Paths.details, arguments: popularCourse);
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.43,
+          decoration: const BoxDecoration(
+            color: ColorManager.whiteColor,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(AppSize.s10),
+                topRight: Radius.circular(AppSize.s10)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.10,
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.10,
+                          width: MediaQuery.of(context).size.width,
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(AppSize.s10),
+                                  topRight: Radius.circular(AppSize.s10)),
+                              child: Image.network(popularCourse.image!,
+                                  fit: BoxFit.fill)),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 4,
+                        right: 0,
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.12,
+                          decoration: const BoxDecoration(
+                              color: ColorManager.redColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(AppSize.s16),
+                                bottomLeft: Radius.circular(AppSize.s16),
+                              )),
+                          child: Center(
+                              child: textStyle0(
+                                  text: "\$${popularCourse.price.toString()}",
+                                  color: ColorManager.whiteColor)),
+                        ),
+                      ),
+                    ],
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p4),
+                child: textStyle0_5(text: popularCourse.name!),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p4),
+                child: textStyle0(
+                    text: popularCourse.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p4, right: AppPadding.p4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                          width: MediaQuery.of(context).size.width * 0.04,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s20),
+                              color: ColorManager.redColor),
+                          child: const Center(
+                            child: Icon(Icons.play_circle_fill,
+                                size: 16, color: ColorManager.whiteColor),
+                          ),
+                        ),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
+                        textStyle0(
+                            text: "Sections: ${popularCourse.sections!.length}")
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        textStyle0(text: "⭐"),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
+                        textStyle0(text: popularCourse.rating.toString())
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    popularCoursesController.onClose();
+    super.dispose();
+  }
+}

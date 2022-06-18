@@ -2,29 +2,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:topgrade/controllers/InProgressController.dart';
 import 'package:topgrade/controllers/courses_controller.dart';
-import 'package:topgrade/controllers/my_courses_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
+import 'package:topgrade/models/InProgressModel.dart';
 import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
 
-class AllMyCourses extends StatefulWidget {
-  AllMyCourses({Key? key}) : super(key: key);
+class InProgressCourses extends StatefulWidget {
+  InProgressCourses({Key? key}) : super(key: key);
 
   @override
-  State<AllMyCourses> createState() => _AllMyCoursesState();
+  State<InProgressCourses> createState() => _InProgressCoursesState();
 }
 
-class _AllMyCoursesState extends State<AllMyCourses> {
-  final MyCoursesController myCoursesController =
-      Get.put(MyCoursesController());
+class _InProgressCoursesState extends State<InProgressCourses> {
+  final InProgressController inProgressController =
+      Get.put(InProgressController());
 
-  List<MyCoursesModel> myCoursesModel = [];
+  List<InProgressModel> inProgressCourseModel = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +35,19 @@ class _AllMyCoursesState extends State<AllMyCourses> {
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
             Obx(() {
-              if (myCoursesController.isLoading.value) {
+              if (inProgressController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               } else {
                 for (int i = 0;
-                    i < myCoursesController.myCoursesList.length;
+                    i < inProgressController.inProgressCourseList.length;
                     i++) {
-                  if (myCoursesController.myCoursesList[i].rating! >= 3) {
+                  if (inProgressController.inProgressCourseList[i].rating! >= 3) {
                     // popularCoursesModel.clear();
-                    myCoursesModel.add(myCoursesController.myCoursesList[i]);
+                    inProgressCourseModel
+                        .add(inProgressController.inProgressCourseList[i]);
                   }
                 }
-                return myCoursesModel.isNotEmpty
+                return inProgressCourseModel.isNotEmpty
                     ? GridView.builder(
                         physics: ScrollPhysics(),
                         shrinkWrap: true,
@@ -57,17 +58,17 @@ class _AllMyCoursesState extends State<AllMyCourses> {
                                 // childAspectRatio: 3 / 2,
                                 crossAxisSpacing: 1,
                                 mainAxisSpacing: 10),
-                        itemCount: myCoursesModel.length,
+                        itemCount: inProgressCourseModel.length,
                         itemBuilder: (BuildContext ctx, index) {
                           return PopularCourse(
-                            argument: myCoursesModel[index].id,
-                            image: myCoursesModel[index].image,
+                            argument: inProgressCourseModel[index].id,
+                            image: inProgressCourseModel[index].image,
                             sectionslength:
-                                myCoursesModel[index].sections!.length,
-                            instructor: myCoursesModel[index].instructor,
-                            name: myCoursesModel[index].name,
-                            price: myCoursesModel[index].price,
-                            rating: myCoursesModel[index].rating,
+                                inProgressCourseModel[index].sections!.length,
+                            instructor: inProgressCourseModel[index].instructor,
+                            name: inProgressCourseModel[index].name,
+                            price: inProgressCourseModel[index].price,
+                            rating: inProgressCourseModel[index].rating,
                           );
                         })
                     : Center(
@@ -193,11 +194,5 @@ class _AllMyCoursesState extends State<AllMyCourses> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    myCoursesController.onClose();
-    super.dispose();
   }
 }

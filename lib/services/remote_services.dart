@@ -25,24 +25,6 @@ class RemoteServices {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<List<MyCoursesModel>?> fetchMyCourses() async {
-    String token = box.read("token");
-    final uri =
-        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses));
-    var response = await client.get(uri, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return myCoursesModelFromJson(jsonString);
-    } else {
-      errorToast(StringsManager.error, "Unable to Fetch My Courses");
-      return null;
-    }
-  }
-
   Future<List<CourseCategoryModel>?> fetchCourseCategories() async {
     String token = box.read("token");
     var response = await client.get(
@@ -80,8 +62,6 @@ class RemoteServices {
     }
   }
 
-
-
   Future<CourseReviewModel?> fetchCourseReviews(String id) async {
     String token = box.read("token");
     var response = await client.get(
@@ -118,8 +98,6 @@ class RemoteServices {
       return null;
     }
   }
-
-
 
   Future<List<CategoriesModel>?> fetchCategories() async {
     String token = box.read("token");
@@ -213,6 +191,4 @@ class RemoteServices {
       return null;
     }
   }
-
-
 }
