@@ -46,7 +46,7 @@ class AssignmentByIdModel {
   Assigned? assigned;
   int? retakeCount;
   int? retaken;
-  Duration? duration;
+  var duration;
   String? introdution;
   String? passingGrade;
   String? allowFileType;
@@ -72,7 +72,7 @@ class AssignmentByIdModel {
         assigned: Assigned.fromJson(json["assigned"]),
         retakeCount: json["retake_count"],
         retaken: json["retaken"],
-        duration: Duration.fromJson(json["duration"]),
+        duration: json["duration"],
         introdution: json["introdution"],
         passingGrade: json["passing_grade"],
         allowFileType: json["allow_file_type"],
@@ -164,20 +164,20 @@ class FileValue {
       );
 }
 
-class Duration {
-  Duration({
-    this.format,
-    this.time,
-  });
+// class Duration {
+//   Duration({
+//     this.format,
+//     this.time,
+//   });
 
-  String? format;
-  int? time;
+//   String? format;
+//   int? time;
 
-  factory Duration.fromJson(Map<String, dynamic> json) => Duration(
-        format: json["format"],
-        time: json["time"],
-      );
-}
+//   factory Duration.fromJson(Map<String, dynamic> json) => Duration(
+//         format: json["format"],
+//         time: json["time"],
+//       );
+// }
 
 class Results {
   Results({

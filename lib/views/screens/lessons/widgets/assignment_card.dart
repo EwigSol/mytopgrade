@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/assignment_byID_controller.dart';
 import 'package:topgrade/models/assignment_byID_model.dart';
@@ -31,13 +32,17 @@ class AssignmentCard extends StatefulWidget {
 }
 
 class _AssignmentCardState extends State<AssignmentCard> {
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppPadding.p4, horizontal: AppPadding.p16),
       child: InkWell(
-          onTap: () {
+          onTap: () async {
+            await box.write("assignment_id", widget.id.toString());
+            print(
+                'id at the time of navigation is ${box.read("assignment_id")}');
             if (widget.isLocked == false) {
               Navigator.push(
                   context,

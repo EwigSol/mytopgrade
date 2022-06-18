@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -29,85 +28,94 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   final LessonByIDController lessonByIDController =
       Get.put(LessonByIDController());
   late LessonByIdModel lessonModelList = LessonByIdModel();
+  // LessonByIdModel? lessonByIdModel;
   String? url;
   String? name;
 
   @override
   void initState() {
-    super.initState();
-    lessonByIDController;
     lessonModelList;
     getLessonByIdData();
+    print('get lesson called');
+    super.initState();
   }
 
   getLessonByIdData() async {
-    lessonModelList =
-        (await lessonByIDController.fetchLessonByID(widget.id.toString()))!;
-    url = _parseHtmlString(lessonModelList.content!);
-
-    name = lessonModelList.name!;
+    lessonModelList = await lessonByIDController.fetchLessonByID(widget.id);
+    Future.delayed(Duration(seconds: 1)).then(((value) => setState(() {})));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.whiteColor,
-      appBar: buildAppBar(name),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
-            // Center(
-            //   child: SizedBox(
-            //     height: MediaQuery.of(context).size.height * 0.40,
-            //     width: MediaQuery.of(context).size.width * 0.95,
-            //     child: VideoItems(
-            //       videoPlayerController: VideoPlayerController.network(url!),
-            //       looping: false,
-            //       autoplay: true,
-            //     ),
-            //   ),
-            // ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-            Center(
-              child: InkWell(
-                onTap: () {
-                  finishLessonController
-                      .finishLesson(widget.id.toString())
-                      .then((response) => {
-                            if (response['status'] == 'success')
-                              {
-                                successToast("Success", "Lesson Finished"),
-                                Get.back()
-                              }
-                            else
-                              {
-                                errorToast("Error", "Failed to finish Lesson"),
-                              }
-                          });
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  width: MediaQuery.of(context).size.width * 0.60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      color: ColorManager.primaryColor),
-                  child: Obx(() {
-                    return finishLessonController.isDataSubmitting.value == true
-                        ? const Center(child: CircularProgressIndicator())
-                        : Center(
-                            child: textStyle2(
-                                text: "Finish Lesson",
-                                color: ColorManager.whiteColor));
-                  }),
-                ),
+    return lessonModelList.name != null
+        ? Scaffold(
+            backgroundColor: ColorManager.whiteColor,
+            appBar: buildAppBar(lessonModelList.name),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
+                  Center(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.40,
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: VideoItems(
+                        videoPlayerController: VideoPlayerController.network(
+                            _parseHtmlString(lessonModelList.content!)),
+                        looping: false,
+                        autoplay: true,
+                      ),
+                    ),
+                  ),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        finishLessonController
+                            .finishLesson(widget.id.toString())
+                            .then((response) => {
+                                  if (response['status'] == 'success')
+                                    {
+                                      successToast(
+                                          "Success", "Lesson Finished"),
+                                      Get.back()
+                                    }
+                                  else
+                                    {
+                                      errorToast(
+                                          "Error", "Failed to finish Lesson"),
+                                    }
+                                });
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.60,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppSize.s12),
+                            color: ColorManager.primaryColor),
+                        child: Obx(() {
+                          return finishLessonController
+                                      .isDataSubmitting.value ==
+                                  true
+                              ? const Center(child: CircularProgressIndicator())
+                              : Center(
+                                  child: textStyle2(
+                                      text: "Finish Lesson",
+                                      color: ColorManager.whiteColor));
+                        }),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          )
+        : Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
   }
 
   AppBar buildAppBar(text) {
@@ -116,6 +124,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
 
@@ -125,151 +134,10 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
         parse(document.body!.text).documentElement!.text;
     return parsedString;
   }
+
+  @override
+  void dispose() {
+    lessonByIDController.onClose();
+    super.dispose();
+  }
 }
-// class LessonViewScreen extends StatefulWidget {
-
-
-//   @override
-//   State<LessonViewScreen> createState() => _LessonViewScreenState();
-// }
-
-// class _LessonViewScreenState extends State<LessonViewScreen> {
-//   // VideoPlayerController? _controller;
-//   // ChewieController? _chewieController;
-  
-//   // final LessonByIDController lessonByIDController =
-//   //     Get.put(LessonByIDController());
-//   // late LessonByIdModel lessonModelList = LessonByIdModel();
-
-//   // String? url;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // lessonModelList;
-//     // getLessonByIdData();
-//   }
-
-//   // getLessonByIdData() async {
-//   //   lessonModelList = (await lessonByIDController.fetchLessonByID(widget.id))!;
-
-
-//   // _chewieController = ChewieController(
-//   //   videoPlayerController: VideoPlayerController.network(
-//   //       'https://musing-gould.18-141-157-112.plesk.page/wp-content/uploads/2020/06/Narrative-Essay2.mp4'),
-//   //   autoPlay: false,
-//   //   looping: false,
-//   //   hideControlsTimer: const Duration(seconds: 1),
-//   //   placeholder: Container(color: ColorManager.grayColor),
-//   // );
-
-//   // }
-
-//   // Future<void> initializePlayer() async {
-//   //   _controller = );
-
-//   // }
-
-//   // void _createChewieController() {
-//   //   _chewieController = ChewieController(
-//   //     videoPlayerController: _controller,
-//   //     autoPlay: false,
-//   //     looping: false,
-//   //     hideControlsTimer: const Duration(seconds: 1),
-//   //     placeholder: Container(color: ColorManager.grayColor),
-//   //   );
-//   // }
-
-//   // @override
-//   // void dispose() {
-//   //   super.dispose();
-//   //   // _controller.dispose();
-//   //   _chewieController?.dispose();
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: ColorManager.whiteColor,
-//       appBar: widget.name != null
-//           ? buildAppBar(widget.name.toString())
-//           : buildAppBar('sorry not working'),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             buildSpaceVertical(MediaQuery.of(context).size.height * 0.08),
-//             Center(
-//               child: SizedBox(
-//                 height: MediaQuery.of(context).size.height * 0.40,
-//                 width: MediaQuery.of(context).size.width * 0.95,
-//                 // child: Chewie(
-//                 //   controller: _chewieController!,
-//                 // )
-
-//                 // lessonModelList.content != null
-//                 child: VideoItems(
-//                   videoPlayerController:
-//                       VideoPlayerController.network('${widget.url}'),
-//                   looping: false,
-//                   autoplay: true,
-//                 ),
-//               ),
-//             ),
-//             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-//             Center(
-//               child: InkWell(
-//                 onTap: () {
-//                   finishLessonController
-//                       .finishLesson(widget.id.toString())
-//                       .then((response) => {
-//                             if (response['status'] == 'success')
-//                               {
-//                                 successToast("Success", "Lesson Finished"),
-//                                 Get.back()
-//                               }
-//                             else
-//                               {
-//                                 errorToast("Error", "Failed to finish Lesson"),
-//                               }
-//                           });
-//                 },
-//                 child: Container(
-//                   height: MediaQuery.of(context).size.height * 0.06,
-//                   width: MediaQuery.of(context).size.width * 0.60,
-//                   decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(AppSize.s12),
-//                       color: ColorManager.primaryColor),
-//                   child: Obx(() {
-//                     return finishLessonController.isDataSubmitting.value == true
-//                         ? const Center(child: CircularProgressIndicator())
-//                         : Center(
-//                             child: textStyle2(
-//                                 text: "Finish Lesson",
-//                                 color: ColorManager.whiteColor));
-//                   }),
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   AppBar buildAppBar(text) {
-//     return AppBar(
-//       title: textStyle2(text: text),
-//       centerTitle: true,
-//       backgroundColor: ColorManager.whiteColor,
-//       elevation: 0.5,
-//     );
-//   }
-
-//   String _parseHtmlString(String htmlString) {
-//     final document = parse(htmlString);
-//     final String parsedString =
-//         parse(document.body!.text).documentElement!.text;
-//     return parsedString;
-//   }
-// }

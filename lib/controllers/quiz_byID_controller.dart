@@ -13,40 +13,21 @@ class QuizByIDController extends GetxController {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<QuizByIdModel?> fetchQuizByID(String id) async {
+  Future<QuizByIdModel> fetchQuizByID(String id) async {
     isLoading.value = true;
     String token = box.read("token");
     var response = await client.get(
-        Uri.parse(
-            APIBase.baseURL + APIPathHelper.getValue(APIPath.quiz) + "/" + id),
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.quiz) +
+            "/" +
+            id.toString()),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      quizByIDList.value = quizByIdModelFromJson(jsonString);
-      isLoading.value = false;
-
-      return quizByIdModelFromJson(jsonString);
-    } else {
-      isLoading.value = false;
-      // errorToast(StringsManager.error, "Unable to Fetch Quiz By ID");
-      return null;
-    }
+    quizByIDList.value = quizByIdModelFromJson(response.body);
+    isLoading.value = false;
+    return quizByIdModelFromJson(response.body);
   }
-
-  // void fetchQuizById(String id) async {
-  //   try {
-  //     isLoading(true);
-  //     var courseByID = await remoteServices.fetchQuizByID(id);
-  //     if (courseByID != null) {
-  //       isLoading(false);
-  //       quizByIDList.value = courseByID;
-  //     }
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 }

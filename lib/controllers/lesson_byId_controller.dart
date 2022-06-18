@@ -12,18 +12,12 @@ class LessonByIDController extends GetxController {
   var lessonByIDList = Rxn<LessonByIdModel>();
   final box = GetStorage();
   static var client = http.Client();
-  var id;
 
-  @override
-  void onInit() {
-    var _id = box.read("lesson_id");
-    print('id given to controller this time is $_id');
-    fetchLessonByID(_id);
-  }
-
-  Future<LessonByIdModel?> fetchLessonByID(String id) async {
+  Future<LessonByIdModel> fetchLessonByID(dynamic id) async {
     isLoading.value = true;
     String token = box.read("token");
+    print(token);
+    print(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons) + "/" + id);
     var response = await client.get(
         Uri.parse(APIBase.baseURL +
             APIPathHelper.getValue(APIPath.lessons) +
@@ -31,24 +25,12 @@ class LessonByIDController extends GetxController {
             id),
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          // 'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-    lessonByIDList.value = await lessonByIdModelFromJson(response.body);
-    print(lessonByIDList.value!.name);
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      isLoading.value = false;
-      return lessonByIdModelFromJson(jsonString);
-    } else {
-      isLoading.value = false;
-      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
-      return null;
-    }
-  }
 
-  // Future<void> getlessonId() {
-  //   id = _id;
-  //   return _id;
-  // }
+    lessonByIDList.value = lessonByIdModelFromJson(response.body);
+    isLoading.value = false;
+    return lessonByIdModelFromJson(response.body);
+  }
 }

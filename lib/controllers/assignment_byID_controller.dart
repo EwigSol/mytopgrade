@@ -13,39 +13,20 @@ class AssignmentByIDController extends GetxController {
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<AssignmentByIdModel?> fetchAssignmentByID(String id) async {
+  Future<AssignmentByIdModel> fetchAssignmentByID(String id) async {
     isLoading.value = true;
     String token = box.read("token");
     var response = await client.get(
         Uri.parse(APIBase.baseURL +
             APIPathHelper.getValue(APIPath.assignmentById) +
-            id),
+            id.toString()),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-    if (response.statusCode == 200) {
-      var jsonString = response.body;
-      isLoading.value = false;
-      return assignmentByIdModelFromJson(jsonString);
-    } else {
-      isLoading.value = false;
-      // errorToast(StringsManager.error, "Unable to Fetch Lesson By ID");
-      return null;
-    }
+    assignmentByIDList.value = assignmentByIdModelFromJson(response.body);
+    isLoading.value = false;
+    return assignmentByIdModelFromJson(response.body);
   }
-
-  // void fetchAssignmentById(String id) async {
-  //   try {
-  //     isLoading(true);
-  //     var assignmentByID = await remoteServices.fetchAssignmentByID(id);
-  //     if (assignmentByID != null) {
-  //       isLoading(false);
-  //       assignmentByIDList.value = assignmentByID;
-  //     }
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 }

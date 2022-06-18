@@ -89,10 +89,10 @@ class AppRoutes {
         name: Paths.addNC,
         page: () => const AddNewCard(),
         transition: Transition.rightToLeftWithFade),
-    GetPage(
-        name: Paths.lessons,
-        page: () => LessonsScreen(),
-        transition: Transition.rightToLeftWithFade),
+    // GetPage(
+    //     name: Paths.lessons,
+    //     page: () => LessonsScreen(),
+    //     transition: Transition.rightToLeftWithFade),
     GetPage(
         name: Paths.payment,
         page: () => const PaymentScreen(),

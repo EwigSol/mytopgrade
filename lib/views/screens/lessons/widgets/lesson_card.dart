@@ -40,17 +40,16 @@ class _LessonCardState extends State<LessonCard> {
           onTap: () async {
             await box.write("lesson_id", widget.id.toString());
             print('id at the time of navigation is ${box.read("lesson_id")}');
-            // if (widget.isLocked == false) {
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => LessonViewScreen(
-                          id: widget.id.toString(),
-                          // url: url,
-                          // name: name,
-                        )));
-            // }
+            if (widget.isLocked == false) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LessonViewScreen(
+                            id: widget.id.toString(),
+                            // url: url,
+                            // name: name,
+                          )));
+            }
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.08,
