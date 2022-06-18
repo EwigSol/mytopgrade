@@ -22,7 +22,7 @@ Text textStyle0({required String text, Color? color, TextAlign? textAlign}) {
     style: GoogleFonts.poppins(
       fontSize: 10,
       color: color ?? ColorManager.blackColor,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.normal,
     ),
   );
 }

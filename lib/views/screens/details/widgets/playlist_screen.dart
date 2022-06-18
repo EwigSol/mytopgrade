@@ -8,12 +8,9 @@ import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/lessons/widgets/assignment_card.dart';
 import 'package:topgrade/views/screens/lessons/widgets/lesson_card.dart';
 import 'package:topgrade/views/screens/lessons/widgets/quiz_card.dart';
-import '../../../../controllers/assignment_byID_controller.dart';
-import '../../../../controllers/lesson_byId_controller.dart';
 import '../../../../controllers/quiz_byID_controller.dart';
 import '../../../../models/assignment_byID_model.dart';
 import '../../../../models/courses_model.dart' as cm;
-import '../../../../models/lesson_byID_model.dart';
 import '../../../../models/quiz_byID_model.dart';
 import '../../../../models/wishlist_model.dart' as wm;
 import 'package:get/get.dart';
@@ -84,9 +81,13 @@ class _PlaylistState extends State<Playlist> {
                     header: Padding(
                       padding: const EdgeInsets.only(
                           top: AppPadding.p6, left: AppPadding.p12),
-                      child: textStyle0_5(
-                          text:
-                              widget.courseByIdModel!.sections![index].title!),
+                      child: Text(
+                        widget.courseByIdModel!.sections![index].title!,
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ),
                     collapsed: Padding(
                       padding: const EdgeInsets.only(
@@ -96,6 +97,7 @@ class _PlaylistState extends State<Playlist> {
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                     expanded: widget
