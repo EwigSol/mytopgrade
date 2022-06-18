@@ -11,11 +11,17 @@ import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
 
-class MostPopularScreen extends StatelessWidget {
+class MostPopularScreen extends StatefulWidget {
   MostPopularScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MostPopularScreen> createState() => _MostPopularScreenState();
+}
+
+class _MostPopularScreenState extends State<MostPopularScreen> {
   final CoursesController popularCoursesController =
       Get.put(CoursesController());
+
   List<CoursesModel> popularCoursesModel = [];
 
   @override
@@ -65,30 +71,6 @@ class MostPopularScreen extends StatelessWidget {
                     : Center(
                         child: CircularProgressIndicator(),
                       );
-                // ? Wrap(
-                //     crossAxisAlignment: WrapCrossAlignment.start,
-                //     direction: Axis.vertical,
-                //     spacing: 10,
-                //     runSpacing: 2,
-                //     alignment: WrapAlignment.start,
-                //     runAlignment: WrapAlignment.start,
-                //     children: [
-                //       for (int i = 0; i < popularCoursesModel.length; i++)
-                //         PopularCourse(
-                //           argument: popularCoursesModel[i].id,
-                //           image: popularCoursesModel[i].image,
-                //           sectionslength:
-                //               popularCoursesModel[i].sections!.length,
-                //           instructor: popularCoursesModel[i].instructor,
-                //           name: popularCoursesModel[i].name,
-                //           price: popularCoursesModel[i].price,
-                //           rating: popularCoursesModel[i].rating,
-                //         )
-                //     ],
-                //   )
-                // : Center(
-                //     child:
-                //         textStyle0_5(text: "No Popular Courses Available"));
               }
             }),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
@@ -209,5 +191,11 @@ class MostPopularScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    popularCoursesController.onClose();
+    super.dispose();
   }
 }
