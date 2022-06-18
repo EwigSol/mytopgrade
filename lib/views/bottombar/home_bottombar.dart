@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/views/screens/courses/MyCourses.dart';
-import 'package:topgrade/views/screens/courses/my_courses_screen.dart';
 import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
 import 'package:topgrade/views/screens/home/home_screen.dart';
 import 'package:topgrade/views/screens/profile/profile_screen.dart';

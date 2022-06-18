@@ -8,7 +8,7 @@ import 'package:topgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import 'package:topgrade/views/screens/courses/widgets/InProgress.dart';
 import 'package:topgrade/views/screens/courses/widgets/all_courses_screen.dart';
-import 'package:topgrade/views/screens/courses/widgets/completed_courses_screen.dart';
+import 'package:topgrade/views/screens/courses/widgets/FinishedCourses.dart';
 
 class MyCourses extends StatefulWidget {
   const MyCourses({Key? key}) : super(key: key);
