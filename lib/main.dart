@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/controllers/assignment_byID_controller.dart';
 import 'package:topgrade/controllers/course_byId_controller.dart';
 import 'package:topgrade/controllers/quiz_byID_controller.dart';
+import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   Get.put(CourseByIDController());
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
+  Get.put(WishlistController());
   // Get.put(LessonByIDController());
   runApp(const MyApp());
 }

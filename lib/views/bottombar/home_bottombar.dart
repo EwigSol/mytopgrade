@@ -27,7 +27,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
     return [
       const HomeScreen(),
       const MyCourses(),
-      const QuizAssignmentScreen(),
+      // const QuizAssignmentScreen(),
       const FavouritesScreen(),
       // const ChatListScreen(),
       const ProfileScreen(),
@@ -48,12 +48,12 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
           activeColorPrimary: ColorManager.blackColor,
           activeColorSecondary: ColorManager.primaryColor,
           inactiveColorSecondary: ColorManager.blackColor),
-      PersistentBottomNavBarItem(
-          icon: const Icon(Icons.chrome_reader_mode),
-          title: ("Quiz"),
-          activeColorPrimary: ColorManager.blackColor,
-          activeColorSecondary: ColorManager.primaryColor,
-          inactiveColorSecondary: ColorManager.blackColor),
+      // PersistentBottomNavBarItem(
+      //     icon: const Icon(Icons.chrome_reader_mode),
+      //     title: ("Quiz"),
+      //     activeColorPrimary: ColorManager.blackColor,
+      //     activeColorSecondary: ColorManager.primaryColor,
+      //     inactiveColorSecondary: ColorManager.blackColor),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.favorite_border),
           title: ("Likes"),

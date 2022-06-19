@@ -9,6 +9,7 @@ class AddFavoriteController extends GetxController {
   var added = false.obs;
   static var client = http.Client();
   final box = GetStorage();
+  List<dynamic> wishlist = [];
 
   Future<Map<String, dynamic>> addFavorite(String id) async {
     Map<String, dynamic> result;

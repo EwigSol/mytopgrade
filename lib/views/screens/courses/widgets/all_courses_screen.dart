@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/courses_controller.dart';
-import 'package:topgrade/controllers/my_courses_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/courses_model.dart';
@@ -12,17 +10,17 @@ import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import '../../../../controllers/my_all_courses_controller.dart';
 
 class AllMyCourses extends StatefulWidget {
-  AllMyCourses({Key? key}) : super(key: key);
+  const AllMyCourses({Key? key}) : super(key: key);
 
   @override
   State<AllMyCourses> createState() => _AllMyCoursesState();
 }
 
 class _AllMyCoursesState extends State<AllMyCourses> {
-  final MyCoursesController myCoursesController =
-      Get.put(MyCoursesController());
+  final MyAllCoursesController myCoursesController = Get.put(MyAllCoursesController());
 
   List<MyCoursesModel> myCoursesModel = [];
 
@@ -38,17 +36,16 @@ class _AllMyCoursesState extends State<AllMyCourses> {
               if (myCoursesController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                for (int i = 0;
-                    i < myCoursesController.myCoursesList.length;
-                    i++) {
-                  if (myCoursesController.myCoursesList[i].rating! >= 3) {
-                    // popularCoursesModel.clear();
-                    myCoursesModel.add(myCoursesController.myCoursesList[i]);
-                  }
-                }
-                return myCoursesModel.isNotEmpty
+                // for (int i = 0; i < myCoursesController.myCoursesList.length;
+                //     i++) {
+                //   if (myCoursesController.myCoursesList[i].rating! >= 3) {
+                //     // popularCoursesModel.clear();
+                //     myCoursesModel.add(myCoursesController.myCoursesList[i]);
+                //   }
+                // }
+                return myCoursesController.myCoursesList.isNotEmpty
                     ? GridView.builder(
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         gridDelegate:
@@ -57,21 +54,21 @@ class _AllMyCoursesState extends State<AllMyCourses> {
                                 // childAspectRatio: 3 / 2,
                                 crossAxisSpacing: 1,
                                 mainAxisSpacing: 10),
-                        itemCount: myCoursesModel.length,
+                        itemCount: myCoursesController.myCoursesList.length,
                         itemBuilder: (BuildContext ctx, index) {
                           return PopularCourse(
-                            argument: myCoursesModel[index].id,
-                            image: myCoursesModel[index].image,
+                            argument: myCoursesController.myCoursesList[index].id,
+                            image: myCoursesController.myCoursesList[index].image,
                             sectionslength:
-                                myCoursesModel[index].sections!.length,
-                            instructor: myCoursesModel[index].instructor,
-                            name: myCoursesModel[index].name,
-                            price: myCoursesModel[index].price,
-                            rating: myCoursesModel[index].rating,
+                            myCoursesController.myCoursesList[index].sections!.length,
+                            instructor: myCoursesController.myCoursesList[index].instructor,
+                            name: myCoursesController.myCoursesList[index].name,
+                            price: myCoursesController.myCoursesList[index].price,
+                            rating: myCoursesController.myCoursesList[index].rating,
                           );
                         })
-                    : Center(
-                        child: CircularProgressIndicator(),
+                    : const Center(
+                        child: Text("Sorry You have started no course yet"),
                       );
               }
             }),

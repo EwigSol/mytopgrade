@@ -4,7 +4,7 @@ import '../models/my_courses_model.dart';
 import '../services/remote_services.dart';
 import 'package:http/http.dart' as http;
 
-class MyCoursesController extends GetxController {
+class MyAllCoursesController extends GetxController {
   static var client = http.Client();
   var isLoading = true.obs;
   var myCoursesList = <MyCoursesModel>[].obs;
@@ -21,7 +21,7 @@ class MyCoursesController extends GetxController {
     isLoading.value = true;
     String token = box.read("token");
     final uri = Uri.parse(
-        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses');
+        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses?learned=true');
     var response = await client.get(uri, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -21,6 +21,12 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   var wishlistController = Get.put(WishlistController());
 
   @override
+  void initState() {
+    super.initState();
+    wishlistController.fetchWishlist();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
@@ -37,7 +43,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 } else {
                   return wishlistController.wishlist.value != null
                       ? GridView.builder(
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           gridDelegate:
@@ -66,7 +72,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                   .wishlist.value!.data!.items![index].rating,
                             );
                           })
-                      : Center(
+                      : const Center(
                           child: CircularProgressIndicator(),
                         );
                 }

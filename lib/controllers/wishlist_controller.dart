@@ -13,11 +13,11 @@ class WishlistController extends GetxController {
   RemoteServices remoteServices = RemoteServices();
   static var client = http.Client();
 
-  @override
-  void onInit() {
-    fetchWishlist();
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   fetchWishlist();
+  //   super.onInit();
+  // }
 
   Future<WishlistModel?> fetchWishlist() async {
     isLoading.value = true;

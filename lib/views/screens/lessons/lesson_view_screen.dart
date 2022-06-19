@@ -42,15 +42,15 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
 
   getLessonByIdData() async {
     lessonModelList = await lessonByIDController.fetchLessonByID(widget.id);
-    Future.delayed(Duration(seconds: 1)).then(((value) => setState(() {})));
+    Future.delayed(Duration(seconds: 3)).then(((value) => setState(() {})));
   }
 
   @override
   Widget build(BuildContext context) {
-    return lessonModelList.name != null
+    return lessonModelList != null
         ? Scaffold(
             backgroundColor: ColorManager.whiteColor,
-            appBar: buildAppBar(lessonModelList.name),
+            appBar: buildAppBar(lessonModelList.name != null ? lessonModelList.name : ""),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +111,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
               ),
             ),
           )
-        : Scaffold(
+        : const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

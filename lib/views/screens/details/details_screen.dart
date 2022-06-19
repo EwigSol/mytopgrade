@@ -10,15 +10,12 @@ import 'package:topgrade/controllers/payment_gateway_controller.dart';
 import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/cart_model.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/courses_model.dart';
 import 'package:topgrade/models/my_courses_model.dart';
 import 'package:topgrade/models/payment_gateway_model.dart';
 import 'package:topgrade/models/wishlist_model.dart';
-import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/strings_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/details/widgets/instructor_screen.dart';
 import '../../../controllers/my_courses_controller.dart';
@@ -36,8 +33,7 @@ class DetailsScreen extends StatefulWidget {
       {Key? key,
       this.coursesDetail,
       this.favCourseDetail,
-      required this.isWishlist})
-      : super(key: key);
+      required this.isWishlist}) : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -58,6 +54,7 @@ class _DetailsScreenState extends State<DetailsScreen>
   List<PaymentGatewayModel> paymentGatewayModel = [];
   List<MyCoursesModel> myCourseModel = [];
   CourseByIdModel? courseByIdModel;
+  WishlistModel? wishlistModel;
   final box = GetStorage();
   List<String> myCoursesId = [];
   bool isPaid = false;
@@ -66,19 +63,21 @@ class _DetailsScreenState extends State<DetailsScreen>
   String? isMyCourse;
   double width = Get.width;
   double height = Get.height;
+  bool inWishlist = false;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
+    checkWishlist();
     initalize();
-    // checkPayment();
+
   }
 
   initalize() async {
     var data = Get.arguments;
 
-    var _courseByIdModel =
-        await courseByIDController.fetchCourseByID(data.toString());
+    var _courseByIdModel = await courseByIDController.fetchCourseByID(data.toString());
     setState(() {
       courseByIdModel = _courseByIdModel;
     });
@@ -90,8 +89,30 @@ class _DetailsScreenState extends State<DetailsScreen>
         });
       }
     }
-    _controller = TabController(length: 3, vsync: this);
     cartController.open();
+    _controller = TabController(length: 3, vsync: this);
+
+  }
+
+  checkWishlist() async {
+    var data = Get.arguments;
+    wishlistModel = await wishlistController.fetchWishlist();
+    setState(() { });
+    for (int i = 0; i < wishlistController.wishlist.value!.data!.items!.length; i++) {
+      if (data == wishlistController.wishlist.value!.data!.items![i].id) {
+        setState(() {
+          inWishlist = true;
+        });
+      }else{
+        setState(() {
+          inWishlist = false;
+        });
+      }
+    }
+    Future.delayed(const Duration(seconds: 3)).then(((value) => setState(() {})));
+    setState(() {
+      isLoading = true;
+    });
   }
 
   // checkPayment() {
@@ -127,7 +148,7 @@ class _DetailsScreenState extends State<DetailsScreen>
   @override
   Widget build(BuildContext context) {
     return courseByIDController.isLoading.value
-        ? Scaffold(
+        ? const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           )
         : Scaffold(
@@ -1072,7 +1093,7 @@ class _DetailsScreenState extends State<DetailsScreen>
         text,
         overflow: TextOverflow.clip,
         maxLines: 1,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
       ),
       centerTitle: false,
       backgroundColor: ColorManager.whiteColor,
@@ -1087,13 +1108,31 @@ class _DetailsScreenState extends State<DetailsScreen>
                     {
                       Get.snackbar("Success", "Course Added to Wishlist",
                           snackPosition: SnackPosition.BOTTOM),
+                      setState(() {
+                        inWishlist = true;
+                      }),
                     }
                   else
                     {
                       Get.snackbar("Success", "Course Removed from WishList",
-                          snackPosition: SnackPosition.BOTTOM)
+                          snackPosition: SnackPosition.BOTTOM),
+                      setState(() {
+                        inWishlist = false;
+                      }),
                     }
                 });
+            // wishlistController.fetchWishlist();
+            // for (int i = 0; i < wishlistController.wishlist.value!.data!.items!.length; i++) {
+            //   if (data == wishlistController.wishlist.value!.data!.items![i].id) {
+            //     setState(() {
+            //       inWishlist = true;
+            //     });
+            //   }else{
+            //     setState(() {
+            //       inWishlist = false;
+            //     });
+            //   }
+            // }
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.05,
@@ -1101,14 +1140,9 @@ class _DetailsScreenState extends State<DetailsScreen>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.s16),
                 color: ColorManager.whiteColor),
-            child: Obx(() {
-              return addFavController.added.value == false
-                  ? const Icon(
-                      Icons.favorite_border,
-                      color: ColorManager.blackColor,
-                    )
-                  : const Icon(Icons.favorite, color: ColorManager.redColor);
-            }),
+            child: inWishlist == true
+                ? const Icon(Icons.favorite, color: ColorManager.redColor)
+                : const Icon(Icons.favorite_border, color: ColorManager.blackColor),
           ),
         ),
         buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),

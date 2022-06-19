@@ -71,8 +71,8 @@ class _InProgressCoursesState extends State<InProgressCourses> {
                             rating: inProgressCourseModel[index].rating,
                           );
                         })
-                    : Center(
-                        child: CircularProgressIndicator(),
+                    : const Center(
+                        child: Text("No course is in progress"),
                       );
               }
             }),
