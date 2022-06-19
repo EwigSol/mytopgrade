@@ -57,7 +57,7 @@ class PopularCourse extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  // height: height * 0.14,
+                  height: height * 0.11,
                   width: width,
                   child: Stack(
                     children: [
@@ -88,27 +88,45 @@ class PopularCourse extends StatelessWidget {
                               )),
                           child: Center(
                             child: price != 0
-                                ? textStyle0(
-                                    text: "\$\ ${price.toString()}",
-                                    color: ColorManager.whiteColor)
-                                : textStyle0(
-                                    text: " Free ",
-                                    color: ColorManager.whiteColor),
+                                ? Text(
+                                    '\$\ ${price.toString()}',
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal),
+                                  )
+                                : const Text(
+                                    'Free',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal),
+                                  ),
                           ),
                         ),
                       ),
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: textStyle0_5(text: name),
+                padding: const EdgeInsets.only(left: 4, top: 5),
+                child: Text(
+                  name,
+                  maxLines: 1,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                   left: 4,
                 ),
-                child: textStyle0(
-                    text: instructor.toString(), color: ColorManager.grayColor),
+                child: Text(
+                  instructor.toString(),
+                  style: const TextStyle(
+                      color: ColorManager.grayColor, fontSize: 12),
+                ),
               ),
               buildSpaceVertical(height * 0.01),
               Padding(
@@ -124,7 +142,6 @@ class PopularCourse extends StatelessWidget {
                       children: [
                         Container(
                           height: height * 0.020,
-                          // width: width * 0.04,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: ColorManager.redColor),
@@ -134,15 +151,29 @@ class PopularCourse extends StatelessWidget {
                           ),
                         ),
                         buildSpaceHorizontal(width * 0.02),
-                        textStyle0(text: "Sections: ${sectionslength}")
+                        Text(
+                          "Sections: ${sectionslength}",
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                        // textStyle0(text: "Sections: ${sectionslength}")
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(width * 0.02),
-                        textStyle0(text: rating.toString())
+                        const Text(
+                          "⭐",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                        buildSpaceHorizontal(width * 0.01),
+                        Text(
+                          rating.toString(),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 12),
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ],

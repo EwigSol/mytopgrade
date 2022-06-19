@@ -42,11 +42,13 @@ class InstructorScreen extends StatelessWidget {
                             NetworkImage(favCourseDetail!.instructor!.avatar!),
                       ),
                     )
-                  : Center(
+                  : const Center(
                       child: CircleAvatar(
                         radius: 80,
                         backgroundColor: ColorManager.halfWhiteColor,
-                        child: Image.asset(AssetsManager.logo),
+                        backgroundImage: AssetImage(
+                          'assets/images/placeholder.png',
+                        ),
                       ),
                     ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
@@ -94,14 +96,24 @@ class InstructorScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                  Center(
-                    child: CircleAvatar(
-                      radius: 80,
-                      backgroundColor: ColorManager.halfWhiteColor,
-                      backgroundImage:
-                          NetworkImage(myCoursesModel!.instructor!.avatar!),
-                    ),
-                  ),
+                  myCoursesModel!.instructor!.avatar! != ""
+                      ? Center(
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: ColorManager.halfWhiteColor,
+                            backgroundImage: NetworkImage(
+                                myCoursesModel!.instructor!.avatar!),
+                          ),
+                        )
+                      : const Center(
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: ColorManager.halfWhiteColor,
+                            backgroundImage: AssetImage(
+                              'assets/images/placeholder.png',
+                            ),
+                          ),
+                        ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                   Padding(
                     padding:
@@ -150,14 +162,24 @@ class InstructorScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                  Center(
-                    child: CircleAvatar(
-                      radius: 80,
-                      backgroundColor: ColorManager.halfWhiteColor,
-                      backgroundImage:
-                          NetworkImage(courseByIdModel!.instructor!.avatar!),
-                    ),
-                  ),
+                  courseByIdModel!.instructor!.avatar! != ""
+                      ? Center(
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: ColorManager.halfWhiteColor,
+                            backgroundImage: NetworkImage(
+                                courseByIdModel!.instructor!.avatar!),
+                          ),
+                        )
+                      : const Center(
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: ColorManager.halfWhiteColor,
+                            backgroundImage: AssetImage(
+                              'assets/images/placeholder.png',
+                            ),
+                          ),
+                        ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
                   Padding(
                     padding:
