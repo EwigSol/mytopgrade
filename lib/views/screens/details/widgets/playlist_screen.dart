@@ -50,6 +50,7 @@ class _PlaylistState extends State<Playlist> {
 
   @override
   void initState() {
+    print(widget.isLocked);
     super.initState();
   }
 

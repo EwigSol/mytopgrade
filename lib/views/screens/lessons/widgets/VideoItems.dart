@@ -23,6 +23,7 @@ class _VideoItemsState extends State<VideoItems> {
 
   @override
   void initState() {
+    print(widget.videoPlayerController.dataSource);
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,

@@ -148,42 +148,40 @@ class _LoginScreenState extends State<LoginScreen> {
               buildSpaceVertical(height * 0.03),
               InkWell(
                 onTap: () async {
-                  await loginController.login(
-                      emailController.text, passwordController.text);
-                  var username = await box.read("user_display_name");
-                  Get.snackbar('Welcome Back',
-                      'Welcome ${username} to your Educational Portal',
-                      snackPosition: SnackPosition.BOTTOM);
-                  Get.toNamed(Paths.homeBar);
-                  // if (emailController.text.isNotEmpty) {
-                  //   if (passwordController.text.isNotEmpty) {
-                  //     loginController
-                  //         .login(emailController.text, passwordController.text)
-                  //         .then((response) => {
-                  //               if (response['status'] == true)
-                  //                 {
-                  //                   box.write("token", response['token']),
-                  //                   box.write("user_id", response['user_id']),
-                  //                   box.write(
-                  //                       "user_login", response['user_login']),
-                  //                   box.write(
-                  //                       "user_email", response['user_email']),
-                  //                   box.write("user_display_name",
-                  //                       response['user_display_name']),
-                  //                   box.write("isLogged", true),
-                  //                   Get.toNamed(Paths.homeBar)
-                  //                 }
-                  //               else
-                  //                 {
-                  //                   errorToast("Error", "Unable to login"),
-                  //                 }
-                  //             });
-                  //   } else {
-                  //     errorToast("Error", "Email is required");
-                  //   }
-                  // } else {
-                  //   errorToast("Error", "Password is required");
-                  // }
+                  if (emailController.text.isNotEmpty) {
+                    if (passwordController.text.isNotEmpty) {
+                      await loginController
+                          .login(emailController.text, passwordController.text)
+                          .then((response) => {
+                                if (response['status'] == true)
+                                  {
+                                    // box.write("token", response['token']),
+                                    // box.write("user_id", response['user_id']),
+                                    // box.write(
+                                    //     "user_login", response['user_login']),
+                                    // box.write(
+                                    //     "user_email", response['user_email']),
+                                    box.write("user_display_name",
+                                        response['user_display_name']),
+                                    // box.write("isLogged", true),
+
+                                    Get.snackbar('Welcome Back',
+                                        'Welcome ${box.read("user_display_name")} to your Educational Portal',
+                                        snackPosition: SnackPosition.BOTTOM),
+                                    Get.toNamed(Paths.homeBar),
+                                  }
+                                else
+                                  {
+                                    errorToast("Error",
+                                        "Please Check your Email or Password"),
+                                  }
+                              });
+                    } else {
+                      errorToast("Error", "Email is required");
+                    }
+                  } else {
+                    errorToast("Error", "Password is required");
+                  }
                 },
                 child: Obx(() {
                   if (loginController.isDataSubmitting.value == true) {

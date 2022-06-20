@@ -24,9 +24,12 @@ class OrderController extends GetxController {
       id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
+    var userId = box.read("user_id");
     Map<dynamic, dynamic> dataBody = {
       "payment_method": paymentMethod,
       "payment_method_title": paymentMethodTitle,
+      "customer_id": userId,
+      "status": "on-hold",
       "billing": {
         "first_name": firstName,
         "last_name": lastName,
@@ -38,6 +41,14 @@ class OrderController extends GetxController {
         "email": email,
         "phone": phone,
       },
+      "meta_data": [
+        {"id": 124213, "key": "is_vat_exempt", "value": "no"},
+        {"id": 124227, "key": "_learn_press_order_id", "value": "32875"},
+        {"id": 124229, "key": "state", "value": "LA"},
+        {"id": 124233, "key": "_new_order_email_sent", "value": "true"},
+        {"id": 124488, "key": "slide_template", "value": ""},
+        {"id": 124489, "key": "rs_page_bg_color", "value": ""}
+      ],
       "line_items": [
         {"product_id": id, "quantity": 1},
       ],
@@ -55,7 +66,7 @@ class OrderController extends GetxController {
           'Authorization': basicAuth
         },
         body: jsonEncode(dataBody));
-    print(jsonDecode(response.body));
+    print(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;

@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:topgrade/controllers/StartCourseController.dart';
 import 'package:topgrade/controllers/add_favorite_controller.dart';
 import 'package:topgrade/controllers/cart_controller.dart';
 import 'package:topgrade/controllers/course_byId_controller.dart';
+import 'package:topgrade/controllers/my_all_courses_controller.dart';
 import 'package:topgrade/controllers/payment_gateway_controller.dart';
 import 'package:topgrade/controllers/wishlist_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -33,7 +35,8 @@ class DetailsScreen extends StatefulWidget {
       {Key? key,
       this.coursesDetail,
       this.favCourseDetail,
-      required this.isWishlist}) : super(key: key);
+      required this.isWishlist})
+      : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -51,6 +54,10 @@ class _DetailsScreenState extends State<DetailsScreen>
   final CourseByIDController courseByIDController =
       Get.put(CourseByIDController());
   final MyCoursesController myCourseController = Get.put(MyCoursesController());
+  final MyAllCoursesController myAllCoursesController =
+      Get.put(MyAllCoursesController());
+  final StartCourseController startCourseController =
+      Get.put(StartCourseController());
   List<PaymentGatewayModel> paymentGatewayModel = [];
   List<MyCoursesModel> myCourseModel = [];
   CourseByIdModel? courseByIdModel;
@@ -65,25 +72,27 @@ class _DetailsScreenState extends State<DetailsScreen>
   double height = Get.height;
   bool inWishlist = false;
   bool isLoading = false;
+  bool isStarted = true;
 
   @override
   void initState() {
     super.initState();
+    checkCourseStarted();
     checkWishlist();
     initalize();
-
   }
 
   initalize() async {
     var data = Get.arguments;
 
-    var _courseByIdModel = await courseByIDController.fetchCourseByID(data.toString());
+    var _courseByIdModel =
+        await courseByIDController.fetchCourseByID(data.toString());
     setState(() {
       courseByIdModel = _courseByIdModel;
     });
 
     for (int i = 0; i < myCourseController.myCoursesList.length; i++) {
-      if (courseByIdModel!.id == myCourseController.myCoursesList[i].id) {
+      if (data == myCourseController.myCoursesList.value[i].id) {
         setState(() {
           isPaid = true;
         });
@@ -91,25 +100,51 @@ class _DetailsScreenState extends State<DetailsScreen>
     }
     cartController.open();
     _controller = TabController(length: 3, vsync: this);
-
   }
 
   checkWishlist() async {
     var data = Get.arguments;
     wishlistModel = await wishlistController.fetchWishlist();
-    setState(() { });
-    for (int i = 0; i < wishlistController.wishlist.value!.data!.items!.length; i++) {
+    setState(() {});
+    for (int i = 0;
+        i < wishlistController.wishlist.value!.data!.items!.length;
+        i++) {
       if (data == wishlistController.wishlist.value!.data!.items![i].id) {
         setState(() {
           inWishlist = true;
         });
-      }else{
+      } else {
         setState(() {
           inWishlist = false;
         });
       }
     }
-    Future.delayed(const Duration(seconds: 3)).then(((value) => setState(() {})));
+    Future.delayed(const Duration(seconds: 3))
+        .then(((value) => setState(() {})));
+    // setState(() {
+    //   isLoading = true;
+    // });
+  }
+
+  checkCourseStarted() async {
+    var data = Get.arguments;
+    myCourseModel = (await myAllCoursesController.fetchMyCourses());
+    setState(() {});
+    for (int i = 0;
+        i < myAllCoursesController.myCoursesList.value.length;
+        i++) {
+      if (data == myAllCoursesController.myCoursesList.value[i].id) {
+        setState(() {
+          isStarted = false;
+        });
+      } else {
+        setState(() {
+          isStarted = true;
+        });
+      }
+    }
+    Future.delayed(const Duration(seconds: 3))
+        .then(((value) => setState(() {})));
     setState(() {
       isLoading = true;
     });
@@ -958,8 +993,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                               courseByIdModel: courseByIdModel,
                                               isWishlist: false,
                                               isMyCourse: "false",
-                                              isLocked:
-                                                  isPressed ? false : true),
+                                              isLocked: isStarted),
                                           InstructorScreen(
                                               // coursesDetail: widget.coursesDetail,
                                               courseByIdModel: courseByIdModel,
@@ -977,21 +1011,26 @@ class _DetailsScreenState extends State<DetailsScreen>
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p10),
-                  child: buildBottomCard(),
+                  child:
+                      isStarted == false ? const SizedBox() : buildBottomCard(),
                 )),
           );
   }
 
   Center buildBottomCard() {
+    var data = Get.arguments;
     return Center(
-      child: isPaid == true
+      child: isPaid == true ||
+              courseByIDController.courseByIDList.value!.price == 0
           ? isPressed
               ? const SizedBox.shrink()
               : InkWell(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
+                      isStarted = false;
                       isPressed = true;
                     });
+                    await startCourseController.startCourse(data.toString());
                     successToast("Congrats",
                         "Go to Curriculum and start the lessons one by one");
                   },
@@ -1142,7 +1181,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                 color: ColorManager.whiteColor),
             child: inWishlist == true
                 ? const Icon(Icons.favorite, color: ColorManager.redColor)
-                : const Icon(Icons.favorite_border, color: ColorManager.blackColor),
+                : const Icon(Icons.favorite_border,
+                    color: ColorManager.blackColor),
           ),
         ),
         buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),

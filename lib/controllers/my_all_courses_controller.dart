@@ -17,7 +17,7 @@ class MyAllCoursesController extends GetxController {
     super.onInit();
   }
 
-  Future<List<MyCoursesModel>?> fetchMyCourses() async {
+  Future<List<MyCoursesModel>> fetchMyCourses() async {
     isLoading.value = true;
     String token = box.read("token");
     final uri = Uri.parse(
@@ -28,7 +28,6 @@ class MyAllCoursesController extends GetxController {
       'Authorization': 'Bearer $token',
     });
     var jsonString = response.body;
-    print(jsonString);
     myCoursesList.value = myCoursesModelFromJson(jsonString);
     isLoading.value = false;
     return myCoursesModelFromJson(jsonString);

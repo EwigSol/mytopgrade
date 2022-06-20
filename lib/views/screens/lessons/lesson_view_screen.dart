@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
@@ -29,14 +31,17 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
       Get.put(LessonByIDController());
   late LessonByIdModel lessonModelList = LessonByIdModel();
   // LessonByIdModel? lessonByIdModel;
-  String? url;
+  String? _url;
   String? name;
+  // VideoPlayerController? _controller;
+  var isLoading = true;
 
   @override
   void initState() {
     lessonModelList;
     getLessonByIdData();
     print('get lesson called');
+    // initialize();
     super.initState();
   }
 
@@ -45,12 +50,14 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
     Future.delayed(Duration(seconds: 3)).then(((value) => setState(() {})));
   }
 
+  // bhb
+
   @override
   Widget build(BuildContext context) {
-    return lessonModelList != null
+    return isLoading == true && lessonModelList.name != null
         ? Scaffold(
             backgroundColor: ColorManager.whiteColor,
-            appBar: buildAppBar(lessonModelList.name != null ? lessonModelList.name : ""),
+            appBar: buildAppBar(lessonModelList.name!),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,8 +67,16 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.40,
                       width: MediaQuery.of(context).size.width * 0.95,
-                      child: VideoItems(
+                      child:
+                          //  _controllerr!.value.isInitialized
+                          //     ? AspectRatio(
+                          //         aspectRatio: _controller!.value.aspectRatio,
+                          //         child: VideoPlayer(_controller!),
+                          //       )
+                          //     : CircularProgressIndicator(),
+                          VideoItems(
                         videoPlayerController: VideoPlayerController.network(
+                            // 'https://musing-gould.18-141-157-112.plesk.page/wp-content/uploads/2021/11/a-negative-exponent.mp4'),
                             _parseHtmlString(lessonModelList.content!)),
                         looping: false,
                         autoplay: true,
@@ -132,7 +147,15 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
     final document = parse(htmlString);
     final String parsedString =
         parse(document.body!.text).documentElement!.text;
-    return parsedString;
+    final String result =
+        parsedString.substring(0, parsedString.lastIndexOf(':'));
+    final String finalurl = jsonEncode(result);
+    final String url = finalurl.replaceAll('\\n', '\n').replaceAll('', '');
+
+    print(url);
+    print(result);
+
+    return url;
   }
 
   @override

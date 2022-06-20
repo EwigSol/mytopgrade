@@ -16,8 +16,6 @@ class LessonByIDController extends GetxController {
   Future<LessonByIdModel> fetchLessonByID(dynamic id) async {
     isLoading.value = true;
     String token = box.read("token");
-    print(token);
-    print(APIBase.baseURL + APIPathHelper.getValue(APIPath.lessons) + "/" + id);
     var response = await client.get(
         Uri.parse(APIBase.baseURL +
             APIPathHelper.getValue(APIPath.lessons) +
@@ -30,6 +28,7 @@ class LessonByIDController extends GetxController {
         });
 
     lessonByIDList.value = lessonByIdModelFromJson(response.body);
+    print(lessonByIDList.value!.content);
     isLoading.value = false;
     return lessonByIdModelFromJson(response.body);
   }

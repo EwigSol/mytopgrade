@@ -20,8 +20,9 @@ class MyCoursesController extends GetxController {
   Future<List<MyCoursesModel>?> fetchMyCourses() async {
     isLoading.value = true;
     String token = box.read("token");
+    print(token);
     final uri = Uri.parse(
-        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses');
+        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses?learned=true');
     var response = await client.get(uri, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
