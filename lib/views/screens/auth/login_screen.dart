@@ -161,8 +161,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     //     "user_login", response['user_login']),
                                     // box.write(
                                     //     "user_email", response['user_email']),
-                                    box.write("user_display_name",
-                                        response['user_display_name']),
+                                    box.write("user_id", response['user_id']),
+                                    box.write("user_email", response['user_email']),
+                                    box.write("user_display_name", response['user_display_name']),
                                     // box.write("isLogged", true),
 
                                     Get.snackbar('Welcome Back',

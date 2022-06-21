@@ -338,10 +338,13 @@ class _AssignmentViewScreenState extends State<AssignmentViewScreen> {
   }
 
   String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
-    return parsedString;
+    RegExp exp = RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+    Iterable<RegExpMatch> matches = exp.allMatches(htmlString);
+    List<String> videoUrl = [];
+    for (var match in matches) {
+      videoUrl.add(htmlString.substring(match.start, match.end));
+    }
+    return videoUrl[1].toString();
   }
 
   @override

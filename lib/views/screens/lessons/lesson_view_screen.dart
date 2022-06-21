@@ -40,6 +40,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   void initState() {
     lessonModelList;
     getLessonByIdData();
+
     super.initState();
   }
 
@@ -51,7 +52,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading == true && lessonModelList.name != null
+    return lessonModelList.content != null
         ? Scaffold(
             backgroundColor: ColorManager.whiteColor,
             appBar: buildAppBar(lessonModelList.name!),
@@ -76,7 +77,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                             // 'https://musing-gould.18-141-157-112.plesk.page/wp-content/uploads/2021/11/a-negative-exponent.mp4'),
                             _parseHtmlString(lessonModelList.content!)),
                         looping: false,
-                        autoplay: true,
+                        autoplay: false,
                       ),
 
                     ),
@@ -142,14 +143,20 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   }
 
   String _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    var parsedString = document.getElementsByTagName('video')[0];
+    // final document = parse(htmlString);
+    // var parsedString = document.getElementsByTagName('video')[0];
     // final String parsedString = parse(document.body!.text).documentElement!.text;
     // final String result = parsedString.substring(0, parsedString.lastIndexOf(':'));
     // final String finalurl = jsonEncode(result);
     // final String url = finalurl.replaceAll('\\n', '\n').replaceAll('', '');
-    print(parsedString.toString());
-    return parsedString.toString();
+    // print(parsedString.toString());
+    RegExp exp = RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+    Iterable<RegExpMatch> matches = exp.allMatches(htmlString);
+    List<String> videoUrl = [];
+    for (var match in matches) {
+      videoUrl.add(htmlString.substring(match.start, match.end));
+    }
+    return videoUrl[1].toString();
   }
   // String _parseHtmlString(String htmlString) {
   //   final document = parse(htmlString);

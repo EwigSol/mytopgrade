@@ -168,31 +168,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // if (usernameController.text.isNotEmpty) {
                   //   if (emailController.text.isNotEmpty) {
                   //     if (passwordController.text.isNotEmpty) {
-                  await registerController.register(usernameController.text,
-                      emailController.text, passwordController.text);
-                  await loginController.login(
-                      emailController.text, passwordController.text);
-                  var username = await box.read("user_display_name");
-                  Get.snackbar('Welcome Back',
-                      'Welcome ${username} to your Educational Portal',
-                      snackPosition: SnackPosition.BOTTOM);
-                  Get.toNamed(Paths.homeBar);
-                  //             .then((response) => {
-                  //                   if (response['status'] == true)
-                  //                     {
-                  //                       userModel = response['userData'],
-                  //                       box.write(
-                  //                           "user_id", userModel.id.toString()),
-                  //                       box.write("user_email", userModel.email),
-                  //                       box.write("user_display_name",
-                  //                           userModel.username),
-                  //                       Get.toNamed(Paths.homeBar)
-                  //                     }
-                  //                   else
-                  //                     {
-                  //                       errorToast("Error", response['message']),
-                  //                     }
-                  //                 });
+                  await registerController.register(usernameController.text, emailController.text, passwordController.text)
+                  .then((value) => {
+                    if(value['status'] == false){
+                      errorToast("Error", "You Have already created account on this email")
+                    }
+                  });
+                  // await loginController.login(emailController.text, passwordController.text).then((response) => {
+                  //   if (response['status'] == true)
+                  //     {
+                  //       box.write("user_id", response['user_id']),
+                  //       box.write("user_email", response['user_email']),
+                  //       box.write("user_display_name", response['user_display_name']),
+                  //       Get.snackbar('Welcome Back', 'Welcome ${response['user_display_name']} to your Educational Portal',
+                  //       snackPosition: SnackPosition.BOTTOM),
+                  //       Get.toNamed(Paths.homeBar)
+                  //     }
+                  //   else
+                  //     {
+                  //       errorToast("Error", response['message']),
+                  //     }
+                  // });
+
                   //       } else {
                   //         errorToast("Error", "Password is required");
                   //       }

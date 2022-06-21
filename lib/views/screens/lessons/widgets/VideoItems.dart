@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:topgrade/utils/assets_manager.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoItems extends StatefulWidget {
