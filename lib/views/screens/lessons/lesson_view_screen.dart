@@ -40,17 +40,14 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   void initState() {
     lessonModelList;
     getLessonByIdData();
-    print('get lesson called');
-    // initialize();
     super.initState();
   }
 
   getLessonByIdData() async {
     lessonModelList = await lessonByIDController.fetchLessonByID(widget.id);
-    Future.delayed(Duration(seconds: 3)).then(((value) => setState(() {})));
+    Future.delayed(const Duration(seconds: 3)).then(((value) => setState(() {})));
   }
 
-  // bhb
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +78,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                         looping: false,
                         autoplay: true,
                       ),
+
                     ),
                   ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
@@ -145,18 +143,20 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
 
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
-    final String parsedString =
-        parse(document.body!.text).documentElement!.text;
-    final String result =
-        parsedString.substring(0, parsedString.lastIndexOf(':'));
-    final String finalurl = jsonEncode(result);
-    final String url = finalurl.replaceAll('\\n', '\n').replaceAll('', '');
-
-    print(url);
-    print(result);
-
-    return url;
+    var parsedString = document.getElementsByTagName('video')[0];
+    // final String parsedString = parse(document.body!.text).documentElement!.text;
+    // final String result = parsedString.substring(0, parsedString.lastIndexOf(':'));
+    // final String finalurl = jsonEncode(result);
+    // final String url = finalurl.replaceAll('\\n', '\n').replaceAll('', '');
+    print(parsedString.toString());
+    return parsedString.toString();
   }
+  // String _parseHtmlString(String htmlString) {
+  //   final document = parse(htmlString);
+  //   final String parsedString = parse(document.body!.text).documentElement!.text;
+  //   print(parsedString);
+  //   return parsedString;
+  // }
 
   @override
   void dispose() {

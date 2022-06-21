@@ -23,7 +23,6 @@ class _VideoItemsState extends State<VideoItems> {
 
   @override
   void initState() {
-    print(widget.videoPlayerController.dataSource);
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
@@ -34,8 +33,7 @@ class _VideoItemsState extends State<VideoItems> {
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(
-            errorMessage,
-            style: TextStyle(color: Colors.white),
+            errorMessage, style: const TextStyle(color: Colors.white),
           ),
         );
       },
