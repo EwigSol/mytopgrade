@@ -171,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   await registerController.register(usernameController.text, emailController.text, passwordController.text)
                   .then((value) => {
                     if(value['status'] == false){
-                      errorToast("Error", "You Have already created account on this email")
+                      errorToast("Error", "You Have already created account on this email and username")
                     }
                   });
                   // await loginController.login(emailController.text, passwordController.text).then((response) => {

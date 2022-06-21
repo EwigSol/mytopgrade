@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Get.snackbar('Welcome Back',
                                         'Welcome ${box.read("user_display_name")} to your Educational Portal',
                                         snackPosition: SnackPosition.BOTTOM),
-                                    Get.toNamed(Paths.homeBar),
+                                    Get.offAllNamed(Paths.homeBar),
                                   }
                                 else
                                   {
