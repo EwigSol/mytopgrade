@@ -46,31 +46,18 @@ class _LoginScreenState extends State<LoginScreen> {
               buildSpaceVertical(height * 0.06),
               buildFormCard(),
               buildSpaceVertical(height * 0.06),
-              // const LineWidget(),
-              // buildSpaceVertical(2.h),
-              // buildSocialRow(),
-              // buildSpaceVertical(3.h),
-              SignupText(toggleView: widget.toggleView)
+              SignupText(toggleView: widget.toggleView),
+              Row(
+                children: [
+                  Divider(),
+                ],
+              )
             ],
           ),
         ),
       ),
     );
   }
-
-  // Padding buildSocialRow() {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //       children: const [
-  //         SocialCard(img: AssetsManager.fbLogo),
-  //         SocialCard(img: AssetsManager.googleLogo),
-  //         SocialCard(img: AssetsManager.twitterLogo),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Center buildFormCard() {
     return Center(
@@ -162,8 +149,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     // box.write(
                                     //     "user_email", response['user_email']),
                                     box.write("user_id", response['user_id']),
-                                    box.write("user_email", response['user_email']),
-                                    box.write("user_display_name", response['user_display_name']),
+                                    box.write(
+                                        "user_email", response['user_email']),
+                                    box.write("user_display_name",
+                                        response['user_display_name']),
                                     // box.write("isLogged", true),
 
                                     Get.snackbar('Welcome Back',

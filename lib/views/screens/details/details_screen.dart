@@ -1070,6 +1070,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                             return StatefulBuilder(
                                 builder: (context, StateSetter customSetState) {
                               return PaymentSheet(
+                                  productPrice:
+                                      courseByIdModel!.price.toString(),
                                   paymentGatewayModel: paymentGatewayModel,
                                   productId:
                                       widget.favCourseDetail!.id.toString(),
@@ -1086,6 +1088,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                             return StatefulBuilder(
                                 builder: (context, StateSetter customSetState) {
                               return PaymentSheet(
+                                  productPrice:
+                                      courseByIdModel!.price.toString(),
                                   paymentGatewayModel: paymentGatewayModel,
                                   productId:
                                       widget.myCoursesModel!.id.toString(),
@@ -1102,6 +1106,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                             return StatefulBuilder(
                                 builder: (context, StateSetter customSetState) {
                               return PaymentSheet(
+                                  productPrice:
+                                      courseByIdModel!.price.toString(),
                                   paymentGatewayModel: paymentGatewayModel,
                                   productId: courseByIdModel!.id.toString(),
                                   isCart: false);

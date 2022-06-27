@@ -21,11 +21,13 @@ abstract class Routes {
   static const addNC = Paths.addNC;
   static const lessons = Paths.lessons;
   static const payment = Paths.payment;
+  static const flutterPayment = Paths.flutterPayment;
   static const paymentSuccess = Paths.paymentSuccess;
 }
 
 abstract class Paths {
   Paths._();
+  static const flutterPayment = '/flutterPayment';
   static const initial = '/';
   static const splash = '/splash';
   static const onBoard = '/onBoard';

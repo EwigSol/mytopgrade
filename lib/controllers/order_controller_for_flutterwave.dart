@@ -3,13 +3,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
-class OrderController extends GetxController {
+class FlutterWaveOrderController extends GetxController {
   var isDataSubmitting = false.obs;
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
   final box = GetStorage();
 
-  Future<Map<String, dynamic>> order(
+  Future<Map<String, dynamic>> flutterWaveOrder(
       String paymentMethod,
       paymentMethodTitle,
       firstName,
