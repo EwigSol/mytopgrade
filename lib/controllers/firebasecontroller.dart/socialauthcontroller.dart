@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:topgrade/firebaseDataBaseService.dart/DatabseService.dart';
+import 'package:topgrade/models/user_model.dart';
 import 'package:topgrade/routes/appPages.dart';
 import 'package:topgrade/views/screens/home/home_screen.dart';
 
@@ -38,6 +40,12 @@ class FirebaseAuthController extends GetxController {
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential authResult =
           await auth.signInWithCredential(authCredential);
+      UserModel _userModel = UserModel(
+        id: authResult.user!.uid,
+        firstName: authResult.user!.displayName,
+        email: authResult.user!.email,
+      );
+      await Database().createUser(_userModel);
 
       Get.offAll(
         () => HomeScreen(),

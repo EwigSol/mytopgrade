@@ -51,61 +51,61 @@ class _LoginScreenState extends State<LoginScreen> {
               buildFormCard(),
               buildSpaceVertical(height * 0.06),
               SignupText(toggleView: widget.toggleView),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 20,
-                    ),
-                  ),
-                  Container(
-                    width: 52,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(
-                        100,
-                      ),
-                    ),
-                    child: SvgPicture.asset(
-                      'assets/images/facebookicon.svg',
-                      color: Colors.black,
-                      width: 30,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () => firebaseAuthController.googleLogin(),
-                    child: Container(
-                      width: 52,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(
-                          100,
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/googleicon.svg',
-                        color: Colors.black,
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 20,
-                    ),
-                  ),
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     const Expanded(
+              //       child: Divider(
+              //         thickness: 2,
+              //         indent: 10,
+              //         endIndent: 20,
+              //       ),
+              //     ),
+              //     Container(
+              //       width: 52,
+              //       padding: const EdgeInsets.all(10),
+              //       decoration: BoxDecoration(
+              //         border: Border.all(color: Colors.black),
+              //         borderRadius: BorderRadius.circular(
+              //           100,
+              //         ),
+              //       ),
+              //       child: SvgPicture.asset(
+              //         'assets/images/facebookicon.svg',
+              //         color: Colors.black,
+              //         width: 30,
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 10,
+              //     ),
+              //     InkWell(
+              //       onTap: () => firebaseAuthController.googleLogin(),
+              //       child: Container(
+              //         width: 52,
+              //         padding: const EdgeInsets.all(10),
+              //         decoration: BoxDecoration(
+              //           border: Border.all(color: Colors.black),
+              //           borderRadius: BorderRadius.circular(
+              //             100,
+              //           ),
+              //         ),
+              //         child: SvgPicture.asset(
+              //           'assets/images/googleicon.svg',
+              //           color: Colors.black,
+              //           width: 30,
+              //         ),
+              //       ),
+              //     ),
+              //     const Expanded(
+              //       child: Divider(
+              //         thickness: 2,
+              //         indent: 10,
+              //         endIndent: 20,
+              //       ),
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: height * 0.60,
+        height: height * 0.63,
         width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),

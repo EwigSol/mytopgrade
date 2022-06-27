@@ -1,10 +1,6 @@
-
-
-
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
 
 class UserModel {
   UserModel({
@@ -26,7 +22,7 @@ class UserModel {
     this.links,
   });
 
-  int? id;
+  var id;
   DateTime? dateCreated;
   DateTime? dateCreatedGmt;
   DateTime? dateModified;
@@ -44,23 +40,24 @@ class UserModel {
   Links? links;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    id: json["id"],
-    dateCreated: DateTime.parse(json["date_created"]),
-    dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
-    dateModified: DateTime.parse(json["date_modified"]),
-    dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
-    email: json["email"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    role: json["role"],
-    username: json["username"],
-    billing: BillingOrShipping.fromJson(json["billing"]),
-    shipping: BillingOrShipping.fromJson(json["shipping"]),
-    isPayingCustomer: json["is_paying_customer"],
-    avatarUrl: json["avatar_url"],
-    metaData: List<MetaDatum>.from(json["meta_data"].map((x) => MetaDatum.fromJson(x))),
-    links: Links.fromJson(json["_links"]),
-  );
+        id: json["id"],
+        dateCreated: DateTime.parse(json["date_created"]),
+        dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),
+        dateModified: DateTime.parse(json["date_modified"]),
+        dateModifiedGmt: DateTime.parse(json["date_modified_gmt"]),
+        email: json["email"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        role: json["role"],
+        username: json["username"],
+        billing: BillingOrShipping.fromJson(json["billing"]),
+        shipping: BillingOrShipping.fromJson(json["shipping"]),
+        isPayingCustomer: json["is_paying_customer"],
+        avatarUrl: json["avatar_url"],
+        metaData: List<MetaDatum>.from(
+            json["meta_data"].map((x) => MetaDatum.fromJson(x))),
+        links: Links.fromJson(json["_links"]),
+      );
 }
 
 class BillingOrShipping {
@@ -90,19 +87,20 @@ class BillingOrShipping {
   String? email;
   String? phone;
 
-  factory BillingOrShipping.fromJson(Map<String, dynamic> json) => BillingOrShipping(
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    company: json["company"],
-    address1: json["address_1"],
-    address2: json["address_2"],
-    city: json["city"],
-    postcode: json["postcode"],
-    country: json["country"],
-    state: json["state"],
-    email: json["email"],
-    phone: json["phone"],
-  );
+  factory BillingOrShipping.fromJson(Map<String, dynamic> json) =>
+      BillingOrShipping(
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        company: json["company"],
+        address1: json["address_1"],
+        address2: json["address_2"],
+        city: json["city"],
+        postcode: json["postcode"],
+        country: json["country"],
+        state: json["state"],
+        email: json["email"],
+        phone: json["phone"],
+      );
 }
 
 class Links {
@@ -115,10 +113,11 @@ class Links {
   List<Collection>? collection;
 
   factory Links.fromJson(Map<String, dynamic> json) => Links(
-    self: List<Collection>.from(json["self"].map((x) => Collection.fromJson(x))),
-    collection: List<Collection>.from(json["collection"].map((x) => Collection.fromJson(x))),
-  );
-
+        self: List<Collection>.from(
+            json["self"].map((x) => Collection.fromJson(x))),
+        collection: List<Collection>.from(
+            json["collection"].map((x) => Collection.fromJson(x))),
+      );
 }
 
 class Collection {
@@ -129,9 +128,8 @@ class Collection {
   String? href;
 
   factory Collection.fromJson(Map<String, dynamic> json) => Collection(
-    href: json["href"],
-  );
-
+        href: json["href"],
+      );
 }
 
 class MetaDatum {
@@ -146,8 +144,8 @@ class MetaDatum {
   dynamic value;
 
   factory MetaDatum.fromJson(Map<String, dynamic> json) => MetaDatum(
-    id: json["id"],
-    key: json["key"],
-    value: json["value"],
-  );
+        id: json["id"],
+        key: json["key"],
+        value: json["value"],
+      );
 }
