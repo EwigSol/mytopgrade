@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:topgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/routes/appPages.dart';
@@ -12,7 +13,9 @@ import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
+  final FirebaseAuthController firebaseAuthController =
+      Get.put(FirebaseAuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
           // buildProfileCard("Language", Icons.language, context),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
-              onTap: () {
+              onTap: () async {
                 final box = GetStorage();
                 box.remove("token");
                 box.remove("user_id");
@@ -70,6 +73,7 @@ class ProfileScreen extends StatelessWidget {
                 box.remove("user_email");
                 box.remove("user_display_name");
                 box.remove("isLogged");
+                await firebaseAuthController.signOut();
                 Get.offAllNamed(Paths.authView);
               },
               child: buildProfileCard("Log Out", Icons.logout, context)),

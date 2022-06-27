@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:topgrade/controllers/socialRegistration.dart';
+import 'package:topgrade/routes/appPages.dart';
+import 'package:topgrade/views/screens/home/home_screen.dart';
 import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';
 
@@ -10,16 +13,18 @@ class SocialLoginController extends GetxController {
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
   final box = GetStorage();
+  // final SocialRegisterController socialRegisterController =
+  //     Get.put(SocialRegisterController());
 
-  Future<Map<String, dynamic>> login(String userName, String password) async {
+  Future<Map<String, dynamic>> login(
+    String userName,
+  ) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    final queryParameters = {'username': userName, 'password': password};
+    final queryParameters = {'username': userName, 'onlyusername': 'yes'};
 
-    var response = await client.post(
-        Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.login))
-            .replace(queryParameters: queryParameters));
-
+    var response = await client.post(Uri.parse(
+        "https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/mitoken?username=$userName&onlyusername=yes"));
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
@@ -38,7 +43,11 @@ class SocialLoginController extends GetxController {
         'user_email': responseData['user_email'],
         'user_display_name': responseData['user_display_name'],
       };
+      print(box.read("token"));
+      print(response.body);
+      Get.offAllNamed(Paths.homeBar);
     } else {
+      await SocialRegisterController().register(userName);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {

@@ -30,7 +30,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
       // const QuizAssignmentScreen(),
       const FavouritesScreen(),
       // const ChatListScreen(),
-      const ProfileScreen(),
+      ProfileScreen(),
     ];
   }
 

@@ -17,6 +17,7 @@ enum APIPath {
   wishlist,
   assignmentById,
   login,
+  socialLogin,
 
 //
 
@@ -78,6 +79,9 @@ class APIPathHelper {
 
       case APIPath.login:
         return "/token";
+
+      case APIPath.socialLogin:
+        return "/mitoken";
 
       default:
         return "";

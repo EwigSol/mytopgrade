@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 import 'package:topgrade/helpers/text_helper.dart';
@@ -12,7 +9,6 @@ import '../../../utils/values_manager.dart';
 import '../../widgets/action_button.dart';
 import 'widgets/simple_appbar.dart';
 
-
 class OtpVerificationScreen extends StatelessWidget {
   const OtpVerificationScreen({Key? key}) : super(key: key);
 
@@ -20,7 +16,8 @@ class OtpVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.10),
+        preferredSize:
+            Size(double.infinity, MediaQuery.of(context).size.height * 0.10),
         child: const SimpleAppBar(title: StringsManager.otpVerify),
       ),
       body: Column(
@@ -61,18 +58,22 @@ class OtpVerificationScreen extends StatelessWidget {
                 child: Image.asset(AssetsManager.logo, fit: BoxFit.fill),
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              Center(child: textStyle1(text: "Enter the Code Sent to +923187648765", textAlign: TextAlign.center)),
+              Center(
+                  child: textStyle1(
+                      text: "Enter the Code Sent to +923187648765",
+                      textAlign: TextAlign.center)),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p4),
                   child: OtpPinField(
                     onSubmit: (text) {
-                      if(text.isNotEmpty){
+                      if (text.isNotEmpty) {
                         // auth.otpVerify(widget.email, text).then((response) => {
                         //   if (response['status'] == true) {
                         //     successToast(context, response['message']),
-                        //     setState(() => widget.loading = false),
-                        //     Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginScreen()))
+                        //     setState(() => widget .loading = false),
+                        //    Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginScreen()))
                         //   }else {
                         //     errorToast(context, response['message']),
                         //     setState(() => widget.loading = false),
@@ -90,9 +91,9 @@ class OtpVerificationScreen extends StatelessWidget {
                       fieldPadding: 10,
                     ),
                     maxLength: 6,
-                    otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
-                  )
-              ),
+                    otpPinFieldDecoration:
+                        OtpPinFieldDecoration.defaultPinBoxDecoration,
+                  )),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               actionButton(StringsManager.submit, context),
             ],
