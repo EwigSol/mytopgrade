@@ -29,7 +29,7 @@ class FlutterWaveOrderController extends GetxController {
       "payment_method": paymentMethod,
       "payment_method_title": paymentMethodTitle,
       "customer_id": userId,
-      "status": "on-hold",
+      "status": "completed",
       "billing": {
         "first_name": firstName,
         "last_name": lastName,

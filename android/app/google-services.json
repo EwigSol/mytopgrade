@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "88432950243",
+    "project_id": "mytopgrade-361f5",
+    "storage_bucket": "mytopgrade-361f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88432950243:android:88210905a81023802d3ed6",
+        "android_client_info": {
+          "package_name": "com.AZainapps.topgrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88432950243-ga0sm8bbmp75s0h8hrqo3ttqs1qf3pqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5dJLjfPB2TtUbJlBNIRUkw87BWLYvzeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88432950243-ga0sm8bbmp75s0h8hrqo3ttqs1qf3pqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

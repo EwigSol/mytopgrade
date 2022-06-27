@@ -104,6 +104,7 @@ class PaymentSheet extends StatelessWidget {
             InkWell(
               onTap: () {
                 print(productId);
+                print(productPrice);
                 List<LineItemModel> lineItems = [];
                 if (isCart == true) {
                   for (int i = 0; i < productIdList!.length; i++) {
@@ -124,9 +125,10 @@ class PaymentSheet extends StatelessWidget {
                   Get.toNamed(Paths.flutterPayment,
                       arguments: productId,
                       parameters: {
-                        'paymentMethod': paymentGatewayModel![0].id!,
+                        'paymentMethod': paymentGatewayModel![1].id!,
                         'paymentMethodTitle':
-                            paymentGatewayModel![0].methodTitle!,
+                            paymentGatewayModel![1].methodTitle!,
+                        'productPrice': productPrice!,
                       });
                 }
               },
