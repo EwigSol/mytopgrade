@@ -27,14 +27,15 @@ class _VideoItemsState extends State<VideoItems> {
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
-      aspectRatio: 5 / 8,
+      aspectRatio: 16 / 9,
       autoInitialize: true,
       autoPlay: widget.autoplay!,
       looping: widget.looping!,
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(
-            errorMessage, style: const TextStyle(color: Colors.white),
+            errorMessage,
+            style: const TextStyle(color: Colors.white),
           ),
         );
       },
@@ -44,6 +45,7 @@ class _VideoItemsState extends State<VideoItems> {
   @override
   void dispose() {
     super.dispose();
+    _chewieController!.pause();
     _chewieController!.dispose();
   }
 

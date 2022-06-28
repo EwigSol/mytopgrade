@@ -46,9 +46,9 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
 
   getLessonByIdData() async {
     lessonModelList = await lessonByIDController.fetchLessonByID(widget.id);
-    Future.delayed(const Duration(seconds: 3)).then(((value) => setState(() {})));
+    Future.delayed(const Duration(seconds: 3))
+        .then(((value) => setState(() {})));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,6 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                         looping: false,
                         autoplay: false,
                       ),
-
                     ),
                   ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
