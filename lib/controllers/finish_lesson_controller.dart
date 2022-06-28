@@ -1,7 +1,3 @@
-
-
-
-
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -18,10 +14,13 @@ class FinishLessonController extends GetxController {
   Future<Map<String, dynamic>> finishLesson(String id) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    final queryParameters = {  'id': id };
+    final queryParameters = {'id': id};
     String token = box.read("token");
 
-    var response = await client.post(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.finishLesson)).replace(queryParameters: queryParameters),
+    var response = await client.post(
+        Uri.parse(
+                APIBase.baseURL + APIPathHelper.getValue(APIPath.finishLesson))
+            .replace(queryParameters: queryParameters),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -33,16 +32,28 @@ class FinishLessonController extends GetxController {
       Map<String, dynamic> responseData = jsonDecode(response.body);
       if (responseData['status'] == "success") {
         isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
+        result = {
+          'status': responseData['status'],
+          'message': responseData['message'],
+          'data': responseData['data']
+        };
       } else {
         isDataSubmitting.value = false;
         isDataReadingCompleted.value = true;
-        result = {'status': responseData['status'], 'message': responseData['message'], 'data': responseData['data']};
+        result = {
+          'status': responseData['status'],
+          'message': responseData['message'],
+          'data': responseData['data']
+        };
       }
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
-      result = {'status': "error", 'message': "Server Error!\nFailed to finish the lesson", 'data': {}};
+      result = {
+        'status': "error",
+        'message': "Server Error!\nFailed to finish the lesson",
+        'data': {}
+      };
     }
     return result;
   }

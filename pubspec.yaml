@@ -37,6 +37,8 @@ dependencies:
   firebase_auth: ^3.3.19
   cloud_firestore: ^3.1.18
   flutter_facebook_auth: ^4.3.4+2
+  animated_text_kit: ^4.2.2
+  # animated_text: ^1.0.2
   # flutter_login_facebook: ^1.4.1
   
 

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
@@ -84,22 +84,37 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
                   Center(
                     child: InkWell(
-                      onTap: () {
-                        finishLessonController
-                            .finishLesson(widget.id.toString())
-                            .then((response) => {
-                                  if (response['status'] == 'success')
-                                    {
-                                      successToast(
-                                          "Success", "Lesson Finished"),
-                                      Get.back()
-                                    }
-                                  else
-                                    {
-                                      errorToast(
-                                          "Error", "Failed to finish Lesson"),
-                                    }
-                                });
+                      onTap: () async {
+                        await finishLessonController
+                            .finishLesson(widget.id.toString());
+                        Get.back();
+                        if (finishLessonController.isDataSubmitting == false) {
+                          Get.snackbar(
+                            'Hurrey',
+                            'The Lesson is marked as finished',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        } else {
+                          Get.snackbar(
+                            'Sorry',
+                            'The Lesson is Already marked as finished',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
+
+                        // .then((response) => {
+                        //       if (response['status'] == 'success')
+                        //         {
+                        //           successToast(
+                        //               "Success", "Lesson Finished"),
+                        //           Get.back()
+                        //         }
+                        //       else
+                        //         {
+                        //           errorToast(
+                        //               "Error", "Failed to finish Lesson"),
+                        //         }
+                        //     });
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.06,
@@ -124,9 +139,55 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
               ),
             ),
           )
-        : const Scaffold(
+        : Scaffold(
             body: Center(
-              child: CircularProgressIndicator(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Connecting to the Server..',
+                        textStyle: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        speed: const Duration(milliseconds: 180),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          width: MediaQuery.of(context).size.width * 0.60,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(AppSize.s12),
+                              color: ColorManager.primaryColor),
+                          child: Obx(() {
+                            return finishLessonController
+                                        .isDataSubmitting.value ==
+                                    true
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : Center(
+                                    child: textStyle2(
+                                        text: "Taking Long! ReLoad",
+                                        color: ColorManager.whiteColor));
+                          }),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
   }
@@ -142,13 +203,6 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   }
 
   String _parseHtmlString(String htmlString) {
-    // final document = parse(htmlString);
-    // var parsedString = document.getElementsByTagName('video')[0];
-    // final String parsedString = parse(document.body!.text).documentElement!.text;
-    // final String result = parsedString.substring(0, parsedString.lastIndexOf(':'));
-    // final String finalurl = jsonEncode(result);
-    // final String url = finalurl.replaceAll('\\n', '\n').replaceAll('', '');
-    // print(parsedString.toString());
     RegExp exp = RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
     Iterable<RegExpMatch> matches = exp.allMatches(htmlString);
     List<String> videoUrl = [];
@@ -157,12 +211,6 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
     }
     return videoUrl[1].toString();
   }
-  // String _parseHtmlString(String htmlString) {
-  //   final document = parse(htmlString);
-  //   final String parsedString = parse(document.body!.text).documentElement!.text;
-  //   print(parsedString);
-  //   return parsedString;
-  // }
 
   @override
   void dispose() {
