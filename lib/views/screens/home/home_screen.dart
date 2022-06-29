@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/controllers/category_controller.dart';
 import 'package:topgrade/controllers/courses_controller.dart';
 import 'package:topgrade/controllers/my_courses_controller.dart';
+import 'package:topgrade/controllers/searchController/searchController.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/helpers/text_helper.dart';
 import 'package:topgrade/models/category_model.dart';
@@ -16,6 +17,7 @@ import 'package:topgrade/views/screens/category/categories_screen.dart';
 import 'package:topgrade/views/screens/category/category_courses_screen.dart';
 import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
+import 'package:topgrade/views/screens/searchResult/searchResultScreen.dart';
 import 'widgets/filter_sheet.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final CategoryController categoryController = Get.put(CategoryController());
   var myCoursesController = Get.put(MyCoursesController());
   final CoursesController coursesController = Get.put(CoursesController());
+  final SearchController searchCourseController = Get.put(SearchController());
   List<CoursesModel> popularCoursesModel = [];
   final box = GetStorage();
   List<String> myCoursesId = [];
@@ -246,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         SizedBox(
           height: height * 0.06,
-          width: width * 0.70,
+          width: width * 0.90,
           child: TextFormField(
             controller: searchController,
             validator: (value) {
@@ -276,44 +279,50 @@ class _HomeScreenState extends State<HomeScreen> {
               fillColor: Colors.grey[200],
               hintStyle: const TextStyle(fontSize: AppSize.s16),
               filled: true,
-              suffixIcon: const Icon(Icons.search),
+              suffixIcon: InkWell(
+                  onTap: () async {
+                    await searchCourseController
+                        .searchCourses(searchController.text);
+                    Get.to(() => SearchScreen());
+                  },
+                  child: const Icon(Icons.search)),
             ),
           ),
         ),
-        buildSpaceHorizontal(width * 0.04),
-        InkWell(
-          onTap: () {
-            showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                builder: (context) {
-                  return StatefulBuilder(
-                      builder: (context, StateSetter customSetState) {
-                    return const FilterSheet();
-                  });
-                });
-          },
-          child: Container(
-            height: height * 0.05,
-            width: width * 0.10,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s8),
-              color: ColorManager.primaryColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 2,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: const Icon(Icons.apps,
-                color: ColorManager.whiteColor, size: 28),
-          ),
-        ),
+        // buildSpaceHorizontal(width * 0.04),
+        // InkWell(
+        //   onTap: () {
+        //     showModalBottomSheet(
+        //         context: context,
+        //         isScrollControlled: true,
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(30)),
+        //         builder: (context) {
+        //           return StatefulBuilder(
+        //               builder: (context, StateSetter customSetState) {
+        //             return const FilterSheet();
+        //           });
+        //         });
+        //   },
+        //   child: Container(
+        //     height: height * 0.05,
+        //     width: width * 0.10,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(AppSize.s8),
+        //       color: ColorManager.primaryColor,
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.grey.withOpacity(0.2),
+        //           spreadRadius: 3,
+        //           blurRadius: 2,
+        //           offset: const Offset(0, 3),
+        //         ),
+        //       ],
+        //     ),
+        //     child: const Icon(Icons.apps,
+        //         color: ColorManager.whiteColor, size: 28),
+        //   ),
+        // ),
       ],
     );
   }
