@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,7 +7,6 @@ import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/utils/assets_manager.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
-// import 'package:topgrade/views/screens/auth/widgets/simple_appbar.dart';
 import 'package:topgrade/views/widgets/action_button.dart';
 import 'package:topgrade/views/widgets/text_field.dart';
 import '../../../controllers/login_controller.dart';

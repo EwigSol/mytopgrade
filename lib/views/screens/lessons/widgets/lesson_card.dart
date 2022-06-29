@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
+import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
 import '../../../../helpers/helper.dart';
@@ -15,6 +16,7 @@ class LessonCard extends StatefulWidget {
   var duration;
   var index;
   var id;
+  final Section? section;
   bool? isLocked;
   LessonCard(
       {Key? key,
@@ -22,7 +24,7 @@ class LessonCard extends StatefulWidget {
       required this.title,
       required this.duration,
       required this.isLocked,
-      required this.index})
+      required this.index, this.section})
       : super(key: key);
 
   @override
@@ -46,6 +48,8 @@ class _LessonCardState extends State<LessonCard> {
                   MaterialPageRoute(
                       builder: (context) => LessonViewScreen(
                             id: widget.id.toString(),
+                            sections: widget.section,
+                            isLocked: widget.isLocked,
                             // url: url,
                             // name: name,
                           )));

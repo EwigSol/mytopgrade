@@ -101,8 +101,7 @@ class _PlaylistState extends State<Playlist> {
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
-                    expanded: widget
-                            .courseByIdModel!.sections![index].items!.isNotEmpty
+                    expanded: widget.courseByIdModel!.sections![index].items!.isNotEmpty
                         ? SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.5,
@@ -115,15 +114,10 @@ class _PlaylistState extends State<Playlist> {
                                         Type.lpLesson
                                     ? LessonCard(
                                         isLocked: widget.isLocked,
-                                        id: widget.courseByIdModel!
-                                            .sections![index].items![i].id,
-                                        title: widget.courseByIdModel!
-                                            .sections![index].items![i].title,
-                                        duration: widget
-                                            .courseByIdModel!
-                                            .sections![index]
-                                            .items![i]
-                                            .duration,
+                                        id: widget.courseByIdModel!.sections![index].items![i].id,
+                                        title: widget.courseByIdModel!.sections![index].items![i].title,
+                                        duration: widget.courseByIdModel!.sections![index].items![i].duration,
+                                        section: widget.courseByIdModel!.sections![index],
                                         index: i)
                                     : widget.courseByIdModel!.sections![index]
                                                 .items![i].type ==

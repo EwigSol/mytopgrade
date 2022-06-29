@@ -30,14 +30,14 @@ dependencies:
   chewie: ^1.3.3
   video_player:
   file_picker: ^4.6.0
-  flutter_svg: ^1.1.0
+  flutter_svg:
   flutterwave_standard: ^1.0.3
   firebase_core: ^1.18.0
   google_sign_in: ^5.3.3
   firebase_auth: ^3.3.19
   cloud_firestore: ^3.1.18
   flutter_facebook_auth: ^4.3.4+2
-  animated_text_kit: ^4.2.2
+  animated_text_kit:
   # animated_text: ^1.0.2
   # flutter_login_facebook: ^1.4.1
   

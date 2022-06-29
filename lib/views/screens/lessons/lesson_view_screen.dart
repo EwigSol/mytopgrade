@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
 import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
+import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
@@ -12,12 +12,15 @@ import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';
 import 'package:get/get.dart';
 import 'widgets/VideoItems.dart';
+import 'widgets/lesson_card.dart';
 
 class LessonViewScreen extends StatefulWidget {
+  final Section? sections;
   var id;
+  bool? isLocked;
   LessonViewScreen({
     Key? key,
-    this.id,
+    this.id, this.sections, this.isLocked,
   }) : super(key: key);
 
   @override
@@ -85,9 +88,17 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                   Center(
                     child: InkWell(
                       onTap: () async {
-                        await finishLessonController
-                            .finishLesson(widget.id.toString());
-                        Get.back();
+                        await finishLessonController.finishLesson(widget.id.toString());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LessonViewScreen(
+                                  id: widget.id.toString(),
+                                  sections: widget.sections,
+                                  isLocked: widget.isLocked,
+                                  // url: url,
+                                  // name: name,
+                                )));
                         if (finishLessonController.isDataSubmitting == false) {
                           Get.snackbar(
                             'Hurrey',
@@ -134,7 +145,28 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                         }),
                       ),
                     ),
-                  )
+                  ),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    child: ListView.builder(
+                      itemCount: widget.sections!.items!.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, i) {
+                        return widget.sections!.items![i].type == Type.lpLesson
+                            ? LessonCard(
+                            isLocked: widget.isLocked,
+                            id: widget.sections!.items![i].id,
+                            title: widget.sections!.items![i].title,
+                            duration: widget.sections!.items![i].duration,
+                            section: widget.sections,
+                            index: i)
+                            : const SizedBox.shrink();
+                      },
+                    ),
+                  ),
+                  buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
                 ],
               ),
             ),
@@ -172,8 +204,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                               borderRadius: BorderRadius.circular(AppSize.s12),
                               color: ColorManager.primaryColor),
                           child: Obx(() {
-                            return finishLessonController
-                                        .isDataSubmitting.value ==
+                            return finishLessonController.isDataSubmitting.value ==
                                     true
                                 ? const Center(
                                     child: CircularProgressIndicator())
