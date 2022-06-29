@@ -9,7 +9,7 @@ import 'package:video_player/video_player.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';
-import '../lesson_view_screen.dart';
+import '../lesson_view_screen-old.dart';
 import 'package:get/get.dart';
 
 class AssignmentCard extends StatefulWidget {

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/quiz_byID_controller.dart';
-import 'package:topgrade/models/quiz_byID_model.dart';
+import 'package:html/parser.dart';
+import 'package:topgrade/controllers/lesson_byId_controller.dart';
+import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/views/screens/lessons/quiz_view_screen.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';
 import '../lesson_view_screen-old.dart';
 import 'package:get/get.dart';
 
-class QuizCard extends StatefulWidget {
+class LessonCard extends StatefulWidget {
   var title;
   var duration;
   var index;
   var id;
   bool? isLocked;
-  QuizCard(
+  LessonCard(
       {Key? key,
       required this.id,
       required this.title,
@@ -26,10 +26,10 @@ class QuizCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<QuizCard> createState() => _QuizCardState();
+  State<LessonCard> createState() => _LessonCardState();
 }
 
-class _QuizCardState extends State<QuizCard> {
+class _LessonCardState extends State<LessonCard> {
   final box = GetStorage();
   @override
   Widget build(BuildContext context) {
@@ -38,14 +38,16 @@ class _QuizCardState extends State<QuizCard> {
           vertical: AppPadding.p4, horizontal: AppPadding.p16),
       child: InkWell(
           onTap: () async {
-            await box.write("quiz_id", widget.id.toString());
-            print('id at the time of navigation is ${box.read("quiz_id")}');
+            await box.write("lesson_id", widget.id.toString());
+            print('id at the time of navigation is ${box.read("lesson_id")}');
             if (widget.isLocked == false) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => QuizViewScreen(
+                      builder: (context) => LessonViewScreen(
                             id: widget.id.toString(),
+                            // url: url,
+                            // name: name,
                           )));
             }
           },
@@ -54,7 +56,7 @@ class _QuizCardState extends State<QuizCard> {
             width: MediaQuery.of(context).size.width * 0.95,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSize.s16),
-                color: ColorManager.redColor),
+                color: ColorManager.halfWhiteColor),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
               child: Row(
@@ -86,9 +88,7 @@ class _QuizCardState extends State<QuizCard> {
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorManager.whiteColor),
+                                    fontSize: 12, fontWeight: FontWeight.bold),
                               ),
                               widget.duration != null
                                   ? textStyle00(
