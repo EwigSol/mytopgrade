@@ -90,21 +90,24 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               hintName: "Enter Your Phone",
             ),
             buildSpaceVertical(height * 0.03),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-              child: TextFormField(
-                controller: currencyController,
-                textInputAction: TextInputAction.next,
-                style: TextStyle(color: Colors.black),
-                readOnly: true,
-                onTap: this._openBottomSheet,
-                decoration: InputDecoration(
-                  hintText: "Currency",
-                ),
-                validator: (value) =>
-                    value!.isNotEmpty ? null : "Currency is required",
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            //   child: Container(
+            //     margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+            //     child: TextFormField(
+            //       controller: currencyController,
+            //       textInputAction: TextInputAction.next,
+            //       style: TextStyle(color: Colors.black),
+            //       readOnly: true,
+            //       onTap: this._openBottomSheet,
+            //       decoration: InputDecoration(
+            //         hintText: "Currency",
+            //       ),
+            //       validator: (value) =>
+            //           value!.isNotEmpty ? null : "Currency is required",
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(
                   left: AppPadding.p10, bottom: AppPadding.p10),
@@ -136,15 +139,15 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               inputType: TextInputType.number,
             ),
             buildSpaceVertical(height * 0.03),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "Country"),
-            ),
-            CustomTextField(
-              controller: countryController,
-              hintName: "Enter Your Country",
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: AppPadding.p10, bottom: AppPadding.p10),
+            //   child: textStyle11(text: "Country"),
+            // ),
+            // CustomTextField(
+            //   controller: countryController,
+            //   hintName: "Enter Your Country",
+            // ),
             buildSpaceVertical(height * 0.05),
             Center(
               child: InkWell(
@@ -194,7 +197,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
           const TextStyle(color: Colors.indigo, fontSize: 19, letterSpacing: 2),
       dialogBackgroundColor: Colors.greenAccent,
       appBarIcon: const Icon(Icons.arrow_back, color: Colors.black),
-      buttonText: "Pay $selectedCurrency ${prodcutPrice.toString()}",
+      buttonText: "Pay NGN ${prodcutPrice.toString()}",
       appBarTitleTextStyle: const TextStyle(
         color: Colors.green,
         fontSize: 18,
@@ -220,8 +223,8 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
     final Flutterwave flutterwave = Flutterwave(
         context: context,
         style: style,
-        publicKey: 'FLWPUBK_TEST-3ee3b78f91bf2a579bb64c18d9012dd5-X',
-        currency: selectedCurrency,
+        publicKey: 'FLWPUBK-6119f871248dd5fa10b68e1a76660b6d-X',
+        currency: 'NGN',
         txRef: txref,
         amount: prodcutPrice.toString(),
         customer: customer,
@@ -249,7 +252,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
                         cityController.text,
                         stateController.text,
                         postalCodeController.text,
-                        countryController.text,
+                        // countryController.text,
                         email,
                         phoneController.text,
                         lineItemModel)

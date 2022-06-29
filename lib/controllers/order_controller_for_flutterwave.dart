@@ -18,7 +18,7 @@ class FlutterWaveOrderController extends GetxController {
       city,
       state,
       postcode,
-      country,
+      // country,
       email,
       phone,
       id) async {
@@ -37,7 +37,7 @@ class FlutterWaveOrderController extends GetxController {
         "city": city,
         "state": state,
         "postcode": postcode,
-        "country": country,
+        // "country": country,
         "email": email,
         "phone": phone,
       },
