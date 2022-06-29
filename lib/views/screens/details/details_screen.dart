@@ -128,19 +128,22 @@ class _DetailsScreenState extends State<DetailsScreen>
 
   checkCourseStarted() async {
     var data = Get.arguments;
+    print(data);
     myCourseModel = (await myAllCoursesController.fetchMyCourses());
     setState(() {});
     for (int i = 0;
         i < myAllCoursesController.myCoursesList.value.length;
         i++) {
+      print(myAllCoursesController.myCoursesList.value[i].id);
       if (data == myAllCoursesController.myCoursesList.value[i].id) {
         setState(() {
           isStarted = false;
         });
+        break;
       } else {
-        setState(() {
-          isStarted = true;
-        });
+        // setState(() {
+        //   isStarted = true;
+        // });
       }
     }
     Future.delayed(const Duration(seconds: 3))

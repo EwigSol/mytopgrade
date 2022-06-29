@@ -29,6 +29,7 @@ class MyAllCoursesController extends GetxController {
     });
     var jsonString = response.body;
     myCoursesList.value = myCoursesModelFromJson(jsonString);
+    print(jsonString);
     isLoading.value = false;
     return myCoursesModelFromJson(jsonString);
   }
