@@ -14,12 +14,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await Firebase.initializeApp();
-  // Get.put(CoursesController());
   Get.put(CourseByIDController());
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
   Get.put(WishlistController());
-  // Get.put(LessonByIDController());
   runApp(const MyApp());
 }
 
