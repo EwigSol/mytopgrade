@@ -24,14 +24,25 @@ class _VideoItemsState extends State<VideoItems> {
 
   @override
   void initState() {
-    // _chewieController!.pause();
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
       aspectRatio: 16 / 9,
       autoInitialize: true,
-      autoPlay: widget.autoplay!,
+      autoPlay: false,
+      showControls: true,
+      showControlsOnInitialize: false,
       looping: widget.looping!,
+      placeholder: Container(
+        color: Colors.black,
+        child: Container(
+          child: const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFffa110)),
+            ),
+          ),
+        ),
+      ),
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(
