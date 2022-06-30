@@ -11,7 +11,7 @@ class UpdateCustomerController extends GetxController {
   final box = GetStorage();
 
   Future<Map<String, dynamic>> updateCustomer(
-      String username, email, id) async {
+      String firstName, lastName, phone, id) async {
     print(id.toString());
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
@@ -19,7 +19,11 @@ class UpdateCustomerController extends GetxController {
     String password = "cs_6dab149b45ec92999adfc637192d53b3f589d41a";
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$userName:$password'));
-    Map<dynamic, dynamic> dataBody = {"username": username, "email": email};
+    Map<dynamic, dynamic> dataBody = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "phone": phone
+    };
 
     var response = await client.put(
         Uri.parse(
@@ -33,7 +37,11 @@ class UpdateCustomerController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
-      result = {'status': true, 'userData': userModelFromJson(response.body)};
+      result = {
+        'status': true,
+        'userData': userModelFromJson(response.body),
+        'message': "Customer Details Updated"
+      };
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;

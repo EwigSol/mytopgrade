@@ -23,6 +23,9 @@ class UpdateProfileScreen extends StatefulWidget {
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final phoneController = TextEditingController();
   final box = GetStorage();
   var updateCustomerController = Get.put(UpdateCustomerController());
 
@@ -40,112 +43,118 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       appBar: buildAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-        child: Column(
-          children: [
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
-              width: MediaQuery.of(context).size.width * 0.50,
-              child: Stack(
-                children: [
-                  const Align(
-                    alignment: Alignment.center,
-                    child: CircleAvatar(
-                      radius: 65,
-                      backgroundColor: ColorManager.halfWhiteColor,
-                      backgroundImage: AssetImage(AssetsManager.person),
-                    ),
-                  ),
-                  Positioned(
-                    right: 20,
-                    bottom: 10,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.10,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.s30),
-                        color: ColorManager.whiteColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 3,
-                            blurRadius: 4,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Stack(
+                  children: [
+                    const Align(
+                      alignment: Alignment.center,
+                      child: CircleAvatar(
+                        radius: 65,
+                        backgroundColor: ColorManager.halfWhiteColor,
+                        backgroundImage: AssetImage(AssetsManager.person),
                       ),
-                      child: const Icon(Icons.edit),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      right: 20,
+                      bottom: 10,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.10,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.s30),
+                          color: ColorManager.whiteColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 4,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(Icons.edit),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-            CustomTextField(
-              controller: usernameController,
-              hintName: StringsManager.userName,
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            CustomTextField(
-              controller: emailController,
-              hintName: StringsManager.email,
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            CustomTextField(
-              controller: emailController,
-              hintName: 'Enter Your First Name',
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            CustomTextField(
-              controller: emailController,
-              hintName: 'Enter Your Last Name',
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            CustomTextField(
-              controller: emailController,
-              hintName: "Enter Your Phone Number",
-            ),
-            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-            InkWell(
-              onTap: () {
-                UserModel userModel;
-                if (usernameController.text.isNotEmpty) {
-                  if (emailController.text.isNotEmpty) {
-                    var id = box.read("user_id");
-                    updateCustomerController
-                        .updateCustomer(
-                            usernameController.text, emailController.text, id)
-                        .then((response) => {
-                              if (response['status'] == true)
-                                {
-                                  userModel = response['userData'],
-                                  box.write("user_id", userModel.id.toString()),
-                                  box.write("user_email", userModel.email),
-                                  box.write(
-                                      "user_display_name", userModel.username),
-                                  Get.toNamed(Paths.homeBar)
-                                }
-                              else
-                                {
-                                  errorToast("Error", response['message']),
-                                }
-                            });
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
+              CustomTextField(
+                controller: usernameController,
+                hintName: StringsManager.userName,
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              CustomTextField(
+                controller: emailController,
+                hintName: StringsManager.email,
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              CustomTextField(
+                controller: firstNameController,
+                hintName: 'Enter Your First Name',
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              CustomTextField(
+                controller: lastNameController,
+                hintName: 'Enter Your Last Name',
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              CustomTextField(
+                controller: phoneController,
+                hintName: "Enter Your Phone Number",
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
+              InkWell(
+                onTap: () {
+                  UserModel userModel;
+                  if (usernameController.text.isNotEmpty) {
+                    if (emailController.text.isNotEmpty) {
+                      var id = box.read("user_id");
+                      updateCustomerController
+                          .updateCustomer(firstNameController.text,
+                              lastNameController.text, phoneController.text, id)
+                          .then((response) => {
+                                if (response['status'] == true)
+                                  {
+                                    userModel = response['userData'],
+                                    box.write(
+                                        "user_id", userModel.id.toString()),
+                                    box.write("user_email", userModel.email),
+                                    box.write("user_display_name",
+                                        userModel.username),
+                                    Get.snackbar('Success',
+                                        'UserData Updated Successfully',
+                                        snackPosition: SnackPosition.BOTTOM),
+                                    Get.toNamed(Paths.homeBar)
+                                  }
+                                else
+                                  {
+                                    errorToast("Error", response['message']),
+                                  }
+                              });
+                    } else {
+                      errorToast("Error", "Email is required");
+                    }
                   } else {
-                    errorToast("Error", "Email is required");
+                    errorToast("Error", "User Name is required");
                   }
-                } else {
-                  errorToast("Error", "User Name is required");
-                }
-              },
-              child: Obx(() {
-                if (updateCustomerController.isDataSubmitting.value == true) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  return actionButton("UPDATE", context);
-                }
-              }),
-            ),
-          ],
+                },
+                child: Obx(() {
+                  if (updateCustomerController.isDataSubmitting.value == true) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return actionButton("UPDATE", context);
+                  }
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
