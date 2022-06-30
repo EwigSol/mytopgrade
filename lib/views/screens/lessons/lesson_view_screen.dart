@@ -4,6 +4,7 @@ import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/helpers/helper.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/lesson_byID_model.dart';
+import 'package:topgrade/routes/appPages.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
 import '../../../helpers/text_helper.dart';
@@ -16,10 +17,12 @@ import 'widgets/lesson_card.dart';
 class LessonViewScreen extends StatefulWidget {
   final Section? sections;
   var id;
+  var courseId;
   bool? isLocked;
   LessonViewScreen({
     Key? key,
     this.id,
+    required this.courseId,
     this.sections,
     this.isLocked,
   }) : super(key: key);
@@ -124,6 +127,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                       itemBuilder: (context, i) {
                         return widget.sections!.items![i].type == Type.lpLesson
                             ? LessonCard(
+                                courseId: widget.courseId,
                                 isLocked: widget.isLocked,
                                 id: widget.sections!.items![i].id,
                                 title: widget.sections!.items![i].title,
@@ -198,7 +202,18 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
-      iconTheme: const IconThemeData(color: ColorManager.blackColor),
+      leading: InkWell(
+          onTap: () {
+            Get.offAndToNamed(
+              Paths.details,
+              arguments: widget.courseId,
+            );
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          )),
+      // iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
 

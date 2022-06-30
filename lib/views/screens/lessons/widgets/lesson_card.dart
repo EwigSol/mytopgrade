@@ -17,10 +17,12 @@ class LessonCard extends StatefulWidget {
   var duration;
   var index;
   var id;
+  var courseId;
   final Section? section;
   bool? isLocked;
   LessonCard(
       {Key? key,
+      required this.courseId,
       required this.id,
       required this.title,
       required this.duration,
@@ -50,6 +52,7 @@ class _LessonCardState extends State<LessonCard> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => LessonViewScreen(
+                            courseId: widget.courseId,
                             id: widget.id.toString(),
                             sections: widget.section,
                             isLocked: widget.isLocked,

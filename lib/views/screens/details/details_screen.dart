@@ -73,9 +73,11 @@ class _DetailsScreenState extends State<DetailsScreen>
   bool inWishlist = false;
   bool isLoading = false;
   bool isStarted = true;
+  var courseId;
 
   @override
   void initState() {
+    courseId = Get.arguments;
     super.initState();
     checkCourseStarted();
     checkWishlist();
@@ -424,6 +426,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                   isMyCourse: "false"),
                               Playlist(
                                   // courseByIdModel: courseByIdModel,
+                                  courseId: courseId,
                                   favCourseDetail: widget.favCourseDetail,
                                   isWishlist: true,
                                   isMyCourse: "false",
@@ -686,6 +689,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                       isWishlist: false,
                                       isMyCourse: "true"),
                                   Playlist(
+                                      courseId: courseId,
                                       myCoursesModel: widget.myCoursesModel,
                                       isWishlist: false,
                                       isMyCourse: "true",
@@ -990,6 +994,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                               isWishlist: false,
                                               isMyCourse: "false"),
                                           Playlist(
+                                              courseId: courseId,
                                               courseByIdModel: courseByIdModel,
                                               isWishlist: false,
                                               isMyCourse: "false",

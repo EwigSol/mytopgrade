@@ -22,9 +22,11 @@ class Playlist extends StatefulWidget {
   final CourseByIdModel? courseByIdModel;
   final bool isWishlist;
   final String isMyCourse;
+  var courseId;
   final bool isLocked;
-  const Playlist(
+  Playlist(
       {Key? key,
+      required this.courseId,
       this.coursesDetail,
       required this.isWishlist,
       this.favCourseDetail,
@@ -110,6 +112,7 @@ class _PlaylistState extends State<Playlist> {
                                             .items![i].type ==
                                         Type.lpLesson
                                     ? LessonCard(
+                                        courseId: widget.courseId,
                                         isLocked: widget.isLocked,
                                         id: widget.courseByIdModel!
                                             .sections![index].items![i].id,
