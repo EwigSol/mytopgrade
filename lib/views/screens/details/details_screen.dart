@@ -275,7 +275,6 @@ class _DetailsScreenState extends State<DetailsScreen>
                                 alignment: Alignment.centerLeft,
                                 width: width * 0.85,
                                 child: Text(
-                                  // 'toooo oooo oooooooooo hsdhfodshfoihasoidbcv iasdbcihasgd vjaskdjvsdkjcb',
                                   courseByIdModel!.name!,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -531,7 +530,6 @@ class _DetailsScreenState extends State<DetailsScreen>
                                     alignment: Alignment.centerLeft,
                                     width: width * 0.85,
                                     child: Text(
-                                      // 'toooo oooo oooooooooo hsdhfodshfoihasoidbcv iasdbcihasgd vjaskdjvsdkjcb',
                                       courseByIdModel!.name!,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
@@ -822,7 +820,6 @@ class _DetailsScreenState extends State<DetailsScreen>
                                             alignment: Alignment.centerLeft,
                                             width: width * 0.85,
                                             child: Text(
-                                              // 'toooo oooo oooooooooo hsdhfodshfoihasoidbcv iasdbcihasgd vjaskdjvsdkjcb',
                                               courseByIdModel!.name!,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 3,

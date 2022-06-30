@@ -39,12 +39,7 @@ class Playlist extends StatefulWidget {
 }
 
 class _PlaylistState extends State<Playlist> {
-  // final LessonByIDController lessonByIDController =
-  //     Get.put(LessonByIDController());
-  // final AssignmentByIDController assignmentByIDController =
-  //     Get.put(AssignmentByIDController());
   final QuizByIDController quizByIDController = Get.put(QuizByIDController());
-  // LessonByIdModel? lessonModelList;
   List<AssignmentByIdModel> assignmentModelList = [];
   List<QuizByIdModel> quizModelList = [];
 
@@ -174,5 +169,3 @@ class _PlaylistState extends State<Playlist> {
             child: textStyle0_5(text: "No section available in this course"));
   }
 }
-
-//  color: Color.fromRGBO(10, 255, index * 10, 100),

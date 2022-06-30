@@ -34,17 +34,15 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
   final LessonByIDController lessonByIDController =
       Get.put(LessonByIDController());
   late LessonByIdModel lessonModelList = LessonByIdModel();
-  // LessonByIdModel? lessonByIdModel;
+  VideoPlayerController? _controller;
   String? _url;
   String? name;
-  // VideoPlayerController? _controller;
   var isLoading = true;
 
   @override
   void initState() {
     lessonModelList;
     getLessonByIdData();
-
     super.initState();
   }
 
@@ -69,16 +67,8 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.40,
                       width: MediaQuery.of(context).size.width * 0.95,
-                      child:
-                          //  _controllerr!.value.isInitialized
-                          //     ? AspectRatio(
-                          //         aspectRatio: _controller!.value.aspectRatio,
-                          //         child: VideoPlayer(_controller!),
-                          //       )
-                          //     : CircularProgressIndicator(),
-                          VideoItems(
+                      child: VideoItems(
                         videoPlayerController: VideoPlayerController.network(
-                            // 'https://musing-gould.18-141-157-112.plesk.page/wp-content/uploads/2021/11/a-negative-exponent.mp4'),
                             _parseHtmlString(lessonModelList.content!)),
                         looping: false,
                         autoplay: false,
@@ -91,16 +81,6 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                       onTap: () async {
                         await finishLessonController
                             .finishLesson(widget.id.toString());
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => LessonViewScreen(
-                        //           id: widget.id.toString(),
-                        //           sections: widget.sections,
-                        //           isLocked: widget.isLocked,
-                        //           // url: url,
-                        //           // name: name,
-                        //         )));
                         if (finishLessonController.isDataSubmitting == false) {
                           Get.snackbar(
                             'Hurrey',
@@ -114,20 +94,6 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                             snackPosition: SnackPosition.BOTTOM,
                           );
                         }
-
-                        // .then((response) => {
-                        //       if (response['status'] == 'success')
-                        //         {
-                        //           successToast(
-                        //               "Success", "Lesson Finished"),
-                        //           Get.back()
-                        //         }
-                        //       else
-                        //         {
-                        //           errorToast(
-                        //               "Error", "Failed to finish Lesson"),
-                        //         }
-                        //     });
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.06,
@@ -179,14 +145,14 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CircularProgressIndicator(),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   AnimatedTextKit(
                     animatedTexts: [
                       TypewriterAnimatedText(
                         'Connecting to the Server..',
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         speed: const Duration(milliseconds: 180),
                       ),

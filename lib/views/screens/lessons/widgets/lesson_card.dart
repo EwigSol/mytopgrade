@@ -5,6 +5,7 @@ import 'package:topgrade/controllers/lesson_byId_controller.dart';
 import 'package:topgrade/models/course_by_id_model.dart';
 import 'package:topgrade/models/lesson_byID_model.dart';
 import 'package:topgrade/utils/color_manager.dart';
+import 'package:video_player/video_player.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';
@@ -24,7 +25,8 @@ class LessonCard extends StatefulWidget {
       required this.title,
       required this.duration,
       required this.isLocked,
-      required this.index, this.section})
+      required this.index,
+      this.section})
       : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class LessonCard extends StatefulWidget {
 
 class _LessonCardState extends State<LessonCard> {
   final box = GetStorage();
+  VideoPlayerController? _controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,15 +46,13 @@ class _LessonCardState extends State<LessonCard> {
             await box.write("lesson_id", widget.id.toString());
             print('id at the time of navigation is ${box.read("lesson_id")}');
             if (widget.isLocked == false) {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => LessonViewScreen(
                             id: widget.id.toString(),
                             sections: widget.section,
                             isLocked: widget.isLocked,
-                            // url: url,
-                            // name: name,
                           )));
             }
           },
