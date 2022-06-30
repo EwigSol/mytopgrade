@@ -86,44 +86,25 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               hintName: StringsManager.userName,
             ),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-            //   child: IntlPhoneField(
-            //     decoration: const InputDecoration(
-            //       enabledBorder:  OutlineInputBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-            //         borderSide: BorderSide(color: ColorManager.grayColor),
-            //       ),
-            //       focusedBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-            //         borderSide: BorderSide(color: ColorManager.grayColor),
-            //       ),
-            //       errorBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-            //         borderSide: BorderSide(color: ColorManager.redColor),
-            //       ),
-            //       focusedErrorBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-            //         borderSide: BorderSide(color: ColorManager.redColor),
-            //       ),
-            //       disabledBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-            //         borderSide: BorderSide(color: ColorManager.grayColor),
-            //       ),
-            //       hintText: StringsManager.phoneNo,
-            //       hintStyle: TextStyle(fontSize: AppSize.s12),
-            //       fillColor: ColorManager.whiteColor,
-            //       filled: true,
-            //     ),
-            //     initialCountryCode: 'ZA',
-            //     onChanged: (phone) {},
-            //   ),
-            // ),
             CustomTextField(
               controller: emailController,
               hintName: StringsManager.email,
             ),
-
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            CustomTextField(
+              controller: emailController,
+              hintName: 'Enter Your First Name',
+            ),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            CustomTextField(
+              controller: emailController,
+              hintName: 'Enter Your Last Name',
+            ),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            CustomTextField(
+              controller: emailController,
+              hintName: "Enter Your Phone Number",
+            ),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
             InkWell(
               onTap: () {
