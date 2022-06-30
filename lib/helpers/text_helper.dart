@@ -8,9 +8,9 @@ Text textStyle00({required String text, Color? color, TextAlign? textAlign}) {
     text,
     textAlign: textAlign ?? TextAlign.start,
     style: GoogleFonts.poppins(
-      fontSize: 8,
+      fontSize: 10,
       color: color ?? ColorManager.blackColor,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.w300,
     ),
   );
 }

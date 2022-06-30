@@ -233,7 +233,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
                                     width: MediaQuery.of(context).size.width *
-                                        0.10,
+                                        0.13,
                                     decoration: const BoxDecoration(
                                         color: ColorManager.redColor,
                                         borderRadius: BorderRadius.only(
@@ -254,7 +254,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                             color: ColorManager.whiteColor),
                                         textStyle0(
                                             text:
-                                                "\$${widget.favCourseDetail!.price.toString()}",
+                                                "\NGN\ ${widget.favCourseDetail!.price.toString()}",
                                             color: ColorManager.whiteColor),
                                       ],
                                     ),
@@ -486,7 +486,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                 0.06,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.10,
+                                                0.13,
                                         decoration: const BoxDecoration(
                                             color: ColorManager.redColor,
                                             borderRadius: BorderRadius.only(
@@ -508,7 +508,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                 color: ColorManager.whiteColor),
                                             textStyle0(
                                                 text:
-                                                    "\$${widget.myCoursesModel!.price.toString()}",
+                                                    "\NGN\ ${widget.myCoursesModel!.price.toString()}",
                                                 color: ColorManager.whiteColor),
                                           ],
                                         ),
@@ -760,7 +760,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.10,
+                                                    0.13,
                                                 decoration: const BoxDecoration(
                                                     color:
                                                         ColorManager.redColor,
@@ -790,7 +790,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                           fontSize: 15),
                                                     ),
                                                     Text(
-                                                      "\$ ${courseByIdModel!.price.toString()}",
+                                                      "\NGN\ ${courseByIdModel!.price.toString()}",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: const TextStyle(

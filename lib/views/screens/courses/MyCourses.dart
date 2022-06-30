@@ -34,41 +34,44 @@ class _MyCoursesState extends State<MyCourses>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: [
-          buildSpaceVertical(height * 0.02),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p6, horizontal: AppPadding.p6),
-            child: TabBar(
-              isScrollable: true,
-              indicator: BoxDecoration(
-                  color: ColorManager.redColor,
-                  borderRadius: BorderRadius.circular(AppSize.s22)),
-              controller: _controller,
-              unselectedLabelColor: ColorManager.blackColor,
-              unselectedLabelStyle:
-                  const TextStyle(color: ColorManager.blackColor),
-              tabs: [
-                alMyCoursesTab(),
-                inProgrressCoursesTab(),
-                finishedCoursesTab()
-              ],
+      body: Padding(
+        padding: const EdgeInsets.only(right: 20.0, left: 20),
+        child: Column(
+          children: [
+            buildSpaceVertical(height * 0.02),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p6, horizontal: AppPadding.p6),
+              child: TabBar(
+                isScrollable: true,
+                indicator: BoxDecoration(
+                    color: ColorManager.redColor,
+                    borderRadius: BorderRadius.circular(AppSize.s22)),
+                controller: _controller,
+                unselectedLabelColor: ColorManager.blackColor,
+                unselectedLabelStyle:
+                    const TextStyle(color: ColorManager.blackColor),
+                tabs: [
+                  alMyCoursesTab(),
+                  inProgrressCoursesTab(),
+                  finishedCoursesTab()
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: height * 0.65,
-            width: width,
-            child: TabBarView(
-              controller: _controller,
-              children: [
-                AllMyCourses(),
-                InProgressCourses(),
-                FinishedCourses()
-              ],
-            ),
-          )
-        ],
+            SizedBox(
+              height: height * 0.65,
+              width: width,
+              child: TabBarView(
+                controller: _controller,
+                children: [
+                  AllMyCourses(),
+                  InProgressCourses(),
+                  FinishedCourses()
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

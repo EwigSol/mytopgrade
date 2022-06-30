@@ -131,26 +131,26 @@ class _SearchScreenState extends State<SearchScreen> {
         textStyle0_5(text: title),
         InkWell(
             onTap: () {
-              if (title == "Categories") {
-                // Get.toNamed(Paths.allCat);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CategoriesScreen()));
-              } else if (title == "Popular Courses") {
-                // Get.toNamed(Paths.allPopular);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PopularCoursesScreen()));
-              } else if (title == "All Courses") {
-                // Get.toNamed(Paths.alInstructor);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PopularCoursesScreen()));
-              }
+              // if (title == "Categories") {
+              //   // Get.toNamed(Paths.allCat);
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => CategoriesScreen()));
+              // } else if (title == "Popular Courses") {
+              //   // Get.toNamed(Paths.allPopular);
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => const PopularCoursesScreen()));
+              // } else if (title == "Search Results") {
+              //   // Get.toNamed(Paths.alInstructor);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PopularCoursesScreen()));
             },
+            // },
             child: textStyle0_5(text: StringsManager.seeAll)),
       ],
     );

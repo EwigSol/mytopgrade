@@ -82,7 +82,8 @@ class _PlaylistState extends State<Playlist> {
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 18),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     collapsed: Padding(
@@ -93,7 +94,7 @@ class _PlaylistState extends State<Playlist> {
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ),
                     expanded: widget

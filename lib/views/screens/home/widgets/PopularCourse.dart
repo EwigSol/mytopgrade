@@ -79,7 +79,7 @@ class PopularCourse extends StatelessWidget {
                         right: 0,
                         child: Container(
                           height: height * 0.03,
-                          width: width * 0.12,
+                          width: width * 0.18,
                           decoration: const BoxDecoration(
                               color: ColorManager.redColor,
                               borderRadius: BorderRadius.only(
@@ -89,7 +89,7 @@ class PopularCourse extends StatelessWidget {
                           child: Center(
                             child: price != 0
                                 ? Text(
-                                    '\$\ ${price.toString()}',
+                                    '\NGN\ ${price.toString()}',
                                     style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.white,

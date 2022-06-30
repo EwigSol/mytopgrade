@@ -66,112 +66,115 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildSpaceVertical(height * 0.03),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "Address"),
-            ),
-            CustomTextField(
-              controller: addressController,
-              hintName: "Enter Your Address",
-              inputLines: 4,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "Phone"),
-            ),
-            CustomTextField(
-              controller: phoneController,
-              hintName: "Enter Your Phone",
-            ),
-            buildSpaceVertical(height * 0.03),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            //   child: Container(
-            //     margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-            //     child: TextFormField(
-            //       controller: currencyController,
-            //       textInputAction: TextInputAction.next,
-            //       style: TextStyle(color: Colors.black),
-            //       readOnly: true,
-            //       onTap: this._openBottomSheet,
-            //       decoration: InputDecoration(
-            //         hintText: "Currency",
-            //       ),
-            //       validator: (value) =>
-            //           value!.isNotEmpty ? null : "Currency is required",
-            //     ),
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "City"),
-            ),
-            CustomTextField(
-              controller: cityController,
-              hintName: "Enter Your City",
-            ),
-            buildSpaceVertical(height * 0.03),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "State"),
-            ),
-            CustomTextField(
-              controller: stateController,
-              hintName: "Enter Your State",
-            ),
-            buildSpaceVertical(height * 0.03),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppPadding.p10, bottom: AppPadding.p10),
-              child: textStyle11(text: "Postal Code"),
-            ),
-            CustomTextField(
-              controller: postalCodeController,
-              hintName: "Enter Your Postal Code",
-              inputType: TextInputType.number,
-            ),
-            buildSpaceVertical(height * 0.03),
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: AppPadding.p10, bottom: AppPadding.p10),
-            //   child: textStyle11(text: "Country"),
-            // ),
-            // CustomTextField(
-            //   controller: countryController,
-            //   hintName: "Enter Your Country",
-            // ),
-            buildSpaceVertical(height * 0.05),
-            Center(
-              child: InkWell(
-                onTap: () async {
-                  await _handlePaymentInitialization();
-                },
-                child: Container(
-                  height: height * 0.06,
-                  width: width * 0.60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      color: ColorManager.primaryColor),
-                  child: Obx(() {
-                    return orderController.isDataSubmitting.value == true
-                        ? const Center(child: CircularProgressIndicator())
-                        : Center(
-                            child: textStyle2(
-                                text: "Place Order",
-                                color: ColorManager.whiteColor));
-                  }),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSpaceVertical(height * 0.03),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "Address"),
+              ),
+              CustomTextField(
+                controller: addressController,
+                hintName: "Enter Your Address",
+                inputLines: 4,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "Phone"),
+              ),
+              CustomTextField(
+                controller: phoneController,
+                hintName: "Enter Your Phone",
+              ),
+              buildSpaceVertical(height * 0.03),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              //   child: Container(
+              //     margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+              //     child: TextFormField(
+              //       controller: currencyController,
+              //       textInputAction: TextInputAction.next,
+              //       style: TextStyle(color: Colors.black),
+              //       readOnly: true,
+              //       onTap: this._openBottomSheet,
+              //       decoration: InputDecoration(
+              //         hintText: "Currency",
+              //       ),
+              //       validator: (value) =>
+              //           value!.isNotEmpty ? null : "Currency is required",
+              //     ),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "City"),
+              ),
+              CustomTextField(
+                controller: cityController,
+                hintName: "Enter Your City",
+              ),
+              buildSpaceVertical(height * 0.03),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "State"),
+              ),
+              CustomTextField(
+                controller: stateController,
+                hintName: "Enter Your State",
+              ),
+              buildSpaceVertical(height * 0.03),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p10),
+                child: textStyle11(text: "Postal Code"),
+              ),
+              CustomTextField(
+                controller: postalCodeController,
+                hintName: "Enter Your Postal Code",
+                inputType: TextInputType.number,
+              ),
+              buildSpaceVertical(height * 0.03),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: AppPadding.p10, bottom: AppPadding.p10),
+              //   child: textStyle11(text: "Country"),
+              // ),
+              // CustomTextField(
+              //   controller: countryController,
+              //   hintName: "Enter Your Country",
+              // ),
+              buildSpaceVertical(height * 0.05),
+              Center(
+                child: InkWell(
+                  onTap: () async {
+                    await _handlePaymentInitialization();
+                  },
+                  child: Container(
+                    height: height * 0.06,
+                    width: width * 0.60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppSize.s12),
+                        color: ColorManager.primaryColor),
+                    child: Obx(() {
+                      return orderController.isDataSubmitting.value == true
+                          ? const Center(child: CircularProgressIndicator())
+                          : Center(
+                              child: textStyle2(
+                                  text: "Place Order",
+                                  color: ColorManager.whiteColor));
+                    }),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -33,7 +33,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       appBar: buildAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+          padding: const EdgeInsets.symmetric(
+              vertical: AppPadding.p10, horizontal: 20),
           child: Column(
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),

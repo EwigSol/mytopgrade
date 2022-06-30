@@ -9,6 +9,7 @@ import 'package:topgrade/utils/color_manager.dart';
 import 'package:topgrade/utils/strings_manager.dart';
 import 'package:topgrade/utils/values_manager.dart';
 import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:topgrade/views/screens/profile/orderDetalilScreen.dart';
 import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
 import 'package:get/get.dart';
 
@@ -44,8 +45,13 @@ class ProfileScreen extends StatelessWidget {
               },
               child: buildProfileCard("Edit Profile", Icons.edit, context)),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          buildProfileCard("Payment Details",
-              Icons.account_balance_wallet_outlined, context),
+          InkWell(
+            onTap: () {
+              Get.to(() => OrderList());
+            },
+            child: buildProfileCard("Payment Details",
+                Icons.account_balance_wallet_outlined, context),
+          ),
           // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           // InkWell(
           //     onTap: (){

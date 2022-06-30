@@ -93,11 +93,12 @@ class _LessonCardState extends State<LessonCard> {
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                    fontSize: 14, fontWeight: FontWeight.bold),
                               ),
                               widget.duration != null
                                   ? textStyle00(
-                                      text: widget.duration.toString(),
+                                      text:
+                                          "Duration: ${widget.duration.toString()}",
                                       color: ColorManager.grayColor)
                                   : const SizedBox.shrink(),
                             ],

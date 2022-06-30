@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:topgrade/helpers/helper.dart';
@@ -23,7 +21,6 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final box = GetStorage();
@@ -59,7 +56,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       backgroundImage: AssetImage(AssetsManager.person),
                     ),
                   ),
-
                   Positioned(
                     right: 20,
                     bottom: 10,
@@ -130,35 +126,43 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
             InkWell(
-                onTap: () {
-                  UserModel userModel;
-                  if(usernameController.text.isNotEmpty){
-                    if(emailController.text.isNotEmpty){
-                      updateCustomerController.updateCustomer(usernameController.text, emailController.text, "id").then((response) => {
-                        if(response['status'] == true) {
-                          userModel = response['userData'],
-                          box.write("user_id", userModel.id.toString()),
-                          box.write("user_email", userModel.email),
-                          box.write("user_display_name", userModel.username),
-                          Get.toNamed(Paths.homeBar)
-                        }else{
-                          errorToast("Error", response['message']),
-                        }
-                      });
-                    }else{
-                      errorToast("Error", "Email is required");
-                    }
-                  }else{
-                    errorToast("Error", "User Name is required");
+              onTap: () {
+                UserModel userModel;
+                if (usernameController.text.isNotEmpty) {
+                  if (emailController.text.isNotEmpty) {
+                    var id = box.read("user_id");
+                    updateCustomerController
+                        .updateCustomer(
+                            usernameController.text, emailController.text, id)
+                        .then((response) => {
+                              if (response['status'] == true)
+                                {
+                                  userModel = response['userData'],
+                                  box.write("user_id", userModel.id.toString()),
+                                  box.write("user_email", userModel.email),
+                                  box.write(
+                                      "user_display_name", userModel.username),
+                                  Get.toNamed(Paths.homeBar)
+                                }
+                              else
+                                {
+                                  errorToast("Error", response['message']),
+                                }
+                            });
+                  } else {
+                    errorToast("Error", "Email is required");
                   }
-                },
-                child: Obx((){
-                  if(updateCustomerController.isDataSubmitting.value == true){
-                    return const Center(child: CircularProgressIndicator());
-                  }else{
-                    return actionButton("UPDATE", context);
-                  }
-                }),
+                } else {
+                  errorToast("Error", "User Name is required");
+                }
+              },
+              child: Obx(() {
+                if (updateCustomerController.isDataSubmitting.value == true) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return actionButton("UPDATE", context);
+                }
+              }),
             ),
           ],
         ),
