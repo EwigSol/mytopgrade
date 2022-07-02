@@ -38,6 +38,10 @@ dependencies:
   cloud_firestore: ^3.1.18
   flutter_facebook_auth: ^4.3.4+2
   animated_text_kit: ^4.2.2
+  firebase_messaging: ^11.4.4
+  flutter_local_notifications: ^9.6.1
+  rxdart: ^0.27.4
+  overlay_support: ^2.0.1
   # animated_text: ^1.0.2
   # flutter_login_facebook: ^1.4.1
   
