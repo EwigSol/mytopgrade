@@ -93,7 +93,7 @@ class _MyCoursesState extends State<MyCourses>
         child: Text(
           'My Courses',
           style: GoogleFonts.poppins(
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -108,7 +108,7 @@ class _MyCoursesState extends State<MyCourses>
         child: Text(
           'In Progress',
           style: GoogleFonts.poppins(
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -123,7 +123,7 @@ class _MyCoursesState extends State<MyCourses>
         child: Text(
           'Finished Courses',
           style: GoogleFonts.poppins(
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
         ),

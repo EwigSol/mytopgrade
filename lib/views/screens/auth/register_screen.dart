@@ -39,11 +39,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize:
-      //       Size(double.infinity, MediaQuery.of(context).size.height * 0.08),
-      //   child: const SimpleAppBar(title: StringsManager.register),
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -51,10 +46,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               buildSpaceVertical(height * 0.06),
               buildFormCard(),
               buildSpaceVertical(height * 0.06),
-              // const LineWidget(),
-              // buildSpaceVertical(1.h),
-              // buildSocialRow(),
-              // buildSpaceVertical(1.h),
               LoginText(toggleView: widget.toggleView)
             ],
           ),
@@ -98,47 +89,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: usernameController,
                 hintName: StringsManager.userName,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only( top:AppPadding.p10, left: AppPadding.p10, bottom: AppPadding.p6),
-              //   child: textStyle11(text: "Phone No"),
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.1,
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-              //     child: IntlPhoneField(
-              //       decoration: const InputDecoration(
-              //         enabledBorder:  OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-              //           borderSide: BorderSide(color: ColorManager.grayColor),
-              //         ),
-              //         focusedBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-              //           borderSide: BorderSide(color: ColorManager.grayColor),
-              //         ),
-              //         errorBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-              //           borderSide: BorderSide(color: ColorManager.redColor),
-              //         ),
-              //         focusedErrorBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-              //           borderSide: BorderSide(color: ColorManager.redColor),
-              //         ),
-              //         disabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-              //           borderSide: BorderSide(color: ColorManager.grayColor),
-              //         ),
-              //         hintText: StringsManager.phoneNo,
-              //         hintStyle: TextStyle(fontSize: AppSize.s12),
-              //         fillColor: ColorManager.whiteColor,
-              //         filled: true,
-              //       ),
-              //       initialCountryCode: 'ZA',
-              //       onChanged: (phone) {
-              //       },
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p6),
@@ -164,10 +114,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () async {
-                  // UserModel userModel;
-                  // if (usernameController.text.isNotEmpty) {
-                  //   if (emailController.text.isNotEmpty) {
-                  //     if (passwordController.text.isNotEmpty) {
                   await registerController
                       .register(usernameController.text, emailController.text,
                           passwordController.text)
@@ -178,32 +124,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     "You Have already created account on this email and username")
                               }
                           });
-                  // await loginController.login(emailController.text, passwordController.text).then((response) => {
-                  //   if (response['status'] == true)
-                  //     {
-                  //       box.write("user_id", response['user_id']),
-                  //       box.write("user_email", response['user_email']),
-                  //       box.write("user_display_name", response['user_display_name']),
-                  //       Get.snackbar('Welcome Back', 'Welcome ${response['user_display_name']} to your Educational Portal',
-                  //       snackPosition: SnackPosition.BOTTOM),
-                  //       Get.toNamed(Paths.homeBar)
-                  //     }
-                  //   else
-                  //     {
-                  //       errorToast("Error", response['message']),
-                  //     }
-                  // });
-
-                  //       } else {
-                  //         errorToast("Error", "Password is required");
-                  //       }
-                  //     } else {
-                  //       errorToast("Error", "Email is required");
-                  //     }
-                  //   } else {
-                  //     errorToast("Error", "UserName is required");
-                  //   }
-                  // },
                 },
                 child: Obx(() {
                   if (registerController.isDataSubmitting.value == true) {

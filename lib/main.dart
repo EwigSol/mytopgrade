@@ -73,7 +73,10 @@ void main() async {
     if (notification != null && android != null) {
       showSimpleNotification(
         Text(notification.title!),
-        leading: Icon(Icons.notification_add),
+        leading: Image.asset(
+          'assets/images/logo.png',
+          height: 50,
+        ),
         subtitle: Text(
           notification.body!,
         ),
