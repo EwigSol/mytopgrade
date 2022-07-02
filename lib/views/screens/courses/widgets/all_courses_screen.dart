@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/models/my_courses_model.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/courses_model.dart';
+import 'package:mytopgrade/models/my_courses_model.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../../controllers/my_all_courses_controller.dart';
 
 class AllMyCourses extends StatefulWidget {
@@ -20,7 +20,8 @@ class AllMyCourses extends StatefulWidget {
 }
 
 class _AllMyCoursesState extends State<AllMyCourses> {
-  final MyAllCoursesController myCoursesController = Get.put(MyAllCoursesController());
+  final MyAllCoursesController myCoursesController =
+      Get.put(MyAllCoursesController());
 
   List<MyCoursesModel> myCoursesModel = [];
 
@@ -57,14 +58,19 @@ class _AllMyCoursesState extends State<AllMyCourses> {
                         itemCount: myCoursesController.myCoursesList.length,
                         itemBuilder: (BuildContext ctx, index) {
                           return PopularCourse(
-                            argument: myCoursesController.myCoursesList[index].id,
-                            image: myCoursesController.myCoursesList[index].image,
-                            sectionslength:
-                            myCoursesController.myCoursesList[index].sections!.length,
-                            instructor: myCoursesController.myCoursesList[index].instructor,
+                            argument:
+                                myCoursesController.myCoursesList[index].id,
+                            image:
+                                myCoursesController.myCoursesList[index].image,
+                            sectionslength: myCoursesController
+                                .myCoursesList[index].sections!.length,
+                            instructor: myCoursesController
+                                .myCoursesList[index].instructor,
                             name: myCoursesController.myCoursesList[index].name,
-                            price: myCoursesController.myCoursesList[index].price,
-                            rating: myCoursesController.myCoursesList[index].rating,
+                            price:
+                                myCoursesController.myCoursesList[index].price,
+                            rating:
+                                myCoursesController.myCoursesList[index].rating,
                           );
                         })
                     : const Center(

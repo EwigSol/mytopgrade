@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/utils/strings_manager.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/courses_model.dart';
+import 'package:mytopgrade/utils/strings_manager.dart';
 import 'package:get/get.dart';
 import '../../../controllers/courses_controller.dart';
 import '../../../helpers/helper.dart';
@@ -19,8 +17,8 @@ class BestInstructorScreen extends StatefulWidget {
 }
 
 class _BestInstructorScreenState extends State<BestInstructorScreen> {
-
-  final CoursesController popularCoursesController = Get.put(CoursesController());
+  final CoursesController popularCoursesController =
+      Get.put(CoursesController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,27 +29,28 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
         child: Column(
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-            Obx((){
-              if(popularCoursesController.isLoading.value){
+            Obx(() {
+              if (popularCoursesController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
-              }else{
-                return popularCoursesController.coursesList.isNotEmpty ?
-                Center(
-                  child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 10,
-                      runSpacing: 10,
-                      alignment: WrapAlignment.spaceEvenly,
-                      children: popularCoursesController.coursesList.map((item) {
-                        return buildInstructorCard(item);
-                      }).toList()
-                  ),
-                )
+              } else {
+                return popularCoursesController.coursesList.isNotEmpty
+                    ? Center(
+                        child: Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 10,
+                            runSpacing: 10,
+                            alignment: WrapAlignment.spaceEvenly,
+                            children: popularCoursesController.coursesList
+                                .map((item) {
+                              return buildInstructorCard(item);
+                            }).toList()),
+                      )
                     : SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.17,
-                    width: double.infinity,
-                    child: Center(child: textStyle0_5(text: "No Instructor Available"))
-                );
+                        height: MediaQuery.of(context).size.height * 0.17,
+                        width: double.infinity,
+                        child: Center(
+                            child:
+                                textStyle0_5(text: "No Instructor Available")));
               }
             }),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
@@ -92,35 +91,43 @@ class _BestInstructorScreenState extends State<BestInstructorScreen> {
         child: Row(
           children: [
             buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
-            catModel.instructor!.avatar != '' ?
-            CircleAvatar(
-              radius: 35,
-              backgroundColor: ColorManager.whiteColor,
-              backgroundImage: NetworkImage(catModel.instructor!.avatar!),
-            )
-                :
-            const CircleAvatar(
-              radius: 35,
-              backgroundColor: ColorManager.whiteColor,
-              backgroundImage: AssetImage(AssetsManager.girl),
-            ),
+            catModel.instructor!.avatar != ''
+                ? CircleAvatar(
+                    radius: 35,
+                    backgroundColor: ColorManager.whiteColor,
+                    backgroundImage: NetworkImage(catModel.instructor!.avatar!),
+                  )
+                : const CircleAvatar(
+                    radius: 35,
+                    backgroundColor: ColorManager.whiteColor,
+                    backgroundImage: AssetImage(AssetsManager.girl),
+                  ),
             buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                  Text(catModel.instructor!.name!.name, maxLines: 3, overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                  Text(
+                    catModel.instructor!.name!.name,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
                   buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
                   Flexible(
-                    child: Text(catModel.instructor!.description!, maxLines: 5, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 11, color: ColorManager.grayColor),),
+                    child: Text(
+                      catModel.instructor!.description!,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 11, color: ColorManager.grayColor),
+                    ),
                   ),
                 ],
               ),
             ),
-
           ],
         ),
         //  Row(

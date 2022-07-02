@@ -1,13 +1,8 @@
-
-
-
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/course_review_model.dart';
+import 'package:mytopgrade/models/course_review_model.dart';
 import '../services/remote_services.dart';
 
-
 class CourseReviewsController extends GetxController {
-
   var isLoading = true.obs;
   var courseReviews = Rxn<CourseReviewModel>();
   RemoteServices remoteServices = RemoteServices();
@@ -30,5 +25,4 @@ class CourseReviewsController extends GetxController {
       isLoading(false);
     }
   }
-
 }

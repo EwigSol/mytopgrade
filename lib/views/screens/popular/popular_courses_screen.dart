@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/strings_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/strings_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'widgets/most_popular_screen.dart';
 import 'widgets/trending_screen.dart';
 import 'package:get/get.dart';

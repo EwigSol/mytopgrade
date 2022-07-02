@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/models/assignment_byID_model.dart';
+import 'package:mytopgrade/models/assignment_byID_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:topgrade/network_module/api_path.dart';
+import 'package:mytopgrade/network_module/api_path.dart';
 
 import '../network_module/api_base.dart';
 

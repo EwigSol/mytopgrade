@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/order_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
+import 'package:mytopgrade/controllers/order_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/routes/appPages.dart';
+import 'package:mytopgrade/routes/appPages.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/values_manager.dart';

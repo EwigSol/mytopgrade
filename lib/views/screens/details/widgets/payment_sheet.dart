@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/line_item_model.dart';
-import 'package:topgrade/models/payment_gateway_model.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/line_item_model.dart';
+import 'package:mytopgrade/models/payment_gateway_model.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/appPages.dart';

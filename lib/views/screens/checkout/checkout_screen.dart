@@ -1,11 +1,8 @@
-
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
@@ -20,23 +17,30 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-
-  List<Color> colorList = [ColorManager.lightBlueColor, ColorManager.lightGreenColor, ColorManager.lightPurpleColor];
+  List<Color> colorList = [
+    ColorManager.lightBlueColor,
+    ColorManager.lightGreenColor,
+    ColorManager.lightPurpleColor
+  ];
   List<PaymentMethodsModel> paymentMethodsList = [];
   int selectedPaymentMethod = -1;
   int selectedCard = -1;
 
   @override
-  initState(){
+  initState() {
     super.initState();
     getData();
   }
 
   getData() {
-  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.debit, name: 'Debit Card'));
-  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.stripe, name: 'Stripe'));
-  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.paypal, name: 'Paypal'));
-  paymentMethodsList.add(PaymentMethodsModel(image: AssetsManager.cod, name: 'COD'));
+    paymentMethodsList.add(
+        PaymentMethodsModel(image: AssetsManager.debit, name: 'Debit Card'));
+    paymentMethodsList
+        .add(PaymentMethodsModel(image: AssetsManager.stripe, name: 'Stripe'));
+    paymentMethodsList
+        .add(PaymentMethodsModel(image: AssetsManager.paypal, name: 'Paypal'));
+    paymentMethodsList
+        .add(PaymentMethodsModel(image: AssetsManager.cod, name: 'COD'));
   }
 
   @override
@@ -70,13 +74,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s16),
-                          color: (selectedPaymentMethod == index) ? ColorManager.primaryColor : ColorManager.halfWhiteColor
-                      ),
+                          color: (selectedPaymentMethod == index)
+                              ? ColorManager.primaryColor
+                              : ColorManager.halfWhiteColor),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(paymentMethodsList[index].image, height: MediaQuery.of(context).size.height * 0.08, width: MediaQuery.of(context).size.width * 0.08),
-                          buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                          Image.asset(paymentMethodsList[index].image,
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              width: MediaQuery.of(context).size.width * 0.08),
+                          buildSpaceHorizontal(
+                              MediaQuery.of(context).size.width * 0.02),
                           textStyle0_5(text: paymentMethodsList[index].name),
                         ],
                       ),
@@ -85,91 +93,119 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 }),
           ),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          selectedPaymentMethod == 0 ?
-          Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p12),
-            child: textStyle1(text: "Select Your Card"),
-          ): const SizedBox.shrink(),
+          selectedPaymentMethod == 0
+              ? Padding(
+                  padding: const EdgeInsets.only(left: AppPadding.p12),
+                  child: textStyle1(text: "Select Your Card"),
+                )
+              : const SizedBox.shrink(),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          selectedPaymentMethod == 0 ?
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.20,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-                itemCount: colorList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index){
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-                    child: InkWell(
-                      onTap: () => setState(() => selectedCard = index),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        width: MediaQuery.of(context).size.width * 0.60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s10),
-                            color: colorList[index],
-                          border: selectedCard == index ? Border.all(color: ColorManager.blackColor, width: 2) : null
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: AppPadding.p12, top: AppPadding.p12),
-                              child: Icon(Icons.account_balance_wallet_rounded, color: ColorManager.whiteColor),
-                            ),
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
-                            Center(child: textStyle0_5(text: "2346 **** **** 9834", color: ColorManager.whiteColor)),
-                            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          selectedPaymentMethod == 0
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                      itemCount: colorList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p10),
+                          child: InkWell(
+                            onTap: () => setState(() => selectedCard = index),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.20,
+                              width: MediaQuery.of(context).size.width * 0.60,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSize.s10),
+                                  color: colorList[index],
+                                  border: selectedCard == index
+                                      ? Border.all(
+                                          color: ColorManager.blackColor,
+                                          width: 2)
+                                      : null),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      textStyle00(text: "Card Holder", color: ColorManager.whiteColor),
-                                      textStyle0(text: "Zain Ullah", color: ColorManager.whiteColor)
-                                    ],
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        left: AppPadding.p12,
+                                        top: AppPadding.p12),
+                                    child: Icon(
+                                        Icons.account_balance_wallet_rounded,
+                                        color: ColorManager.whiteColor),
                                   ),
-
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      textStyle00(text: "Expires", color: ColorManager.whiteColor),
-                                      textStyle0(text: "15/26", color: ColorManager.whiteColor)
-                                    ],
+                                  buildSpaceVertical(
+                                      MediaQuery.of(context).size.height *
+                                          0.03),
+                                  Center(
+                                      child: textStyle0_5(
+                                          text: "2346 **** **** 9834",
+                                          color: ColorManager.whiteColor)),
+                                  buildSpaceVertical(
+                                      MediaQuery.of(context).size.height *
+                                          0.02),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: AppPadding.p16),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            textStyle00(
+                                                text: "Card Holder",
+                                                color: ColorManager.whiteColor),
+                                            textStyle0(
+                                                text: "Zain Ullah",
+                                                color: ColorManager.whiteColor)
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            textStyle00(
+                                                text: "Expires",
+                                                color: ColorManager.whiteColor),
+                                            textStyle0(
+                                                text: "15/26",
+                                                color: ColorManager.whiteColor)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }
-            ),
-          )
-          : const SizedBox.shrink(),
+                          ),
+                        );
+                      }),
+                )
+              : const SizedBox.shrink(),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
           Center(
             child: InkWell(
-                onTap: (){
-                  Get.toNamed(Paths.addNC);
-                },
-                child:  Container(
+              onTap: () {
+                Get.toNamed(Paths.addNC);
+              },
+              child: Container(
                   height: MediaQuery.of(context).size.height * 0.06,
                   width: MediaQuery.of(context).size.width * 0.44,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.s16),
-                      color: ColorManager.redColor
-                  ),
-                  child: Center(child: textStyle1(text: "Add New Card", color: ColorManager.whiteColor))
-                ),
+                      color: ColorManager.redColor),
+                  child: Center(
+                      child: textStyle1(
+                          text: "Add New Card",
+                          color: ColorManager.whiteColor))),
             ),
           ),
         ],
@@ -194,7 +230,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       width: MediaQuery.of(context).size.width,
       color: ColorManager.whiteColor,
       child: InkWell(
-        onTap: (){
+        onTap: () {
           showDialog(
             barrierColor: Colors.black26,
             context: context,

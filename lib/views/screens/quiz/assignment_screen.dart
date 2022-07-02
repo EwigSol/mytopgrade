@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:topgrade/controllers/assignments_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/assignments_model.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/controllers/assignments_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/assignments_model.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 
 class AssignmentScreen extends StatelessWidget {

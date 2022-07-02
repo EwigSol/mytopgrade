@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/quiz_byID_controller.dart';
-import 'package:topgrade/models/quiz_byID_model.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/views/screens/lessons/quiz_view_screen.dart';
+import 'package:mytopgrade/controllers/quiz_byID_controller.dart';
+import 'package:mytopgrade/models/quiz_byID_model.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/views/screens/lessons/quiz_view_screen.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';

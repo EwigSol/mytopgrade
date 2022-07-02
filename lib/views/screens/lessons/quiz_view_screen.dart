@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/models/quiz_byID_model.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/models/quiz_byID_model.dart';
 import '../../../controllers/finish_quiz_controller.dart';
 import '../../../controllers/quiz_byID_controller.dart';
 import '../../../controllers/start_quiz_controller.dart';

@@ -1,6 +1,6 @@
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/searchModel.dart';
-import 'package:topgrade/services/remote_services.dart';
+import 'package:mytopgrade/models/searchModel.dart';
+import 'package:mytopgrade/services/remote_services.dart';
 import 'package:http/http.dart' as http;
 
 class SearchController extends GetxController {

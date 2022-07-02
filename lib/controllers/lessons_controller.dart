@@ -1,13 +1,8 @@
-
-
-
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/lessons_model.dart';
+import 'package:mytopgrade/models/lessons_model.dart';
 import '../services/remote_services.dart';
 
-
 class LessonsController extends GetxController {
-
   var isLoading = true.obs;
   var lessonList = <LessonsModel>[].obs;
   RemoteServices remoteServices = RemoteServices();
@@ -30,5 +25,4 @@ class LessonsController extends GetxController {
       isLoading(false);
     }
   }
-
 }

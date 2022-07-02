@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/socialRegistration.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/views/screens/home/home_screen.dart';
+import 'package:mytopgrade/controllers/socialRegistration.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/views/screens/home/home_screen.dart';
 import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';
 

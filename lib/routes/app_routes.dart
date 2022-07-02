@@ -1,24 +1,24 @@
 import 'package:get/get.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/views/bottombar/home_bottombar.dart';
-import 'package:topgrade/views/screens/auth/forgot_password_screen.dart';
-import 'package:topgrade/views/screens/auth/otp_verification_screen.dart';
-import 'package:topgrade/views/screens/cart/cart_screen.dart';
-import 'package:topgrade/views/screens/category/categories_screen.dart';
-import 'package:topgrade/views/screens/checkout/checkout_screen.dart';
-import 'package:topgrade/views/screens/checkout/widgets/add_new_card.dart';
-import 'package:topgrade/views/screens/details/details_screen.dart';
-import 'package:topgrade/views/screens/instructor/instructors_screen.dart';
-import 'package:topgrade/views/screens/lessons/lessons_screen.dart';
-import 'package:topgrade/views/screens/notification/notifications_screen.dart';
-import 'package:topgrade/views/screens/onboarding/onboarding_screen.dart';
-import 'package:topgrade/views/screens/payment/payment_screen.dart';
-import 'package:topgrade/views/screens/payment/payment_screen_flutter_wave.dart';
-import 'package:topgrade/views/screens/payment/payment_success_screen.dart';
-import 'package:topgrade/views/screens/popular/popular_courses_screen.dart';
-import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
-import 'package:topgrade/views/screens/splash/splash_screen.dart';
-import 'package:topgrade/views/widgets/auth_toggle_view.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/views/bottombar/home_bottombar.dart';
+import 'package:mytopgrade/views/screens/auth/forgot_password_screen.dart';
+import 'package:mytopgrade/views/screens/auth/otp_verification_screen.dart';
+import 'package:mytopgrade/views/screens/cart/cart_screen.dart';
+import 'package:mytopgrade/views/screens/category/categories_screen.dart';
+import 'package:mytopgrade/views/screens/checkout/checkout_screen.dart';
+import 'package:mytopgrade/views/screens/checkout/widgets/add_new_card.dart';
+import 'package:mytopgrade/views/screens/details/details_screen.dart';
+import 'package:mytopgrade/views/screens/instructor/instructors_screen.dart';
+import 'package:mytopgrade/views/screens/lessons/lessons_screen.dart';
+import 'package:mytopgrade/views/screens/notification/notifications_screen.dart';
+import 'package:mytopgrade/views/screens/onboarding/onboarding_screen.dart';
+import 'package:mytopgrade/views/screens/payment/payment_screen.dart';
+import 'package:mytopgrade/views/screens/payment/payment_screen_flutter_wave.dart';
+import 'package:mytopgrade/views/screens/payment/payment_success_screen.dart';
+import 'package:mytopgrade/views/screens/popular/popular_courses_screen.dart';
+import 'package:mytopgrade/views/screens/profile/update_profile_screen.dart';
+import 'package:mytopgrade/views/screens/splash/splash_screen.dart';
+import 'package:mytopgrade/views/widgets/auth_toggle_view.dart';
 
 class AppRoutes {
   AppRoutes._(); //this is to prevent anyone from instantiating this object

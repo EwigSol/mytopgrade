@@ -1,13 +1,8 @@
-
-
-
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/payment_gateway_model.dart';
+import 'package:mytopgrade/models/payment_gateway_model.dart';
 import '../services/remote_services.dart';
 
-
 class PaymentGatewayController extends GetxController {
-
   var isLoading = true.obs;
   var gatewayList = <PaymentGatewayModel>[].obs;
 
@@ -29,5 +24,4 @@ class PaymentGatewayController extends GetxController {
       isLoading(false);
     }
   }
-
 }

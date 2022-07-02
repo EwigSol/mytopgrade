@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
-import 'package:topgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';

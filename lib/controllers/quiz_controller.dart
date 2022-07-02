@@ -1,13 +1,8 @@
-
-
-
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/quiz_model.dart';
+import 'package:mytopgrade/models/quiz_model.dart';
 import '../services/remote_services.dart';
 
-
 class QuizController extends GetxController {
-
   var isLoading = true.obs;
   var quizList = <QuizModel>[].obs;
   RemoteServices remoteServices = RemoteServices();
@@ -30,5 +25,4 @@ class QuizController extends GetxController {
       isLoading(false);
     }
   }
-
 }

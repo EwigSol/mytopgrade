@@ -1,10 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:topgrade/controllers/lesson_byId_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/models/course_by_id_model.dart';
-import 'package:topgrade/models/lesson_byID_model.dart';
-import 'package:topgrade/routes/appPages.dart';
+import 'package:mytopgrade/controllers/lesson_byId_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/models/course_by_id_model.dart';
+import 'package:mytopgrade/models/lesson_byID_model.dart';
+import 'package:mytopgrade/routes/appPages.dart';
 import 'package:video_player/video_player.dart';
 import '../../../controllers/finish_lesson_controller.dart';
 import '../../../helpers/text_helper.dart';

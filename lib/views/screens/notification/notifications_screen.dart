@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';
@@ -16,10 +14,11 @@ class NotificationsScreen extends StatelessWidget {
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical: AppPadding.p16),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p20, vertical: AppPadding.p16),
         child: ListView.builder(
             itemCount: 6,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: AppPadding.p6),
                 child: Row(
@@ -31,21 +30,23 @@ class NotificationsScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.07,
                           width: MediaQuery.of(context).size.width * 0.14,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppSize.s28),
-                            color: ColorManager.greenColor
-                          ),
-                          child: const Center(child: Icon(Icons.volunteer_activism, color: ColorManager.whiteColor)),
+                              borderRadius: BorderRadius.circular(AppSize.s28),
+                              color: ColorManager.greenColor),
+                          child: const Center(
+                              child: Icon(Icons.volunteer_activism,
+                                  color: ColorManager.whiteColor)),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.05),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.05),
                         textStyle0(text: "You have Purchased Course")
                       ],
                     ),
-                    const Icon(Icons.album_outlined, color: ColorManager.blackColor)
+                    const Icon(Icons.album_outlined,
+                        color: ColorManager.blackColor)
                   ],
                 ),
               );
-            }
-        ),
+            }),
       ),
     );
   }

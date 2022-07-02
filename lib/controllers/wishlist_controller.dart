@@ -1,8 +1,8 @@
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/models/wishlist_model.dart';
-import 'package:topgrade/network_module/api_base.dart';
-import 'package:topgrade/network_module/api_path.dart';
+import 'package:mytopgrade/models/wishlist_model.dart';
+import 'package:mytopgrade/network_module/api_base.dart';
+import 'package:mytopgrade/network_module/api_path.dart';
 import '../services/remote_services.dart';
 import 'package:http/http.dart' as http;
 

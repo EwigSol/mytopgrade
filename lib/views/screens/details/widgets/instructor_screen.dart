@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/models/course_by_id_model.dart';
-import 'package:topgrade/models/my_courses_model.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/models/course_by_id_model.dart';
+import 'package:mytopgrade/models/my_courses_model.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 import '../../../../models/courses_model.dart';
 import '../../../../models/wishlist_model.dart';
 import '../../../../utils/values_manager.dart';

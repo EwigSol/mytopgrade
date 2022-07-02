@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../../controllers/courses_controller.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';

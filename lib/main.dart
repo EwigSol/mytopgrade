@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/assignment_byID_controller.dart';
-import 'package:topgrade/controllers/course_byId_controller.dart';
-import 'package:topgrade/controllers/quiz_byID_controller.dart';
-import 'package:topgrade/controllers/wishlist_controller.dart';
-import 'package:topgrade/routes/app_routes.dart';
+import 'package:mytopgrade/controllers/assignment_byID_controller.dart';
+import 'package:mytopgrade/controllers/course_byId_controller.dart';
+import 'package:mytopgrade/controllers/quiz_byID_controller.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
+import 'package:mytopgrade/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import 'Bindings/AllBindings.dart';

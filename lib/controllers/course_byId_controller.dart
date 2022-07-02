@@ -2,9 +2,9 @@
 
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/models/course_by_id_model.dart';
-import 'package:topgrade/network_module/api_base.dart';
-import 'package:topgrade/network_module/api_path.dart';
+import 'package:mytopgrade/models/course_by_id_model.dart';
+import 'package:mytopgrade/network_module/api_base.dart';
+import 'package:mytopgrade/network_module/api_path.dart';
 import '../services/remote_services.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +18,11 @@ class CourseByIDController extends GetxController {
   Future<CourseByIdModel?> fetchCourseByID(String id) async {
     isLoading.value = true;
     String token = box.read("token");
-    var response = await client.get(Uri.parse(APIBase.baseURL + APIPathHelper.getValue(APIPath.courses) + "/" + id),
+    var response = await client.get(
+        Uri.parse(APIBase.baseURL +
+            APIPathHelper.getValue(APIPath.courses) +
+            "/" +
+            id),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -26,7 +30,7 @@ class CourseByIDController extends GetxController {
         });
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      courseByIDList.value =  courseByIdModelFromJson(jsonString);
+      courseByIDList.value = courseByIdModelFromJson(jsonString);
       isLoading.value = false;
       return courseByIdModelFromJson(jsonString);
     } else {

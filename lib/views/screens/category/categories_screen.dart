@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/category_model.dart';
-import 'package:topgrade/utils/strings_manager.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/category_model.dart';
+import 'package:mytopgrade/utils/strings_manager.dart';
 import 'package:get/get.dart';
 import '../../../controllers/category_controller.dart';
 import '../../../helpers/helper.dart';
@@ -25,23 +23,23 @@ class CategoriesScreen extends StatelessWidget {
         child: Column(
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
-            Obx((){
-              if(categoryController.isLoading.value){
+            Obx(() {
+              if (categoryController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
-              }else{
-                return categoryController.catList.isNotEmpty ?
-                Center(
-                  child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 10,
-                      runSpacing: 20,
-                      alignment: WrapAlignment.spaceEvenly,
-                      children: categoryController.catList.map((item) {
-                        return buildCategoryCard(item, context);
-                      }).toList()
-                  ),
-                )
-                    : Center(child: textStyle0_5(text: "No Category Available"));
+              } else {
+                return categoryController.catList.isNotEmpty
+                    ? Center(
+                        child: Wrap(
+                            direction: Axis.horizontal,
+                            spacing: 10,
+                            runSpacing: 20,
+                            alignment: WrapAlignment.spaceEvenly,
+                            children: categoryController.catList.map((item) {
+                              return buildCategoryCard(item, context);
+                            }).toList()),
+                      )
+                    : Center(
+                        child: textStyle0_5(text: "No Category Available"));
               }
             }),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.05),
@@ -61,20 +59,24 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  Padding buildCategoryCard(CategoriesModel categoryModel, BuildContext context) {
+  Padding buildCategoryCard(
+      CategoriesModel categoryModel, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryCoursesScreen(id: categoryModel.id.toString())));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      CategoryCoursesScreen(id: categoryModel.id.toString())));
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.07,
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
-              color: ColorManager.primaryColor
-          ),
+              color: ColorManager.primaryColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -97,7 +99,8 @@ class CategoriesScreen extends StatelessWidget {
               //   child: const Icon(Icons.lightbulb, color: ColorManager.primaryColor),
               // ),
               // buildSpaceHorizontal(2.w),
-              textStyle0_5(text: categoryModel.name!, color: ColorManager.whiteColor),
+              textStyle0_5(
+                  text: categoryModel.name!, color: ColorManager.whiteColor),
             ],
           ),
         ),
@@ -105,4 +108,3 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 }
-

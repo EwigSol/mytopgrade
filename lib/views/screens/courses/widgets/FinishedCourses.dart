@@ -2,17 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/FinishedCoursesController.dart';
-import 'package:topgrade/controllers/courses_controller.dart';
-import 'package:topgrade/controllers/finish_course_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/FinishedCoursesModel.dart';
-import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import 'package:mytopgrade/controllers/FinishedCoursesController.dart';
+import 'package:mytopgrade/controllers/courses_controller.dart';
+import 'package:mytopgrade/controllers/finish_course_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/FinishedCoursesModel.dart';
+import 'package:mytopgrade/models/courses_model.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 
 class FinishedCourses extends StatefulWidget {
   FinishedCourses({Key? key}) : super(key: key);

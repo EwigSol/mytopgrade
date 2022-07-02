@@ -67,8 +67,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '88432950243',
     projectId: 'mytopgrade-361f5',
     storageBucket: 'mytopgrade-361f5.appspot.com',
-    iosClientId: '88432950243-072qne2negb4auj6on184atlal59v593.apps.googleusercontent.com',
-    iosBundleId: 'com.AZainapps.topgrade',
+    iosClientId:
+        '88432950243-072qne2negb4auj6on184atlal59v593.apps.googleusercontent.com',
+    iosBundleId: 'com.AZainapps.mytopgrade',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '88432950243',
     projectId: 'mytopgrade-361f5',
     storageBucket: 'mytopgrade-361f5.appspot.com',
-    iosClientId: '88432950243-sf24s61vhq0hn6nub6j05sbmpqn9j4io.apps.googleusercontent.com',
+    iosClientId:
+        '88432950243-sf24s61vhq0hn6nub6j05sbmpqn9j4io.apps.googleusercontent.com',
     iosBundleId: 'com.aZainapps.tpgrade',
   );
 }

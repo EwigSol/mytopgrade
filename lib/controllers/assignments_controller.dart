@@ -1,13 +1,8 @@
-
-
-
 import 'package:get/state_manager.dart';
-import 'package:topgrade/models/assignments_model.dart';
+import 'package:mytopgrade/models/assignments_model.dart';
 import '../services/remote_services.dart';
 
-
 class AssignmentController extends GetxController {
-
   var isLoading = true.obs;
   var assignmentList = <AssignmentModel>[].obs;
   RemoteServices remoteServices = RemoteServices();
@@ -30,5 +25,4 @@ class AssignmentController extends GetxController {
       isLoading(false);
     }
   }
-
 }

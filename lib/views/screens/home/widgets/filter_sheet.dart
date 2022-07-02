@@ -1,7 +1,5 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/helper.dart';
 import '../../../../controllers/category_controller.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/category_model.dart';
@@ -54,31 +52,32 @@ class _FilterSheetState extends State<FilterSheet> {
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
           Center(child: textStyle4(text: "Filter by")),
           Padding(
-            padding: const EdgeInsets.only(left: AppPadding.p16, right: AppPadding.p16),
+            padding: const EdgeInsets.only(
+                left: AppPadding.p16, right: AppPadding.p16),
             child: textStyle2(text: "Categories"),
           ),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.005),
-          Obx((){
-            if(categoryController.isLoading.value){
+          Obx(() {
+            if (categoryController.isLoading.value) {
               return const Center(child: CircularProgressIndicator());
-            }else{
-              return categoryController.catList.isNotEmpty ?
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.06,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                    itemCount: categoryController.catList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, i) {
-                      final catModel = categoryController.catList[i];
-                      return buildCategoryCard(catModel, i);
-                    }),
-              )
+            } else {
+              return categoryController.catList.isNotEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                          itemCount: categoryController.catList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, i) {
+                            final catModel = categoryController.catList[i];
+                            return buildCategoryCard(catModel, i);
+                          }),
+                    )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width,
-                      child: Center(child: textStyle0_5(text: "No Category Available"))
-              );
+                      child: Center(
+                          child: textStyle0_5(text: "No Category Available")));
             }
           }),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
@@ -170,7 +169,7 @@ class _FilterSheetState extends State<FilterSheet> {
           // ),
           Center(
             child: InkWell(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.05,
                 width: MediaQuery.of(context).size.width * 0.4,
@@ -209,7 +208,9 @@ class _FilterSheetState extends State<FilterSheet> {
           width: MediaQuery.of(context).size.width * 0.22,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s22),
-              color: isSelected == index ? ColorManager.primaryColor : ColorManager.halfWhiteColor),
+              color: isSelected == index
+                  ? ColorManager.primaryColor
+                  : ColorManager.halfWhiteColor),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -235,12 +236,14 @@ class _FilterSheetState extends State<FilterSheet> {
           width: MediaQuery.of(context).size.width * 0.40,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s20),
-              color: isCatSelected == i ? ColorManager.primaryColor : ColorManager.halfWhiteColor
-          ),
+              color: isCatSelected == i
+                  ? ColorManager.primaryColor
+                  : ColorManager.halfWhiteColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              textStyle2(text: categoryModel.name!, color: ColorManager.blackColor),
+              textStyle2(
+                  text: categoryModel.name!, color: ColorManager.blackColor),
             ],
           ),
         ),

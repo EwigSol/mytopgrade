@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/routes/appPages.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
 import '../models/user_model.dart';
 import 'login_controller.dart';
 
@@ -41,29 +41,28 @@ class RegisterController extends GetxController {
       isDataReadingCompleted.value = true;
       result = {'status': true, 'userData': userModelFromJson(response.body)};
       await loginController.login(email, userPassword).then((response) => {
-        if (response['status'] == true)
-          {
-            box.write("user_id", response['user_id']),
-            box.write("user_email", response['user_email']),
-            box.write("user_display_name", response['user_display_name']),
-            Get.snackbar('Welcome Back', 'Welcome ${response['user_display_name']} to your Educational Portal',
-                snackPosition: SnackPosition.BOTTOM),
-            Get.offAllNamed(Paths.homeBar)
-          }
-        else
-          {
-            errorToast("Error", response['message']),
-          }
-      });
-    }else if(response.statusCode == 401){
+            if (response['status'] == true)
+              {
+                box.write("user_id", response['user_id']),
+                box.write("user_email", response['user_email']),
+                box.write("user_display_name", response['user_display_name']),
+                Get.snackbar('Welcome Back',
+                    'Welcome ${response['user_display_name']} to your Educational Portal',
+                    snackPosition: SnackPosition.BOTTOM),
+                Get.offAllNamed(Paths.homeBar)
+              }
+            else
+              {
+                errorToast("Error", response['message']),
+              }
+          });
+    } else if (response.statusCode == 401) {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {
         'status': false,
         'message': "You Have already created account on this email"
       };
-
-
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;

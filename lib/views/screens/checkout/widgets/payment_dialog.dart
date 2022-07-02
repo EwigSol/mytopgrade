@@ -1,11 +1,9 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:get/get.dart';
 
 class PaymentDialog extends StatelessWidget {
@@ -34,7 +32,7 @@ class PaymentDialog extends StatelessWidget {
             textStyle2(text: "Payment Done Successfully"),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.offAllNamed(Paths.homeBar);
               },
               child: Center(

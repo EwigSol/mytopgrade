@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
@@ -16,7 +14,6 @@ class PaymentSuccessScreen extends StatefulWidget {
 }
 
 class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
-
   double height = Get.height;
   double width = Get.width;
 
@@ -31,12 +28,19 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: textStyle4(text: "Course Ordered\nSuccessfully", textAlign: TextAlign.center, color: ColorManager.primaryColor)),
+            Center(
+                child: textStyle4(
+                    text: "Course Ordered\nSuccessfully",
+                    textAlign: TextAlign.center,
+                    color: ColorManager.primaryColor)),
             buildSpaceVertical(height * 0.07),
-            Center(child: textStyle2(text: "Make your payment directly into Mytopgrade bank account. "
-                "Please use your Order ID as the payment reference. Your order/Course will not be activated until the "
-                "funds have been confirmed in our account. Email the proof of payment to mytopgradeng@gmail.com", textAlign: TextAlign.center)
-            ),
+            Center(
+                child: textStyle2(
+                    text:
+                        "Make your payment directly into mytopgrade bank account. "
+                        "Please use your Order ID as the payment reference. Your order/Course will not be activated until the "
+                        "funds have been confirmed in our account. Email the proof of payment to mytopgradeng@gmail.com",
+                    textAlign: TextAlign.center)),
             buildSpaceVertical(height * 0.07),
             Center(
               child: InkWell(
@@ -44,21 +48,23 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                   Get.offAllNamed(Paths.homeBar);
                 },
                 child: Container(
-                  height: height * 0.06,
-                  width: width * 0.60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      color: ColorManager.primaryColor),
-                  child: Center(child: textStyle2(text: "Go to Home", color: ColorManager.whiteColor))
-                ),
+                    height: height * 0.06,
+                    width: width * 0.60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppSize.s12),
+                        color: ColorManager.primaryColor),
+                    child: Center(
+                        child: textStyle2(
+                            text: "Go to Home",
+                            color: ColorManager.whiteColor))),
               ),
             ),
-
           ],
         ),
       ),
     );
   }
+
   AppBar buildAppBar() {
     return AppBar(
       title: textStyle2(text: "Order Success"),

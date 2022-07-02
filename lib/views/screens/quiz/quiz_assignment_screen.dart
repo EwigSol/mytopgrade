@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:topgrade/views/screens/quiz/quiz_screen.dart';
+import 'package:mytopgrade/views/screens/quiz/quiz_screen.dart';
 import '../../../helpers/helper.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../utils/color_manager.dart';
@@ -17,8 +15,8 @@ class QuizAssignmentScreen extends StatefulWidget {
   State<QuizAssignmentScreen> createState() => _QuizAssignmentScreenState();
 }
 
-class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with SingleTickerProviderStateMixin{
-
+class _QuizAssignmentScreenState extends State<QuizAssignmentScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _controller;
 
   @override
@@ -37,38 +35,34 @@ class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with Single
           children: [
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p6, horizontal: AppPadding.p6),
+              padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p6, horizontal: AppPadding.p6),
               child: TabBar(
                 isScrollable: true,
-                indicator: BoxDecoration(color: ColorManager.redColor, borderRadius: BorderRadius.circular(AppSize.s22)),
+                indicator: BoxDecoration(
+                    color: ColorManager.redColor,
+                    borderRadius: BorderRadius.circular(AppSize.s22)),
                 controller: _controller,
                 unselectedLabelColor: ColorManager.blackColor,
-                unselectedLabelStyle: const TextStyle(color: ColorManager.blackColor),
-                tabs: [
-                  buildQuizTab(),
-                  buildAssignmentTab()
-
-                ],
+                unselectedLabelStyle:
+                    const TextStyle(color: ColorManager.blackColor),
+                tabs: [buildQuizTab(), buildAssignmentTab()],
               ),
             ),
-
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.75,
               width: MediaQuery.of(context).size.width,
               child: TabBarView(
                 controller: _controller,
-                children: [
-                  QuizScreen(),
-                  AssignmentScreen()
-                ],
+                children: [QuizScreen(), AssignmentScreen()],
               ),
             )
-
           ],
         ),
       ),
     );
   }
+
   AppBar buildAppBar() {
     return AppBar(
       title: textStyle2(text: StringsManager.allQuiz),
@@ -83,10 +77,13 @@ class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with Single
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.assignments, style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),),
+        child: Text(
+          StringsManager.assignments,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }
@@ -95,12 +92,14 @@ class _QuizAssignmentScreenState extends State<QuizAssignmentScreen> with Single
     return Tab(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        child: Text(StringsManager.quizzes, style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),),
+        child: Text(
+          StringsManager.quizzes,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }
-
 }

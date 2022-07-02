@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/strings_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/strings_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/views/screens/courses/widgets/InProgress.dart';
-import 'package:topgrade/views/screens/courses/widgets/all_courses_screen.dart';
-import 'package:topgrade/views/screens/courses/widgets/FinishedCourses.dart';
+import 'package:mytopgrade/views/screens/courses/widgets/InProgress.dart';
+import 'package:mytopgrade/views/screens/courses/widgets/all_courses_screen.dart';
+import 'package:mytopgrade/views/screens/courses/widgets/FinishedCourses.dart';
 
 class MyCourses extends StatefulWidget {
   const MyCourses({Key? key}) : super(key: key);

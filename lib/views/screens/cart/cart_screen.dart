@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/utils/values_manager.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:get/get.dart';
 import '../../../controllers/cart_controller.dart';
 import '../../../controllers/payment_gateway_controller.dart';

@@ -1,7 +1,5 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/views/screens/auth/register_screen.dart';
+import 'package:mytopgrade/views/screens/auth/register_screen.dart';
 
 import '../screens/auth/login_screen.dart';
 

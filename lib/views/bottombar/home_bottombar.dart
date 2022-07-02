@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/views/screens/courses/MyCourses.dart';
-import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
-import 'package:topgrade/views/screens/home/home_screen.dart';
-import 'package:topgrade/views/screens/profile/profile_screen.dart';
-import 'package:topgrade/views/screens/quiz/quiz_assignment_screen.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/views/screens/courses/MyCourses.dart';
+import 'package:mytopgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:mytopgrade/views/screens/home/home_screen.dart';
+import 'package:mytopgrade/views/screens/profile/profile_screen.dart';
+import 'package:mytopgrade/views/screens/quiz/quiz_assignment_screen.dart';
 
 class HomeBottomBar extends StatefulWidget {
   const HomeBottomBar({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/wishlist_controller.dart';
-import 'package:topgrade/models/wishlist_model.dart';
-import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
+import 'package:mytopgrade/models/wishlist_model.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../helpers/helper.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';

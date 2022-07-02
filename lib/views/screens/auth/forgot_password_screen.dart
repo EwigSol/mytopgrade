@@ -1,7 +1,5 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:topgrade/routes/appPages.dart';
+import 'package:mytopgrade/routes/appPages.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
@@ -12,9 +10,8 @@ import '../../widgets/text_field.dart';
 import 'widgets/simple_appbar.dart';
 import 'package:get/get.dart';
 
-
 class ForgotPasswordScreen extends StatelessWidget {
-   ForgotPasswordScreen({Key? key}) : super(key: key);
+  ForgotPasswordScreen({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
 
@@ -22,7 +19,8 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
+        preferredSize:
+            Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
         child: const SimpleAppBar(title: StringsManager.forgotPas),
       ),
       body: Column(
@@ -57,7 +55,9 @@ class ForgotPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              Image.asset(AssetsManager.logo, height: MediaQuery.of(context).size.height * 0.15, width: MediaQuery.of(context).size.width * 0.30),
+              Image.asset(AssetsManager.logo,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.30),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               CustomTextField(
                 controller: emailController,

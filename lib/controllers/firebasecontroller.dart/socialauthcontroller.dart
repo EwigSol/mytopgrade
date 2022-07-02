@@ -7,8 +7,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:topgrade/controllers/social_login_controller.dart';
-import 'package:topgrade/routes/appPages.dart';
+import 'package:mytopgrade/controllers/social_login_controller.dart';
+import 'package:mytopgrade/routes/appPages.dart';
 
 class FirebaseAuthController extends GetxController {
   var isDataSubmitting = false.obs;

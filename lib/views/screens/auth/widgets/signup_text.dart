@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:topgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 import '../../../../utils/values_manager.dart';
 
 class SignupText extends StatelessWidget {
@@ -16,7 +14,7 @@ class SignupText extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.05,
       width: double.infinity,
       child: Padding(
-        padding:  const EdgeInsets.only(bottom: AppPadding.p10),
+        padding: const EdgeInsets.only(bottom: AppPadding.p10),
         child: Center(
           child: RichText(
             text: TextSpan(

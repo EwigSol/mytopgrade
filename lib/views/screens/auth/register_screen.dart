@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/login_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/models/user_model.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/auth/widgets/simple_appbar.dart';
-import 'package:topgrade/views/screens/home/home_screen.dart';
-import 'package:topgrade/views/widgets/action_button.dart';
-import 'package:topgrade/views/widgets/text_field.dart';
+import 'package:mytopgrade/controllers/login_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/models/user_model.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/auth/widgets/simple_appbar.dart';
+import 'package:mytopgrade/views/screens/home/home_screen.dart';
+import 'package:mytopgrade/views/widgets/action_button.dart';
+import 'package:mytopgrade/views/widgets/text_field.dart';
 import '../../../controllers/register_controller.dart';
 import '../../../helpers/text_helper.dart';
 import '../../../routes/appPages.dart';
@@ -168,12 +168,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // if (usernameController.text.isNotEmpty) {
                   //   if (emailController.text.isNotEmpty) {
                   //     if (passwordController.text.isNotEmpty) {
-                  await registerController.register(usernameController.text, emailController.text, passwordController.text)
-                  .then((value) => {
-                    if(value['status'] == false){
-                      errorToast("Error", "You Have already created account on this email and username")
-                    }
-                  });
+                  await registerController
+                      .register(usernameController.text, emailController.text,
+                          passwordController.text)
+                      .then((value) => {
+                            if (value['status'] == false)
+                              {
+                                errorToast("Error",
+                                    "You Have already created account on this email and username")
+                              }
+                          });
                   // await loginController.login(emailController.text, passwordController.text).then((response) => {
                   //   if (response['status'] == true)
                   //     {

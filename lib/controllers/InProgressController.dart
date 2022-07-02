@@ -1,6 +1,6 @@
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/models/InProgressModel.dart';
+import 'package:mytopgrade/models/InProgressModel.dart';
 import '../models/my_courses_model.dart';
 import '../services/remote_services.dart';
 import 'package:http/http.dart' as http;

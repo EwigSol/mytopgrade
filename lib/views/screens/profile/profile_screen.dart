@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/assets_manager.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/strings_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/favourites/favourites_screen.dart';
-import 'package:topgrade/views/screens/profile/orderDetalilScreen.dart';
-import 'package:topgrade/views/screens/profile/update_profile_screen.dart';
+import 'package:mytopgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/strings_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:mytopgrade/views/screens/profile/orderDetalilScreen.dart';
+import 'package:mytopgrade/views/screens/profile/update_profile_screen.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {

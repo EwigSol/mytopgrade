@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/social_login_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/views/screens/home/home_screen.dart';
+import 'package:mytopgrade/controllers/social_login_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/views/screens/home/home_screen.dart';
 import '../models/user_model.dart';
 import 'login_controller.dart';
 

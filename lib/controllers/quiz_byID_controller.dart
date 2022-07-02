@@ -2,7 +2,7 @@
 
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:topgrade/models/quiz_byID_model.dart';
+import 'package:mytopgrade/models/quiz_byID_model.dart';
 import 'package:http/http.dart' as http;
 import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';

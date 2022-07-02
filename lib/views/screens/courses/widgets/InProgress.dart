@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/controllers/InProgressController.dart';
-import 'package:topgrade/controllers/courses_controller.dart';
-import 'package:topgrade/helpers/helper.dart';
-import 'package:topgrade/helpers/text_helper.dart';
-import 'package:topgrade/models/InProgressModel.dart';
-import 'package:topgrade/models/courses_model.dart';
-import 'package:topgrade/routes/appPages.dart';
-import 'package:topgrade/utils/color_manager.dart';
-import 'package:topgrade/utils/values_manager.dart';
-import 'package:topgrade/views/screens/home/widgets/PopularCourse.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
+import 'package:mytopgrade/controllers/courses_controller.dart';
+import 'package:mytopgrade/helpers/helper.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/InProgressModel.dart';
+import 'package:mytopgrade/models/courses_model.dart';
+import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 
 class InProgressCourses extends StatefulWidget {
   InProgressCourses({Key? key}) : super(key: key);
@@ -41,7 +41,8 @@ class _InProgressCoursesState extends State<InProgressCourses> {
                 for (int i = 0;
                     i < inProgressController.inProgressCourseList.length;
                     i++) {
-                  if (inProgressController.inProgressCourseList[i].rating! >= 3) {
+                  if (inProgressController.inProgressCourseList[i].rating! >=
+                      3) {
                     // popularCoursesModel.clear();
                     inProgressCourseModel
                         .add(inProgressController.inProgressCourseList[i]);

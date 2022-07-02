@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:topgrade/utils/color_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 
 Text textStyle00({required String text, Color? color, TextAlign? textAlign}) {
   return Text(

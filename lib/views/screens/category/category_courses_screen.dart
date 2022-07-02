@@ -1,9 +1,6 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:topgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/assets_manager.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/courses_model.dart';
@@ -22,7 +19,8 @@ class CategoryCoursesScreen extends StatefulWidget {
 }
 
 class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
-  final CoursesByCategoryController coursesByCategoryController = Get.put(CoursesByCategoryController());
+  final CoursesByCategoryController coursesByCategoryController =
+      Get.put(CoursesByCategoryController());
 
   @override
   void initState() {
@@ -41,27 +39,30 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
           child: Column(
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
-              Obx((){
-
-                if(coursesByCategoryController.isLoading.value){
+              Obx(() {
+                if (coursesByCategoryController.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
-                }else{
-                  return coursesByCategoryController.coursesByCategoryList.isNotEmpty ?
-                  Center(
-                    child: Wrap(
-                        direction: Axis.horizontal,
-                        spacing: 5,
-                        runSpacing: 10,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: coursesByCategoryController.coursesByCategoryList.map((item) {
-                          return buildPopularCard(item, context);
-                        }).toList()
-                    ),
-                  )
-                      : Center(child: textStyle0_5(text: "No Courses in this Category is Available"));
+                } else {
+                  return coursesByCategoryController
+                          .coursesByCategoryList.isNotEmpty
+                      ? Center(
+                          child: Wrap(
+                              direction: Axis.horizontal,
+                              spacing: 5,
+                              runSpacing: 10,
+                              alignment: WrapAlignment.spaceEvenly,
+                              children: coursesByCategoryController
+                                  .coursesByCategoryList
+                                  .map((item) {
+                                return buildPopularCard(item, context);
+                              }).toList()),
+                        )
+                      : Center(
+                          child: textStyle0_5(
+                              text:
+                                  "No Courses in this Category is Available"));
                 }
               }),
-
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.04),
             ],
           ),
@@ -81,9 +82,10 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
 
   Padding buildPopularCard(CoursesModel courseByCat, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6, vertical: AppPadding.p4),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p6, vertical: AppPadding.p4),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Get.toNamed(Paths.details, arguments: courseByCat);
           // Navigator.push(context, MaterialPageRoute(builder: (context) =>  DetailsScreen(coursesDetail: courseByCat, isWishlist: false)));
         },
@@ -112,7 +114,11 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child: courseByCat.image != '' ? Image.network(courseByCat.image!, fit: BoxFit.fill) : Image.asset(AssetsManager.card, fit: BoxFit.fill)),
+                              child: courseByCat.image != ''
+                                  ? Image.network(courseByCat.image!,
+                                      fit: BoxFit.fill)
+                                  : Image.asset(AssetsManager.card,
+                                      fit: BoxFit.fill)),
                         ),
                       ),
                       Positioned(
@@ -128,7 +134,9 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
                                 bottomLeft: Radius.circular(AppSize.s16),
                               )),
                           child: Center(
-                              child: textStyle0(text: "\$${courseByCat.price.toString()}", color: ColorManager.whiteColor)),
+                              child: textStyle0(
+                                  text: "\$${courseByCat.price.toString()}",
+                                  color: ColorManager.whiteColor)),
                         ),
                       ),
                     ],
@@ -139,11 +147,14 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: AppPadding.p4),
-                child: textStyle0(text: courseByCat.instructor!.name.toString(), color: ColorManager.grayColor),
+                child: textStyle0(
+                    text: courseByCat.instructor!.name.toString(),
+                    color: ColorManager.grayColor),
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p4, right: AppPadding.p4),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p4, right: AppPadding.p4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,18 +168,22 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
                               borderRadius: BorderRadius.circular(AppSize.s20),
                               color: ColorManager.redColor),
                           child: const Center(
-                            child: Icon(Icons.play_circle_fill, size: 16, color: ColorManager.whiteColor),
+                            child: Icon(Icons.play_circle_fill,
+                                size: 16, color: ColorManager.whiteColor),
                           ),
                         ),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
-                        textStyle0(text: "Sections: ${courseByCat.sections!.length}")
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
+                        textStyle0(
+                            text: "Sections: ${courseByCat.sections!.length}")
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         textStyle0(text: "⭐"),
-                        buildSpaceHorizontal(MediaQuery.of(context).size.width * 0.02),
+                        buildSpaceHorizontal(
+                            MediaQuery.of(context).size.width * 0.02),
                         textStyle0(text: courseByCat.rating.toString())
                       ],
                     ),
@@ -182,4 +197,3 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
     );
   }
 }
-

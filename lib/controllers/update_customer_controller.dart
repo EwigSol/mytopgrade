@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:topgrade/models/user_model.dart';
+import 'package:mytopgrade/models/user_model.dart';
 
 class UpdateCustomerController extends GetxController {
   var isDataSubmitting = false.obs;
