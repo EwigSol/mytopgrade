@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoItems extends StatefulWidget {
@@ -38,7 +39,8 @@ class _VideoItemsState extends State<VideoItems> {
         child: Container(
           child: const Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFffa110)),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(ColorManager.primaryColor),
             ),
           ),
         ),

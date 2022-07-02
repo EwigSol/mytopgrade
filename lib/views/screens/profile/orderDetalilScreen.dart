@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytopgrade/controllers/order%20controller/allOrderController.dart';
 import 'package:mytopgrade/models/orderByIdModel.dart';
+import 'package:mytopgrade/utils/color_manager.dart';
 
 class OrderList extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class _OrderListState extends State<OrderList> {
                 itemCount: orderByIdController.orderByIdList.value.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    color: Color(0xFFffa110),
+                    color: ColorManager.primaryColor,
                     child: Column(
                       children: [
                         Padding(
