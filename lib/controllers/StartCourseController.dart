@@ -17,7 +17,7 @@ class StartCourseController extends GetxController {
 
     var response = await client.post(
       Uri.parse(
-          'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses/enroll?id=$id'),
+          'https://mytopgrade.com/wp-json/learnpress/v1/courses/enroll?id=$id'),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',

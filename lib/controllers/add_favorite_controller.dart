@@ -18,7 +18,7 @@ class AddFavoriteController extends GetxController {
 
     var response = await client.post(
       Uri.parse(
-          'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/wishlist/toggle?id=${id.toString()}'),
+          'https://mytopgrade.com/wp-json/learnpress/v1/wishlist/toggle?id=${id.toString()}'),
       headers: {
         'Content-Type': 'application/json',
         // 'Accept': 'application/json',

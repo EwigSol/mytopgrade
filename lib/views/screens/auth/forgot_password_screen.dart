@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mytopgrade/controllers/authController/resetPasswordController.dart';
 import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/views/screens/auth/forget_passowrd_resultscreeen.dart';
 import '../../../helpers/helper.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
@@ -14,6 +16,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
+  final PasswordController passwordController = PasswordController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,13 @@ class ForgotPasswordScreen extends StatelessWidget {
             Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
         child: const SimpleAppBar(title: StringsManager.forgotPas),
       ),
-      body: Column(
-        children: [
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.1),
-          buildFormCard(context),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.1),
+            buildFormCard(context),
+          ],
+        ),
       ),
     );
   }
@@ -35,7 +40,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Center buildFormCard(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.39,
+        height: MediaQuery.of(context).size.height * 0.45,
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -59,14 +64,25 @@ class ForgotPasswordScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.15,
                   width: MediaQuery.of(context).size.width * 0.30),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+              const Text(
+                'Please Enter Your Email Address',
+                style: TextStyle(
+                  fontSize: AppSize.s18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               CustomTextField(
                 controller: emailController,
                 hintName: StringsManager.email,
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.03),
               InkWell(
-                  onTap: () {
-                    Get.toNamed(Paths.otpVerify);
+                  onTap: () async {
+                    await passwordController
+                        .passwordReset(emailController.text);
+                    //TODO: call forget pass controller.
+                    Get.to(() => const ForgetResult());
                   },
                   child: actionButton(StringsManager.submit, context)),
             ],

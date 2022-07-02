@@ -15,8 +15,8 @@ class UpdateCustomerController extends GetxController {
     print(id.toString());
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    String userName = "ck_62b64e6a92c2c362330491e2044f7e49414ca6c9";
-    String password = "cs_6dab149b45ec92999adfc637192d53b3f589d41a";
+    String userName = "ck_d32a362d67fe84926e4299676d89acf9c4a44046";
+    String password = "cs_5224cf20b2a8596884e56c48be1fdff251593b33";
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$userName:$password'));
     Map<dynamic, dynamic> dataBody = {
@@ -26,8 +26,7 @@ class UpdateCustomerController extends GetxController {
     };
 
     var response = await client.put(
-        Uri.parse(
-            "https://musing-gould.18-141-157-112.plesk.page/wp-json/wc/v3/customers/$id"),
+        Uri.parse("https://mytopgrade.com/wp-json/wc/v3/customers/$id"),
         headers: {
           "Authorization": basicAuth,
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ class SocialLoginController extends GetxController {
     final queryParameters = {'username': userName, 'onlyusername': 'yes'};
 
     var response = await client.post(Uri.parse(
-        "https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/mitoken?username=$userName&onlyusername=yes"));
+        "https://mytopgrade.com/wp-json/learnpress/v1/mitoken?username=$userName&onlyusername=yes"));
     if (response.statusCode == 200) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);

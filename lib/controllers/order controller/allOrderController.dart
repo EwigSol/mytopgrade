@@ -17,16 +17,15 @@ class OrderByIdController extends GetxController {
     isLoading.value = true;
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    String userName = "ck_62b64e6a92c2c362330491e2044f7e49414ca6c9";
-    String password = "cs_6dab149b45ec92999adfc637192d53b3f589d41a";
+    String userName = "ck_d32a362d67fe84926e4299676d89acf9c4a44046";
+    String password = "cs_5224cf20b2a8596884e56c48be1fdff251593b33";
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$userName:$password'));
     var id = box.read('user_id');
     print(id);
 
     var response = await client.get(
-      Uri.parse(
-          "https://musing-gould.18-141-157-112.plesk.page/wp-json/wc/v3/orders?customer= $id"),
+      Uri.parse("https://mytopgrade.com/wp-json/wc/v3/orders?customer= $id"),
       headers: {
         "Authorization": basicAuth,
         "Content-Type": "application/json",

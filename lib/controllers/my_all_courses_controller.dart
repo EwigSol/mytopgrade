@@ -21,7 +21,7 @@ class MyAllCoursesController extends GetxController {
     isLoading.value = true;
     String token = box.read("token");
     final uri = Uri.parse(
-        'https://musing-gould.18-141-157-112.plesk.page/wp-json/learnpress/v1/courses?learned=true');
+        'https://mytopgrade.com/wp-json/learnpress/v1/courses?learned=true');
     var response = await client.get(uri, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

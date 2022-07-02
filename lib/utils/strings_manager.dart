@@ -1,7 +1,5 @@
-
-
-class StringsManager{
-  static const String appName = "MY TOP GRADE";
+class StringsManager {
+  static const String appName = "MyTopGrade";
   // static const String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbXVzaW5nLWdvdWxkLjE4LTE0MS0xNTctMTEyLnBsZXNrLnBhZ2UiLCJpYXQiOjE2NTQwMTEwNjksIm5iZiI6MTY1NDAxMTA2OSwiZXhwIjoxNjU0NjE1ODY5LCJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NTEyIn19fQ.5BcZlgtiC6rZr9KddYYPT-Ox9tzEnNPA6hFn2Ix46aA";
   static const String error = "Oops! Error Occurred";
   static const String success = "Hurrah!";
@@ -19,7 +17,6 @@ class StringsManager{
   static const String splash1Title = "Welcome to $appName LMS,\nLet’s Learn! ";
   static const String splash2Title = "Explore Your New Skills ";
   static const String splash3Title = "Ready To Find A New Course ";
-
 
   // login
   static const String login = "LOGIN";
@@ -46,7 +43,6 @@ class StringsManager{
   static const String instructor = "Best Instructors";
   static const String popular = "Popular Courses";
   static const String seeAll = "See All";
-
 
   static const String allCat = "All Categories";
   static const String allQuiz = "Quizzes & Assignments";

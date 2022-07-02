@@ -18,6 +18,7 @@ enum APIPath {
   assignmentById,
   login,
   socialLogin,
+  passwordReset,
 
 //
 
@@ -82,6 +83,9 @@ class APIPathHelper {
 
       case APIPath.socialLogin:
         return "/mitoken";
+
+      case APIPath.passwordReset:
+        return "/users/reset-password";
 
       default:
         return "";

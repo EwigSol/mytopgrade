@@ -8,17 +8,13 @@ import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/helpers/text_helper.dart';
 import 'package:mytopgrade/models/category_model.dart';
 import 'package:mytopgrade/models/courses_model.dart';
-import 'package:mytopgrade/routes/appPages.dart';
-import 'package:mytopgrade/utils/assets_manager.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/strings_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:mytopgrade/views/screens/category/categories_screen.dart';
 import 'package:mytopgrade/views/screens/category/category_courses_screen.dart';
-import 'package:mytopgrade/views/screens/instructor/instructors_screen.dart';
 import 'package:mytopgrade/views/screens/popular/popular_courses_screen.dart';
 import 'package:mytopgrade/views/screens/searchResult/searchResultScreen.dart';
-import 'widgets/filter_sheet.dart';
 import 'package:get/get.dart';
 
 import 'widgets/PopularCourse.dart';
@@ -289,40 +285,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        // buildSpaceHorizontal(width * 0.04),
-        // InkWell(
-        //   onTap: () {
-        //     showModalBottomSheet(
-        //         context: context,
-        //         isScrollControlled: true,
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(30)),
-        //         builder: (context) {
-        //           return StatefulBuilder(
-        //               builder: (context, StateSetter customSetState) {
-        //             return const FilterSheet();
-        //           });
-        //         });
-        //   },
-        //   child: Container(
-        //     height: height * 0.05,
-        //     width: width * 0.10,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(AppSize.s8),
-        //       color: ColorManager.primaryColor,
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.grey.withOpacity(0.2),
-        //           spreadRadius: 3,
-        //           blurRadius: 2,
-        //           offset: const Offset(0, 3),
-        //         ),
-        //       ],
-        //     ),
-        //     child: const Icon(Icons.apps,
-        //         color: ColorManager.whiteColor, size: 28),
-        //   ),
-        // ),
       ],
     );
   }
@@ -336,33 +298,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             textStyle4(text: "Hi, $name"),
             textStyle0_5(
-                text: "Find a source you want to learn!",
+                text: "Find a Course you want to learn!",
                 color: ColorManager.grayColor),
           ],
         ),
-        // InkWell(
-        //   onTap: () {
-        //     // Get.toNamed(Paths.notify);
-        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-        //   },
-        //   child: Container(
-        //     height: height * 0.04,
-        //     width: width * 0.08,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(AppSize.s10),
-        //       color: ColorManager.whiteColor,
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.grey.withOpacity(0.5),
-        //           spreadRadius: 3,
-        //           blurRadius: 4,
-        //           offset: const Offset(0, 3),
-        //         ),
-        //       ],
-        //     ),
-        //     child: const Icon(Icons.notifications),
-        //   ),
-        // ),
       ],
     );
   }
