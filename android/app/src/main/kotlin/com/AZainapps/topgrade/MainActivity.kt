@@ -1,4 +1,4 @@
-package com.AZainapps.topgrade
+package com.mytopgrade.com
 
 import io.flutter.embedding.android.FlutterActivity
 

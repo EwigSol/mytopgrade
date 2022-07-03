@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:mytopgrade/controllers/order_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/routes/appPages.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
@@ -14,8 +16,10 @@ class PaymentSuccessScreen extends StatefulWidget {
 }
 
 class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
+  final OrderController orderController = Get.put(OrderController());
   double height = Get.height;
   double width = Get.width;
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +42,8 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                 child: textStyle2(
                     text:
                         "Make your payment directly into mytopgrade bank account. "
-                        "Please use your Order ID as the payment reference. Your order/Course will not be activated until the "
-                        "funds have been confirmed in our account. Email the proof of payment to mytopgradeng@gmail.com",
+                        "Please use your Order ID (${box.read("orderId")}) as the payment reference. Your order/Course will not be activated until the "
+                        "funds have been confirmed in our account. Email the proof of payment to mytopgradeng@gmail.com  \n Below are the Bank Details \n Bank name: Access Bank Nig Plc \n Account Title: Mytopgrade Limited \n Account No: 1474061287 ",
                     textAlign: TextAlign.center)),
             buildSpaceVertical(height * 0.07),
             Center(

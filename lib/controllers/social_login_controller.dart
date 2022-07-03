@@ -45,7 +45,6 @@ class SocialLoginController extends GetxController {
       };
       print(box.read("token"));
       print(response.body);
-      Get.offAllNamed(Paths.homeBar);
     } else {
       await SocialRegisterController().register(userName);
       isDataSubmitting.value = false;

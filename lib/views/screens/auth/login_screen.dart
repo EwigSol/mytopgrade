@@ -6,7 +6,6 @@ import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/utils/assets_manager.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
-// import 'package:mytopgrade/views/screens/auth/widgets/simple_appbar.dart';
 import 'package:mytopgrade/views/widgets/action_button.dart';
 import 'package:mytopgrade/views/widgets/text_field.dart';
 import '../../../controllers/login_controller.dart';
@@ -59,7 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () async {
-                      firebaseAuthController.signInWithFacebook();
+                      await firebaseAuthController.signInWithFacebook();
+                      Get.offAllNamed(Paths.homeBar);
                     },
                     child: Container(
                       width: 52,
@@ -81,7 +81,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 10,
                   ),
                   InkWell(
-                    onTap: () => firebaseAuthController.googleLogin(),
+                    onTap: () async {
+                      await firebaseAuthController.googleLogin();
+                      Get.offAllNamed(Paths.homeBar);
+                    },
                     child: Container(
                       width: 52,
                       padding: const EdgeInsets.all(10),

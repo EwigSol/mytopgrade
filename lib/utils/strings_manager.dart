@@ -15,7 +15,8 @@ class StringsManager {
   static const String start = "Start";
   static const String next = "Next";
   static const String splash1Title = "Welcome to $appName LMS,\nLet’s Learn! ";
-  static const String splash2Title = "Explore Your New Skills ";
+  static const String splash2Title =
+      "Ready to leapfrog in your Studies? \n Let's Start !!";
   static const String splash3Title = "Ready To Find A New Course ";
 
   // login

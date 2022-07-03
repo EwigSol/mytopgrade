@@ -79,7 +79,7 @@ class _MyCoursesState extends State<MyCourses>
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: ColorManager.whiteColor,
-      title: textStyle2(text: StringsManager.popular),
+      title: textStyle2(text: 'My Courses'),
       centerTitle: true,
       elevation: 0.5,
       automaticallyImplyLeading: false,

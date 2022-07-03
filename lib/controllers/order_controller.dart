@@ -76,6 +76,7 @@ class OrderController extends GetxController {
         'paymentStatus': responseData['status'],
         'order_key': responseData['order_key']
       };
+      box.write('orderId', '${result['id']}');
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
