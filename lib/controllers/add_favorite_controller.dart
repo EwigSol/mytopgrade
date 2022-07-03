@@ -25,6 +25,7 @@ class AddFavoriteController extends GetxController {
         'Authorization': 'Bearer $token',
       },
     );
+    print(response.body);
     var data = jsonDecode(response.body);
     result = {'status': data['status'], 'message': data['message']};
     isDataSubmitting.value = false;
