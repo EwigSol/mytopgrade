@@ -15,13 +15,16 @@ class RegisterController extends GetxController {
   final LoginController loginController = Get.put(LoginController());
 
   Future<Map<String, dynamic>> register(
-      String username, email, userPassword) async {
+      String username, String email, String phone, String userPassword) async {
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    final queryParameters = {
+    Map<dynamic, dynamic> data = {
       'username': username,
       'password': userPassword,
-      "email": email
+      "email": email,
+      "billing": {
+        "phone": phone,
+      },
     };
     String userName = "ck_d32a362d67fe84926e4299676d89acf9c4a44046";
     String password = "cs_5224cf20b2a8596884e56c48be1fdff251593b33";
@@ -29,10 +32,14 @@ class RegisterController extends GetxController {
         'Basic ' + base64Encode(utf8.encode('$userName:$password'));
 
     var response = await client.post(
-        Uri.parse("https://mytopgrade.com/wp-json/wc/v3/customers")
-            .replace(queryParameters: queryParameters),
-        headers: {'Authorization': basicAuth});
+        Uri.parse("https://mytopgrade.com/wp-json/wc/v3/customers"),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode(data));
 
+    print(jsonDecode(response.body));
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);

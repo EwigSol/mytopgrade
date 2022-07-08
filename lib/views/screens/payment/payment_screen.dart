@@ -59,16 +59,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildSpaceVertical(height * 0.03),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "Address"),
-              ),
-              CustomTextField(
-                controller: addressController,
-                hintName: "Enter Your Address",
-                inputLines: 4,
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: AppPadding.p10, bottom: AppPadding.p10),
+              //   child: textStyle11(text: "Address"),
+              // ),
+              // CustomTextField(
+              //   controller: addressController,
+              //   hintName: "Enter Your Address",
+              //   inputLines: 4,
+              // ),
               buildSpaceVertical(height * 0.03),
               Padding(
                 padding: const EdgeInsets.only(
@@ -89,17 +89,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 controller: stateController,
                 hintName: "Enter Your State",
               ),
-              buildSpaceVertical(height * 0.03),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "Postal Code"),
-              ),
-              CustomTextField(
-                controller: postalCodeController,
-                hintName: "Enter Your Postal Code",
-                inputType: TextInputType.number,
-              ),
+              // buildSpaceVertical(height * 0.03),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: AppPadding.p10, bottom: AppPadding.p10),
+              //   child: textStyle11(text: "Postal Code"),
+              // ),
+              // CustomTextField(
+              //   controller: postalCodeController,
+              //   hintName: "Enter Your Postal Code",
+              //   inputType: TextInputType.number,
+              // ),
               buildSpaceVertical(height * 0.03),
               Padding(
                 padding: const EdgeInsets.only(
@@ -192,6 +192,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
 }

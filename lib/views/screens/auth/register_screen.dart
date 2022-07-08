@@ -28,6 +28,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final LoginController loginController = Get.put(LoginController());
   final bool _passwordVisibleOne = false;
@@ -58,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: height * 0.60,
+        height: height * 0.70,
         width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
@@ -100,6 +101,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
+                    left: AppPadding.p10, bottom: AppPadding.p6),
+                child: textStyle11(text: "Phone"),
+              ),
+              CustomTextField(
+                controller: phoneController,
+                hintName: StringsManager.phoneNo,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
                     top: AppPadding.p10,
                     left: AppPadding.p10,
                     bottom: AppPadding.p6),
@@ -114,9 +124,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () async {
+                  print(emailController.text);
                   await registerController
                       .register(usernameController.text, emailController.text,
-                          passwordController.text)
+                          phoneController.text, passwordController.text)
                       .then((value) => {
                             if (value['status'] == false)
                               {

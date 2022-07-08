@@ -72,16 +72,16 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildSpaceVertical(height * 0.03),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "Address"),
-              ),
-              CustomTextField(
-                controller: addressController,
-                hintName: "Enter Your Address",
-                inputLines: 4,
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: AppPadding.p10, bottom: AppPadding.p10),
+              //   child: textStyle11(text: "Address"),
+              // ),
+              // CustomTextField(
+              //   controller: addressController,
+              //   hintName: "Enter Your Address",
+              //   inputLines: 4,
+              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p10),
@@ -130,16 +130,16 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
                 hintName: "Enter Your State",
               ),
               buildSpaceVertical(height * 0.03),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "Postal Code"),
-              ),
-              CustomTextField(
-                controller: postalCodeController,
-                hintName: "Enter Your Postal Code",
-                inputType: TextInputType.number,
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       left: AppPadding.p10, bottom: AppPadding.p10),
+              //   child: textStyle11(text: "Postal Code"),
+              // ),
+              // CustomTextField(
+              //   controller: postalCodeController,
+              //   hintName: "Enter Your Postal Code",
+              //   inputType: TextInputType.number,
+              // ),
               buildSpaceVertical(height * 0.03),
               // Padding(
               //   padding: const EdgeInsets.only(
@@ -360,6 +360,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
   }
 }

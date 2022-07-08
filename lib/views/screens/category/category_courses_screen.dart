@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mytopgrade/utils/assets_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../models/courses_model.dart';
@@ -35,7 +36,8 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
       appBar: buildAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+          padding: const EdgeInsets.symmetric(
+              vertical: AppPadding.p10, horizontal: AppPadding.p20),
           child: Column(
             children: [
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.01),
@@ -45,18 +47,38 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
                 } else {
                   return coursesByCategoryController
                           .coursesByCategoryList.isNotEmpty
-                      ? Center(
-                          child: Wrap(
-                              direction: Axis.horizontal,
-                              spacing: 5,
-                              runSpacing: 10,
-                              alignment: WrapAlignment.spaceEvenly,
-                              children: coursesByCategoryController
-                                  .coursesByCategoryList
-                                  .map((item) {
-                                return buildPopularCard(item, context);
-                              }).toList()),
-                        )
+                      ? GridView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  // childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 10),
+                          itemCount: coursesByCategoryController
+                              .coursesByCategoryList.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return PopularCourse(
+                              argument: coursesByCategoryController
+                                  .coursesByCategoryList[index].id,
+                              image: coursesByCategoryController
+                                  .coursesByCategoryList[index].image,
+                              sectionslength: coursesByCategoryController
+                                  .coursesByCategoryList[index]
+                                  .sections!
+                                  .length,
+                              instructor: coursesByCategoryController
+                                  .coursesByCategoryList[index].instructor,
+                              name: coursesByCategoryController
+                                  .coursesByCategoryList[index].name,
+                              price: coursesByCategoryController
+                                  .coursesByCategoryList[index].price,
+                              rating: coursesByCategoryController
+                                  .coursesByCategoryList[index].rating,
+                            );
+                          })
                       : Center(
                           child: textStyle0_5(
                               text:
@@ -74,6 +96,7 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
   AppBar buildAppBar() {
     return AppBar(
       title: textStyle2(text: StringsManager.courseCat),
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
       centerTitle: true,
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
@@ -116,9 +139,9 @@ class _CategoryCoursesScreenState extends State<CategoryCoursesScreen> {
                                   topRight: Radius.circular(AppSize.s10)),
                               child: courseByCat.image != ''
                                   ? Image.network(courseByCat.image!,
-                                      fit: BoxFit.fill)
+                                      fit: BoxFit.cover)
                                   : Image.asset(AssetsManager.card,
-                                      fit: BoxFit.fill)),
+                                      fit: BoxFit.cover)),
                         ),
                       ),
                       Positioned(
