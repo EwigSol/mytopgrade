@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               buildSpaceVertical(height * 0.06),
               buildFormCard(),
-              buildSpaceVertical(height * 0.06),
+              buildSpaceVertical(height * 0.03),
               LoginText(toggleView: widget.toggleView)
             ],
           ),
@@ -59,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Center buildFormCard() {
     return Center(
       child: Container(
-        height: height * 0.70,
+        height: height * 0.75,
         width: width * 0.90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s22),
@@ -86,18 +86,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Username"),
               ),
-              CustomTextField(
-                controller: usernameController,
-                hintName: StringsManager.userName,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: CustomTextField(
+                  controller: usernameController,
+                  hintName: StringsManager.userName,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p6),
                 child: textStyle11(text: "Email"),
               ),
-              CustomTextField(
-                controller: emailController,
-                hintName: StringsManager.email,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: CustomTextField(
+                  controller: emailController,
+                  hintName: StringsManager.email,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
