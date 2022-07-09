@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "88432950243-g0iqir4c8a0k261kgmagjcjj8r8veh7c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytopgrade.com",
+            "certificate_hash": "07e0d50a81f073c3afcf0505a20c8f94a75dea98"
+          }
+        },
+        {
           "client_id": "88432950243-u4n4ou93dagul9q15jslv21muktgnlk0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -43,7 +51,7 @@
               "client_id": "88432950243-072qne2negb4auj6on184atlal59v593.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.mytopgrade.com"
+                "bundle_id": "com.AZainapps.topgrade"
               }
             }
           ]
