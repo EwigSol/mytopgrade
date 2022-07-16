@@ -58,8 +58,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () async {
-                      await firebaseAuthController.signInWithFacebook();
-                      Get.offAllNamed(Paths.homeBar);
+                      await firebaseAuthController
+                          .signInWithFacebook()
+                          .then((loginResult) => {
+                                if (loginResult != null)
+                                  {Get.offAllNamed(Paths.homeBar)}
+                                else
+                                  {
+                                    Get.snackbar(
+                                      'Failed',
+                                      'Failed to login',
+                                      backgroundColor: Colors.red,
+                                    )
+                                  }
+                              });
                     },
                     child: Container(
                       width: 52,
@@ -82,8 +94,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () async {
-                      await firebaseAuthController.googleLogin();
-                      Get.offAllNamed(Paths.homeBar);
+                      await firebaseAuthController
+                          .googleLogin()
+                          .then((authResult) => {
+                                if (authResult.user != null)
+                                  {Get.offAllNamed(Paths.homeBar)}
+                                else
+                                  {
+                                    Get.snackbar(
+                                      'Failed',
+                                      'Failed to login',
+                                      backgroundColor: Colors.red,
+                                    )
+                                  }
+                              });
                     },
                     child: Container(
                       width: 52,

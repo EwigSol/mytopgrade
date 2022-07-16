@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import '../../../controllers/update_customer_controller.dart';
 import '../../../helpers/text_helper.dart';
@@ -28,6 +31,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final phoneController = TextEditingController();
   final box = GetStorage();
   var updateCustomerController = Get.put(UpdateCustomerController());
+  var isLoading = false.obs;
 
   @override
   void initState() {
@@ -78,7 +82,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             ),
                           ],
                         ),
-                        child: const Icon(Icons.edit),
+                        child: IconButton(
+                            onPressed: () {
+                              uploadPicutre();
+                            },
+                            icon: const Icon(Icons.edit)),
                       ),
                     ),
                   ],
@@ -168,5 +176,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       elevation: 0.5,
       iconTheme: const IconThemeData(color: ColorManager.blackColor),
     );
+  }
+
+  uploadPicutre() async {
+    isLoading.value = true;
+    XFile? picture = await ImagePicker()
+        .pickImage(source: ImageSource.camera, maxHeight: 250, maxWidth: 250);
+
+    await updateCustomerController.changeProfile(
+        File(picture!.path), box.read("user_id"));
+    // Get.find<UserController>().getUser();
+    isLoading.value = false;
   }
 }

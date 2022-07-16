@@ -34,7 +34,7 @@ class FirebaseAuthController extends GetxController {
     ],
   );
 
-  Future<void> googleLogin() async {
+  Future googleLogin() async {
     try {
       var googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
@@ -71,7 +71,7 @@ class FirebaseAuthController extends GetxController {
     }
   }
 
-  Future<void> signInWithFacebook() async {
+  Future signInWithFacebook() async {
     isLoading.value = true;
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();

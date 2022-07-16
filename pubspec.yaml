@@ -42,6 +42,7 @@ dependencies:
   flutter_local_notifications: ^9.6.1
   rxdart: ^0.27.4
   overlay_support: ^2.0.1
+  image_picker: ^0.8.5+3
   # animated_text: ^1.0.2
   # flutter_login_facebook: ^1.4.1
   
