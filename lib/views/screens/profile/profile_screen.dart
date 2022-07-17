@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mytopgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
+import 'package:mytopgrade/controllers/userController/userController.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/helpers/text_helper.dart';
 import 'package:mytopgrade/routes/appPages.dart';
@@ -17,9 +18,11 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
   final FirebaseAuthController firebaseAuthController =
       Get.put(FirebaseAuthController());
+  final UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
+    var user = Get.find<UserController>();
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
@@ -27,13 +30,27 @@ class ProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-          const Center(
-            child: CircleAvatar(
-              radius: 70,
-              backgroundColor: ColorManager.halfWhiteColor,
-              backgroundImage: AssetImage(AssetsManager.person),
-            ),
-          ),
+          user.userModel.value.avatarUrl != null
+              ? Obx(
+                  () => Center(
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundColor: ColorManager.halfWhiteColor,
+                      backgroundImage:
+                          NetworkImage(user.userModel.value.avatarUrl!),
+                      // AssetImage(AssetsManager.person),
+                    ),
+                  ),
+                )
+              : const Center(
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundColor: ColorManager.halfWhiteColor,
+                    backgroundImage:
+                        // NetworkImage(user.userModel.value.avatarUrl!),
+                        AssetImage(AssetsManager.person),
+                  ),
+                ),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
           InkWell(
               onTap: () {
@@ -142,5 +159,10 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: ColorManager.whiteColor,
       elevation: 0.5,
     );
+  }
+
+  @override
+  void dispose() {
+    userController.dispose();
   }
 }

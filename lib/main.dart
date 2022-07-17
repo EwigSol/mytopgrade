@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mytopgrade/controllers/assignment_byID_controller.dart';
 import 'package:mytopgrade/controllers/course_byId_controller.dart';
 import 'package:mytopgrade/controllers/quiz_byID_controller.dart';
+import 'package:mytopgrade/controllers/userController/userController.dart';
 import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import 'package:mytopgrade/models/pushNotification_Model.dart';
 import 'package:mytopgrade/routes/app_routes.dart';
@@ -102,6 +103,7 @@ void main() async {
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
   Get.put(WishlistController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 

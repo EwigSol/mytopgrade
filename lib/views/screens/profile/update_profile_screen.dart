@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mytopgrade/controllers/userController/userController.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import '../../../controllers/update_customer_controller.dart';
 import '../../../helpers/text_helper.dart';
@@ -15,6 +16,7 @@ import '../../../utils/values_manager.dart';
 import '../../widgets/action_button.dart';
 import '../../widgets/text_field.dart';
 import 'package:get/get.dart';
+import 'package:image/image.dart' as Img;
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({Key? key}) : super(key: key);
@@ -42,6 +44,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Get.find<UserController>();
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
@@ -56,14 +59,35 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 width: MediaQuery.of(context).size.width * 0.50,
                 child: Stack(
                   children: [
-                    const Align(
-                      alignment: Alignment.center,
-                      child: CircleAvatar(
-                        radius: 65,
-                        backgroundColor: ColorManager.halfWhiteColor,
-                        backgroundImage: AssetImage(AssetsManager.person),
-                      ),
-                    ),
+                    user.userModel.value.avatarUrl != null
+                        ? Obx(
+                            () => Center(
+                              child: CircleAvatar(
+                                radius: 70,
+                                backgroundColor: ColorManager.halfWhiteColor,
+                                backgroundImage: NetworkImage(
+                                    user.userModel.value.avatarUrl!),
+                                // AssetImage(AssetsManager.person),
+                              ),
+                            ),
+                          )
+                        : const Center(
+                            child: CircleAvatar(
+                              radius: 70,
+                              backgroundColor: ColorManager.halfWhiteColor,
+                              backgroundImage:
+                                  // NetworkImage(user.userModel.value.avatarUrl!),
+                                  AssetImage(AssetsManager.person),
+                            ),
+                          ),
+                    // const Align(
+                    //   alignment: Alignment.center,
+                    //   child: CircleAvatar(
+                    //     radius: 65,
+                    //     backgroundColor: ColorManager.halfWhiteColor,
+                    //     backgroundImage: AssetImage(AssetsManager.person),
+                    //   ),
+                    // ),
                     Positioned(
                       right: 20,
                       bottom: 10,
@@ -83,8 +107,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           ],
                         ),
                         child: IconButton(
-                            onPressed: () {
-                              uploadPicutre();
+                            onPressed: () async {
+                              await uploadPicutre();
+                              user.getCustomer();
                             },
                             icon: const Icon(Icons.edit)),
                       ),
@@ -180,12 +205,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   uploadPicutre() async {
     isLoading.value = true;
-    XFile? picture = await ImagePicker()
-        .pickImage(source: ImageSource.camera, maxHeight: 250, maxWidth: 250);
-
-    await updateCustomerController.changeProfile(
-        File(picture!.path), box.read("user_id"));
-    // Get.find<UserController>().getUser();
+    XFile? picture = await ImagePicker().pickImage(source: ImageSource.gallery);
+    await updateCustomerController.changeProfile(picture, box.read("user_id"));
     isLoading.value = false;
   }
 }
