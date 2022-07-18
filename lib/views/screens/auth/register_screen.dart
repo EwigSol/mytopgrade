@@ -113,6 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               CustomTextField(
                 controller: phoneController,
                 hintName: StringsManager.phoneNo,
+                inputType: TextInputType.phone,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -131,16 +132,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               InkWell(
                 onTap: () async {
                   print(emailController.text);
-                  await registerController
-                      .register(usernameController.text, emailController.text,
-                          phoneController.text, passwordController.text)
-                      .then((value) => {
-                            if (value['status'] == false)
-                              {
-                                errorToast("Error",
-                                    "You Have already created account on this email and username")
-                              }
-                          });
+                  await registerController.register(
+                      usernameController.text,
+                      emailController.text,
+                      phoneController.text,
+                      passwordController.text);
                 },
                 child: Obx(() {
                   if (registerController.isDataSubmitting.value == true) {

@@ -32,7 +32,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
   final box = GetStorage();
-  var updateCustomerController = Get.put(UpdateCustomerController());
+  final updateCustomerController = Get.put(UpdateCustomerController());
+  final userController = Get.put(UserController());
   var isLoading = false.obs;
 
   @override
@@ -40,6 +41,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     super.initState();
     usernameController.text = box.read("user_display_name");
     emailController.text = box.read("user_email");
+    firstNameController.text =
+        Get.find<UserController>().userModel.value.firstName!;
+    lastNameController.text =
+        Get.find<UserController>().userModel.value.lastName!;
   }
 
   @override
@@ -67,7 +72,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 backgroundColor: ColorManager.halfWhiteColor,
                                 backgroundImage: NetworkImage(
                                     user.userModel.value.avatarUrl!),
-                                // AssetImage(AssetsManager.person),
                               ),
                             ),
                           )
@@ -75,19 +79,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             child: CircleAvatar(
                               radius: 70,
                               backgroundColor: ColorManager.halfWhiteColor,
-                              backgroundImage:
-                                  // NetworkImage(user.userModel.value.avatarUrl!),
-                                  AssetImage(AssetsManager.person),
+                              backgroundImage: AssetImage(AssetsManager.person),
                             ),
                           ),
-                    // const Align(
-                    //   alignment: Alignment.center,
-                    //   child: CircleAvatar(
-                    //     radius: 65,
-                    //     backgroundColor: ColorManager.halfWhiteColor,
-                    //     backgroundImage: AssetImage(AssetsManager.person),
-                    //   ),
-                    // ),
                     Positioned(
                       right: 20,
                       bottom: 10,
@@ -138,43 +132,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 hintName: 'Enter Your Last Name',
               ),
               buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-              CustomTextField(
-                controller: phoneController,
-                hintName: "Enter Your Phone Number",
-              ),
-              buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
               InkWell(
                 onTap: () {
-                  UserModel userModel;
                   if (usernameController.text.isNotEmpty) {
                     if (emailController.text.isNotEmpty) {
                       var id = box.read("user_id");
-                      updateCustomerController
-                          .updateCustomer(firstNameController.text,
-                              lastNameController.text, phoneController.text, id)
-                          .then((response) => {
-                                if (response['status'] == true)
-                                  {
-                                    userModel = response['userData'],
-                                    box.write(
-                                        "user_id", userModel.id.toString()),
-                                    box.write("user_email", userModel.email),
-                                    box.write("user_display_name",
-                                        userModel.username),
-                                    Get.snackbar(
-                                      'Success',
-                                      'UserData Updated Successfully',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      backgroundColor: Colors.blue,
-                                      colorText: Colors.white,
-                                    ),
-                                    Get.toNamed(Paths.homeBar)
-                                  }
-                                else
-                                  {
-                                    errorToast("Error", response['message']),
-                                  }
-                              });
+                      updateCustomerController.updateCustomer(
+                          firstNameController.text,
+                          lastNameController.text,
+                          id);
                     } else {
                       errorToast("Error", "Email is required");
                     }

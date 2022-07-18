@@ -38,7 +38,6 @@ class ProfileScreen extends StatelessWidget {
                       backgroundColor: ColorManager.halfWhiteColor,
                       backgroundImage:
                           NetworkImage(user.userModel.value.avatarUrl!),
-                      // AssetImage(AssetsManager.person),
                     ),
                   ),
                 )
@@ -46,9 +45,7 @@ class ProfileScreen extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 70,
                     backgroundColor: ColorManager.halfWhiteColor,
-                    backgroundImage:
-                        // NetworkImage(user.userModel.value.avatarUrl!),
-                        AssetImage(AssetsManager.person),
+                    backgroundImage: AssetImage(AssetsManager.person),
                   ),
                 ),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
@@ -69,12 +66,6 @@ class ProfileScreen extends StatelessWidget {
             child: buildProfileCard("Payment Details",
                 Icons.account_balance_wallet_outlined, context),
           ),
-          // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          // InkWell(
-          //     onTap: (){
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
-          //     },
-          //     child: buildProfileCard("Notification", Icons.notifications, context)),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
               onTap: () {
@@ -84,8 +75,6 @@ class ProfileScreen extends StatelessWidget {
                         builder: (context) => const FavouritesScreen()));
               },
               child: buildProfileCard("Wishlist", Icons.favorite, context)),
-          // buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          // buildProfileCard("Language", Icons.language, context),
           buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
           InkWell(
               onTap: () async {

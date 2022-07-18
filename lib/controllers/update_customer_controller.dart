@@ -15,31 +15,30 @@ class UpdateCustomerController extends GetxController {
   final box = GetStorage();
 
   Future<Map<String, dynamic>> updateCustomer(
-      String firstName, lastName, phone, id) async {
+      String firstName, lastName, id) async {
     final box = GetStorage();
     print(id.toString());
     Map<String, dynamic> result;
     isDataSubmitting.value = true;
-    String userName = "ck_d32a362d67fe84926e4299676d89acf9c4a44046";
-    String password = "cs_5224cf20b2a8596884e56c48be1fdff251593b33";
-    String basicAuth =
-        'Basic ' + base64Encode(utf8.encode('$userName:$password'));
     Map<dynamic, dynamic> dataBody = {
       "first_name": firstName,
       "last_name": lastName,
-      "phone": phone
     };
     var token = box.read("token");
 
     var response = await client.put(
-        Uri.parse("https://mytopgrade.com/wp-json/wc/v3/customers/$id"),
+        Uri.parse("https://mytopgrade.com/wp-json/learnpress/v1/users/$id"),
         headers: {
-          "Authorization": basicAuth,
+          "Authorization": 'Bearer $token',
           "Content-Type": "application/json",
         },
         body: jsonEncode(dataBody));
     print(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
+      Get.snackbar('Success', 'User Detail Updated',
+          backgroundColor: Colors.blue,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {
@@ -48,6 +47,10 @@ class UpdateCustomerController extends GetxController {
         'message': "Customer Details Updated"
       };
     } else {
+      Get.snackbar('Error', 'There was some error while updating user',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {

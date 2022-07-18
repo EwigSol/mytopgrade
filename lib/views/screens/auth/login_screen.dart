@@ -67,21 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InkWell(
                           onTap: () async {
-                            await firebaseAuthController
-                                .signInWithFacebook()
-                                .then((loginResult) => {
-                                      if (loginResult != null)
-                                        {Get.offAllNamed(Paths.homeBar)}
-                                      else
-                                        {
-                                          Get.snackbar(
-                                            'Failed',
-                                            'Failed to login',
-                                            backgroundColor: Colors.red,
-                                            colorText: Colors.white,
-                                          )
-                                        }
-                                    });
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                });
+                            await firebaseAuthController.signInWithFacebook();
                           },
                           child: Container(
                             width: 52,
@@ -104,6 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InkWell(
                           onTap: () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                });
                             await firebaseAuthController.googleLogin();
                           },
                           child: Container(
@@ -221,37 +221,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           .then((response) => {
                                 if (response['status'] == true)
                                   {
-                                    // box.write("token", response['token']),
-                                    // box.write("user_id", response['user_id']),
-                                    // box.write(
-                                    //     "user_login", response['user_login']),
-                                    // box.write(
-                                    //     "user_email", response['user_email']),
                                     box.write("user_id", response['user_id']),
                                     box.write(
                                         "user_email", response['user_email']),
                                     box.write("user_display_name",
                                         response['user_display_name']),
-                                    // box.write("isLogged", true),
-
                                     Get.snackbar('Welcome Back',
                                         'Welcome ${box.read("user_display_name")} to your Educational Portal',
                                         snackPosition: SnackPosition.BOTTOM,
-                                        backgroundColor: Colors.green,
+                                        backgroundColor: Colors.blue,
                                         colorText: Colors.white),
                                     Get.offAllNamed(Paths.homeBar),
                                   }
                                 else
                                   {
-                                    errorToast("Error",
-                                        "Please Check your Email or Password"),
+                                    Get.snackbar("Error",
+                                        "Please Check your Email or Password",
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white),
                                   }
                               });
                     } else {
-                      errorToast("Error", "Email is required");
+                      Get.snackbar("Error", "Email is required",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white);
                     }
                   } else {
-                    errorToast("Error", "Password is required");
+                    Get.snackbar("Error", "Password is required",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white);
                   }
                 },
                 child: Obx(() {

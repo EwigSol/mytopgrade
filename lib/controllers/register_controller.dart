@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/routes/appPages.dart';
+import 'package:mytopgrade/views/screens/auth/signUpResultScreen.dart';
 import '../models/user_model.dart';
 import 'login_controller.dart';
 
@@ -40,45 +41,40 @@ class RegisterController extends GetxController {
         },
         body: jsonEncode(data));
 
-    print(jsonDecode(response.body));
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
-
       isDataReadingCompleted.value = true;
       result = {'status': true, 'userData': userModelFromJson(response.body)};
-      await loginController.login(email, userPassword).then((response) => {
-            if (response['status'] == true)
-              {
-                box.write("user_id", response['user_id']),
-                box.write("user_email", response['user_email']),
-                box.write("user_display_name", response['user_display_name']),
-                Get.snackbar('Welcome Back',
-                    'Welcome ${response['user_display_name']} to your Educational Portal',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.blue,
-                    colorText: Colors.white),
-                Get.offAllNamed(Paths.homeBar)
-              }
-            else
-              {
-                errorToast("Error", response['message']),
-              }
-          });
+      Get.snackbar('Sucess', 'Your Account has been Created',
+          backgroundColor: Colors.blue,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
+      Get.to(() => SignUpResultScreen());
     } else if (response.statusCode == 401) {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {
         'status': false,
         'message': "You Have already created account on this email"
       };
+      Get.snackbar('Error', responseData['message'],
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
     } else {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;
       result = {
         'status': false,
         'message': "Server Error!\nFailed to register"
       };
+      Get.snackbar('Error', responseData['message'],
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
     }
     return result;
   }
