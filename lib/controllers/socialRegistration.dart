@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -58,7 +59,9 @@ class SocialRegisterController extends GetxController {
                 box.write("user_display_name", response['user_display_name']),
                 Get.snackbar('Welcome Back',
                     'Welcome ${response['user_display_name']} to your Educational Portal',
-                    snackPosition: SnackPosition.BOTTOM),
+                    snackPosition: SnackPosition.BOTTOM,
+                    colorText: Colors.white,
+                    backgroundColor: Colors.blue),
                 Get.offAllNamed(Paths.homeBar),
                 print("mytoken is : ${box.read("token")}"),
               }
