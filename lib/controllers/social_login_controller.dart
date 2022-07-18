@@ -9,6 +9,7 @@ import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';
 
 class SocialLoginController extends GetxController {
+  var isLoading = false.obs;
   var isDataSubmitting = false.obs;
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
@@ -20,7 +21,7 @@ class SocialLoginController extends GetxController {
     String userName,
   ) async {
     Map<String, dynamic> result;
-    isDataSubmitting.value = true;
+    isLoading.value = true;
     final queryParameters = {'username': userName, 'onlyusername': 'yes'};
 
     var response = await client.post(Uri.parse(
@@ -43,11 +44,13 @@ class SocialLoginController extends GetxController {
         'user_email': responseData['user_email'],
         'user_display_name': responseData['user_display_name'],
       };
+      isLoading.value = false;
+      Get.offAllNamed(Paths.homeBar);
       print(box.read("token"));
       print(response.body);
     } else {
       await SocialRegisterController().register(userName);
-      isDataSubmitting.value = false;
+      isLoading.value = false;
       isDataReadingCompleted.value = true;
       result = {
         'status': false,

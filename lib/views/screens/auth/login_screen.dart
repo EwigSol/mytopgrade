@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mytopgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
+import 'package:mytopgrade/controllers/social_login_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/utils/assets_manager.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
@@ -34,111 +35,107 @@ class _LoginScreenState extends State<LoginScreen> {
   final box = GetStorage();
   double height = Get.height;
   double width = Get.width;
+  var loading = false.obs;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              buildSpaceVertical(height * 0.06),
-              buildFormCard(),
-              buildSpaceVertical(height * 0.06),
-              SignupText(toggleView: widget.toggleView),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 20,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await firebaseAuthController
-                          .signInWithFacebook()
-                          .then((loginResult) => {
-                                if (loginResult != null)
-                                  {Get.offAllNamed(Paths.homeBar)}
-                                else
-                                  {
-                                    Get.snackbar(
-                                      'Failed',
-                                      'Failed to login',
-                                      backgroundColor: Colors.red,
-                                    )
-                                  }
-                              });
-                    },
-                    child: Container(
-                      width: 52,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(
-                          100,
+    loading.value = Get.find<SocialLoginController>().isLoading.value;
+    return Obx(() => loading.value != false
+        ? const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    buildSpaceVertical(height * 0.06),
+                    buildFormCard(),
+                    buildSpaceVertical(height * 0.06),
+                    SignupText(toggleView: widget.toggleView),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            thickness: 2,
+                            indent: 10,
+                            endIndent: 20,
+                          ),
                         ),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/facebookicon.svg',
-                        color: Colors.black,
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await firebaseAuthController
-                          .googleLogin()
-                          .then((authResult) => {
-                                if (authResult.user != null)
-                                  {Get.offAllNamed(Paths.homeBar)}
-                                else
-                                  {
-                                    Get.snackbar(
-                                      'Failed',
-                                      'Failed to login',
-                                      backgroundColor: Colors.red,
-                                    )
-                                  }
-                              });
-                    },
-                    child: Container(
-                      width: 52,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(
-                          100,
+                        InkWell(
+                          onTap: () async {
+                            await firebaseAuthController
+                                .signInWithFacebook()
+                                .then((loginResult) => {
+                                      if (loginResult != null)
+                                        {Get.offAllNamed(Paths.homeBar)}
+                                      else
+                                        {
+                                          Get.snackbar(
+                                            'Failed',
+                                            'Failed to login',
+                                            backgroundColor: Colors.red,
+                                            colorText: Colors.white,
+                                          )
+                                        }
+                                    });
+                          },
+                          child: Container(
+                            width: 52,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(
+                                100,
+                              ),
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/images/facebookicon.svg',
+                              color: Colors.black,
+                              width: 30,
+                            ),
+                          ),
                         ),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/googleicon.svg',
-                        color: Colors.black,
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 20,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            await firebaseAuthController.googleLogin();
+                          },
+                          child: Container(
+                            width: 52,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(
+                                100,
+                              ),
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/images/googleicon.svg',
+                              color: Colors.black,
+                              width: 30,
+                            ),
+                          ),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            thickness: 2,
+                            indent: 10,
+                            endIndent: 20,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ));
   }
 
   Center buildFormCard() {
@@ -239,7 +236,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                     Get.snackbar('Welcome Back',
                                         'Welcome ${box.read("user_display_name")} to your Educational Portal',
-                                        snackPosition: SnackPosition.BOTTOM),
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white),
                                     Get.offAllNamed(Paths.homeBar),
                                   }
                                 else

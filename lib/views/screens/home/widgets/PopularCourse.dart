@@ -70,8 +70,9 @@ class PopularCourse extends StatelessWidget {
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(AppSize.s10),
                                   topRight: Radius.circular(AppSize.s10)),
-                              child:
-                                  Image.network(image, fit: BoxFit.fitWidth)),
+                              child: image != null
+                                  ? Image.network(image, fit: BoxFit.fitWidth)
+                                  : Image.asset('/assets/images/logo.png')),
                         ),
                       ),
                       Positioned(

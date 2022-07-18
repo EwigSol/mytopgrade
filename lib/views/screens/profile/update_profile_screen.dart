@@ -161,9 +161,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                     box.write("user_email", userModel.email),
                                     box.write("user_display_name",
                                         userModel.username),
-                                    Get.snackbar('Success',
-                                        'UserData Updated Successfully',
-                                        snackPosition: SnackPosition.BOTTOM),
+                                    Get.snackbar(
+                                      'Success',
+                                      'UserData Updated Successfully',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.blue,
+                                      colorText: Colors.white,
+                                    ),
                                     Get.toNamed(Paths.homeBar)
                                   }
                                 else

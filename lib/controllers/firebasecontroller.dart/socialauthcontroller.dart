@@ -36,24 +36,41 @@ class FirebaseAuthController extends GetxController {
 
   Future googleLogin() async {
     try {
+      isLoading.value = true;
       var googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       AuthCredential authCredential = GoogleAuthProvider.credential(
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential authResult =
           await auth.signInWithCredential(authCredential);
-      await SocialLoginController().login(authResult.user!.email!);
-      Get.snackbar(
-        "SignedIn",
-        "Signedin Successfully",
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      if (authResult.user != null) {
+        await SocialLoginController().login(authResult.user!.email!);
+        Get.snackbar(
+          "SignedIn",
+          "Signedin Successfully",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blue,
+          colorText: Colors.white,
+        );
+        isLoading.value = false;
+        print('signed in ');
+      } else {
+        Get.snackbar(
+          'Failed',
+          'Failed to login',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     } catch (error) {
       print(error);
+      isLoading.value = false;
       Get.snackbar(
         'Failed',
-        error.toString(),
+        'There was an Error Signing in Please try Again',
+        snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
+        colorText: Colors.white,
       );
     }
   }
@@ -120,7 +137,9 @@ class FirebaseAuthController extends GetxController {
       await Get.offAllNamed(Paths.authView);
     } catch (e) {
       Get.snackbar("Error in Signing Out", e.toString(),
-          snackPosition: SnackPosition.BOTTOM);
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 }

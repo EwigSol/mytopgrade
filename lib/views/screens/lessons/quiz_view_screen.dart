@@ -633,7 +633,9 @@ class _QuizViewScreenState extends State<QuizViewScreen> {
                                                 'Quiz Submited Successfully',
                                                 "Please Check 'Your Results' in results Segment",
                                                 snackPosition:
-                                                    SnackPosition.BOTTOM),
+                                                    SnackPosition.BOTTOM,
+                                                backgroundColor: Colors.blue,
+                                                colorText: Colors.white),
                                             Get.toNamed(Paths.homeBar)
                                           }
                                         else

@@ -85,7 +85,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "Phone"),
+                child: textStyle11(text: "Phone *"),
               ),
               CustomTextField(
                 controller: phoneController,
@@ -113,7 +113,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "City"),
+                child: textStyle11(text: "City *"),
               ),
               CustomTextField(
                 controller: cityController,
@@ -123,7 +123,7 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p10),
-                child: textStyle11(text: "State"),
+                child: textStyle11(text: "State *"),
               ),
               CustomTextField(
                 controller: stateController,
@@ -154,7 +154,14 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    await _handlePaymentInitialization();
+                    if (phoneController.text.isNotEmpty &&
+                        cityController.text.isNotEmpty &&
+                        stateController.text.isNotEmpty) {
+                      await _handlePaymentInitialization();
+                    } else {
+                      errorToast(
+                          "Warning", "Please Fill In All required Fields");
+                    }
                   },
                   child: Container(
                     height: height * 0.06,
@@ -233,59 +240,36 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
         customer: customer,
         // subAccounts: subAccounts,
         paymentOptions: "card",
-        customization: Customization(title: "Test Payment"),
+        customization: Customization(title: "Payment Via Card"),
         redirectUrl: "https://www.google.com",
         isTestMode: false);
     final ChargeResponse response = await flutterwave.charge();
     if (response != null) {
       showLoading(response.status!);
       print("${response.toJson()}");
-      if (addressController.text.isNotEmpty) {
-        if (cityController.text.isNotEmpty) {
-          if (stateController.text.isNotEmpty) {
-            if (postalCodeController.text.isNotEmpty) {
-              if (countryController.text.isNotEmpty) {
-                orderController
-                    .flutterWaveOrder(
-                        paymentMethod!,
-                        paymentMethodTitle,
-                        firstName,
-                        lastName,
-                        addressController.text,
-                        cityController.text,
-                        stateController.text,
-                        postalCodeController.text,
-                        // countryController.text,
-                        email,
-                        phoneController.text,
-                        lineItemModel)
-                    .then((response) => {
-                          if (response['status'] == true)
-                            {
-                              successToast(
-                                  "Success", "Course Ordered Successfully"),
-                              Get.toNamed(Paths.paymentSuccess),
-                            }
-                          else
-                            {errorToast("Error", "Failed to Order Course")}
-                        });
-              } else {
-                errorToast("Warning", "Country is required");
-              }
-            } else {
-              errorToast("Warning", "Postal Code is required");
-            }
-          } else {
-            errorToast("Warning", "State is required");
-          }
-        } else {
-          errorToast("Warning", "City is required");
-        }
-      } else {
-        errorToast("Warning", "Address is required");
-      }
-    } else {
-      showLoading("No Response!");
+      orderController
+          .flutterWaveOrder(
+              paymentMethod!,
+              paymentMethodTitle,
+              firstName,
+              lastName,
+              addressController.text,
+              cityController.text,
+              stateController.text,
+              postalCodeController.text,
+              // countryController.text,
+              email,
+              phoneController.text,
+              lineItemModel)
+          .then((response) => {
+                if (response['status'] == true)
+                  {
+                    successToast("Success", "Course Ordered Successfully"),
+                    Get.toNamed(Paths.paymentSuccess),
+                  }
+                else
+                  {errorToast("Error", "Failed to Order Course")}
+              });
     }
   }
 

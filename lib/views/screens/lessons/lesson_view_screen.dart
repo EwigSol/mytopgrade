@@ -85,16 +85,18 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                         await finishLessonController
                             .finishLesson(widget.id.toString());
                         if (finishLessonController.isDataSubmitting == false) {
-                          Get.snackbar(
-                            'Hurrey',
-                            'The Lesson is marked as finished',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
+                          Get.snackbar('Congratulations',
+                              'The Lesson is marked as finished',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.blue,
+                              colorText: Colors.white);
                         } else {
                           Get.snackbar(
                             'Sorry',
                             'The Lesson is Already marked as finished',
                             snackPosition: SnackPosition.BOTTOM,
+                            colorText: Colors.white,
+                            backgroundColor: Colors.red,
                           );
                         }
                       },

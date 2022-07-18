@@ -1119,7 +1119,9 @@ class _DetailsScreenState extends State<DetailsScreen>
                       'This course has been added to your wishlists')
                     {
                       Get.snackbar("Success", "Course Added to Wishlist",
-                          snackPosition: SnackPosition.BOTTOM),
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.blue,
+                          colorText: Colors.white),
                       setState(() {
                         inWishlist = true;
                       }),
@@ -1127,7 +1129,9 @@ class _DetailsScreenState extends State<DetailsScreen>
                   else
                     {
                       Get.snackbar("Success", "Course Removed from WishList",
-                          snackPosition: SnackPosition.BOTTOM),
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.blue,
+                          colorText: Colors.white),
                       setState(() {
                         inWishlist = false;
                       }),

@@ -15,6 +15,7 @@ import 'package:mytopgrade/utils/strings_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:mytopgrade/views/screens/category/categories_screen.dart';
 import 'package:mytopgrade/views/screens/category/category_courses_screen.dart';
+import 'package:mytopgrade/views/screens/courses/AllCourses.dart';
 import 'package:mytopgrade/views/screens/popular/popular_courses_screen.dart';
 import 'package:mytopgrade/views/screens/searchResult/searchResultScreen.dart';
 import 'package:get/get.dart';
@@ -230,7 +231,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        textStyle0_5(text: title),
+        Text(
+          title,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
         InkWell(
             onTap: () {
               if (title == "Categories") {
@@ -250,10 +254,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PopularCoursesScreen()));
+                        builder: (context) => AllCoursesScreen()));
               }
             },
-            child: textStyle0_5(text: StringsManager.seeAll)),
+            child: Text(
+              StringsManager.seeAll,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            )),
       ],
     );
   }

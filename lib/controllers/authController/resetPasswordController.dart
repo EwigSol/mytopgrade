@@ -30,7 +30,9 @@ class PasswordController extends GetxController {
       isLoading.value = false;
       Get.snackbar(
           'Success', 'A link to reset your password has been emailed to you.',
-          snackPosition: SnackPosition.BOTTOM);
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blue,
+          colorText: Colors.white);
     } else {
       isLoading.value = false;
       Get.snackbar(

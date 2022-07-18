@@ -114,52 +114,44 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Center(
                 child: InkWell(
                   onTap: () {
-                    if (addressController.text.isNotEmpty) {
-                      if (cityController.text.isNotEmpty) {
-                        if (stateController.text.isNotEmpty) {
-                          if (postalCodeController.text.isNotEmpty) {
-                            if (countryController.text.isNotEmpty) {
-                              orderController
-                                  .order(
-                                      paymentMethod!,
-                                      paymentMethodTitle,
-                                      firstName,
-                                      lastName,
-                                      addressController.text,
-                                      cityController.text,
-                                      stateController.text,
-                                      postalCodeController.text,
-                                      countryController.text,
-                                      email,
-                                      "+9231397897654",
-                                      lineItemModel)
-                                  .then((response) => {
-                                        if (response['status'] == true)
-                                          {
-                                            successToast("Success",
-                                                "Course Ordered Successfully"),
-                                            Get.toNamed(Paths.paymentSuccess),
-                                          }
-                                        else
-                                          {
-                                            errorToast("Error",
-                                                "Failed to Order Course")
-                                          }
-                                      });
-                            } else {
-                              errorToast("Warning", "Country is required");
-                            }
-                          } else {
-                            errorToast("Warning", "Postal Code is required");
-                          }
+                    if (cityController.text.isNotEmpty) {
+                      if (stateController.text.isNotEmpty) {
+                        if (countryController.text.isNotEmpty) {
+                          orderController
+                              .order(
+                                  paymentMethod!,
+                                  paymentMethodTitle,
+                                  firstName,
+                                  lastName,
+                                  addressController.text,
+                                  cityController.text,
+                                  stateController.text,
+                                  postalCodeController.text,
+                                  countryController.text,
+                                  email,
+                                  "+9231397897654",
+                                  lineItemModel)
+                              .then((response) => {
+                                    if (response['status'] == true)
+                                      {
+                                        successToast("Success",
+                                            "Course Ordered Successfully"),
+                                        Get.toNamed(Paths.paymentSuccess),
+                                      }
+                                    else
+                                      {
+                                        errorToast(
+                                            "Error", "Failed to Order Course")
+                                      }
+                                  });
                         } else {
-                          errorToast("Warning", "State is required");
+                          errorToast("Warning", "Country is required");
                         }
                       } else {
-                        errorToast("Warning", "City is required");
+                        errorToast("Warning", "State is required");
                       }
                     } else {
-                      errorToast("Warning", "Address is required");
+                      errorToast("Warning", "City is required");
                     }
                   },
                   child: Container(
@@ -183,6 +175,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> showLoading(String message) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Container(
+            margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+            width: double.infinity,
+            height: 50,
+            child: Text(message),
+          ),
+        );
+      },
     );
   }
 
