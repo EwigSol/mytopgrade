@@ -76,11 +76,12 @@ class AllCoursesScreen extends StatelessWidget {
                                 .coursesList[index].rating,
                           );
                         })
-                    : Center(
+                    : const Center(
                         child: CircularProgressIndicator(),
                       );
               }
             }),
+            const SizedBox(height: 30),
           ]),
         ),
       ),

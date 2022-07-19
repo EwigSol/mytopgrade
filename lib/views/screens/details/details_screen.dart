@@ -977,7 +977,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                 height: MediaQuery.of(context).size.height * 0.07,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: AppPadding.p10),
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p10, top: AppPadding.p10),
                   child:
                       isStarted == false ? const SizedBox() : buildBottomCard(),
                 )),

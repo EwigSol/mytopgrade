@@ -103,7 +103,7 @@ void main() async {
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
   Get.put(WishlistController());
-  Get.put(UserController());
+  // Get.put(UserController());
   runApp(const MyApp());
 }
 

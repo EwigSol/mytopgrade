@@ -39,12 +39,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-    usernameController.text = box.read("user_display_name");
-    emailController.text = box.read("user_email");
-    firstNameController.text =
-        Get.find<UserController>().userModel.value.firstName!;
-    lastNameController.text =
-        Get.find<UserController>().userModel.value.lastName!;
+    getValues();
+  }
+
+  getValues() {
+    userController.getCustomer();
+    Future.delayed(Duration(seconds: 3)).then((_) {
+      usernameController.text = box.read("user_display_name");
+      emailController.text = box.read("user_email");
+      firstNameController.value = TextEditingValue(
+          text: Get.find<UserController>().userModel.value.firstName!);
+      lastNameController.value = TextEditingValue(
+          text: Get.find<UserController>().userModel.value.lastName!);
+    });
   }
 
   @override
@@ -141,6 +148,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           firstNameController.text,
                           lastNameController.text,
                           id);
+                      user.getCustomer();
                     } else {
                       errorToast("Error", "Email is required");
                     }
@@ -178,5 +186,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     XFile? picture = await ImagePicker().pickImage(source: ImageSource.gallery);
     await updateCustomerController.changeProfile(picture, box.read("user_id"));
     isLoading.value = false;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
   }
 }
