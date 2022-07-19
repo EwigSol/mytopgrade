@@ -145,10 +145,17 @@ class _OrderListState extends State<OrderList> {
                 const SizedBox(
                   height: 50,
                 ),
+                const Text(
+                  'Please Wait',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                      'Connecting to the Server..',
+                      'Lesson is Loading',
                       textStyle: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                       speed: const Duration(milliseconds: 180),

@@ -154,10 +154,17 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                   const SizedBox(
                     height: 50,
                   ),
+                  const Text(
+                    'Please Wait',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   AnimatedTextKit(
                     animatedTexts: [
                       TypewriterAnimatedText(
-                        'Connecting to the Server..',
+                        'Lesson is Loading',
                         textStyle: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         speed: const Duration(milliseconds: 180),
@@ -185,7 +192,7 @@ class _LessonViewScreenState extends State<LessonViewScreen> {
                                     child: CircularProgressIndicator())
                                 : Center(
                                     child: textStyle2(
-                                        text: "Taking Long! ReLoad",
+                                        text: "Taking Long? ReFresh",
                                         color: ColorManager.whiteColor));
                           }),
                         ),

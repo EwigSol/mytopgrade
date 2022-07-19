@@ -14,10 +14,12 @@ class StringsManager {
   //onboard screen
   static const String start = "Start";
   static const String next = "Next";
-  static const String splash1Title = "Welcome to $appName LMS,\nLet’s Learn! ";
+  static const String splash1Title =
+      "Welcome to $appName ,\nAfter-School Learning App ";
   static const String splash2Title =
-      "Ready to leapfrog in your Studies? \n Let's Start !!";
-  static const String splash3Title = "Ready To Find A New Course ";
+      "Ready to excel in your Studies? \n Let's Do It";
+  static const String splash3Title =
+      "Be Engaged ! , Choose Your \nSubjects and Lessons ";
 
   // login
   static const String login = "LOGIN";
