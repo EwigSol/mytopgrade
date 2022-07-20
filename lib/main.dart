@@ -25,6 +25,7 @@ void main() async {
   });
   //firebase messaging instanse initiated
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.subscribeToTopic('courses');
   //Firebase Meassage Settings
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,

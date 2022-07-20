@@ -7,8 +7,6 @@ import 'package:mytopgrade/controllers/userController/userController.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import '../../../controllers/update_customer_controller.dart';
 import '../../../helpers/text_helper.dart';
-import '../../../models/user_model.dart';
-import '../../../routes/appPages.dart';
 import '../../../utils/assets_manager.dart';
 import '../../../utils/color_manager.dart';
 import '../../../utils/strings_manager.dart';

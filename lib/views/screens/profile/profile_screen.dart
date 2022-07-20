@@ -10,6 +10,8 @@ import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/strings_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
 import 'package:mytopgrade/views/screens/favourites/favourites_screen.dart';
+import 'package:mytopgrade/views/screens/profile/changePasswordScreen.dart';
+import 'package:mytopgrade/views/screens/profile/contactUsScreen.dart';
 import 'package:mytopgrade/views/screens/profile/orderDetalilScreen.dart';
 import 'package:mytopgrade/views/screens/profile/update_profile_screen.dart';
 import 'package:get/get.dart';
@@ -26,70 +28,92 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorManager.whiteColor,
       appBar: buildAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
-          user.userModel.value.avatarUrl != null
-              ? Obx(
-                  () => Center(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.06),
+            user.userModel.value.avatarUrl != null
+                ? Obx(
+                    () => Center(
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundColor: ColorManager.halfWhiteColor,
+                        backgroundImage:
+                            NetworkImage(user.userModel.value.avatarUrl!),
+                      ),
+                    ),
+                  )
+                : const Center(
                     child: CircleAvatar(
                       radius: 70,
                       backgroundColor: ColorManager.halfWhiteColor,
-                      backgroundImage:
-                          NetworkImage(user.userModel.value.avatarUrl!),
+                      backgroundImage: AssetImage(AssetsManager.person),
                     ),
                   ),
-                )
-              : const Center(
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundColor: ColorManager.halfWhiteColor,
-                    backgroundImage: AssetImage(AssetsManager.person),
-                  ),
-                ),
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
-          InkWell(
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
+            InkWell(
+                onTap: () {
+                  // Get.toNamed(Paths.updateProfile)
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UpdateProfileScreen()));
+                },
+                child: buildProfileCard("Edit Profile", Icons.edit, context)),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            InkWell(
               onTap: () {
-                // Get.toNamed(Paths.updateProfile)
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UpdateProfileScreen()));
+                Get.to(() => OrderList());
               },
-              child: buildProfileCard("Edit Profile", Icons.edit, context)),
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          InkWell(
-            onTap: () {
-              Get.to(() => OrderList());
-            },
-            child: buildProfileCard("Payment Details",
-                Icons.account_balance_wallet_outlined, context),
-          ),
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FavouritesScreen()));
-              },
-              child: buildProfileCard("Wishlist", Icons.favorite, context)),
-          buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
-          InkWell(
-              onTap: () async {
-                final box = GetStorage();
-                box.remove("token");
-                box.remove("user_id");
-                box.remove("user_login");
-                box.remove("user_email");
-                box.remove("user_display_name");
-                box.remove("isLogged");
-                await firebaseAuthController.signOut();
-                Get.offAllNamed(Paths.authView);
-              },
-              child: buildProfileCard("Log Out", Icons.logout, context)),
-        ],
+              child: buildProfileCard("Payment Details",
+                  Icons.account_balance_wallet_outlined, context),
+            ),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FavouritesScreen()));
+                },
+                child: buildProfileCard("Wishlist", Icons.favorite, context)),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ContactUsScreen()));
+                },
+                child: buildProfileCard("Contact Us", Icons.lock, context)),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChangePasswordScreen()));
+                },
+                child:
+                    buildProfileCard("Change Password", Icons.lock, context)),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+                onTap: () async {
+                  final box = GetStorage();
+                  box.remove("token");
+                  box.remove("user_id");
+                  box.remove("user_login");
+                  box.remove("user_email");
+                  box.remove("user_display_name");
+                  box.remove("isLogged");
+                  await firebaseAuthController.signOut();
+                  Get.offAllNamed(Paths.authView);
+                },
+                child: buildProfileCard("Log Out", Icons.logout, context)),
+            buildSpaceVertical(MediaQuery.of(context).size.height * 0.10),
+          ],
+        ),
       ),
     );
   }

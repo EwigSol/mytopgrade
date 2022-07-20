@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -129,6 +130,7 @@ class FirebaseAuthController extends GetxController {
   Future<void> signOut() async {
     try {
       final googleSignin = GoogleSignIn();
+      await FirebaseMessaging.instance.unsubscribeFromTopic('courses');
       await googleSignin.signOut();
       await auth.signOut();
       await FacebookAuth.instance.logOut();

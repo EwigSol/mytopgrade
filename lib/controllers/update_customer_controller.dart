@@ -5,14 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:mytopgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
 import 'package:mytopgrade/models/user_model.dart';
 import 'package:image/image.dart' as Img;
+import 'package:mytopgrade/routes/appPages.dart';
 
 class UpdateCustomerController extends GetxController {
   var isDataSubmitting = false.obs;
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
   final box = GetStorage();
+  final FirebaseAuthController firebaseAuthController =
+      Get.put(FirebaseAuthController());
 
   Future<Map<String, dynamic>> updateCustomer(
       String firstName, lastName, id) async {
@@ -35,7 +39,7 @@ class UpdateCustomerController extends GetxController {
         body: jsonEncode(dataBody));
     print(response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Get.snackbar('Success', 'User Detail Updated',
+      Get.snackbar('Success', 'User Details Updated',
           backgroundColor: Colors.blue,
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM);
@@ -48,6 +52,53 @@ class UpdateCustomerController extends GetxController {
       };
     } else {
       Get.snackbar('Error', 'There was some error while updating user',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
+      isDataSubmitting.value = false;
+      isDataReadingCompleted.value = true;
+      result = {
+        'status': false,
+        'message': "Server Error!\nFailed to update the Customer"
+      };
+    }
+    return result;
+  }
+
+  Future<Map<String, dynamic>> changePassword(String password, id) async {
+    final box = GetStorage();
+    print(id.toString());
+    Map<String, dynamic> result;
+    isDataSubmitting.value = true;
+    Map<dynamic, dynamic> dataBody = {
+      "password": password,
+    };
+    var token = box.read("token");
+
+    var response = await client.put(
+        Uri.parse("https://mytopgrade.com/wp-json/learnpress/v1/users/$id"),
+        headers: {
+          "Authorization": 'Bearer $token',
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(dataBody));
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Get.snackbar('Success', 'User Password Updated Please Login Again',
+          backgroundColor: Colors.blue,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.BOTTOM);
+      isDataSubmitting.value = false;
+      isDataReadingCompleted.value = true;
+      await firebaseAuthController.signOut();
+      Get.offAllNamed(Paths.authView);
+      result = {
+        'status': true,
+        'userData': userModelFromJson(response.body),
+        'message': "Password Changed Successfully"
+      };
+    } else {
+      Get.snackbar('Error', 'There was some error while Changing the Password',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM);

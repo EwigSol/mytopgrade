@@ -43,8 +43,21 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                     text:
                         "Make your payment directly into mytopgrade bank account. "
                         "Please use your Order ID (${box.read("orderId")}) as the payment reference. Your order/Course will not be activated until the "
-                        "funds have been confirmed in our account. Email the proof of payment to mytopgradeng@gmail.com  \n Below are the Bank Details \n Bank name: Access Bank Nig Plc \n Account Title: Mytopgrade Limited \n Account No: 1474061287 ",
+                        "funds have been confirmed in our account.",
                     textAlign: TextAlign.center)),
+            buildSpaceVertical(height * 0.02),
+            Center(
+              child: textStyle2(
+                  text: 'Email the proof of payment to mytopgradeng@gmail.com',
+                  textAlign: TextAlign.center),
+            ),
+            buildSpaceVertical(height * 0.02),
+            Center(
+              child: textStyle2(
+                  text:
+                      "Below are the Bank Details \n Bank name: Access Bank Nig Plc \n Account Title: Mytopgrade Limited \n Account No: 1474061287",
+                  textAlign: TextAlign.center),
+            ),
             buildSpaceVertical(height * 0.07),
             Center(
               child: InkWell(
