@@ -9,7 +9,6 @@ import 'package:mytopgrade/views/screens/checkout/checkout_screen.dart';
 import 'package:mytopgrade/views/screens/checkout/widgets/add_new_card.dart';
 import 'package:mytopgrade/views/screens/details/details_screen.dart';
 import 'package:mytopgrade/views/screens/instructor/instructors_screen.dart';
-import 'package:mytopgrade/views/screens/lessons/lessons_screen.dart';
 import 'package:mytopgrade/views/screens/notification/notifications_screen.dart';
 import 'package:mytopgrade/views/screens/onboarding/onboarding_screen.dart';
 import 'package:mytopgrade/views/screens/payment/payment_screen.dart';

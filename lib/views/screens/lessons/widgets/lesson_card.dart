@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:html/parser.dart';
-import 'package:mytopgrade/controllers/lesson_byId_controller.dart';
 import 'package:mytopgrade/models/course_by_id_model.dart';
-import 'package:mytopgrade/models/lesson_byID_model.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:video_player/video_player.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';
 import '../lesson_view_screen.dart';
-import 'package:get/get.dart';
 
 class LessonCard extends StatefulWidget {
   var title;

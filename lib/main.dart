@@ -3,8 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
 import 'package:mytopgrade/controllers/assignment_byID_controller.dart';
 import 'package:mytopgrade/controllers/course_byId_controller.dart';
+import 'package:mytopgrade/controllers/my_all_courses_controller.dart';
 import 'package:mytopgrade/controllers/quiz_byID_controller.dart';
 import 'package:mytopgrade/controllers/userController/userController.dart';
 import 'package:mytopgrade/controllers/wishlist_controller.dart';
@@ -104,6 +106,8 @@ void main() async {
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
   Get.put(WishlistController());
+  Get.put(MyAllCoursesController());
+  Get.put(InProgressController());
   // Get.put(UserController());
   runApp(const MyApp());
 }

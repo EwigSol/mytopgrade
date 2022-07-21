@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:html/parser.dart';
-import 'package:mytopgrade/controllers/assignment_byID_controller.dart';
-import 'package:mytopgrade/models/assignment_byID_model.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/views/screens/lessons/assignment_view_screen.dart';
-import 'package:video_player/video_player.dart';
 import '../../../../helpers/helper.dart';
 import '../../../../helpers/text_helper.dart';
 import '../../../../utils/values_manager.dart';
-import '../lesson_view_screen-old.dart';
-import 'package:get/get.dart';
 
 class AssignmentCard extends StatefulWidget {
   var title;

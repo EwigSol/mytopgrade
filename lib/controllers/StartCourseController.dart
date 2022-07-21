@@ -20,15 +20,10 @@ class StartCourseController extends GetxController {
           'https://mytopgrade.com/wp-json/learnpress/v1/courses/enroll?id=$id'),
       headers: {
         'Content-Type': 'application/json',
-        // 'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
     print("Course is added to enrooled with id : ${response.body}");
-    // var data = jsonDecode(response.body);
-    // result = {'status': data['status'], 'message': data['message']};
-    // isDataSubmitting.value = false;
-    // added.value = added.value ? false : true;
     return jsonDecode(response.body);
   }
 }

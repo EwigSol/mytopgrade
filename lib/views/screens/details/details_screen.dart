@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
 import 'package:mytopgrade/controllers/StartCourseController.dart';
 import 'package:mytopgrade/controllers/add_favorite_controller.dart';
 import 'package:mytopgrade/controllers/cart_controller.dart';
@@ -12,6 +13,7 @@ import 'package:mytopgrade/controllers/payment_gateway_controller.dart';
 import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/helpers/text_helper.dart';
+import 'package:mytopgrade/models/InProgressModel.dart';
 import 'package:mytopgrade/models/course_by_id_model.dart';
 import 'package:mytopgrade/models/courses_model.dart';
 import 'package:mytopgrade/models/my_courses_model.dart';
@@ -58,8 +60,11 @@ class _DetailsScreenState extends State<DetailsScreen>
       Get.put(MyAllCoursesController());
   final StartCourseController startCourseController =
       Get.put(StartCourseController());
+  final InProgressController inProgressController =
+      Get.put(InProgressController());
   List<PaymentGatewayModel> paymentGatewayModel = [];
   List<MyCoursesModel> myCourseModel = [];
+  List<InProgressModel> inProgressModel = [];
   CourseByIdModel? courseByIdModel;
   WishlistModel? wishlistModel;
   final box = GetStorage();
@@ -81,6 +86,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     super.initState();
     checkCourseStarted();
     checkWishlist();
+    checkPayment();
     initalize();
   }
 
@@ -92,58 +98,50 @@ class _DetailsScreenState extends State<DetailsScreen>
     setState(() {
       courseByIdModel = _courseByIdModel;
     });
-
-    for (int i = 0; i < myCourseController.myCoursesList.length; i++) {
-      if (data == myCourseController.myCoursesList.value[i].id) {
-        setState(() {
-          isPaid = true;
-        });
-      }
-    }
     cartController.open();
     _controller = TabController(length: 3, vsync: this);
   }
 
   checkWishlist() async {
     var data = Get.arguments;
-    wishlistModel = await wishlistController.fetchWishlist();
-    setState(() {});
     for (int i = 0;
         i < wishlistController.wishlist.value!.data!.items!.length;
         i++) {
+      print(wishlistController.wishlist.value!.data!.items![i].id);
       if (data == wishlistController.wishlist.value!.data!.items![i].id) {
         setState(() {
           inWishlist = true;
         });
+      } else if (inWishlist == true) {
+        break;
+      } else {
+        setState(() {
+          inWishlist = false;
+        });
       }
     }
+    print(inWishlist);
     Future.delayed(const Duration(seconds: 3))
         .then(((value) => setState(() {})));
-    // setState(() {
-    //   isLoading = true;
-    // });
   }
 
   checkCourseStarted() async {
     var data = Get.arguments;
-    print(data);
-    myCourseModel = (await myAllCoursesController.fetchMyCourses());
-    setState(() {});
     for (int i = 0;
-        i < myAllCoursesController.myCoursesList.value.length;
+        i < inProgressController.inProgressCourseList.value.length;
         i++) {
-      print(myAllCoursesController.myCoursesList.value[i].id);
-      if (data == myAllCoursesController.myCoursesList.value[i].id) {
+      print(inProgressController.inProgressCourseList.value[i].id);
+      if (data == inProgressController.inProgressCourseList.value[i].id) {
         setState(() {
           isStarted = false;
         });
+      } else if (isStarted == false) {
         break;
       } else {
-        // setState(() {
-        //   isStarted = true;
-        // });
+        isStarted = true;
       }
     }
+    print(isStarted);
     Future.delayed(const Duration(seconds: 3))
         .then(((value) => setState(() {})));
     setState(() {
@@ -151,35 +149,30 @@ class _DetailsScreenState extends State<DetailsScreen>
     });
   }
 
-  // checkPayment() {
-  //   if (myCoursesId.isNotEmpty) {
-  //     if (widget.isWishlist == true) {
-  //       for (int i = 0; i < myCoursesId.length; i++) {
-  //         if (widget.favCourseDetail!.id.toString() == myCoursesId[i]) {
-  //           setState(() {
-  //             isPaid = false;
-  //           });
-  //         }
-  //       }
-  //     } else if (isMyCourse == "true") {
-  //       for (int i = 0; i < myCoursesId.length; i++) {
-  //         if (widget.myCoursesModel!.id.toString() == myCoursesId[i]) {
-  //           setState(() {
-  //             isPaid = false;
-  //           });
-  //         }
-  //       }
-  //     } else {
-  //       for (int i = 0; i < myCoursesId.length; i++) {
-  //         if (widget.coursesDetail!.id.toString() == myCoursesId[i]) {
-  //           setState(() {
-  //             isPaid = false;
-  //           });
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  checkPayment() {
+    var data = Get.arguments;
+    print(data);
+    for (int i = 0;
+        i < myAllCoursesController.myCoursesList.value.length;
+        i++) {
+      print(myAllCoursesController.myCoursesList.value[i].id);
+      if (data == myAllCoursesController.myCoursesList.value[i].id) {
+        setState(() {
+          isPaid = true;
+        });
+      } else if (isPaid == true) {
+        break;
+      } else {
+        isPaid = false;
+      }
+    }
+    print(isPaid);
+    Future.delayed(const Duration(seconds: 3))
+        .then(((value) => setState(() {})));
+    setState(() {
+      isLoading = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1138,18 +1131,6 @@ class _DetailsScreenState extends State<DetailsScreen>
                       }),
                     }
                 });
-            // wishlistController.fetchWishlist();
-            // for (int i = 0; i < wishlistController.wishlist.value!.data!.items!.length; i++) {
-            //   if (data == wishlistController.wishlist.value!.data!.items![i].id) {
-            //     setState(() {
-            //       inWishlist = true;
-            //     });
-            //   }else{
-            //     setState(() {
-            //       inWishlist = false;
-            //     });
-            //   }
-            // }
           },
           child: Container(
             height: MediaQuery.of(context).size.height * 0.05,
