@@ -9,6 +9,7 @@ import 'package:mytopgrade/models/my_courses_model.dart';
 import 'package:mytopgrade/routes/appPages.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/MyCourseWidget.dart';
 import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 import '../../../../controllers/my_all_courses_controller.dart';
 
@@ -57,7 +58,7 @@ class _AllMyCoursesState extends State<AllMyCourses> {
                                 mainAxisSpacing: 10),
                         itemCount: myCoursesController.myCoursesList.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          return PopularCourse(
+                          return MyCourse(
                             argument:
                                 myCoursesController.myCoursesList[index].id,
                             image:

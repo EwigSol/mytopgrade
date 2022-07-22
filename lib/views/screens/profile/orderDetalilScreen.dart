@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:mytopgrade/controllers/order%20controller/allOrderController.dart';
+import 'package:mytopgrade/helpers/text_helper.dart';
 import 'package:mytopgrade/models/orderByIdModel.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 
@@ -30,6 +31,7 @@ class _OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     return orderByIdController.isLoading.value == false
         ? Scaffold(
+            appBar: buildAppBar(),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: orderByIdController.orderByIdList.value.length > 0
@@ -155,7 +157,7 @@ class _OrderListState extends State<OrderList> {
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                      'Lesson is Loading',
+                      'Payment Details Are Loading',
                       textStyle: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                       speed: const Duration(milliseconds: 180),
@@ -165,5 +167,15 @@ class _OrderListState extends State<OrderList> {
               ],
             ),
           );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: textStyle2(text: 'Payment Details'),
+      centerTitle: true,
+      backgroundColor: ColorManager.whiteColor,
+      iconTheme: const IconThemeData(color: ColorManager.blackColor),
+      elevation: 0.5,
+    );
   }
 }

@@ -54,7 +54,34 @@ class ProfileScreen extends StatelessWidget {
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.09),
             InkWell(
                 onTap: () {
-                  // Get.toNamed(Paths.updateProfile)
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: Container(
+                            // color: Colors.white.withOpacity(10),
+                            height: 200,
+                            width: 300,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  'Loading Data Hold Tight!',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                  Future.delayed(Duration(seconds: 3), () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                  });
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -81,12 +108,41 @@ class ProfileScreen extends StatelessWidget {
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             InkWell(
                 onTap: () {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: Container(
+                            // color: Colors.white.withOpacity(10),
+                            height: 200,
+                            width: 300,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                CircularProgressIndicator(),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  'Loading Data Hold Tight!',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                  Future.delayed(Duration(seconds: 3), () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                  });
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ContactUsScreen()));
                 },
-                child: buildProfileCard("Contact Us", Icons.lock, context)),
+                child: buildProfileCard(
+                    "Contact Us", Icons.contact_mail, context)),
             buildSpaceVertical(MediaQuery.of(context).size.height * 0.02),
             InkWell(
                 onTap: () {

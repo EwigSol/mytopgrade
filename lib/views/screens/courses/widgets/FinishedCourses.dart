@@ -12,6 +12,7 @@ import 'package:mytopgrade/models/courses_model.dart';
 import 'package:mytopgrade/routes/appPages.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/home/widgets/MyCourseWidget.dart';
 import 'package:mytopgrade/views/screens/home/widgets/PopularCourse.dart';
 
 class FinishedCourses extends StatefulWidget {
@@ -62,7 +63,7 @@ class _FinishedCoursesState extends State<FinishedCourses> {
                                 mainAxisSpacing: 10),
                         itemCount: finishedCourseModel.length,
                         itemBuilder: (BuildContext ctx, index) {
-                          return PopularCourse(
+                          return MyCourse(
                             argument: finishedCourseModel[index].id,
                             image: finishedCourseModel[index].image,
                             sectionslength:
