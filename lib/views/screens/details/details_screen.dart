@@ -987,11 +987,37 @@ class _DetailsScreenState extends State<DetailsScreen>
               ? const SizedBox.shrink()
               : InkWell(
                   onTap: () async {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            child: Container(
+                              // color: Colors.white.withOpacity(10),
+                              height: 200,
+                              width: 300,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  CircularProgressIndicator(),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'UnLocking your Lessons',
+                                    style: TextStyle(fontSize: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        });
                     setState(() {
                       isStarted = false;
                       isPressed = true;
                     });
                     await startCourseController.startCourse(data.toString());
+                    Navigator.of(context, rootNavigator: true).pop();
                     successToast("Congrats",
                         "Go to Curriculum and start the lessons one by one");
                   },
@@ -1026,7 +1052,9 @@ class _DetailsScreenState extends State<DetailsScreen>
                           context: context,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(AppSize.s12),
+                                  topRight: Radius.circular(AppSize.s12))),
                           builder: (context) {
                             return StatefulBuilder(
                                 builder: (context, StateSetter customSetState) {

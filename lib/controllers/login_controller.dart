@@ -2,10 +2,17 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
+import 'package:mytopgrade/controllers/my_all_courses_controller.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import '../network_module/api_base.dart';
 import '../network_module/api_path.dart';
 
 class LoginController extends GetxController {
+  final WishlistController wishlistController = WishlistController();
+  final InProgressController inProgressController = InProgressController();
+  final MyAllCoursesController myAllCoursesController =
+      MyAllCoursesController();
   var isDataSubmitting = false.obs;
   var isDataReadingCompleted = false.obs;
   static var client = http.Client();
@@ -21,7 +28,6 @@ class LoginController extends GetxController {
             .replace(queryParameters: queryParameters));
 
     if (response.statusCode == 200) {
-      isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
       isDataReadingCompleted.value = true;
       box.write("token", responseData['token']);
@@ -38,6 +44,7 @@ class LoginController extends GetxController {
         'user_email': responseData['user_email'],
         'user_display_name': responseData['user_display_name'],
       };
+      isDataSubmitting.value = false;
     } else {
       isDataSubmitting.value = false;
       isDataReadingCompleted.value = true;

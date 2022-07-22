@@ -105,9 +105,9 @@ void main() async {
   Get.put(CourseByIDController());
   Get.put(QuizByIDController());
   Get.put(AssignmentByIDController());
-  Get.put(WishlistController());
-  Get.put(MyAllCoursesController());
-  Get.put(InProgressController());
+  // Get.put(WishlistController());
+  // Get.put(InProgressController());
+  // Get.put(MyAllCoursesController());
   // Get.put(UserController());
   runApp(const MyApp());
 }

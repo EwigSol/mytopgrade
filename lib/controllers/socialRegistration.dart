@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
+import 'package:mytopgrade/controllers/my_all_courses_controller.dart';
 import 'package:mytopgrade/controllers/social_login_controller.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/routes/appPages.dart';
 import 'package:mytopgrade/views/screens/home/home_screen.dart';
@@ -47,7 +50,6 @@ class SocialRegisterController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       isDataSubmitting.value = false;
       Map<String, dynamic> responseData = jsonDecode(response.body);
-
       isDataReadingCompleted.value = true;
       result = {'status': true, 'userData': userModelFromJson(response.body)};
       await SocialLoginController().login(email).then((response) => {
@@ -86,5 +88,11 @@ class SocialRegisterController extends GetxController {
       };
     }
     return result;
+  }
+
+  initControllers() {
+    Get.put(WishlistController());
+    Get.put(MyAllCoursesController());
+    Get.put(InProgressController());
   }
 }

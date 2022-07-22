@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
+import 'package:mytopgrade/controllers/my_all_courses_controller.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/helpers/text_helper.dart';
 import 'package:mytopgrade/models/courses_model.dart';
 import 'package:mytopgrade/routes/appPages.dart';
 import 'package:mytopgrade/utils/color_manager.dart';
 import 'package:mytopgrade/utils/values_manager.dart';
+import 'package:mytopgrade/views/screens/details/details_screen.dart';
 
 class PopularCourse extends StatelessWidget {
   var argument;
@@ -24,7 +28,11 @@ class PopularCourse extends StatelessWidget {
     this.image,
     this.argument,
   });
-
+  final WishlistController wishlistController = Get.put(WishlistController());
+  final InProgressController inProgressController =
+      Get.put(InProgressController());
+  final MyAllCoursesController myAllCoursesController =
+      Get.put(MyAllCoursesController());
   double width = Get.width;
   double height = Get.height;
 
@@ -33,7 +41,36 @@ class PopularCourse extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: Container(
+                    // color: Colors.white.withOpacity(10),
+                    height: 200,
+                    width: 300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Loading Data Hold Tight!',
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              });
+          await wishlistController.fetchWishlist();
+          await myAllCoursesController.fetchMyCourses();
+          await inProgressController.fetchMyCourses();
+          Navigator.of(context, rootNavigator: true).pop();
           Get.toNamed(
             Paths.details,
             arguments: argument,

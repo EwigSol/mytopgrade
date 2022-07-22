@@ -92,24 +92,6 @@ class _PaymentScreenFlutterWaveState extends State<PaymentScreenFlutterWave> {
                 hintName: "Enter Your Phone",
               ),
               buildSpaceVertical(height * 0.03),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              //   child: Container(
-              //     margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-              //     child: TextFormField(
-              //       controller: currencyController,
-              //       textInputAction: TextInputAction.next,
-              //       style: TextStyle(color: Colors.black),
-              //       readOnly: true,
-              //       onTap: this._openBottomSheet,
-              //       decoration: InputDecoration(
-              //         hintText: "Currency",
-              //       ),
-              //       validator: (value) =>
-              //           value!.isNotEmpty ? null : "Currency is required",
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p10, bottom: AppPadding.p10),

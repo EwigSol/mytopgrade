@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mytopgrade/controllers/InProgressController.dart';
 import 'package:mytopgrade/controllers/category_controller.dart';
 import 'package:mytopgrade/controllers/courses_controller.dart';
 import 'package:mytopgrade/controllers/firebasecontroller.dart/socialauthcontroller.dart';
+import 'package:mytopgrade/controllers/my_all_courses_controller.dart';
 import 'package:mytopgrade/controllers/my_courses_controller.dart';
 import 'package:mytopgrade/controllers/searchController/searchController.dart';
 import 'package:mytopgrade/controllers/social_login_controller.dart';
+import 'package:mytopgrade/controllers/wishlist_controller.dart';
 import 'package:mytopgrade/helpers/helper.dart';
 import 'package:mytopgrade/helpers/text_helper.dart';
 import 'package:mytopgrade/models/category_model.dart';
@@ -38,6 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final SearchController searchCourseController = Get.put(SearchController());
   final FirebaseAuthController firebaseAuthController =
       Get.put(FirebaseAuthController());
+  final WishlistController wishlistController = WishlistController();
+  final InProgressController inProgressController = InProgressController();
+  final MyAllCoursesController myAllCoursesController =
+      MyAllCoursesController();
   List<CoursesModel> popularCoursesModel = [];
   final box = GetStorage();
   List<String> myCoursesId = [];
@@ -51,7 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
     myCoursesId.clear();
     // popularCoursesModel.clear();
     name = box.read("user_display_name");
+    // initControllers();
   }
+
+  // initControllers() async {
+  //   await wishlistController.fetchWishlist();
+  //   await myAllCoursesController.fetchMyCourses();
+  //   await inProgressController.fetchMyCourses();
+  // }
 
   @override
   Widget build(BuildContext context) {
