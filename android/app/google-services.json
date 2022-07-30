@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "88432950243",
+    "firebase_url": "https://mytopgrade-361f5-default-rtdb.firebaseio.com",
+    "project_id": "mytopgrade-361f5",
+    "storage_bucket": "mytopgrade-361f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88432950243:android:86373278f7218fb32d3ed6",
+        "android_client_info": {
+          "package_name": "com.mytopgrade.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88432950243-g0iqir4c8a0k261kgmagjcjj8r8veh7c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytopgrade.com",
+            "certificate_hash": "07e0d50a81f073c3afcf0505a20c8f94a75dea98"
+          }
+        },
+        {
+          "client_id": "88432950243-u4n4ou93dagul9q15jslv21muktgnlk0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytopgrade.com",
+            "certificate_hash": "4be4901c78d349d2b15f49b69585bb611c9cbe3e"
+          }
+        },
+        {
+          "client_id": "88432950243-ga0sm8bbmp75s0h8hrqo3ttqs1qf3pqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5dJLjfPB2TtUbJlBNIRUkw87BWLYvzeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88432950243-ga0sm8bbmp75s0h8hrqo3ttqs1qf3pqu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "88432950243-072qne2negb4auj6on184atlal59v593.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AZainapps.topgrade"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

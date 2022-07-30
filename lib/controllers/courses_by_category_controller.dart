@@ -1,0 +1,22 @@
+import 'package:get/state_manager.dart';
+import 'package:mytopgrade/models/courses_model.dart';
+import '../services/remote_services.dart';
+
+class CoursesByCategoryController extends GetxController {
+  var isLoading = true.obs;
+  var coursesByCategoryList = <CoursesModel>[].obs;
+  RemoteServices remoteServices = RemoteServices();
+
+  void fetchAllCoursesByCategory(String id) async {
+    try {
+      isLoading(true);
+      var coursesByCat = await remoteServices.fetchCoursesByCategory(id);
+      if (coursesByCat != null) {
+        isLoading(false);
+        coursesByCategoryList.value = coursesByCat;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+}

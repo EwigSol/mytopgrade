@@ -1,6 +1,6 @@
 {
-    "name": "topgrade",
-    "short_name": "topgrade",
+    "name": "mytopgrade",
+    "short_name": "mytopgrade",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
